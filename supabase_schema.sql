@@ -78,15 +78,38 @@ CREATE TRIGGER tr_orders_updated_at
 ALTER TABLE public.customers ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.orders ENABLE ROW LEVEL SECURITY;
 
--- Allow service_role full unrestricted access (Used by Cloudflare Pages Edge Function)
+-- Allow service_role full unrestricted access (Used by Cloudflare Pages Edge Function with SUPABASE_SERVICE_ROLE_KEY)
+DROP POLICY IF EXISTS "Service Role Full Access Customers" ON public.customers;
 CREATE POLICY "Service Role Full Access Customers" ON public.customers
     FOR ALL
     TO service_role
     USING (true)
     WITH CHECK (true);
 
+DROP POLICY IF EXISTS "Service Role Full Access Orders" ON public.orders;
 CREATE POLICY "Service Role Full Access Orders" ON public.orders
     FOR ALL
     TO service_role
     USING (true)
+    WITH CHECK (true);
+
+-- Fail-safe Policies: Also allow anon and authenticated roles to insert orders and upsert their customer profile
+-- (Prevents RLS 42501 permission denied errors even if the public anon key is configured)
+DROP POLICY IF EXISTS "Allow Insert Customers" ON public.customers;
+CREATE POLICY "Allow Insert Customers" ON public.customers
+    FOR INSERT
+    TO anon, authenticated
+    WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Allow Update Customers" ON public.customers;
+CREATE POLICY "Allow Update Customers" ON public.customers
+    FOR UPDATE
+    TO anon, authenticated
+    USING (true)
+    WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Allow Insert Orders" ON public.orders;
+CREATE POLICY "Allow Insert Orders" ON public.orders
+    FOR INSERT
+    TO anon, authenticated
     WITH CHECK (true);

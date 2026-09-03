@@ -131,8 +131,9 @@ export async function onRequestPost(context) {
     };
 
     try {
-      // Step 3.1: Upsert Customer
+      // Step 3.1: Upsert Customer (Keyed on unique phone)
       let customerId = null;
+      let customerErrText = null;
       const customerUpsertPayload = {
         phone: normalizedCustomerPhone,
         name: customer.name.trim(),
@@ -140,7 +141,7 @@ export async function onRequestPost(context) {
         district: customer.district === 'dhaka' || customer.district === 'Inside Dhaka' ? 'Inside Dhaka' : 'Outside Dhaka'
       };
 
-      const custRes = await fetch(`${supabaseUrl}/rest/v1/customers`, {
+      const custRes = await fetch(`${supabaseUrl}/rest/v1/customers?on_conflict=phone`, {
         method: 'POST',
         headers: {
           ...headers,
@@ -157,15 +158,15 @@ export async function onRequestPost(context) {
           customerId = custRecord.id;
         }
       } else {
-        const custErr = await custRes.text();
-        console.warn('Customer upsert non-200 response:', custRes.status, custErr);
+        customerErrText = await custRes.text();
+        console.warn('Customer upsert non-200 response:', custRes.status, customerErrText);
       }
 
       // Step 3.2: Insert Order
       const orderInsertPayload = {
         customer_id: customerId,
         client_order_id: clientOrderId,
-        items: JSON.stringify(cart),
+        items: Array.isArray(cart) ? cart : (typeof cart === 'string' ? JSON.parse(cart) : [cart]),
         subtotal: subtotal,
         delivery_charge: deliveryCharge,
         total_amount: pricing.grandTotal,
@@ -197,7 +198,18 @@ export async function onRequestPost(context) {
           return jsonResponse({ error: 'This TrxID has already been submitted for another order.' }, 409);
         }
 
-        return jsonResponse({ error: 'Failed to record order in database. Please try again.' }, 500);
+        let parsedErr = {};
+        try {
+          parsedErr = JSON.parse(orderErrText);
+        } catch (_) {}
+
+        const detailedMsg = parsedErr.message || parsedErr.hint || parsedErr.details || orderErrText;
+        return jsonResponse({ 
+          error: `Failed to record order in database: ${detailedMsg}`,
+          details: detailedMsg,
+          customerError: customerErrText,
+          supabaseStatus: orderRes.status
+        }, 500);
       }
 
       const orderRecord = await orderRes.json();
