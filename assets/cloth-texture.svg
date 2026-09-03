@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <rect width="16" height="16" fill="#ffffff"/>
+  <!-- Microscopic handloom cotton warp and weft weave lines -->
+  <path d="M0 0h8v8H0zm8 8h8v8H8z" fill="#fafbfa"/>
+  <line x1="0" y1="4" x2="16" y2="4" stroke="#f1f3f2" stroke-width="0.75" stroke-dasharray="1 1"/>
+  <line x1="0" y1="12" x2="16" y2="12" stroke="#f1f3f2" stroke-width="0.75" stroke-dasharray="1 1"/>
+  <line x1="4" y1="0" x2="4" y2="16" stroke="#f1f3f2" stroke-width="0.75" stroke-dasharray="1 1"/>
+  <line x1="12" y1="0" x2="12" y2="16" stroke="#f1f3f2" stroke-width="0.75" stroke-dasharray="1 1"/>
+</svg>

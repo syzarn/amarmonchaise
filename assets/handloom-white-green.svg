@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" width="160" height="120">
+  <defs>
+    <!-- Weft pattern for the broad green band -->
+    <pattern id="greenWeft" width="4" height="3" patternUnits="userSpaceOnUse">
+      <rect width="4" height="3" fill="#1e7e68"/>
+      <line x1="0" y1="1.5" x2="4" y2="1.5" stroke="#259b80" stroke-width="0.8"/>
+      <line x1="1" y1="0" x2="1" y2="3" stroke="#166251" stroke-width="0.5"/>
+      <circle cx="2" cy="1.5" r="0.4" fill="#ffffff" opacity="0.6"/>
+    </pattern>
+    <pattern id="clothBase" width="8" height="8" patternUnits="userSpaceOnUse">
+      <rect width="8" height="8" fill="#ffffff"/>
+      <line x1="0" y1="4" x2="8" y2="4" stroke="#f4f5f4" stroke-width="0.5"/>
+      <line x1="4" y1="0" x2="4" y2="8" stroke="#f4f5f4" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+
+  <!-- Pure White Cloth Background -->
+  <rect width="160" height="120" fill="url(#clothBase)"/>
+
+  <!-- Stripe 1: Crimson Running Stitch -->
+  <line x1="0" y1="10" x2="160" y2="10" stroke="#bd3a54" stroke-width="2" stroke-dasharray="3.5 1.5"/>
+
+  <!-- Stripe 2: Dark Charcoal Stitch -->
+  <line x1="0" y1="16" x2="160" y2="16" stroke="#2b383e" stroke-width="1.8" stroke-dasharray="3 2"/>
+
+  <!-- Stripe 3: Green Stitch Band -->
+  <line x1="0" y1="21" x2="160" y2="21" stroke="#1e7e68" stroke-width="2.5" stroke-dasharray="4 1.5"/>
+
+  <!-- Stripe 4: Crimson Running Stitch -->
+  <line x1="0" y1="26" x2="160" y2="26" stroke="#bd3a54" stroke-width="1.8" stroke-dasharray="3.5 1.5"/>
+
+  <!-- Stripe 5: Charcoal Stitch -->
+  <line x1="0" y1="31" x2="160" y2="31" stroke="#2b383e" stroke-width="1.8" stroke-dasharray="3 2"/>
+
+  <!-- Stripe 6: Crimson Running Stitch -->
+  <line x1="0" y1="36" x2="160" y2="36" stroke="#bd3a54" stroke-width="2" stroke-dasharray="3.5 1.5"/>
+
+  <!-- Broad Central Handloom Emerald Green Band (Calibrated from cloth photo) -->
+  <rect x="0" y="42" width="160" height="34" fill="url(#greenWeft)"/>
+  <line x1="0" y1="42" x2="160" y2="42" stroke="#166251" stroke-width="1"/>
+  <line x1="0" y1="76" x2="160" y2="76" stroke="#166251" stroke-width="1"/>
+
+  <!-- Stripe 7: Crimson Running Stitch -->
+  <line x1="0" y1="82" x2="160" y2="82" stroke="#bd3a54" stroke-width="2" stroke-dasharray="3.5 1.5"/>
+
+  <!-- Stripe 8: Charcoal Stitch -->
+  <line x1="0" y1="87" x2="160" y2="87" stroke="#2b383e" stroke-width="1.8" stroke-dasharray="3 2"/>
+
+  <!-- Stripe 9: Green Stitch Band -->
+  <line x1="0" y1="92" x2="160" y2="92" stroke="#1e7e68" stroke-width="2.5" stroke-dasharray="4 1.5"/>
+
+  <!-- Stripe 10: Charcoal Stitch -->
+  <line x1="0" y1="97" x2="160" y2="97" stroke="#2b383e" stroke-width="1.8" stroke-dasharray="3 2"/>
+
+  <!-- Stripe 11: Crimson Running Stitch -->
+  <line x1="0" y1="103" x2="160" y2="103" stroke="#bd3a54" stroke-width="2" stroke-dasharray="3.5 1.5"/>
+
+  <!-- Cotton Tassel / Fringe Edge Effect at Bottom -->
+  <g stroke="#d5dcd9" stroke-width="0.8">
+    <line x1="4" y1="110" x2="4" y2="120"/>
+    <line x1="12" y1="110" x2="12" y2="119"/>
+    <line x1="20" y1="110" x2="20" y2="120"/>
+    <line x1="28" y1="110" x2="28" y2="118"/>
+    <line x1="36" y1="110" x2="36" y2="120"/>
+    <line x1="44" y1="110" x2="44" y2="119"/>
+    <line x1="52" y1="110" x2="52" y2="120"/>
+    <line x1="60" y1="110" x2="60" y2="118"/>
+    <line x1="68" y1="110" x2="68" y2="120"/>
+    <line x1="76" y1="110" x2="76" y2="119"/>
+    <line x1="84" y1="110" x2="84" y2="120"/>
+    <line x1="92" y1="110" x2="92" y2="118"/>
+    <line x1="100" y1="110" x2="100" y2="120"/>
+    <line x1="108" y1="110" x2="108" y2="119"/>
+    <line x1="116" y1="110" x2="116" y2="120"/>
+    <line x1="124" y1="110" x2="124" y2="118"/>
+    <line x1="132" y1="110" x2="132" y2="120"/>
+    <line x1="140" y1="110" x2="140" y2="119"/>
+    <line x1="148" y1="110" x2="148" y2="120"/>
+    <line x1="156" y1="110" x2="156" y2="118"/>
+  </g>
+</svg>

@@ -1,0 +1,52 @@
+[
+  {
+    "orderId": "MC-COD-TEST",
+    "customer": {
+      "name": "Sadia Islam",
+      "phone": "01712345678",
+      "address": "Dhanmondi, Dhaka",
+      "district": "dhaka"
+    },
+    "cart": [
+      {
+        "id": "amc-100",
+        "price": 1850,
+        "qty": 1
+      }
+    ],
+    "pricing": {
+      "subtotal": 1850,
+      "deliveryFee": 60,
+      "grandTotal": 1910
+    },
+    "payment": {
+      "method": "cod"
+    }
+  },
+  {
+    "orderId": "MC-MFS-TEST",
+    "customer": {
+      "name": "Farhan Ahmed",
+      "phone": "01812345678",
+      "address": "GEC Circle, Chittagong",
+      "district": "outside"
+    },
+    "cart": [
+      {
+        "id": "amc-101",
+        "price": 950,
+        "qty": 1
+      }
+    ],
+    "pricing": {
+      "subtotal": 950,
+      "deliveryFee": 120,
+      "grandTotal": 1070
+    },
+    "payment": {
+      "method": "mfs",
+      "senderPhone": "01812345678",
+      "trxId": "BKASH98427"
+    }
+  }
+]

@@ -1,0 +1,905 @@
+/* ==========================================================================
+   MON CHAISE (মঞ্চাইছে) - THEME STYLES
+   - Light Mode (DEFAULT): Pure White Cotton Cloth Canvas & Calibrated Green Accent (#1E7E68)
+   - Dark Mode: AMOLED Dark Velvet & Gold Accent (#F2C200)
+   - Strict Typographic Architecture:
+       * ENGLISH MODE: Titles in IM Fell English, Secondary in GaramondHalhed
+       * BENGALI MODE: Titles in GaramondHalhed (+1pt larger), Secondary in Purno (+1pt larger)
+       * PRICE TAGS: strictly Purno (+1pt) in Bengali, GaramondHalhed in English
+       * NO SANS-SERIF FALLBACKS: All text strictly scoped to serif fonts
+   ========================================================================== */
+
+/* --- Provided Bengali Secondary Font: Purno --- */
+@font-face {
+  font-family: 'Purno';
+  src: url('./files/Purno/Purno%20Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Purno';
+  src: url('./files/Purno/Purno%20Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Purno';
+  src: url('./files/Purno/Purno%20Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Purno';
+  src: url('./files/Purno/Purno%20Bold-Italic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* --- Provided Bengali Title & English Secondary Font: GaramondHalhed --- */
+@font-face {
+  font-family: 'GaramondHalhed';
+  src: url('./files/GaramondHalhed.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'GaramondHalhed';
+  src: url('./files/GaramondHalhed-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* --- GaramondHalhed: Bengali glyph block calibration (+1pt / ~7% size adjust to match English metrics) --- */
+@font-face {
+  font-family: 'GaramondHalhed';
+  src: url('./files/GaramondHalhed.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0980-09FF, U+200C-200D, U+25CC;
+  size-adjust: 107%;
+}
+
+@font-face {
+  font-family: 'GaramondHalhed';
+  src: url('./files/GaramondHalhed-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0980-09FF, U+200C-200D, U+25CC;
+  size-adjust: 107%;
+}
+
+/* --- Provided English Title & Decorative Font: IM Fell English --- */
+@font-face {
+  font-family: 'IMFellEnglish';
+  src: url('./files/IM%20Fell%20English/IM%20Fell%20English%20Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IMFellEnglish';
+  src: url('./files/IM%20Fell%20English/IM%20Fell%20English%20Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'IMFellEnglishSC';
+  src: url('./files/IM%20Fell%20English/IM%20Fell%20English%20SC%20Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==========================================================================
+   THEME VARIABLES
+   ========================================================================== */
+
+/* --- Light Mode (DEFAULT): Pure White Cotton Cloth with Calibrated Green Accent --- */
+:root {
+  --bg-main: #ffffff;
+  --bg-surface: #f8faf9;
+  --bg-surface-elevated: #f1f5f3;
+  --bg-card: #ffffff;
+  --border-subtle: rgba(30, 126, 104, 0.25);
+  --border-focus: #1e7e68;
+  
+  --accent-primary: #1e7e68;
+  --accent-hover: #166b58;
+  --accent-light: #e6f4f1;
+  --accent-glow: transparent;
+  
+  --accent-crimson: #bd3a54;
+  --accent-charcoal: #2b383e;
+  
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --text-dim: #64748b;
+  
+  --price-color: #166b58;
+  --handloom-banner-img: url('./assets/handloom-white-green.svg');
+  --body-pattern-img: url('./assets/cloth-texture.svg');
+}
+
+/* --- Dark Mode (AMOLED + Gold) --- */
+html.dark {
+  --bg-main: #040406;
+  --bg-surface: #0a0a0f;
+  --bg-surface-elevated: #111118;
+  --bg-card: #15151e;
+  --border-subtle: rgba(242, 194, 0, 0.25);
+  --border-focus: #f2c200;
+  
+  --accent-primary: #f2c200;
+  --accent-hover: #d1a300;
+  --accent-light: rgba(242, 194, 0, 0.15);
+  --accent-glow: transparent;
+  
+  --accent-crimson: #dc2626;
+  --accent-charcoal: #1e293b;
+  
+  --text-main: #f3f4f6;
+  --text-muted: #9ca3af;
+  --text-dim: #6b7280;
+  
+  --price-color: #ffd533;
+  --handloom-banner-img: url('./assets/tribal-border.svg');
+  --body-pattern-img: url('./assets/fabric-pattern.svg');
+}
+
+body {
+  background-color: var(--bg-main);
+  background-image: var(--body-pattern-img);
+  background-repeat: repeat;
+  color: var(--text-main);
+  overflow-x: hidden;
+  min-height: 100vh;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* ==========================================================================
+   DYNAMIC BILINGUAL TYPOGRAPHY ENGINE (NO SANS-SERIF FALLBACKS)
+   ========================================================================== */
+
+/* --- 1. ENGLISH MODE (html[lang="en"]) --- */
+html[lang="en"],
+html[lang="en"] body,
+html[lang="en"] * {
+  font-family: 'GaramondHalhed', serif;
+}
+
+html[lang="en"] p,
+html[lang="en"] .secondary-text {
+  font-family: 'GaramondHalhed', serif !important;
+  line-height: 1.6;
+}
+
+html[lang="en"] a:not(.font-fell):not(.font-fell-italic):not(.font-fell-sc):not(.brand-hero-title),
+html[lang="en"] button:not(.font-fell):not(.font-fell-italic):not(.font-fell-sc),
+html[lang="en"] input,
+html[lang="en"] textarea,
+html[lang="en"] select,
+html[lang="en"] option,
+html[lang="en"] label {
+  font-family: 'GaramondHalhed', serif !important;
+}
+
+html[lang="en"] input::placeholder,
+html[lang="en"] textarea::placeholder {
+  font-family: 'GaramondHalhed', serif !important;
+}
+
+html[lang="en"] h1,
+html[lang="en"] h2,
+html[lang="en"] h3,
+html[lang="en"] h4,
+html[lang="en"] h5,
+html[lang="en"] h6,
+html[lang="en"] .font-title,
+html[lang="en"] .product-title,
+html[lang="en"] .font-fell {
+  font-family: 'IMFellEnglish', serif !important;
+}
+
+/* --- 2. BENGALI MODE (html[lang="bn"]) --- */
+/* Universal Bengali Font Family: strictly Purno for all body/secondary text (zero sans-serif fallback) */
+html[lang="bn"],
+html[lang="bn"] body,
+html[lang="bn"] * {
+  font-family: 'Purno', serif;
+}
+
+/* Paragraphs & secondary body text */
+html[lang="bn"] p,
+html[lang="bn"] .secondary-text {
+  font-family: 'Purno', serif !important;
+  line-height: 1.65;
+}
+
+html[lang="bn"] input::placeholder,
+html[lang="bn"] textarea::placeholder {
+  font-family: 'Purno', serif !important;
+}
+
+/* Bengali Titles & Halhed: strictly GaramondHalhed (+1pt larger), normal weight (prevent faux bold) */
+html[lang="bn"] h1,
+html[lang="bn"] h2,
+html[lang="bn"] h3,
+html[lang="bn"] h4,
+html[lang="bn"] h5,
+html[lang="bn"] h6,
+html[lang="bn"] .font-title,
+html[lang="bn"] .product-title,
+html[lang="bn"] .font-halhed,
+html[lang="bn"] .font-halhed-italic,
+html[lang="bn"] .font-halhed-title {
+  font-family: 'GaramondHalhed', serif !important;
+  font-size: calc(1em + 1pt);
+  font-weight: normal !important;
+}
+
+html[lang="bn"] h1 *,
+html[lang="bn"] h2 *,
+html[lang="bn"] h3 *,
+html[lang="bn"] h4 *,
+html[lang="bn"] h5 *,
+html[lang="bn"] h6 *,
+html[lang="bn"] .font-title *,
+html[lang="bn"] .font-halhed *,
+html[lang="bn"] .font-halhed-title * {
+  font-weight: normal !important;
+}
+
+/* Price tags: strictly Purno in Bengali, GaramondHalhed in English (NEVER monospace), fully responsive to Tailwind sizing */
+html[lang="bn"] .price-tag {
+  font-family: 'Purno', serif !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+  letter-spacing: -0.01em;
+  color: var(--price-color);
+}
+
+html[lang="en"] .price-tag {
+  font-family: 'GaramondHalhed', serif !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+  letter-spacing: -0.01em;
+  color: var(--price-color);
+}
+
+/* Original / Strikethrough Regular Price for Discounted Items */
+.price-original,
+html[lang="bn"] .price-original {
+  font-family: 'Purno', serif !important;
+  font-weight: 600 !important;
+  text-decoration: line-through !important;
+  color: #94a3b8 !important; /* slate-400 */
+}
+
+.dark .price-original,
+.dark html[lang="bn"] .price-original,
+html.dark .price-original {
+  color: #71717a !important; /* zinc-500 */
+}
+
+html[lang="en"] .price-original {
+  font-family: 'GaramondHalhed', serif !important;
+  font-weight: 600 !important;
+  text-decoration: line-through !important;
+  color: #94a3b8 !important;
+}
+
+.dark html[lang="en"] .price-original,
+html.dark[lang="en"] .price-original {
+  color: #71717a !important;
+}
+
+/* ==========================================================================
+   PRODUCT DETAIL PAGE TYPOGRAPHY CALIBRATION
+   - Title: Prominent, authoritative (~28px mobile, ~34px tablet, ~38px desktop).
+     In Bengali: GaramondHalhed font with Bangla glyph block +1pt to match English optical height.
+   - Price: Harmonious, balanced (~28px mobile, ~32px tablet, ~36px desktop). Neither crushed to 16px nor bloated to 60px.
+   ========================================================================== */
+.product-detail-title {
+  font-size: 1.75rem !important;
+  line-height: 1.25 !important;
+}
+
+@media (min-width: 640px) {
+  .product-detail-title {
+    font-size: 2.125rem !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .product-detail-title {
+    font-size: 2.375rem !important;
+  }
+}
+
+html[lang="bn"] .product-detail-title {
+  font-family: 'GaramondHalhed', serif !important;
+  font-size: calc(1.75rem + 1pt) !important;
+  font-weight: normal !important;
+  line-height: 1.3 !important;
+}
+
+@media (min-width: 640px) {
+  html[lang="bn"] .product-detail-title {
+    font-size: calc(2.125rem + 1pt) !important;
+  }
+}
+
+@media (min-width: 768px) {
+  html[lang="bn"] .product-detail-title {
+    font-size: calc(2.375rem + 1pt) !important;
+  }
+}
+
+.product-detail-price {
+  font-size: 1.75rem !important;
+  line-height: 1 !important;
+}
+
+@media (min-width: 640px) {
+  .product-detail-price {
+    font-size: 2rem !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .product-detail-price {
+    font-size: 2.25rem !important;
+  }
+}
+
+html[lang="bn"] .product-detail-price {
+  font-family: 'Purno', serif !important;
+  font-weight: 900 !important;
+  font-size: calc(1.75rem + 1pt) !important;
+}
+
+@media (min-width: 640px) {
+  html[lang="bn"] .product-detail-price {
+    font-size: calc(2rem + 1pt) !important;
+  }
+}
+
+@media (min-width: 768px) {
+  html[lang="bn"] .product-detail-price {
+    font-size: calc(2.25rem + 1pt) !important;
+  }
+}
+
+html[lang="en"] .product-detail-price {
+  font-family: 'GaramondHalhed', serif !important;
+  font-weight: 900 !important;
+  font-size: 1.75rem !important;
+}
+
+@media (min-width: 640px) {
+  html[lang="en"] .product-detail-price {
+    font-size: 2rem !important;
+  }
+}
+
+@media (min-width: 768px) {
+  html[lang="en"] .product-detail-price {
+    font-size: 2.25rem !important;
+  }
+}
+
+.product-detail-orig-price {
+  font-size: 1.125rem !important;
+  font-weight: 600 !important;
+  text-decoration: line-through !important;
+}
+
+@media (min-width: 640px) {
+  .product-detail-orig-price {
+    font-size: 1.25rem !important;
+  }
+}
+
+.product-detail-discount-badge {
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+}
+
+@media (min-width: 640px) {
+  .product-detail-discount-badge {
+    font-size: 0.8125rem !important;
+  }
+}
+
+/* Compact Preview Descriptions for Product Cards (calibrated to not overpower price) */
+.preview-desc {
+  font-size: 0.8125rem !important;
+  line-height: 1.45 !important;
+  color: var(--text-muted) !important;
+}
+
+html[lang="bn"] .preview-desc {
+  font-size: 0.85rem !important;
+  line-height: 1.4 !important;
+}
+
+/* Navbar Tagline Slogan (Harmonious sub-caption under Mon Chaise) */
+.nav-tagline,
+html[lang="bn"] .nav-tagline,
+html[lang="en"] .nav-tagline {
+  font-family: 'Purno', serif !important;
+  font-size: 0.8125rem !important; /* ~13px - comfortable, legible, beautifully proportioned */
+  line-height: 1.25 !important;
+  letter-spacing: 0.01em !important;
+  color: var(--text-dim) !important;
+  opacity: 0.9;
+}
+
+/* Navbar Language Switcher: Simple EN / বাং (Strictly GaramondHalhed, NOT Purno) */
+#lang-toggle-btn,
+#lang-label {
+  font-family: 'GaramondHalhed', serif !important;
+  font-weight: 700 !important;
+}
+
+html[lang="bn"] #lang-toggle-btn,
+html[lang="bn"] #lang-label {
+  font-family: 'GaramondHalhed', serif !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em;
+}
+
+html[lang="en"] #lang-toggle-btn,
+html[lang="en"] #lang-label {
+  font-family: 'GaramondHalhed', serif !important;
+  font-weight: 700 !important;
+}
+
+/* Product Card Title: refined, reduced font size */
+.product-card-title {
+  font-size: 0.8125rem !important; /* ~13px on mobile */
+  line-height: 1.35 !important;
+}
+
+@media (min-width: 640px) {
+  .product-card-title {
+    font-size: 0.9375rem !important; /* ~15px on desktop */
+    line-height: 1.35 !important;
+  }
+}
+
+html[lang="bn"] .product-card-title {
+  font-size: 0.875rem !important; /* ~14px on mobile in Bengali */
+  line-height: 1.35 !important;
+}
+
+@media (min-width: 640px) {
+  html[lang="bn"] .product-card-title {
+    font-size: 1rem !important; /* ~16px on desktop in Bengali */
+    line-height: 1.35 !important;
+  }
+}
+
+/* Explicit Utility Classes */
+.font-fell {
+  font-family: 'IMFellEnglish', serif !important;
+}
+
+.font-fell-italic {
+  font-family: 'IMFellEnglish', serif !important;
+  font-style: italic !important;
+}
+
+.font-fell-sc {
+  font-family: 'IMFellEnglishSC', 'IMFellEnglish', serif !important;
+}
+
+.font-halhed {
+  font-family: 'GaramondHalhed', serif !important;
+}
+
+.font-halhed-italic {
+  font-family: 'GaramondHalhed', serif !important;
+  font-style: italic !important;
+}
+
+.font-purno {
+  font-family: 'Purno', serif !important;
+  font-size: calc(1em + 1pt) !important;
+}
+
+/* Theme-Aware Accent Elements */
+.theme-brand-accent {
+  color: var(--accent-primary);
+}
+
+.theme-brand-bg {
+  background-color: var(--accent-primary);
+}
+
+.theme-card-bg {
+  background-color: var(--bg-card);
+  border-color: var(--border-subtle);
+}
+
+/* Solid Brand Hero Title (No Gradients) */
+.brand-hero-title {
+  color: #166b58;
+  font-family: 'IMFellEnglish', serif !important;
+  font-style: italic !important;
+}
+
+html.dark .brand-hero-title {
+  color: #f2c200;
+}
+
+/* Simple Nakshikantha Stitching Rectangular Border */
+.nakshikantha-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px dashed #1e7e68;
+  background-color: #f7faf9;
+  padding: 0.35rem 1.25rem;
+  border-radius: 2px;
+  color: #166b58;
+  letter-spacing: 0.04em;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+  transition: all 0.2s ease;
+}
+
+html.dark .nakshikantha-badge {
+  border: 1.5px dashed #f2c200;
+  background-color: rgba(242, 194, 0, 0.06);
+  color: #ffd533;
+}
+
+/* Themed Thin Nakshikantha Stitching Border */
+.nakshikantha-border-thin {
+  border: 1px dashed rgba(30, 126, 104, 0.38) !important;
+}
+
+html.dark .nakshikantha-border-thin {
+  border: 1px dashed rgba(242, 194, 0, 0.35) !important;
+}
+
+/* Glow effects: Completely eliminated in Light Mode for clean print on pure white cloth */
+.green-glow {
+  filter: none !important;
+}
+
+html.dark .gold-glow {
+  filter: drop-shadow(0 0 8px rgba(242, 194, 0, 0.45));
+}
+
+/* Handloom Border Repeating Bands */
+.handloom-banner {
+  background-image: var(--handloom-banner-img);
+  background-repeat: repeat-x;
+  background-position: center bottom;
+  background-size: auto 96px;
+  width: 100%;
+}
+
+.handloom-banner-slim {
+  background-image: var(--handloom-banner-img);
+  background-repeat: repeat-x;
+  background-position: center top;
+  background-size: auto 48px;
+  width: 100%;
+  height: 24px;
+}
+
+.handloom-banner-footer {
+  background-image: var(--handloom-banner-img);
+  background-repeat: repeat-x;
+  background-position: center top;
+  background-size: auto 96px;
+  width: 100%;
+  height: 96px;
+}
+
+/* Card with Themed Thin Nakshikantha Stitching */
+.product-card {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  background-color: var(--bg-card);
+  border: 1px dashed rgba(30, 126, 104, 0.35);
+  border-radius: 1rem;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  border-color: #1e7e68;
+  border-style: dashed;
+  box-shadow: 0 10px 24px -6px rgba(0, 0, 0, 0.06);
+}
+
+html.dark .product-card {
+  border: 1px dashed rgba(242, 194, 0, 0.32);
+}
+
+html.dark .product-card:hover {
+  border-color: #ffd533;
+  border-style: dashed;
+  box-shadow: 0 10px 24px -6px rgba(0, 0, 0, 0.7);
+}
+
+/* Badges with thin dashed nakshikantha stitching */
+.badge-accent {
+  background: var(--accent-light);
+  border: 1px dashed rgba(30, 126, 104, 0.45);
+  color: var(--accent-primary);
+}
+
+html.dark .badge-accent {
+  background: rgba(242, 194, 0, 0.15);
+  border: 1px dashed rgba(242, 194, 0, 0.45);
+  color: #ffd533;
+}
+
+.badge-crimson {
+  background: #fdf2f4;
+  border: 1px dashed rgba(189, 58, 84, 0.45);
+  color: #bd3a54;
+}
+
+html.dark .badge-crimson {
+  background: rgba(220, 38, 38, 0.15);
+  border: 1px dashed rgba(220, 38, 38, 0.45);
+  color: #f87171;
+}
+
+/* Social Icon Button with Nakshikantha Stitching */
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 6px;
+  border: 1px dashed rgba(30, 126, 104, 0.4);
+  background-color: #ffffff;
+  color: #166b58;
+  font-size: 0.75rem;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.social-btn:hover {
+  background-color: #e6f4f1;
+  border-color: #1e7e68;
+  transform: translateY(-1px);
+}
+
+html.dark .social-btn {
+  border: 1px dashed rgba(242, 194, 0, 0.35);
+  background-color: #0d0d14;
+  color: #ffd533;
+}
+
+html.dark .social-btn:hover {
+  background-color: rgba(242, 194, 0, 0.12);
+  border-color: #f2c200;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+html.dark ::-webkit-scrollbar-thumb {
+  background: #23232e;
+  border: 1px solid rgba(242, 194, 0, 0.15);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-primary);
+}
+
+/* Drawer Transitions */
+#cart-drawer {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#cart-backdrop {
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Toast Notifications */
+#toast-container > div {
+  animation: toastSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes toastSlideIn {
+  from {
+    transform: translateY(20px) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Modal Animation */
+.modal-animate-in {
+  animation: modalIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ==========================================================================
+   CHECKOUT & ORDER CONFIRM PORTION (Optimal Sizing for Mobile & Desktop)
+   ========================================================================== */
+#checkout-section input,
+#checkout-section select,
+#checkout-section textarea {
+  font-size: 0.8125rem !important; /* ~13px on mobile */
+  line-height: 1.4 !important;
+}
+
+@media (min-width: 640px) {
+  #checkout-section input,
+  #checkout-section select,
+  #checkout-section textarea {
+    font-size: 0.875rem !important; /* ~14px on desktop */
+  }
+}
+
+html[lang="bn"] #checkout-section input,
+html[lang="bn"] #checkout-section select,
+html[lang="bn"] #checkout-section textarea {
+  font-size: 0.85rem !important; /* ~13.6px on mobile in Bengali */
+  line-height: 1.4 !important;
+}
+
+@media (min-width: 640px) {
+  html[lang="bn"] #checkout-section input,
+  html[lang="bn"] #checkout-section select,
+  html[lang="bn"] #checkout-section textarea {
+    font-size: 0.9rem !important; /* ~14.4px on desktop in Bengali */
+    line-height: 1.4 !important;
+  }
+}
+
+#checkout-section label {
+  font-size: 0.72rem !important; /* ~11.5px */
+  line-height: 1.35 !important;
+}
+
+html[lang="bn"] #checkout-section label {
+  font-size: 0.78rem !important; /* ~12.5px in Bengali */
+  line-height: 1.35 !important;
+}
+
+#checkout-section .checkout-heading {
+  font-size: 1.35rem !important; /* ~21.6px on mobile */
+  line-height: 1.25 !important;
+}
+
+@media (min-width: 640px) {
+  #checkout-section .checkout-heading {
+    font-size: 1.65rem !important; /* ~26.4px on desktop */
+    line-height: 1.25 !important;
+  }
+}
+
+#checkout-section .checkout-step-title {
+  font-size: 0.875rem !important; /* ~14px on mobile */
+  line-height: 1.3 !important;
+}
+
+@media (min-width: 640px) {
+  #checkout-section .checkout-step-title {
+    font-size: 1rem !important; /* 16px on desktop */
+    line-height: 1.3 !important;
+  }
+}
+
+#checkout-submit-btn {
+  font-size: 0.875rem !important; /* 14px on mobile */
+}
+
+@media (min-width: 640px) {
+  #checkout-submit-btn {
+    font-size: 0.9375rem !important; /* 15px on desktop */
+  }
+}
+
+/* Form Helper Text: strictly small and subtle */
+.form-help-text,
+html[lang="bn"] .form-help-text {
+  font-size: 0.6875rem !important; /* 11px */
+  line-height: 1.35 !important;
+}
+
+/* MFS Section & Cards Typography */
+.mfs-section-label,
+html[lang="bn"] .mfs-section-label {
+  font-size: 0.72rem !important; /* ~11.5px */
+  line-height: 1.3 !important;
+}
+
+#mfs-numbers-grid .mfs-brand-row {
+  font-size: 0.8125rem !important; /* 13px */
+  line-height: 1.2 !important;
+}
+
+#mfs-numbers-grid .mfs-brand-name {
+  font-size: 0.8125rem !important; /* 13px */
+}
+
+#mfs-numbers-grid .mfs-type-tag {
+  font-size: 0.65rem !important; /* ~10.5px */
+}
+
+#mfs-numbers-grid .mfs-copy-btn {
+  font-size: 0.6875rem !important; /* 11px */
+  line-height: 1 !important;
+}
+
+#mfs-numbers-grid .mfs-phone-number {
+  font-size: 0.8125rem !important; /* 13px */
+  line-height: 1.2 !important;
+}
+
+/* ==========================================================================
+   IMAGE PROTECTION & PRODUCT GALLERY SLIDESHOW WITH ZOOM
+   ========================================================================== */
+.image-protection-overlay {
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -webkit-touch-callout: none !important;
+  -webkit-user-drag: none !important;
+}
+
+.image-protected,
+.image-protected img {
+  pointer-events: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -webkit-touch-callout: none !important;
+  -webkit-user-drag: none !important;
+}
+
+.cursor-zoom-in {
+  cursor: zoom-in;
+}
+
+.cursor-grab {
+  cursor: grab;
+}
+
+.cursor-grabbing {
+  cursor: grabbing;
+}
+

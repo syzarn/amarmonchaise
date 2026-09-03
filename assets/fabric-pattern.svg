@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8">
+  <rect width="8" height="8" fill="#050507"/>
+  <rect x="0" y="0" width="4" height="4" fill="#09090d"/>
+  <rect x="4" y="4" width="4" height="4" fill="#09090d"/>
+  <!-- Micro weave threads -->
+  <line x1="0" y1="2" x2="4" y2="2" stroke="#121217" stroke-width="0.8"/>
+  <line x1="4" y1="6" x2="8" y2="6" stroke="#121217" stroke-width="0.8"/>
+  <line x1="2" y1="0" x2="2" y2="4" stroke="#0e0e13" stroke-width="0.8"/>
+  <line x1="6" y1="4" x2="6" y2="8" stroke="#0e0e13" stroke-width="0.8"/>
+</svg>
