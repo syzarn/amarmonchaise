@@ -1540,22 +1540,26 @@ html[lang="en"] .broadsheet-dispatch-title {
   opacity: 0.95;
 }
 
+/* Broadsheet Badges with Nakshikantha Stitching */
 .broadsheet-lead-badge {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  justify-content: center;
   background-color: #bd3a54;
+  border: 1.5px dashed rgba(255, 255, 255, 0.85);
   color: #ffffff !important;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   font-size: 10.5px;
   padding: 3px 10px;
-  border-radius: 9999px;
+  border-radius: 2px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
 .dark .broadsheet-lead-badge {
-  background-color: #dc2626;
+  background-color: #991b1b;
+  border: 1.5px dashed rgba(255, 255, 255, 0.85);
   color: #ffffff !important;
 }
 
@@ -1566,14 +1570,16 @@ html[lang="en"] .broadsheet-dispatch-title {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  padding: 2px 8px;
-  border-radius: 9999px;
-  background-color: rgba(30, 126, 104, 0.12);
+  padding: 2.5px 8px;
+  border-radius: 2px;
+  border: 1px dashed rgba(30, 126, 104, 0.45);
+  background-color: #f7faf9;
   color: #166b58;
 }
 
 .dark .broadsheet-dispatch-badge {
-  background-color: rgba(242, 194, 0, 0.15);
+  border: 1px dashed rgba(242, 194, 0, 0.45);
+  background-color: rgba(242, 194, 0, 0.08);
   color: #ffd533;
 }
 

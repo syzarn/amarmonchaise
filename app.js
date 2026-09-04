@@ -116,7 +116,7 @@
       trendingSectionSub: 'অ্যালগরিদম নয়, আমাদের মনমৌজি খেয়ালে যা সবার মন কেড়েছে। মুদ্রিত পাতায় আজকের বিশেষ আকর্ষণ!',
       trendingDatelineLeft: 'ভলিউম ১ • সংখ্যা ২৭',
       trendingDatelineCenter: 'ঢাকা, ২০২৬ • মাসিক পত্রিকা • বিশেষ প্রকাশনা',
-      trendingDatelineRight: 'মূল্য: <span class="cjk-wu font-noto-serif-sc">無</span>',
+      trendingDatelineRight: 'মূল্য: <span class="cjk-wu font-noto-serif-sc">無</span> মাত্র।',
       trendingLeadBadge: 'সম্পাদকীয় • মূল আকর্ষণ',
       trendingLeadQuote: '“পাহাড়ের কোমর তাঁতে বোনা গাঢ় কালো ক্যানভাসে লাল আর সোনালী সুতোর এই জ্যামিতিই মঞ্চাইছের শুরুর গল্প।”',
       trendingLeadDesc: 'কোনো আধুনিক মেশিনের সহায়তা ছাড়া, আদিবাসী নারীদের ধৈর্য্য আর নিখুঁত শৈল্পিক বুননে পাহাড়ি কোমর তাঁতে তৈরি হয় এই ঐতিহ্যবাহী বসন। এর প্রতিটি সুতোর বন্ধনে মিশে আছে যুগ যুগান্তরের পাহাড়ি সংস্কৃতি ও জীবনগাঁথা।',
@@ -231,7 +231,7 @@
       trendingSectionSub: 'No cold algorithms; just the curios that captured hearts. Fresh off the vintage printing press.',
       trendingDatelineLeft: 'VOL. I • NO. 27',
       trendingDatelineCenter: 'DHAKA, 2026 • MONTHLY BROADSHEET • SPECIAL EDITION',
-      trendingDatelineRight: 'PRICE: <span class="cjk-wu font-noto-serif-sc">無</span>',
+      trendingDatelineRight: 'PRICE: <span class="cjk-wu font-noto-serif-sc">無</span> only.',
       trendingLeadBadge: 'HOT EDITORIAL • LEAD CURIO',
       trendingLeadQuote: '“Woven meticulously on indigenous waist looms, this dense black canvas banded in crimson and gold is the very genesis of Mon Chaise.”',
       trendingLeadDesc: 'Crafted without modern power looms, each piece is woven row by painstaking row on traditional backstrap waist looms by indigenous women artisans. A testament to ancestral textile heritage.',
@@ -940,7 +940,6 @@
           <!-- Header Bar with Editorial Badge & Number -->
           <div class="flex items-center justify-between gap-2 pb-3 border-b border-slate-200/80 dark:border-zinc-800">
             <span class="broadsheet-lead-badge">
-              <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
               ${t('trendingLeadBadge')}
             </span>
             <span class="text-[11px] font-bold text-slate-400 dark:text-zinc-500 font-fell-sc tracking-wider">

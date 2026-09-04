@@ -1216,8 +1216,8 @@
             
             <!-- Column 1: Proportional Silhouette Mannequin (5 cols) -->
             <div class="md:col-span-5 flex flex-col items-center justify-center p-4 bg-slate-50 dark:bg-zinc-900/90 rounded-2xl border border-slate-200/80 dark:border-zinc-800 shadow-inner">
-              <div class="relative w-full max-w-[200px] flex justify-center py-2">
-                <svg class="tape-silhouette-svg w-36 h-72 sm:w-40 sm:h-80" viewBox="0 0 160 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <div class="relative w-full max-w-[260px] flex justify-center py-2">
+                <svg class="tape-silhouette-svg w-full max-w-[260px] h-auto aspect-[260/320] sm:max-w-[270px]" viewBox="-50 0 260 320" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <defs>
                     <pattern id="nakshiFabricPattern" width="12" height="12" patternUnits="userSpaceOnUse">
                       <rect width="12" height="12" fill="#1b6050" class="dark:fill-[#b89514]"/>
@@ -1228,25 +1228,25 @@
 
                   <!-- Anatomical Reference Dotted Lines (Waist to Floor) -->
                   <!-- Waist 0" (y=110, ~35% down body) -->
-                  <line x1="10" y1="110" x2="150" y2="110" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
-                  <text x="14" y="106" fill="#64748b" class="dark:fill-[#a1a1aa]" font-size="8" font-family="serif">${t('tapeWaistRef')}</text>
+                  <line x1="-44" y1="110" x2="204" y2="110" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+                  <text x="-40" y="106" fill="#64748b" class="dark:fill-[#a1a1aa]" font-size="8.5" font-family="serif">${t('tapeWaistRef')}</text>
 
                   <!-- Knee (Dynamic Y according to selected height profile) -->
                   <g id="tape-ref-knee-group">
-                    <line id="tape-ref-knee-line" class="tape-ref-line" x1="10" y1="${profile.kneeY}" x2="150" y2="${profile.kneeY}" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2 2" opacity="0.65"/>
-                    <text id="tape-ref-knee-text" class="tape-ref-text" x="14" y="${profile.kneeY - 4}" fill="#64748b" class="dark:fill-[#a1a1aa]" font-size="8" font-family="serif">${t('tapeKnee')} (~${state.lang === 'bn' ? toBengaliDigits(profile.kneeIn) : profile.kneeIn}")</text>
+                    <line id="tape-ref-knee-line" class="tape-ref-line" x1="-44" y1="${profile.kneeY}" x2="204" y2="${profile.kneeY}" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2 2" opacity="0.65"/>
+                    <text id="tape-ref-knee-text" class="tape-ref-text" x="-40" y="${profile.kneeY - 4}" fill="#64748b" class="dark:fill-[#a1a1aa]" font-size="8.5" font-family="serif">${t('tapeKnee')} (~${state.lang === 'bn' ? toBengaliDigits(profile.kneeIn) : profile.kneeIn}")</text>
                   </g>
 
                   <!-- Calf (Dynamic Y according to selected height profile) -->
                   <g id="tape-ref-calf-group">
-                    <line id="tape-ref-calf-line" class="tape-ref-line" x1="10" y1="${profile.calfY}" x2="150" y2="${profile.calfY}" stroke="#166b58" class="dark:stroke-yellow-400" stroke-width="1.2" stroke-dasharray="2 2" opacity="0.85"/>
-                    <text id="tape-ref-calf-text" class="tape-ref-text" x="14" y="${profile.calfY - 4}" fill="#166b58" class="dark:fill-[#facc15]" font-size="8" font-weight="bold" font-family="serif">${t('tapeCalf')} (~${state.lang === 'bn' ? toBengaliDigits(profile.calfIn) : profile.calfIn}")</text>
+                    <line id="tape-ref-calf-line" class="tape-ref-line" x1="-44" y1="${profile.calfY}" x2="204" y2="${profile.calfY}" stroke="#166b58" class="dark:stroke-yellow-400" stroke-width="1.2" stroke-dasharray="2 2" opacity="0.85"/>
+                    <text id="tape-ref-calf-text" class="tape-ref-text" x="-40" y="${profile.calfY - 4}" fill="#166b58" class="dark:fill-[#facc15]" font-size="8.5" font-weight="bold" font-family="serif">${t('tapeCalf')} (~${state.lang === 'bn' ? toBengaliDigits(profile.calfIn) : profile.calfIn}")</text>
                   </g>
 
                   <!-- Ankle (Dynamic Y according to selected height profile) -->
                   <g id="tape-ref-ankle-group">
-                    <line id="tape-ref-ankle-line" class="tape-ref-line" x1="10" y1="${profile.ankleY}" x2="150" y2="${profile.ankleY}" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2 2" opacity="0.65"/>
-                    <text id="tape-ref-ankle-text" class="tape-ref-text" x="14" y="${profile.ankleY - 4}" fill="#64748b" class="dark:fill-[#a1a1aa]" font-size="8" font-family="serif">${t('tapeAnkle')} (~${state.lang === 'bn' ? toBengaliDigits(profile.ankleIn) : profile.ankleIn}")</text>
+                    <line id="tape-ref-ankle-line" class="tape-ref-line" x1="-44" y1="${profile.ankleY}" x2="204" y2="${profile.ankleY}" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2 2" opacity="0.65"/>
+                    <text id="tape-ref-ankle-text" class="tape-ref-text" x="-40" y="${profile.ankleY - 4}" fill="#64748b" class="dark:fill-[#a1a1aa]" font-size="8.5" font-family="serif">${t('tapeAnkle')} (~${state.lang === 'bn' ? toBengaliDigits(profile.ankleIn) : profile.ankleIn}")</text>
                   </g>
 
                   <!-- Solid Anatomical Mannequin Silhouette -->
