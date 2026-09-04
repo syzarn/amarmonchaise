@@ -70,7 +70,34 @@
       footerPayments: 'গ্রহণযোগ্য পেমেন্ট মাধ্যম',
       footerCopyright: '© ২০২৬ মঞ্চাইছে (Mon Chaise)। সর্বস্বত্ব সংরক্ষিত।',
       zoomBtn: 'জুম করুন',
-      zoomHint: 'মাউস ঘুরিয়ে বা টেনে দেখুন • ছবি ডাউনলোড সংরক্ষিত (Protected)'
+      zoomHint: 'মাউস ঘুরিয়ে বা টেনে দেখুন • ছবি ডাউনলোড সংরক্ষিত (Protected)',
+      tapeAccordionTitle: 'ফিতার মাপ ও ঝুল নির্দেশিকা',
+      tapeAccordionSubtitle: 'বহর ও ঝুল বুঝতে ফিতা টেনে দেখুন • ১ হাত = ১৮", ১ গজ = ৩৬"',
+      tapeAccordionBadge: 'ইন্টারেক্টিভ ফিতা',
+      tapeHeightLabel: 'আপনার আনুমানিক উচ্চতা',
+      tapeHeightSub: 'উচ্চতা অনুযায়ী কাপড়ের ঝুল ও পড়ার স্থান পরিবর্তিত হয়',
+      tapeHeightBilai: 'বিলাই (~৪\'৯")',
+      tapeHeightPetite: 'খাটো (~৫\'০")',
+      tapeHeightRegular: 'মাঝারি (~৫\'৩")',
+      tapeHeightTall: 'লম্বা (~৫\'৬")',
+      tapeHeightKudrot: 'আল্লাহর কুদরত (~৬\'০")',
+      tapeLengthLabel: 'দৈর্ঘ্য / ঝুল',
+      tapeHaatUnit: 'হাত',
+      tapeGojUnit: 'গজ',
+      tapeGiraUnit: 'গিরা',
+      tapeInchUnit: 'ইঞ্চি',
+      tapeDrapeAboveKnee: 'হাঁটুর উপরে<br><span class="tape-drape-sub">(Above Knee)</span>',
+      tapeDrapeKnee: 'হাঁটু বরাবর / শর্ট ঝুল<br><span class="tape-drape-sub">(Knee Level)</span>',
+      tapeDrapeCalf: 'বাছুরের মাঝবরাবর / ক্লাসিক ঝুল<br><span class="tape-drape-sub">(Mid-Calf / থামির মাপ)</span>',
+      tapeDrapeAnkle: 'গোড়ালি স্পর্শ করা পূর্ণ ঝুল<br><span class="tape-drape-sub">(Full Ankle Drape)</span>',
+      tapeDrapeFloor: 'মেঝে ছোঁয়া লং ঝুল<br><span class="tape-drape-sub">(Floor Length / Maxi)</span>',
+      tapeWaistRef: 'কোমর (Waist: 0")',
+      tapeKnee: 'হাঁটু',
+      tapeCalf: 'বাছুর',
+      tapeAnkle: 'গোড়ালি',
+      tapeFloor: 'মেঝে',
+      tapePresetsHeading: 'প্রস্তাবিত মাপসমূহ (Presets):',
+      tapeDragHint: '◄ ফিতা ডানে বা বামে টেনে দেখুন ►'
     },
     en: {
       siteTitle: 'Mon Chaise | মঞ্চাইছে',
@@ -119,13 +146,40 @@
       footerQuickLinks: 'Quick Links',
       footerTerms: 'Terms & Conditions',
       footerPrivacy: 'Privacy Policy',
-      footerContact: 'Contact Us',
+      footerContact: 'Contact',
       footerHelpline: 'Helpline: +880 1712-345678 (10 AM - 10 PM)',
       footerLocation: 'Panthapath, Dhaka - 1205, Bangladesh',
       footerPayments: 'Accepted Payment Methods',
       footerCopyright: '© 2026 Mon Chaise (মঞ্চাইছে). All rights reserved.',
       zoomBtn: 'Zoom In',
-      zoomHint: 'Drag or move to inspect weave • Image Download Protected'
+      zoomHint: 'Drag or move to inspect weave • Image Download Protected',
+      tapeAccordionTitle: "The Tailor's Tape & Drape Guide",
+      tapeAccordionSubtitle: 'Drag the vintage ribbon to visualize fabric drape & traditional units',
+      tapeAccordionBadge: 'Interactive Tape',
+      tapeHeightLabel: 'Your Approximate Height',
+      tapeHeightSub: 'Drape position adapts dynamically to your height',
+      tapeHeightBilai: 'Bilai (~4\'9")',
+      tapeHeightPetite: 'Petite (~5\'0")',
+      tapeHeightRegular: 'Regular (~5\'3")',
+      tapeHeightTall: 'Tall (~5\'6")',
+      tapeHeightKudrot: 'Allah\'r Kudrot (~6\'0")',
+      tapeLengthLabel: 'Length / Drape',
+      tapeHaatUnit: 'Haat',
+      tapeGojUnit: 'Yards (Goj)',
+      tapeGiraUnit: 'Gira',
+      tapeInchUnit: 'Inches',
+      tapeDrapeAboveKnee: 'Above Knee<br><span class="tape-drape-sub">(Short Drape)</span>',
+      tapeDrapeKnee: 'Knee Level<br><span class="tape-drape-sub">(Standard Short)</span>',
+      tapeDrapeCalf: 'Mid-Calf Drape<br><span class="tape-drape-sub">(Classic Thami Fit)</span>',
+      tapeDrapeAnkle: 'Full Ankle Drape<br><span class="tape-drape-sub">(Traditional Maxi)</span>',
+      tapeDrapeFloor: 'Floor Length<br><span class="tape-drape-sub">(Full Maxi Sweep)</span>',
+      tapeWaistRef: 'Waist: 0"',
+      tapeKnee: 'Knee',
+      tapeCalf: 'Mid-Calf',
+      tapeAnkle: 'Ankle',
+      tapeFloor: 'Floor',
+      tapePresetsHeading: 'Product Dimension Presets:',
+      tapeDragHint: '◄ Drag tape horizontally to scrub ►'
     }
   };
 
@@ -472,7 +526,10 @@
     zoomPanY: 0,
     isPanning: false,
     panStartX: 0,
-    panStartY: 0
+    panStartY: 0,
+    isTapeAccordionOpen: false,
+    tapeCurrentInch: 31,
+    tapeHeightProfile: 'regular'
   };
 
   // --- DOM ELEMENTS ---
@@ -940,6 +997,685 @@
     });
   }
 
+  // --- THE MEASURING TAPE ("ফিতার মাপ") ACCORDION & DRAPE GUIDE ---
+  // Calibrated to realistic South Asian female proportions (waist-to-ankle ~36-39")
+  const HEIGHT_PROFILES = {
+    bilai: {
+      waistToFloorIn: 36,
+      kneeIn: 18,
+      calfIn: 26,
+      ankleIn: 34,
+      kneeY: 203,
+      calfY: 244,
+      ankleY: 285,
+      pxPerInch: 185 / 36 // ~5.139 px/inch
+    },
+    petite: {
+      waistToFloorIn: 38,
+      kneeIn: 20,
+      calfIn: 28,
+      ankleIn: 36,
+      kneeY: 207,
+      calfY: 246,
+      ankleY: 285,
+      pxPerInch: 185 / 38 // ~4.868 px/inch
+    },
+    regular: {
+      waistToFloorIn: 40,
+      kneeIn: 22,
+      calfIn: 30,
+      ankleIn: 38,
+      kneeY: 212,
+      calfY: 249,
+      ankleY: 286,
+      pxPerInch: 185 / 40 // ~4.625 px/inch
+    },
+    tall: {
+      waistToFloorIn: 42,
+      kneeIn: 24,
+      calfIn: 32,
+      ankleIn: 41,
+      kneeY: 216,
+      calfY: 251,
+      ankleY: 291,
+      pxPerInch: 185 / 42 // ~4.405 px/inch
+    },
+    kudrot: {
+      waistToFloorIn: 46,
+      kneeIn: 26,
+      calfIn: 35,
+      ankleIn: 44,
+      kneeY: 215,
+      calfY: 251,
+      ankleY: 287,
+      pxPerInch: 185 / 46 // ~4.022 px/inch
+    }
+  };
+
+  // Traditional Bengali fabric bazaar formatting (e.g. '১ গজ ৪ গিরা' instead of raw decimal)
+  function formatGiraAndGoj(inches, lang) {
+    const goj = Math.floor(inches / 36);
+    const remInches = inches % 36;
+    const remGira = remInches / 2.25;
+    const remGiraFormatted = remGira % 1 === 0 ? remGira.toFixed(0) : remGira.toFixed(1);
+
+    if (lang === 'bn') {
+      if (goj > 0) {
+        if (remGira < 0.05) return `${toBengaliDigits(goj)} গজ`;
+        return `${toBengaliDigits(goj)} গজ ${toBengaliDigits(remGiraFormatted)} গিরা`;
+      }
+      return `${toBengaliDigits(remGiraFormatted)} গিরা (${toBengaliDigits((inches / 36).toFixed(2))} গজ)`;
+    } else {
+      if (goj > 0) {
+        if (remGira < 0.05) return `${goj} Yard${goj > 1 ? 's' : ''}`;
+        return `${goj} Yard ${remGiraFormatted} Gira`;
+      }
+      return `${remGiraFormatted} Gira (${(inches / 36).toFixed(2)} Yd)`;
+    }
+  }
+
+  function renderTapeAccordion(prod) {
+    const dim = prod.dimensions || {
+      length_in: 32,
+      width_in: 46,
+      type: 'wrap_skirt',
+      presets: [
+        { val: 31, label_bn: '৩১" থামির আসল ঝুল (বাছুর)', label_en: '31" Thami Drape (Mid-Calf)' },
+        { val: 36, label_bn: '৩৬" সাধারণ বহর (১ গজ)', label_en: '36" Standard Bohor (1 Yard)' },
+        { val: 38, label_bn: '৩৮" পূর্ণ গোড়ালি ঝুল', label_en: '38" Full Ankle Drape' },
+        { val: 44, label_bn: '৪৪" শাড়ির চওড়া বহর', label_en: '44" Saree Wide Bohor' }
+      ]
+    };
+
+    const initialInch = state.tapeCurrentInch || dim.length_in || 31;
+    const presets = dim.presets || [
+      { val: 31, label_bn: '৩১" থামির আসল ঝুল (বাছুর)', label_en: '31" Thami Drape (Mid-Calf)' },
+      { val: 36, label_bn: '৩৬" সাধারণ বহর (১ গজ)', label_en: '36" Standard Bohor (1 Yard)' },
+      { val: 38, label_bn: '৩৮" পূর্ণ গোড়ালি ঝুল', label_en: '38" Full Ankle Drape' },
+      { val: 44, label_bn: '৪৪" শাড়ির চওড়া বহর', label_en: '44" Saree Wide Bohor' }
+    ];
+
+    const currentProfileKey = state.tapeHeightProfile || 'regular';
+    const profile = HEIGHT_PROFILES[currentProfileKey] || HEIGHT_PROFILES.regular;
+
+    // Generate tape inch cells from 18 to 48 (cellWidth = 32px)
+    let tapeCellsHtml = '';
+    for (let i = 18; i <= 48; i++) {
+      let rivetHtml = '';
+      if (i === 18) rivetHtml = `<span class="tape-rivet-badge">${state.lang === 'bn' ? '১ হাত' : '1 Haat'}</span>`;
+      else if (i === 27) rivetHtml = `<span class="tape-rivet-badge">${state.lang === 'bn' ? '১২ গিরা' : '12 Gira'}</span>`;
+      else if (i === 31) rivetHtml = `<span class="tape-rivet-badge" style="background:#166b58">${state.lang === 'bn' ? 'থামি' : 'Thami'}</span>`;
+      else if (i === 36) rivetHtml = `<span class="tape-rivet-badge">${state.lang === 'bn' ? '১ গজ' : '1 Yard'}</span>`;
+      else if (i === 38) rivetHtml = `<span class="tape-rivet-badge">${state.lang === 'bn' ? 'গোড়ালি' : 'Ankle'}</span>`;
+      else if (i === 45) rivetHtml = `<span class="tape-rivet-badge">${state.lang === 'bn' ? '২.৫ হাত' : '2.5 Haat'}</span>`;
+
+      const numStr = state.lang === 'bn' ? toBengaliDigits(i) : i;
+
+      tapeCellsHtml += `
+        <div class="tape-inch-cell" style="width: 32px;">
+          ${rivetHtml}
+          <!-- Top tick marks (quarter, half, quarter, inch) -->
+          <div class="w-full flex items-start justify-between px-0.5 pt-0.5 pointer-events-none">
+            <span class="w-[1.5px] h-4 bg-stone-900"></span>
+            <span class="w-[1px] h-2 bg-stone-700"></span>
+            <span class="w-[1px] h-3 bg-stone-800"></span>
+            <span class="w-[1px] h-2 bg-stone-700"></span>
+          </div>
+          
+          <!-- Inch Number -->
+          <span class="text-[12px] font-black tracking-tight text-stone-900 select-none price-tag leading-none py-1">
+            ${numStr}
+          </span>
+          
+          <!-- Bottom tick marks -->
+          <div class="w-full flex items-end justify-between px-0.5 pb-0.5 pointer-events-none">
+            <span class="w-[1.5px] h-4 bg-stone-900"></span>
+            <span class="w-[1px] h-2 bg-stone-700"></span>
+            <span class="w-[1px] h-3 bg-stone-800"></span>
+            <span class="w-[1px] h-2 bg-stone-700"></span>
+          </div>
+        </div>
+      `;
+    }
+
+    const isOpen = Boolean(state.isTapeAccordionOpen);
+
+    return `
+      <!-- Measuring Tape ("ফিতার মাপ") Accordion & Drape Guide -->
+      <div class="mb-8 rounded-2xl bg-amber-500/5 dark:bg-zinc-950/70 tape-accordion-card p-4 sm:p-5 transition-all">
+        <!-- Accordion Toggle Header -->
+        <button 
+          type="button" 
+          id="tape-accordion-toggle" 
+          class="tape-accordion-btn w-full flex items-center justify-between text-left group cursor-pointer select-none"
+          aria-expanded="${isOpen ? 'true' : 'false'}"
+          aria-controls="tape-accordion-body"
+        >
+          <div class="flex items-center gap-3">
+            <!-- Vintage Tape Icon -->
+            <div class="w-10 h-10 rounded-xl bg-amber-200/90 dark:bg-yellow-500/20 border border-amber-400/80 dark:border-yellow-500/40 flex items-center justify-center shrink-0 shadow-sm text-amber-900 dark:text-yellow-400 group-hover:scale-105 transition-transform">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="6" width="20" height="12" rx="3" fill="#f5d342" stroke="#292524" stroke-width="1.5"/>
+                <path d="M6 6v4M10 6v3M14 6v5M18 6v3" stroke="#292524" stroke-width="1.5" stroke-linecap="round"/>
+                <circle cx="19" cy="12" r="1.5" fill="#dc2626"/>
+              </svg>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h4 class="text-sm sm:text-base font-bold text-slate-800 dark:text-zinc-100 font-title group-hover:text-[#166b58] dark:group-hover:text-yellow-400 transition-colors">
+                  ${t('tapeAccordionTitle')}
+                </h4>
+                <span class="hidden sm:inline-block px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-amber-200/80 dark:bg-yellow-950/80 text-amber-900 dark:text-yellow-400 border border-amber-300 dark:border-yellow-700/60 font-sans">
+                  ${t('tapeAccordionBadge')}
+                </span>
+              </div>
+              <p class="text-xs text-slate-500 dark:text-zinc-400 secondary-text mt-0.5">
+                ${t('tapeAccordionSubtitle')}
+              </p>
+            </div>
+          </div>
+          <div class="w-8 h-8 rounded-full bg-slate-100 dark:bg-zinc-900 flex items-center justify-center text-slate-400 dark:text-zinc-400 group-hover:text-slate-800 dark:group-hover:text-white shrink-0 ml-2">
+            <svg class="tape-chevron w-4 h-4 transition-transform duration-300 transform ${isOpen ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+            </svg>
+          </div>
+        </button>
+
+        <!-- Accordion Body (Collapsible) -->
+        <div id="tape-accordion-body" class="${isOpen ? '' : 'hidden '}pt-6 mt-4 border-t border-dashed border-slate-200 dark:border-zinc-800">
+          
+          <!-- 5-Way Height Preset Toggle Bar (Bilai / Petite / Regular / Tall / Allah'r Kudrot) -->
+          <div class="mb-5 pb-3.5 border-b border-slate-200 dark:border-zinc-800 flex flex-col gap-2.5">
+            <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
+              <span class="text-xs font-bold text-slate-700 dark:text-zinc-200 font-title">
+                ${t('tapeHeightLabel')}:
+              </span>
+              <span class="text-[11px] text-slate-400 dark:text-zinc-500 secondary-text">
+                ${t('tapeHeightSub')}
+              </span>
+            </div>
+            <div id="tape-height-selector" class="flex flex-wrap gap-1.5 p-1 rounded-xl bg-slate-200/70 dark:bg-zinc-900 border border-slate-300 dark:border-zinc-800 w-full sm:w-auto">
+              <button type="button" data-height="bilai" class="tape-height-btn flex-1 sm:flex-none px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold text-center text-slate-600 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-all whitespace-nowrap ${currentProfileKey === 'bilai' ? 'is-active' : ''}">
+                ${t('tapeHeightBilai')}
+              </button>
+              <button type="button" data-height="petite" class="tape-height-btn flex-1 sm:flex-none px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold text-center text-slate-600 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-all whitespace-nowrap ${currentProfileKey === 'petite' ? 'is-active' : ''}">
+                ${t('tapeHeightPetite')}
+              </button>
+              <button type="button" data-height="regular" class="tape-height-btn flex-1 sm:flex-none px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold text-center text-slate-600 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-all whitespace-nowrap ${currentProfileKey === 'regular' ? 'is-active' : ''}">
+                ${t('tapeHeightRegular')}
+              </button>
+              <button type="button" data-height="tall" class="tape-height-btn flex-1 sm:flex-none px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold text-center text-slate-600 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-all whitespace-nowrap ${currentProfileKey === 'tall' ? 'is-active' : ''}">
+                ${t('tapeHeightTall')}
+              </button>
+              <button type="button" data-height="kudrot" class="tape-height-btn flex-1 sm:flex-none px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-bold text-center text-slate-600 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-all whitespace-nowrap ${currentProfileKey === 'kudrot' ? 'is-active' : ''}">
+                ${t('tapeHeightKudrot')}
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+            
+            <!-- Column 1: Proportional Silhouette Mannequin (5 cols) -->
+            <div class="md:col-span-5 flex flex-col items-center justify-center p-4 bg-slate-50 dark:bg-zinc-900/90 rounded-2xl border border-slate-200/80 dark:border-zinc-800 shadow-inner">
+              <div class="relative w-full max-w-[200px] flex justify-center py-2">
+                <svg class="tape-silhouette-svg w-36 h-72 sm:w-40 sm:h-80" viewBox="0 0 160 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <pattern id="nakshiFabricPattern" width="12" height="12" patternUnits="userSpaceOnUse">
+                      <rect width="12" height="12" fill="#1b6050" class="dark:fill-[#b89514]"/>
+                      <path d="M0 6h12M6 0v12" stroke="#259b80" class="dark:stroke-[#e2bb30]" stroke-width="0.8" stroke-dasharray="2 1"/>
+                      <circle cx="6" cy="6" r="1.2" fill="#bd3a54" class="dark:fill-[#ef4444]"/>
+                    </pattern>
+                  </defs>
+
+                  <!-- Anatomical Reference Dotted Lines (Waist to Floor) -->
+                  <!-- Waist 0" (y=110, ~35% down body) -->
+                  <line x1="10" y1="110" x2="150" y2="110" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+                  <text x="14" y="106" fill="#64748b" class="dark:fill-[#a1a1aa]" font-size="8" font-family="serif">${t('tapeWaistRef')}</text>
+
+                  <!-- Knee (Dynamic Y according to selected height profile) -->
+                  <g id="tape-ref-knee-group">
+                    <line id="tape-ref-knee-line" class="tape-ref-line" x1="10" y1="${profile.kneeY}" x2="150" y2="${profile.kneeY}" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2 2" opacity="0.65"/>
+                    <text id="tape-ref-knee-text" class="tape-ref-text" x="14" y="${profile.kneeY - 4}" fill="#64748b" class="dark:fill-[#a1a1aa]" font-size="8" font-family="serif">${t('tapeKnee')} (~${state.lang === 'bn' ? toBengaliDigits(profile.kneeIn) : profile.kneeIn}")</text>
+                  </g>
+
+                  <!-- Calf (Dynamic Y according to selected height profile) -->
+                  <g id="tape-ref-calf-group">
+                    <line id="tape-ref-calf-line" class="tape-ref-line" x1="10" y1="${profile.calfY}" x2="150" y2="${profile.calfY}" stroke="#166b58" class="dark:stroke-yellow-400" stroke-width="1.2" stroke-dasharray="2 2" opacity="0.85"/>
+                    <text id="tape-ref-calf-text" class="tape-ref-text" x="14" y="${profile.calfY - 4}" fill="#166b58" class="dark:fill-[#facc15]" font-size="8" font-weight="bold" font-family="serif">${t('tapeCalf')} (~${state.lang === 'bn' ? toBengaliDigits(profile.calfIn) : profile.calfIn}")</text>
+                  </g>
+
+                  <!-- Ankle (Dynamic Y according to selected height profile) -->
+                  <g id="tape-ref-ankle-group">
+                    <line id="tape-ref-ankle-line" class="tape-ref-line" x1="10" y1="${profile.ankleY}" x2="150" y2="${profile.ankleY}" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2 2" opacity="0.65"/>
+                    <text id="tape-ref-ankle-text" class="tape-ref-text" x="14" y="${profile.ankleY - 4}" fill="#64748b" class="dark:fill-[#a1a1aa]" font-size="8" font-family="serif">${t('tapeAnkle')} (~${state.lang === 'bn' ? toBengaliDigits(profile.ankleIn) : profile.ankleIn}")</text>
+                  </g>
+
+                  <!-- Solid Anatomical Mannequin Silhouette -->
+                  <g class="tape-silhouette-shape">
+                    <!-- Head -->
+                    <ellipse cx="80" cy="30" rx="10" ry="13" />
+                    <!-- Neck -->
+                    <path d="M76 43 h8 v14 h-8 z" />
+                    <!-- Torso with natural shoulders, chest, tapered waist, flared pelvis -->
+                    <path d="M52 58 Q60 55 76 56 h8 Q100 55 108 58 Q105 78 103 88 Q101 100 98 110 Q104 124 103 140 L80 148 L57 140 Q56 124 62 110 Q59 100 57 88 Q55 78 52 58 Z" />
+                    <!-- Left Leg (Contoured thigh, knee, calf curve, ankle and foot) -->
+                    <path d="M57 140 Q56 175 60 212 Q57 245 64 286 L61 296 Q68 298 73 296 L73 286 Q74 245 70 212 Q75 180 80 148 Z" />
+                    <!-- Right Leg (Contoured thigh, knee, calf curve, ankle and foot) -->
+                    <path d="M103 140 Q104 175 100 212 Q103 245 96 286 L99 296 Q92 298 87 296 L87 286 Q86 245 90 212 Q85 180 80 148 Z" />
+                  </g>
+
+                  <!-- Dynamic Shaded Fabric Drape Layer (Starts at waist y=110) -->
+                  <g id="tape-drape-group">
+                    <rect 
+                      id="tape-drape-fabric" 
+                      x="53" 
+                      y="110" 
+                      width="54" 
+                      height="${Math.min(185, Math.round(initialInch * profile.pxPerInch))}" 
+                      rx="3" 
+                      fill="url(#nakshiFabricPattern)" 
+                      stroke="#166b58" 
+                      class="dark:stroke-yellow-400"
+                      stroke-width="1.6"
+                    />
+                    <!-- Nakshikantha Hem Border Band on Fabric Bottom -->
+                    <rect 
+                      id="tape-drape-hem" 
+                      x="53" 
+                      y="${110 + Math.min(185, Math.round(initialInch * profile.pxPerInch)) - 6}" 
+                      width="54" 
+                      height="6" 
+                      fill="#bd3a54" 
+                      stroke="#dc2626" 
+                      stroke-width="1"
+                    />
+                  </g>
+                </svg>
+              </div>
+
+              <!-- Real-Time Drape Level Badge -->
+              <div 
+                id="tape-drape-level-badge" 
+                class="tape-drape-badge font-title text-[#166b58] dark:text-yellow-400 bg-emerald-50 dark:bg-yellow-950/60 border border-emerald-300/60 dark:border-yellow-700/60 shadow-sm"
+              >
+                ${t('tapeDrapeCalf')}
+              </div>
+            </div>
+
+            <!-- Column 2: The Tailor Ribbon & Conversion Dashboard (7 cols) -->
+            <div class="md:col-span-7 flex flex-col space-y-4">
+              
+              <!-- Real-Time Measurement Card -->
+              <div class="p-3.5 sm:p-4 rounded-xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 shadow-sm flex flex-col gap-2">
+                <div class="flex items-baseline justify-between gap-2 flex-wrap">
+                  <span class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-zinc-400">
+                    ${t('tapeLengthLabel')}
+                  </span>
+                  <div class="flex items-baseline gap-1.5">
+                    <span id="tape-readout-inch" class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white font-title leading-none">
+                      ${state.lang === 'bn' ? toBengaliDigits(initialInch) : initialInch}"
+                    </span>
+                    <span class="text-xs text-slate-500 dark:text-zinc-400 font-serif">
+                      ${t('tapeInchUnit')}
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Traditional Bengali Units Bar (হাত & গজ-গিরা) -->
+                <div class="pt-2 border-t border-slate-100 dark:border-zinc-800 flex items-center justify-between text-xs sm:text-sm text-slate-700 dark:text-zinc-300 font-serif flex-wrap gap-2">
+                  <div class="flex items-center gap-1">
+                    <span class="text-slate-400 dark:text-zinc-500">হাত:</span>
+                    <strong id="tape-readout-haat" class="font-bold text-[#166b58] dark:text-yellow-400">
+                      ${state.lang === 'bn' ? toBengaliDigits((initialInch / 18).toFixed(2)) : (initialInch / 18).toFixed(2)} ${t('tapeHaatUnit')}
+                    </strong>
+                  </div>
+                  <span class="text-slate-300 dark:text-zinc-700">•</span>
+                  <div class="flex items-center gap-1">
+                    <span class="text-slate-400 dark:text-zinc-500">গজ ও গিরা:</span>
+                    <strong id="tape-readout-goj-gira" class="font-bold text-[#166b58] dark:text-yellow-400">
+                      ${formatGiraAndGoj(initialInch, state.lang)}
+                    </strong>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Vintage Tailor Yellow Ribbon Track (18" to 48") -->
+              <div>
+                <div class="tape-track-outer">
+                  <div id="tape-viewport" class="tape-viewport" role="slider" aria-valuemin="18" aria-valuemax="48" aria-valuenow="${initialInch}" tabindex="0">
+                    <!-- Crimson Center Fixed Needle -->
+                    <div id="tape-needle" class="tape-needle"></div>
+                    
+                    <!-- Draggable Ribbon Strip (18" to 48") -->
+                    <div id="tape-strip" class="tape-strip">
+                      ${tapeCellsHtml}
+                    </div>
+                  </div>
+                </div>
+                <!-- Drag Hint -->
+                <p class="text-[11px] text-center text-slate-400 dark:text-zinc-500 mt-1 select-none font-serif">
+                  ${t('tapeDragHint')}
+                </p>
+              </div>
+
+              <!-- Quick Presets -->
+              <div class="pt-2">
+                <p class="text-xs font-bold text-slate-600 dark:text-zinc-400 mb-2 font-serif">
+                  ${t('tapePresetsHeading')}
+                </p>
+                <div id="tape-preset-chips" class="flex flex-wrap gap-2">
+                  ${presets.map(p => `
+                    <button 
+                      type="button" 
+                      data-inch="${p.val}"
+                      class="tape-preset-chip px-3 py-1.5 rounded-xl border border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-xs font-bold text-slate-700 dark:text-zinc-300 shadow-sm ${p.val === initialInch ? 'is-active' : ''}"
+                    >
+                      ${state.lang === 'bn' ? p.label_bn : p.label_en}
+                    </button>
+                  `).join('')}
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  function initTapeScrubber(prod) {
+    const toggleBtn = document.getElementById('tape-accordion-toggle');
+    const accordionBody = document.getElementById('tape-accordion-body');
+    const chevron = toggleBtn?.querySelector('.tape-chevron');
+    const viewport = document.getElementById('tape-viewport');
+    const strip = document.getElementById('tape-strip');
+    const drapeFabric = document.getElementById('tape-drape-fabric');
+    const drapeHem = document.getElementById('tape-drape-hem');
+    const badge = document.getElementById('tape-drape-level-badge');
+    const readoutInch = document.getElementById('tape-readout-inch');
+    const readoutHaat = document.getElementById('tape-readout-haat');
+    const readoutGojGira = document.getElementById('tape-readout-goj-gira');
+    const presetChips = document.querySelectorAll('#tape-preset-chips button');
+    const heightBtns = document.querySelectorAll('#tape-height-selector button');
+
+    if (!toggleBtn || !accordionBody || !viewport || !strip) return;
+
+    const cellWidth = 32; // 32px per inch
+    const minInch = 18;
+    const maxInch = 48;
+    let currentInch = state.tapeCurrentInch || prod.dimensions?.length_in || 31;
+    let currentProfile = state.tapeHeightProfile || 'regular';
+
+    // Toggle Accordion open/close
+    toggleBtn.addEventListener('click', () => {
+      const isClosed = accordionBody.classList.contains('hidden');
+      if (isClosed) {
+        accordionBody.classList.remove('hidden');
+        toggleBtn.setAttribute('aria-expanded', 'true');
+        state.isTapeAccordionOpen = true;
+        chevron?.classList.add('rotate-180');
+        setTimeout(() => updateTapePosition(currentInch, false), 50);
+      } else {
+        accordionBody.classList.add('hidden');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+        state.isTapeAccordionOpen = false;
+        chevron?.classList.remove('rotate-180');
+      }
+    });
+
+    function getDrapeDescription(inch, profileKey) {
+      const cfg = HEIGHT_PROFILES[profileKey] || HEIGHT_PROFILES.regular;
+      if (inch < cfg.kneeIn - 1.5) return t('tapeDrapeAboveKnee');
+      if (inch <= cfg.kneeIn + 2) return t('tapeDrapeKnee');
+      if (inch <= cfg.calfIn + 2) return t('tapeDrapeCalf');
+      if (inch <= cfg.ankleIn + 1.5) return t('tapeDrapeAnkle');
+      return t('tapeDrapeFloor');
+    }
+
+    function updateHeightLines(profileKey) {
+      const cfg = HEIGHT_PROFILES[profileKey] || HEIGHT_PROFILES.regular;
+      
+      const kneeLine = document.getElementById('tape-ref-knee-line');
+      const kneeText = document.getElementById('tape-ref-knee-text');
+      if (kneeLine && kneeText) {
+        kneeLine.setAttribute('y1', cfg.kneeY);
+        kneeLine.setAttribute('y2', cfg.kneeY);
+        kneeText.setAttribute('y', cfg.kneeY - 4);
+        kneeText.textContent = `${t('tapeKnee')} (~${state.lang === 'bn' ? toBengaliDigits(cfg.kneeIn) : cfg.kneeIn}")`;
+      }
+
+      const calfLine = document.getElementById('tape-ref-calf-line');
+      const calfText = document.getElementById('tape-ref-calf-text');
+      if (calfLine && calfText) {
+        calfLine.setAttribute('y1', cfg.calfY);
+        calfLine.setAttribute('y2', cfg.calfY);
+        calfText.setAttribute('y', cfg.calfY - 4);
+        calfText.textContent = `${t('tapeCalf')} (~${state.lang === 'bn' ? toBengaliDigits(cfg.calfIn) : cfg.calfIn}")`;
+      }
+
+      const ankleLine = document.getElementById('tape-ref-ankle-line');
+      const ankleText = document.getElementById('tape-ref-ankle-text');
+      if (ankleLine && ankleText) {
+        ankleLine.setAttribute('y1', cfg.ankleY);
+        ankleLine.setAttribute('y2', cfg.ankleY);
+        ankleText.setAttribute('y', cfg.ankleY - 4);
+        ankleText.textContent = `${t('tapeAnkle')} (~${state.lang === 'bn' ? toBengaliDigits(cfg.ankleIn) : cfg.ankleIn}")`;
+      }
+    }
+
+    function updateDrapeSilhouette(inch) {
+      if (!drapeFabric || !drapeHem) return;
+      const clamped = Math.max(minInch, Math.min(maxInch, inch));
+      const cfg = HEIGHT_PROFILES[currentProfile] || HEIGHT_PROFILES.regular;
+      
+      // Dynamic height mapping scaled to human proportion (starting at waist y=110)
+      const fabricHeight = Math.min(185, Math.round(clamped * cfg.pxPerInch));
+      drapeFabric.setAttribute('y', 110);
+      drapeFabric.setAttribute('height', fabricHeight);
+      drapeHem.setAttribute('y', 110 + fabricHeight - 6);
+
+      if (badge) {
+        badge.innerHTML = getDrapeDescription(clamped, currentProfile);
+      }
+    }
+
+    function updateReadouts(inch) {
+      const clamped = Math.max(minInch, Math.min(maxInch, inch));
+      if (readoutInch) {
+        readoutInch.textContent = `${state.lang === 'bn' ? toBengaliDigits(clamped) : clamped}"`;
+      }
+      if (readoutHaat) {
+        const h = (clamped / 18).toFixed(2);
+        readoutHaat.textContent = `${state.lang === 'bn' ? toBengaliDigits(h) : h} ${t('tapeHaatUnit')}`;
+      }
+      if (readoutGojGira) {
+        readoutGojGira.textContent = formatGiraAndGoj(clamped, state.lang);
+      }
+      viewport.setAttribute('aria-valuenow', clamped);
+
+      // Update preset chips active state
+      presetChips.forEach(chip => {
+        const chipInch = parseFloat(chip.dataset.inch);
+        if (Math.abs(chipInch - clamped) < 0.5) {
+          chip.classList.add('is-active');
+        } else {
+          chip.classList.remove('is-active');
+        }
+      });
+    }
+
+    function updateTapePosition(inch, animate = true) {
+      const vWidth = viewport.clientWidth || 360;
+      const targetX = (inch - minInch) * cellWidth + (cellWidth / 2);
+      const tx = (vWidth / 2) - targetX;
+
+      if (animate) {
+        strip.style.transition = 'transform 0.3s cubic-bezier(0.2, 0, 0.2, 1)';
+      } else {
+        strip.style.transition = 'none';
+      }
+
+      strip.style.transform = `translateX(${tx}px)`;
+      updateDrapeSilhouette(inch);
+      updateReadouts(inch);
+    }
+
+    function getInchFromTranslate(tx) {
+      const vWidth = viewport.clientWidth || 360;
+      const targetX = (vWidth / 2) - tx;
+      const rawInch = (targetX - (cellWidth / 2)) / cellWidth + minInch;
+      return Math.max(minInch, Math.min(maxInch, Math.round(rawInch * 2) / 2));
+    }
+
+    // Height Selector Listeners
+    heightBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentProfile = btn.dataset.height;
+        state.tapeHeightProfile = currentProfile;
+        heightBtns.forEach(b => b.classList.toggle('is-active', b === btn));
+        updateHeightLines(currentProfile);
+        updateDrapeSilhouette(currentInch);
+      });
+    });
+
+    // Drag Interaction (Mouse & Touch)
+    let isDragging = false;
+    let startX = 0;
+    let currentTx = 0;
+
+    function getCurrentTranslateX() {
+      const style = window.getComputedStyle(strip);
+      const transform = style.transform || style.webkitTransform;
+      if (transform && transform !== 'none') {
+        const matrix = transform.match(/^matrix\((.+)\)$/);
+        if (matrix) {
+          const values = matrix[1].split(', ');
+          return parseFloat(values[4]);
+        }
+      }
+      return 0;
+    }
+
+    function onDragStart(clientX) {
+      isDragging = true;
+      startX = clientX;
+      currentTx = getCurrentTranslateX();
+      strip.style.transition = 'none';
+      viewport.classList.add('is-dragging');
+    }
+
+    function onDragMove(clientX) {
+      if (!isDragging) return;
+      const dx = clientX - startX;
+      let newTx = currentTx + dx;
+
+      // Bound checking
+      const vWidth = viewport.clientWidth || 360;
+      const maxTx = (vWidth / 2) - (cellWidth / 2);
+      const minTx = (vWidth / 2) - ((maxInch - minInch) * cellWidth + (cellWidth / 2));
+
+      // Elastic resistance past bounds
+      if (newTx > maxTx) newTx = maxTx + (newTx - maxTx) * 0.2;
+      if (newTx < minTx) newTx = minTx + (newTx - minTx) * 0.2;
+
+      strip.style.transform = `translateX(${newTx}px)`;
+      const inch = getInchFromTranslate(newTx);
+      currentInch = inch;
+      state.tapeCurrentInch = inch;
+      updateDrapeSilhouette(inch);
+      updateReadouts(inch);
+    }
+
+    function onDragEnd() {
+      if (!isDragging) return;
+      isDragging = false;
+      viewport.classList.remove('is-dragging');
+      updateTapePosition(currentInch, true);
+    }
+
+    // Mouse events
+    viewport.addEventListener('mousedown', (e) => {
+      onDragStart(e.clientX);
+    });
+    window.addEventListener('mousemove', (e) => {
+      if (isDragging) {
+        e.preventDefault();
+        onDragMove(e.clientX);
+      }
+    });
+    window.addEventListener('mouseup', () => {
+      if (isDragging) onDragEnd();
+    });
+
+    // Touch events for mobile
+    viewport.addEventListener('touchstart', (e) => {
+      if (e.touches.length === 1) {
+        onDragStart(e.touches[0].clientX);
+      }
+    }, { passive: true });
+
+    viewport.addEventListener('touchmove', (e) => {
+      if (isDragging && e.touches.length === 1) {
+        onDragMove(e.touches[0].clientX);
+      }
+    }, { passive: true });
+
+    viewport.addEventListener('touchend', () => {
+      if (isDragging) onDragEnd();
+    });
+
+    // Mouse Wheel support
+    viewport.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const delta = Math.sign(e.deltaY || e.deltaX);
+      currentInch = Math.max(minInch, Math.min(maxInch, currentInch + delta * 0.5));
+      state.tapeCurrentInch = currentInch;
+      updateTapePosition(currentInch, true);
+    }, { passive: false });
+
+    // Preset chip clicks
+    presetChips.forEach(chip => {
+      chip.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const targetInch = parseFloat(chip.dataset.inch);
+        if (!isNaN(targetInch)) {
+          currentInch = targetInch;
+          state.tapeCurrentInch = currentInch;
+          updateTapePosition(currentInch, true);
+        }
+      });
+    });
+
+    // Keyboard accessibility
+    viewport.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        currentInch = Math.min(maxInch, currentInch + 0.5);
+        state.tapeCurrentInch = currentInch;
+        updateTapePosition(currentInch, true);
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        currentInch = Math.max(minInch, currentInch - 0.5);
+        state.tapeCurrentInch = currentInch;
+        updateTapePosition(currentInch, true);
+      }
+    });
+
+    // Window resize observer
+    window.addEventListener('resize', () => {
+      if (!accordionBody.classList.contains('hidden')) {
+        updateTapePosition(currentInch, false);
+      }
+    });
+
+    // Initial setup
+    updateHeightLines(currentProfile);
+    if (!accordionBody.classList.contains('hidden')) {
+      setTimeout(() => updateTapePosition(currentInch, false), 50);
+    }
+  }
+
   // --- RENDER DYNAMIC PRODUCT PAGE ---
   function renderProductPage() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -1093,6 +1829,9 @@
             </div>
           </div>
 
+          <!-- The Measuring Tape ("ফিতার মাপ") Accordion & Drape Guide -->
+          ${renderTapeAccordion(prod)}
+
           <!-- Craftsmanship Badge -->
           <div class="mb-6 p-4 rounded-2xl bg-emerald-50/50 dark:bg-yellow-500/5 border border-emerald-200/60 dark:border-yellow-500/20">
             <p class="text-xs font-bold text-[#166b58] dark:text-yellow-400 mb-1 font-title">
@@ -1195,6 +1934,9 @@
       addToCart(prod.id, state.currentQty);
       window.location.href = 'index.html#checkout-section';
     });
+
+    // Initialize Interactive Measuring Tape ("ফিতার মাপ") Accordion & Drape Scrubber
+    initTapeScrubber(prod);
 
     // Render Related Products
     renderRelatedProducts(prod.id);

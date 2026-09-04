@@ -122,11 +122,12 @@ export async function onRequestPost(context) {
   let dbOrderId = null;
 
   // 3. Supabase Integration
-  if (env.SUPABASE_URL && env.SUPABASE_SERVICE_ROLE_KEY) {
-    const supabaseUrl = env.SUPABASE_URL.replace(/\/$/, '');
+  if (env.SUPABASE_URL && (env.SUPABASE_SERVICE_ROLE_KEY || env.SUPABASE_ANON_KEY || env.SUPABASE_KEY)) {
+    const supabaseUrl = String(env.SUPABASE_URL).trim().replace(/\/+$/, '').replace(/\/rest\/v1\/?$/, '');
+    const supabaseKey = String(env.SUPABASE_SERVICE_ROLE_KEY || env.SUPABASE_ANON_KEY || env.SUPABASE_KEY).trim();
     const headers = {
-      'apikey': env.SUPABASE_SERVICE_ROLE_KEY,
-      'Authorization': `Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}`,
+      'apikey': supabaseKey,
+      'Authorization': `Bearer ${supabaseKey}`,
       'Content-Type': 'application/json'
     };
 

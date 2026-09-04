@@ -903,3 +903,255 @@ html[lang="bn"] .mfs-section-label {
   cursor: grabbing;
 }
 
+
+/* ==========================================================================
+   THE MEASURING TAPE ("ফিতার মাপ") ACCORDION & DRAPE GUIDE
+   - Authentic Tailor's Yellow Measuring Ribbon (#f5d342)
+   - Proportional Vector Silhouette with Dynamic Fabric Drape Animation
+   - Traditional Bengali Units: হাত (18"), গজ (36"), গিরা (2.25")
+   - Pure Serif & Nakshikantha Aesthetic
+   ========================================================================== */
+.tape-accordion-card {
+  border: 1.5px dashed rgba(30, 126, 104, 0.35);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.dark .tape-accordion-card {
+  border-color: rgba(242, 194, 0, 0.3);
+}
+
+.tape-accordion-card:hover {
+  border-color: var(--accent-primary);
+}
+
+.tape-accordion-btn[aria-expanded="true"] .tape-chevron {
+  transform: rotate(180deg);
+}
+
+/* Vintage Yellow Tailor Ribbon */
+.tape-track-outer {
+  background: #1c1917;
+  border-radius: 0.75rem;
+  padding: 4px;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.tape-viewport {
+  position: relative;
+  height: 64px;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  background: linear-gradient(180deg, #fce052 0%, #f5cf2a 45%, #eab308 100%);
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.4), inset 0 -2px 4px rgba(0, 0, 0, 0.25);
+  cursor: grab;
+  user-select: none;
+  touch-action: pan-y;
+}
+
+.tape-viewport:active,
+.tape-viewport.is-dragging {
+  cursor: grabbing;
+}
+
+/* Top & bottom stitching seams on ribbon */
+.tape-viewport::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-top: 1px dashed rgba(68, 64, 60, 0.6);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.tape-viewport::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-bottom: 1px dashed rgba(68, 64, 60, 0.6);
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Draggable Tape Ribbon Strip */
+.tape-strip {
+  display: flex;
+  height: 100%;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.tape-inch-cell {
+  position: relative;
+  height: 100%;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Centered Brass/Crimson Needle Indicator */
+.tape-needle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: #dc2626; /* Crimson pointer */
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 20;
+  box-shadow: 0 0 4px rgba(220, 38, 38, 0.6);
+}
+
+.tape-needle::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid #b91c1c;
+}
+
+.tape-needle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 6px solid #b91c1c;
+}
+
+/* Traditional Bengali Unit Rivet Badge */
+.tape-rivet-badge {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #991b1b;
+  color: #fff;
+  font-size: 9px;
+  line-height: 1;
+  padding: 1.5px 4px;
+  border-radius: 9999px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Mannequin Silhouette & Dynamic Drape Canvas */
+.tape-silhouette-svg {
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.08));
+}
+
+.dark .tape-silhouette-svg {
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
+}
+
+.tape-silhouette-shape {
+  fill: #334155;
+  stroke: #1e293b;
+  stroke-width: 0.5px;
+  transition: fill 0.3s ease;
+}
+
+.dark .tape-silhouette-shape {
+  fill: #27272a;
+  stroke: #3f3f46;
+}
+
+#tape-drape-fabric {
+  transition: height 0.12s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+/* Quick Preset Chips */
+.tape-preset-chip {
+  transition: all 0.18s ease;
+}
+
+.tape-preset-chip:hover {
+  border-color: var(--accent-primary);
+  transform: translateY(-1px);
+}
+
+.tape-preset-chip.is-active {
+  background-color: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: #ffffff !important;
+}
+
+.dark .tape-preset-chip.is-active {
+  color: #000000 !important;
+}
+
+/* 5-Way Height Selector Buttons */
+.tape-height-btn {
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.tape-height-btn.is-active {
+  background-color: #ffffff;
+  color: #0f172a !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.dark .tape-height-btn.is-active {
+  background-color: #27272a;
+  color: #ffffff !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* Reference line animation on silhouette */
+.tape-ref-line,
+.tape-ref-text {
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+/* Real-Time Drape Level Badge */
+.tape-drape-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 44px;
+  padding: 5px 12px;
+  border-radius: 12px;
+  font-size: 11px;
+  line-height: 1.25;
+  width: 100%;
+  max-width: 200px;
+  margin: 10px auto 0 auto;
+  box-sizing: border-box;
+  white-space: normal;
+  overflow: visible;
+  word-break: break-word;
+  transition: all 0.2s ease;
+}
+
+.tape-drape-sub {
+  font-size: 9.5px;
+  font-weight: 500;
+  opacity: 0.85;
+  line-height: 1.15;
+  margin-top: 2px;
+  display: block;
+}
