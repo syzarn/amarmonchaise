@@ -105,6 +105,166 @@
   font-display: swap;
 }
 
+/* --- Broadsheet Editorial Title Fonts: Shokuntola (Bengali) & Old English (English) --- */
+@font-face {
+  font-family: 'Shokuntola';
+  src: url('./files/Shokuntola/Shokuntola%20Unicode.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --- Broadsheet Editorial Title Fonts: Shokuntola (Bengali) & Fette Fraktur LT Pro (English) --- */
+@font-face {
+  font-family: 'FetteFrakturLTPro';
+  src: url('./files/FetteFrakturLTPro.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FetteFrakturLTPro';
+  src: url('./files/FetteFrakturLTPro.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Aliases for Fette Fraktur / Old English compatibility */
+@font-face {
+  font-family: 'FetteFraktur';
+  src: url('./files/FetteFrakturLTPro.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'OldEnglish';
+  src: url('./files/FetteFrakturLTPro.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --- Noto Serif Simplified Chinese: Specifically calibrated for character '無' (U+7121) --- */
+@font-face {
+  font-family: 'Noto Serif SC';
+  src: url('./files/NotoSerifSC/NotoSerifSC-Regular-Wu.ttf') format('truetype'),
+       url('https://fonts.gstatic.com/l/font?kit=H4cyBXePl9DZ0Xe7gG9cyOj7uK2-n-D2rd4FY7SCqyWv64kO8Yw&skey=37fe335b8fd815cc&v=v35') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+7121;
+}
+
+@font-face {
+  font-family: 'Noto Serif SC';
+  src: url('./files/NotoSerifSC/NotoSerifSC-Bold-Wu.ttf') format('truetype'),
+       url('https://fonts.gstatic.com/l/font?kit=H4cyBXePl9DZ0Xe7gG9cyOj7uK2-n-D2rd4FY7RlrCWv64kO8Yw&skey=37fe335b8fd815cc&v=v35') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+7121;
+}
+
+/* --- Broadsheet Masthead Bengali Font: Li Alinur Sangbadpatra Unicode --- */
+@font-face {
+  font-family: 'LiAlinurSangbadpatra';
+  src: url('./files/Li%20Alinur%20Sangbadpatra%20Unicode.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'LiAlinurSangbadpatra';
+  src: url('./files/Li%20Alinur%20Sangbadpatra%20Unicode.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --- Broadsheet Editorial English Product Titles Font: Bodoni 24 --- */
+@font-face {
+  font-family: 'Bodoni24';
+  src: url('./files/Bodoni24/Bodoni-24-Book.ttf') format('truetype'),
+       url('./files/Bodoni%2024/Bodoni-24-Book.ttf') format('truetype'),
+       url('./files/Bodoni 24/Bodoni-24-Book.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bodoni24';
+  src: url('./files/Bodoni24/Bodoni-24-Medium.ttf') format('truetype'),
+       url('./files/Bodoni%2024/Bodoni-24-Medium.ttf') format('truetype'),
+       url('./files/Bodoni 24/Bodoni-24-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bodoni24';
+  src: url('./files/Bodoni24/Bodoni-24-Bold.ttf') format('truetype'),
+       url('./files/Bodoni%2024/Bodoni-24-Bold.ttf') format('truetype'),
+       url('./files/Bodoni 24/Bodoni-24-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bodoni24';
+  src: url('./files/Bodoni24/Bodoni-24-Bold-Italic.ttf') format('truetype'),
+       url('./files/Bodoni%2024/Bodoni-24-Bold-Italic.ttf') format('truetype'),
+       url('./files/Bodoni 24/Bodoni-24-Bold-Italic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bodoni24';
+  src: url('./files/Bodoni24/Bodoni-24-Fatface.ttf') format('truetype'),
+       url('./files/Bodoni%2024/Bodoni-24-Fatface.ttf') format('truetype'),
+       url('./files/Bodoni 24/Bodoni-24-Fatface.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Also declare 'Bodoni 24' and 'Bodoni* 24pt' aliases for total compatibility */
+@font-face {
+  font-family: 'Bodoni 24';
+  src: url('./files/Bodoni24/Bodoni-24-Bold.ttf') format('truetype'),
+       url('./files/Bodoni%2024/Bodoni-24-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bodoni 24';
+  src: url('./files/Bodoni24/Bodoni-24-Book.ttf') format('truetype'),
+       url('./files/Bodoni%2024/Bodoni-24-Book.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bodoni* 24pt';
+  src: url('./files/Bodoni24/Bodoni-24-Bold.ttf') format('truetype'),
+       url('./files/Bodoni%2024/Bodoni-24-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ==========================================================================
    THEME VARIABLES
    ========================================================================== */
@@ -188,8 +348,8 @@ html[lang="en"] .secondary-text {
   line-height: 1.6;
 }
 
-html[lang="en"] a:not(.font-fell):not(.font-fell-italic):not(.font-fell-sc):not(.brand-hero-title),
-html[lang="en"] button:not(.font-fell):not(.font-fell-italic):not(.font-fell-sc),
+html[lang="en"] a:not(.font-fell):not(.font-fell-italic):not(.font-fell-sc):not(.brand-hero-title):not(.broadsheet-product-title):not(.broadsheet-lead-title):not(.broadsheet-companion-title):not(.broadsheet-dispatch-title):not(.font-bodoni):not(.font-shokuntola),
+html[lang="en"] button:not(.font-fell):not(.font-fell-italic):not(.font-fell-sc):not(.broadsheet-product-title),
 html[lang="en"] input,
 html[lang="en"] textarea,
 html[lang="en"] select,
@@ -263,6 +423,87 @@ html[lang="bn"] .font-halhed *,
 html[lang="bn"] .font-halhed-title * {
   font-weight: normal !important;
 }
+
+/* Broadsheet Typography Utilities */
+.font-shokuntola {
+  font-family: 'Shokuntola', serif !important;
+}
+
+.font-fette-fraktur,
+.font-fraktur,
+.font-old-english {
+  font-family: 'FetteFrakturLTPro', 'FetteFraktur', 'OldEnglish', serif !important;
+}
+
+.font-bodoni {
+  font-family: 'Bodoni24', serif !important;
+}
+
+.font-sangbadpatra {
+  font-family: 'LiAlinurSangbadpatra', serif !important;
+}
+
+/* 1. Broadsheet Section Masthead Title: Li Alinur Sangbadpatra Unicode (BN) & Fette Fraktur LT Pro (EN) */
+.broadsheet-section-title {
+  font-size: clamp(2.2rem, 4.5vw, 3.75rem) !important;
+  line-height: 1.18 !important;
+}
+
+html[lang="bn"] .broadsheet-section-title,
+html[lang="bn"] h2.broadsheet-section-title,
+html[lang="bn"] .font-broadsheet-title,
+html[lang="bn"] h2.font-broadsheet-title {
+  font-family: 'LiAlinurSangbadpatra', serif !important;
+  font-size: clamp(2.2rem, 4.5vw, 3.75rem) !important;
+  font-weight: 700 !important;
+  line-height: 1.22 !important;
+}
+
+html[lang="en"] .broadsheet-section-title,
+html[lang="en"] h2.broadsheet-section-title,
+html[lang="en"] .font-broadsheet-title,
+html[lang="en"] h2.font-broadsheet-title {
+  font-family: 'FetteFrakturLTPro', 'FetteFraktur', 'OldEnglish', serif !important;
+  font-size: clamp(2.2rem, 4.5vw, 3.75rem) !important;
+  font-weight: normal !important;
+  line-height: 1.18 !important;
+}
+
+/* 2. Broadsheet Product Titles: Shokuntola (BN) & Bodoni 24 (EN) */
+.broadsheet-product-title {
+  font-family: 'Shokuntola', serif;
+}
+
+html[lang="bn"] .broadsheet-product-title,
+html[lang="bn"] a.broadsheet-product-title,
+html[lang="bn"] .broadsheet-product-title *,
+html[lang="bn"] .broadsheet-lead-title,
+html[lang="bn"] a.broadsheet-lead-title,
+html[lang="bn"] .broadsheet-companion-title,
+html[lang="bn"] a.broadsheet-companion-title,
+html[lang="bn"] .broadsheet-dispatch-title,
+html[lang="bn"] a.broadsheet-dispatch-title,
+html[lang="bn"] .font-shokuntola,
+html[lang="bn"] a.font-shokuntola {
+  font-family: 'Shokuntola', serif !important;
+  font-weight: normal !important;
+}
+
+html[lang="en"] .broadsheet-product-title,
+html[lang="en"] a.broadsheet-product-title,
+html[lang="en"] .broadsheet-product-title *,
+html[lang="en"] .broadsheet-lead-title,
+html[lang="en"] a.broadsheet-lead-title,
+html[lang="en"] .broadsheet-companion-title,
+html[lang="en"] a.broadsheet-companion-title,
+html[lang="en"] .broadsheet-dispatch-title,
+html[lang="en"] a.broadsheet-dispatch-title,
+html[lang="en"] .font-bodoni,
+html[lang="en"] a.font-bodoni {
+  font-family: 'Bodoni24', 'Bodoni 24', 'Bodoni* 24pt', serif !important;
+  font-weight: 700 !important;
+}
+
 
 /* Price tags: strictly Purno in Bengali, GaramondHalhed in English (NEVER monospace), fully responsive to Tailwind sizing */
 html[lang="bn"] .price-tag {
@@ -507,6 +748,10 @@ html[lang="bn"] .product-card-title {
 
 .font-fell-sc {
   font-family: 'IMFellEnglishSC', 'IMFellEnglish', serif !important;
+}
+
+html[lang="bn"] .font-fell-sc {
+  font-family: 'Purno', 'GaramondHalhed', serif !important;
 }
 
 .font-halhed {
@@ -1154,4 +1399,187 @@ html[lang="bn"] .mfs-section-label {
   line-height: 1.15;
   margin-top: 2px;
   display: block;
+}
+
+/* ==========================================================================
+   ASYMMETRICAL NEWSPAPER BROADSHEET SECTION STYLES
+   ========================================================================== */
+.broadsheet-masthead-rule {
+  border-top: 2px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  padding: 5px 4px;
+}
+
+/* Broadsheet Masthead Dateline Bar Typography: Strictly Serif */
+.dateline-item {
+  font-family: 'Purno', 'GaramondHalhed', 'Noto Serif SC', serif;
+}
+
+html[lang="bn"] .broadsheet-masthead-rule,
+html[lang="bn"] .broadsheet-masthead-rule *,
+html[lang="bn"] .dateline-item {
+  font-family: 'Purno', 'GaramondHalhed', 'Noto Serif SC', serif !important;
+  font-weight: 700 !important;
+}
+
+html[lang="en"] .broadsheet-masthead-rule .dateline-left,
+html[lang="en"] .broadsheet-masthead-rule .dateline-right {
+  font-family: 'IMFellEnglishSC', 'GaramondHalhed', 'Noto Serif SC', serif !important;
+  letter-spacing: 0.08em;
+}
+
+html[lang="en"] .broadsheet-masthead-rule .dateline-center {
+  font-family: 'GaramondHalhed', 'IMFellEnglish', serif !important;
+  letter-spacing: 0.1em;
+}
+
+/* CJK Character '無' (Wu/Mu) explicitly in Noto Serif Simplified Chinese */
+.cjk-wu,
+.font-noto-serif-sc {
+  font-family: 'Noto Serif SC', serif !important;
+  font-weight: 700;
+  display: inline-block;
+  margin-left: 2px;
+  vertical-align: baseline;
+}
+
+html[lang="bn"] .cjk-wu,
+html[lang="en"] .cjk-wu {
+  font-family: 'Noto Serif SC', serif !important;
+}
+
+.broadsheet-card {
+  position: relative;
+  background-color: var(--bg-card);
+  border: 1px solid rgba(30, 126, 104, 0.2);
+  border-radius: 1rem;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.dark .broadsheet-card {
+  border-color: rgba(242, 194, 0, 0.2);
+}
+
+.broadsheet-card:hover {
+  border-color: var(--accent-primary);
+  box-shadow: 0 10px 28px -4px rgba(30, 126, 104, 0.12);
+}
+
+.dark .broadsheet-card:hover {
+  box-shadow: 0 10px 28px -4px rgba(242, 194, 0, 0.16);
+}
+
+.broadsheet-lead-card {
+  background: linear-gradient(135deg, rgba(30, 126, 104, 0.04) 0%, rgba(255, 255, 255, 0.96) 100%);
+  border: 1.5px solid rgba(30, 126, 104, 0.35);
+  box-shadow: 0 6px 24px -2px rgba(0, 0, 0, 0.06);
+}
+
+.dark .broadsheet-lead-card {
+  background: linear-gradient(135deg, rgba(242, 194, 0, 0.05) 0%, rgba(21, 21, 30, 0.98) 100%);
+  border-color: rgba(242, 194, 0, 0.35);
+  box-shadow: 0 6px 24px -2px rgba(0, 0, 0, 0.5);
+}
+
+/* Broadsheet Product Titles Sizing Calibration: Balanced, no clipping or overflow */
+.broadsheet-lead-title {
+  font-size: clamp(1.4rem, 2.3vw, 1.95rem) !important;
+  line-height: 1.25 !important;
+}
+
+html[lang="bn"] .broadsheet-lead-title {
+  font-size: clamp(1.5rem, 2.5vw, 2.1rem) !important;
+  line-height: 1.3 !important;
+}
+
+html[lang="en"] .broadsheet-lead-title {
+  font-size: clamp(1.35rem, 2.2vw, 1.85rem) !important;
+  line-height: 1.22 !important;
+  letter-spacing: -0.015em;
+}
+
+.broadsheet-companion-title {
+  font-size: 1.15rem !important;
+  line-height: 1.25 !important;
+}
+
+html[lang="bn"] .broadsheet-companion-title {
+  font-size: 1.15rem !important;
+  line-height: 1.3 !important;
+}
+
+html[lang="en"] .broadsheet-companion-title {
+  font-size: 1.125rem !important;
+  line-height: 1.25 !important;
+  letter-spacing: -0.01em;
+}
+
+.broadsheet-dispatch-title {
+  font-size: 1.35rem !important;
+  line-height: 1.25 !important;
+}
+
+html[lang="bn"] .broadsheet-dispatch-title {
+  font-size: 1.35rem !important;
+  line-height: 1.3 !important;
+}
+
+html[lang="en"] .broadsheet-dispatch-title {
+  font-size: 1.3rem !important;
+  line-height: 1.22 !important;
+  letter-spacing: -0.01em;
+}
+
+.broadsheet-quote {
+  position: relative;
+  border-left: 3px solid var(--accent-primary);
+  padding-left: 14px;
+  margin: 12px 0 16px 0;
+  font-style: italic;
+  line-height: 1.6;
+  opacity: 0.95;
+}
+
+.broadsheet-lead-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background-color: #bd3a54;
+  color: #ffffff !important;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 10.5px;
+  padding: 3px 10px;
+  border-radius: 9999px;
+}
+
+.dark .broadsheet-lead-badge {
+  background-color: #dc2626;
+  color: #ffffff !important;
+}
+
+.broadsheet-dispatch-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  background-color: rgba(30, 126, 104, 0.12);
+  color: #166b58;
+}
+
+.dark .broadsheet-dispatch-badge {
+  background-color: rgba(242, 194, 0, 0.15);
+  color: #ffd533;
+}
+
+.broadsheet-caption {
+  font-size: 11px;
+  line-height: 1.4;
+  opacity: 0.75;
+  font-style: italic;
 }

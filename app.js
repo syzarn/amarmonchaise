@@ -110,7 +110,22 @@
       valTrxIdInvalid: 'সঠিক TrxID প্রদান করুন (সর্বনিম্ন ৪ অক্ষর)।',
       duplicateTrxIdError: 'এই TrxID দিয়ে ইতিমধ্যে একটি অর্ডার সম্পন্ন হয়েছে। অনুগ্রহ করে সঠিক TrxID দিন।',
       orderFailed: 'অর্ডার প্রক্রিয়াকরণে সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।',
-      valCartEmpty: 'আপনার থলে খালি! অর্ডার করতে প্রথমে পণ্য যুক্ত করুন।'
+      valCartEmpty: 'আপনার থলে খালি! অর্ডার করতে প্রথমে পণ্য যুক্ত করুন।',
+      trendingEyebrow: 'চলতি খেয়াল ও গরম খবর',
+      trendingSectionTitle: 'মাসিক মঞ্চাইছে',
+      trendingSectionSub: 'অ্যালগরিদম নয়, আমাদের মনমৌজি খেয়ালে যা সবার মন কেড়েছে। মুদ্রিত পাতায় আজকের বিশেষ আকর্ষণ!',
+      trendingDatelineLeft: 'ভলিউম ১ • সংখ্যা ২৭',
+      trendingDatelineCenter: 'ঢাকা, ২০২৬ • মাসিক পত্রিকা • বিশেষ প্রকাশনা',
+      trendingDatelineRight: 'মূল্য: <span class="cjk-wu font-noto-serif-sc">無</span>',
+      trendingLeadBadge: 'সম্পাদকীয় • মূল আকর্ষণ',
+      trendingLeadQuote: '“পাহাড়ের কোমর তাঁতে বোনা গাঢ় কালো ক্যানভাসে লাল আর সোনালী সুতোর এই জ্যামিতিই মঞ্চাইছের শুরুর গল্প।”',
+      trendingLeadDesc: 'কোনো আধুনিক মেশিনের সহায়তা ছাড়া, আদিবাসী নারীদের ধৈর্য্য আর নিখুঁত শৈল্পিক বুননে পাহাড়ি কোমর তাঁতে তৈরি হয় এই ঐতিহ্যবাহী বসন। এর প্রতিটি সুতোর বন্ধনে মিশে আছে যুগ যুগান্তরের পাহাড়ি সংস্কৃতি ও জীবনগাঁথা।',
+      trendingLeadCaption: 'চিত্র ১: ঐতিহ্যবাহী কোমর তাঁতের বুননে রক্তিম পাড় ও জ্যামিতিক নকশা',
+      trendingReadStory: 'আসল গল্প পড়ুন',
+      trendingDispatchBadge1: 'মাসিক প্রতিবেদন',
+      trendingDispatchBadge2: 'শিল্প কলাম',
+      trendingDispatchBadge3: 'স্বাদ ও ঘ্রাণ',
+      trendingTeaQuote: '“বাঁশের চোঙায় কাঠের ধোঁয়ায় সেঁকা পাতা—এক কাপেই পাহাড়ের মেঘলা সন্ধ্যার ঘ্রাণ।”'
     },
     en: {
       siteTitle: 'Mon Chaise | মঞ্চাইছে',
@@ -210,7 +225,22 @@
       valTrxIdInvalid: 'Please enter a valid TrxID (min 4 characters).',
       duplicateTrxIdError: 'This TrxID has already been submitted for another order. Please provide a valid TrxID.',
       orderFailed: 'Failed to process order. Please check your information and try again.',
-      valCartEmpty: 'Your cart is empty! Please add items before checking out.'
+      valCartEmpty: 'Your cart is empty! Please add items before checking out.',
+      trendingEyebrow: 'HOT DISPATCH & TRENDING CURIOS',
+      trendingSectionTitle: 'The Monthly Mon Chaiſe',
+      trendingSectionSub: 'No cold algorithms; just the curios that captured hearts. Fresh off the vintage printing press.',
+      trendingDatelineLeft: 'VOL. I • NO. 27',
+      trendingDatelineCenter: 'DHAKA, 2026 • MONTHLY BROADSHEET • SPECIAL EDITION',
+      trendingDatelineRight: 'PRICE: <span class="cjk-wu font-noto-serif-sc">無</span>',
+      trendingLeadBadge: 'HOT EDITORIAL • LEAD CURIO',
+      trendingLeadQuote: '“Woven meticulously on indigenous waist looms, this dense black canvas banded in crimson and gold is the very genesis of Mon Chaise.”',
+      trendingLeadDesc: 'Crafted without modern power looms, each piece is woven row by painstaking row on traditional backstrap waist looms by indigenous women artisans. A testament to ancestral textile heritage.',
+      trendingLeadCaption: 'Plate I: Crimson chevron bands and geometric motifs on dense handloom cotton canvas',
+      trendingReadStory: 'Read Full Story',
+      trendingDispatchBadge1: 'MONTHLY REPORT',
+      trendingDispatchBadge2: 'ARTISAN COLUMN',
+      trendingDispatchBadge3: 'AROMA & FLAVOUR',
+      trendingTeaQuote: '“Smoked in bamboo cylinders over wildwood embers—an aroma of misty hills in every cup.”'
     }
   };
 
@@ -579,7 +609,8 @@
     mfsNumbersGrid: document.getElementById('mfs-numbers-grid'),
     toastContainer: document.getElementById('toast-container'),
     orderReceiptModal: document.getElementById('order-receipt-modal'),
-    quickViewModal: document.getElementById('quick-view-modal')
+    quickViewModal: document.getElementById('quick-view-modal'),
+    trendingNewspaperGrid: document.getElementById('trending-newspaper-grid')
   };
 
   // --- THEME ENGINE ---
@@ -870,6 +901,228 @@
     });
   }
 
+  // --- TRENDING NEWSPAPER BROADSHEET SECTION ---
+  function renderTrendingNewspaper() {
+    if (!elements.trendingNewspaperGrid) return;
+
+    // Lead editorial centerpiece: Traditional Handloom Thami (amc-100 / thami)
+    const leadProd = PRODUCTS.find(p => p.slug === 'thami' || p.id === 'amc-100') || PRODUCTS[0];
+
+    // 3 companion curios for the broadsheet grid
+    const disp1 = PRODUCTS.find(p => p.slug === 'retro-cassette-lamp' || p.id === 'amc-104') || PRODUCTS[1];
+    const disp2 = PRODUCTS.find(p => p.slug === 'rickshaw-coaster' || p.id === 'amc-102') || PRODUCTS[2];
+    const disp3 = PRODUCTS.find(p => p.slug === 'smoked-tea' || p.id === 'amc-105') || PRODUCTS[3];
+
+    if (!leadProd) return;
+
+    const leadTitle = state.lang === 'bn' ? leadProd.name_bn : leadProd.name_en;
+    const leadPricing = getProductPricing(leadProd);
+    const leadImage = leadProd.image || (leadProd.images && leadProd.images[0]) || 'files/products/thami-1.svg';
+
+    const disp1Title = disp1 ? (state.lang === 'bn' ? disp1.name_bn : disp1.name_en) : '';
+    const disp1Pricing = disp1 ? getProductPricing(disp1) : null;
+    const disp1Image = disp1 ? (disp1.image || (disp1.images && disp1.images[0]) || 'files/products/retro-cassette-lamp-1.svg') : '';
+    const disp1Desc = disp1 ? (state.lang === 'bn' ? (disp1.short_desc_bn || disp1.desc_bn) : (disp1.short_desc_en || disp1.desc_en)) : '';
+
+    const disp2Title = disp2 ? (state.lang === 'bn' ? disp2.name_bn : disp2.name_en) : '';
+    const disp2Pricing = disp2 ? getProductPricing(disp2) : null;
+    const disp2Image = disp2 ? (disp2.image || (disp2.images && disp2.images[0]) || 'files/products/rickshaw-coaster-1.svg') : '';
+    const disp2Desc = disp2 ? (state.lang === 'bn' ? (disp2.short_desc_bn || disp2.desc_bn) : (disp2.short_desc_en || disp2.desc_en)) : '';
+
+    const disp3Title = disp3 ? (state.lang === 'bn' ? disp3.name_bn : disp3.name_en) : '';
+    const disp3Pricing = disp3 ? getProductPricing(disp3) : null;
+    const disp3Image = disp3 ? (disp3.image || (disp3.images && disp3.images[0]) || 'files/products/smoked-tea-1.svg') : '';
+
+    elements.trendingNewspaperGrid.innerHTML = `
+      <!-- 1. LEAD STORY CENTERPIECE: Spans 2 Columns × 2 Rows on Desktop & Tablet -->
+      <article class="broadsheet-card broadsheet-lead-card p-5 sm:p-7 col-span-1 md:col-span-2 lg:col-span-2 md:row-span-2 lg:row-span-2 flex flex-col justify-between overflow-hidden group">
+        <div>
+          <!-- Header Bar with Editorial Badge & Number -->
+          <div class="flex items-center justify-between gap-2 pb-3 border-b border-slate-200/80 dark:border-zinc-800">
+            <span class="broadsheet-lead-badge">
+              <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+              ${t('trendingLeadBadge')}
+            </span>
+            <span class="text-[11px] font-bold text-slate-400 dark:text-zinc-500 font-fell-sc tracking-wider">
+              #${leadProd.id} • LEAD DISPATCH
+            </span>
+          </div>
+
+          <!-- Oversized Editorial Title in Shokuntola (BN) / Bodoni 24 (EN) -->
+          <a href="product.html?id=${leadProd.slug}" class="block mt-3.5 mb-2 broadsheet-product-title broadsheet-lead-title font-bodoni text-slate-950 dark:text-zinc-100 hover:text-[#166b58] dark:hover:text-yellow-400 transition-colors">
+            ${leadTitle}
+          </a>
+
+          <!-- Front-Page Narrative Pull-Quote -->
+          <blockquote class="broadsheet-quote text-slate-700 dark:text-zinc-200 text-sm sm:text-base">
+            ${t('trendingLeadQuote')}
+          </blockquote>
+
+          <!-- Editorial Lead Image with Anti-Download Shield & BroadSheet Border -->
+          <a href="product.html?id=${leadProd.slug}" class="block relative w-full aspect-[16/10] rounded-xl bg-white dark:bg-[#0c0c12] border border-dashed border-[#1e7e68]/30 dark:border-yellow-500/30 p-3 sm:p-5 my-3 flex items-center justify-center overflow-hidden select-none" oncontextmenu="return false;" ondragstart="return false;">
+            <div class="image-protection-overlay absolute inset-0 z-20" oncontextmenu="return false;" ondragstart="return false;"></div>
+            <img src="${leadImage}" alt="${leadTitle}" class="max-h-full max-w-full object-contain pointer-events-none select-none transition-transform duration-500 group-hover:scale-105 drop-shadow-md" draggable="false" oncontextmenu="return false;" />
+            <div class="absolute bottom-2 right-2 text-[10px] text-slate-400 dark:text-zinc-600 tracking-tighter">
+              CHAKMA WEAVE • 100% COTTON
+            </div>
+          </a>
+          <p class="broadsheet-caption text-slate-500 dark:text-zinc-400 mb-3 px-0.5">
+            ${t('trendingLeadCaption')}
+          </p>
+
+          <!-- Editorial Narrative Story Paragraph -->
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-zinc-300 leading-relaxed mb-4 secondary-text">
+            ${t('trendingLeadDesc')}
+          </p>
+        </div>
+
+        <!-- Footer Pricing & Interactive Actions -->
+        <div class="pt-4 border-t border-slate-200/80 dark:border-zinc-800 flex flex-wrap items-center justify-between gap-3 mt-auto">
+          <div class="flex items-baseline gap-2">
+            <span class="price-tag text-2xl sm:text-3xl md:text-4xl font-black text-[#166b58] dark:text-yellow-400">
+              ${formatMoney(leadPricing.currentPrice)}
+            </span>
+            ${leadPricing.hasDiscount ? `
+              <span class="price-original text-xs sm:text-sm font-semibold text-slate-400 dark:text-zinc-500 line-through">
+                ${formatMoney(leadPricing.origPrice)}
+              </span>
+            ` : ''}
+          </div>
+
+          <div class="flex items-center gap-2">
+            <a href="product.html?id=${leadProd.slug}" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-slate-700 dark:text-zinc-200 font-bold text-xs transition-all shadow-sm">
+              ${t('trendingReadStory')}
+            </a>
+            <button type="button" data-add-cart="${leadProd.id}" class="px-4 py-2 rounded-xl bg-[#1e7e68] hover:bg-[#166b58] dark:bg-yellow-400 dark:hover:bg-yellow-300 text-white dark:text-black font-extrabold text-xs sm:text-sm shadow-md hover:scale-105 active:scale-95 transition-all flex items-center gap-1.5" title="${t('addToCart')}">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+              <span>${t('addToCart')}</span>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      ${disp1 ? `
+      <!-- 2. COMPANION DISPATCH 1: Top Right (Col 3, Row 1 on Desktop) -->
+      <article class="broadsheet-card p-4 sm:p-5 col-span-1 md:col-span-1 lg:col-span-1 flex flex-col justify-between overflow-hidden group">
+        <div>
+          <div class="flex items-center justify-between gap-1 mb-2.5">
+            <span class="broadsheet-dispatch-badge">${t('trendingDispatchBadge1')}</span>
+            <span class="text-[10px] text-slate-400 dark:text-zinc-500">#${disp1.id}</span>
+          </div>
+
+          <a href="product.html?id=${disp1.slug}" class="block relative w-full aspect-square rounded-xl bg-slate-50/80 dark:bg-zinc-950/80 border border-dashed border-[#1e7e68]/25 dark:border-yellow-500/25 flex items-center justify-center p-3 mb-3 overflow-hidden select-none" oncontextmenu="return false;" ondragstart="return false;">
+            <div class="image-protection-overlay absolute inset-0 z-20" oncontextmenu="return false;" ondragstart="return false;"></div>
+            <img src="${disp1Image}" alt="${disp1Title}" class="max-h-full max-w-full object-contain pointer-events-none select-none transition-transform duration-300 group-hover:scale-110 drop-shadow-sm" draggable="false" oncontextmenu="return false;" />
+          </a>
+
+          <a href="product.html?id=${disp1.slug}" class="block broadsheet-product-title broadsheet-companion-title font-bodoni font-normal text-slate-900 dark:text-white hover:text-[#1e7e68] dark:hover:text-yellow-400 transition-colors line-clamp-2 leading-snug mb-1.5">
+            ${disp1Title}
+          </a>
+
+          <p class="text-xs text-slate-600 dark:text-zinc-300 line-clamp-2 mb-3 secondary-text">
+            ${disp1Desc}
+          </p>
+        </div>
+
+        <div class="pt-2.5 border-t border-slate-100 dark:border-zinc-800/80 flex items-center justify-between gap-2 mt-auto">
+          <span class="price-tag text-lg sm:text-2xl font-black text-[#166b58] dark:text-yellow-400">
+            ${disp1Pricing ? formatMoney(disp1Pricing.currentPrice) : ''}
+          </span>
+          <button type="button" data-add-cart="${disp1.id}" class="flex items-center justify-center w-9 h-9 rounded-xl bg-[#1e7e68] hover:bg-[#166b58] dark:bg-yellow-400 dark:hover:bg-yellow-300 text-white dark:text-black font-bold shadow-sm hover:scale-105 active:scale-95 transition-all shrink-0" title="${t('addToCart')}">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+          </button>
+        </div>
+      </article>
+      ` : ''}
+
+      ${disp2 ? `
+      <!-- 3. COMPANION DISPATCH 2: Top Far-Right (Col 4, Row 1 on Desktop) -->
+      <article class="broadsheet-card p-4 sm:p-5 col-span-1 md:col-span-1 lg:col-span-1 flex flex-col justify-between overflow-hidden group">
+        <div>
+          <div class="flex items-center justify-between gap-1 mb-2.5">
+            <span class="broadsheet-dispatch-badge">${t('trendingDispatchBadge2')}</span>
+            <span class="text-[10px] text-slate-400 dark:text-zinc-500">#${disp2.id}</span>
+          </div>
+
+          <a href="product.html?id=${disp2.slug}" class="block relative w-full aspect-square rounded-xl bg-slate-50/80 dark:bg-zinc-950/80 border border-dashed border-[#1e7e68]/25 dark:border-yellow-500/25 flex items-center justify-center p-3 mb-3 overflow-hidden select-none" oncontextmenu="return false;" ondragstart="return false;">
+            <div class="image-protection-overlay absolute inset-0 z-20" oncontextmenu="return false;" ondragstart="return false;"></div>
+            <img src="${disp2Image}" alt="${disp2Title}" class="max-h-full max-w-full object-contain pointer-events-none select-none transition-transform duration-300 group-hover:scale-110 drop-shadow-sm" draggable="false" oncontextmenu="return false;" />
+          </a>
+
+          <a href="product.html?id=${disp2.slug}" class="block broadsheet-product-title broadsheet-companion-title font-bodoni font-normal text-slate-900 dark:text-white hover:text-[#1e7e68] dark:hover:text-yellow-400 transition-colors line-clamp-2 leading-snug mb-1.5">
+            ${disp2Title}
+          </a>
+
+          <p class="text-xs text-slate-600 dark:text-zinc-300 line-clamp-2 mb-3 secondary-text">
+            ${disp2Desc}
+          </p>
+        </div>
+
+        <div class="pt-2.5 border-t border-slate-100 dark:border-zinc-800/80 flex items-center justify-between gap-2 mt-auto">
+          <span class="price-tag text-lg sm:text-2xl font-black text-[#166b58] dark:text-yellow-400">
+            ${disp2Pricing ? formatMoney(disp2Pricing.currentPrice) : ''}
+          </span>
+          <button type="button" data-add-cart="${disp2.id}" class="flex items-center justify-center w-9 h-9 rounded-xl bg-[#1e7e68] hover:bg-[#166b58] dark:bg-yellow-400 dark:hover:bg-yellow-300 text-white dark:text-black font-bold shadow-sm hover:scale-105 active:scale-95 transition-all shrink-0" title="${t('addToCart')}">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+          </button>
+        </div>
+      </article>
+      ` : ''}
+
+      ${disp3 ? `
+      <!-- 4. COMPANION DISPATCH 3: Bottom Right Horizontal Feature (Spans Col 3-4, Row 2 on Desktop) -->
+      <article class="broadsheet-card p-4 sm:p-6 col-span-1 md:col-span-3 lg:col-span-2 flex flex-col sm:flex-row items-center gap-4 sm:gap-6 overflow-hidden group">
+        <!-- Visual Frame -->
+        <a href="product.html?id=${disp3.slug}" class="block relative w-full sm:w-44 aspect-square shrink-0 rounded-xl bg-slate-50/80 dark:bg-zinc-950/80 border border-dashed border-[#1e7e68]/25 dark:border-yellow-500/25 flex items-center justify-center p-3 overflow-hidden select-none" oncontextmenu="return false;" ondragstart="return false;">
+          <div class="image-protection-overlay absolute inset-0 z-20" oncontextmenu="return false;" ondragstart="return false;"></div>
+          <img src="${disp3Image}" alt="${disp3Title}" class="max-h-full max-w-full object-contain pointer-events-none select-none transition-transform duration-300 group-hover:scale-110 drop-shadow-sm" draggable="false" oncontextmenu="return false;" />
+        </a>
+
+        <!-- Content Details -->
+        <div class="flex-1 w-full flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-1 mb-1.5">
+              <span class="broadsheet-dispatch-badge">${t('trendingDispatchBadge3')}</span>
+              <span class="text-[10px] text-slate-400 dark:text-zinc-500">#${disp3.id}</span>
+            </div>
+
+            <a href="product.html?id=${disp3.slug}" class="block broadsheet-product-title broadsheet-dispatch-title font-bodoni font-normal text-slate-900 dark:text-white hover:text-[#1e7e68] dark:hover:text-yellow-400 transition-colors leading-tight mb-2">
+              ${disp3Title}
+            </a>
+
+            <blockquote class="broadsheet-quote text-xs sm:text-sm text-slate-600 dark:text-zinc-300 my-2">
+              ${t('trendingTeaQuote')}
+            </blockquote>
+          </div>
+
+          <div class="pt-3 border-t border-slate-100 dark:border-zinc-800/80 flex items-center justify-between gap-3 mt-2">
+            <span class="price-tag text-xl sm:text-3xl font-black text-[#166b58] dark:text-yellow-400">
+              ${disp3Pricing ? formatMoney(disp3Pricing.currentPrice) : ''}
+            </span>
+            <div class="flex items-center gap-2">
+              <a href="product.html?id=${disp3.slug}" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-slate-700 dark:text-zinc-200 font-bold text-xs transition-all">
+                ${t('viewDetails')}
+              </a>
+              <button type="button" data-add-cart="${disp3.id}" class="flex items-center gap-1 px-3.5 py-2 rounded-xl bg-[#1e7e68] hover:bg-[#166b58] dark:bg-yellow-400 dark:hover:bg-yellow-300 text-white dark:text-black font-extrabold text-xs shadow-sm hover:scale-105 active:scale-95 transition-all shrink-0" title="${t('addToCart')}">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                <span>${t('addToCart')}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+      ` : ''}
+    `;
+
+    // Wire up Add to Cart buttons within the broadsheet grid
+    elements.trendingNewspaperGrid.querySelectorAll('[data-add-cart]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        addToCart(btn.dataset.addCart, 1);
+      });
+    });
+  }
+
   // Quick View Modal
   function showQuickView(productId) {
     const prod = PRODUCTS.find(p => p.id === productId);
@@ -1127,6 +1380,7 @@
 
     renderCategories();
     renderProducts();
+    renderTrendingNewspaper();
     updateCartUI();
     renderMfsNumbers();
   }
@@ -1452,6 +1706,7 @@
     // Refresh dynamic catalog from data/products.json if available
     loadCatalogData().then(() => {
       renderProducts();
+      renderTrendingNewspaper();
       updateCartUI();
       updateCheckoutCalculations();
     });

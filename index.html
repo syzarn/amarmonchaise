@@ -228,6 +228,56 @@
   <!-- ================= SECTION DIVIDER: HANDLOOM WEAVE STRIP ================= -->
   <div class="handloom-banner-slim w-full opacity-90"></div>
 
+  <!-- ================= TRENDING / HOT: ASYMMETRICAL NEWSPAPER BROADSHEET ================= -->
+  <section id="trending-newspaper-section"
+    class="relative py-10 sm:py-14 border-b border-slate-200 dark:border-zinc-900 bg-[#fdfdfb] dark:bg-[#07070b] transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Broadsheet Masthead Header -->
+      <div class="mb-8 text-center">
+        <!-- Top double-ruled bar with dateline -->
+        <div
+          class="broadsheet-masthead-rule text-slate-800 dark:text-zinc-300 flex flex-wrap items-center justify-between gap-2 text-[10px] sm:text-xs font-semibold tracking-wider uppercase border-t-2 border-b border-slate-800 dark:border-yellow-500/80 py-1.5 px-1">
+          <span class="dateline-item dateline-left" data-i18n="trendingDatelineLeft">ভলিউম ১ • সংখ্যা ২৬</span>
+          <span class="dateline-item dateline-center font-bold text-center tracking-widest text-[#166b58] dark:text-yellow-400"
+            data-i18n="trendingDatelineCenter">ঢাকা, ২০২৬ • দৈনিক মন যা চায় • বিশেষ প্রকাশনা</span>
+          <span class="dateline-item dateline-right" data-i18n="trendingDatelineRight">মূল্য: <span class="cjk-wu font-noto-serif-sc">無</span></span>
+        </div>
+
+        <!-- Section Headline Banner -->
+        <div class="pt-5 pb-2 flex flex-col items-center justify-center">
+          <div class="inline-flex items-center gap-2 mb-2">
+            <span class="w-6 h-0.5 bg-[#bd3a54] dark:bg-red-500"></span>
+            <span
+              class="text-xs sm:text-sm font-bold uppercase tracking-widest text-[#bd3a54] dark:text-red-400 font-fell-sc"
+              data-i18n="trendingEyebrow">
+              চলতি খেয়াল ও গরম খবর
+            </span>
+            <span class="w-6 h-0.5 bg-[#bd3a54] dark:bg-red-500"></span>
+          </div>
+          <h2
+            class="broadsheet-section-title font-broadsheet-title text-slate-900 dark:text-white tracking-tight leading-tight py-1"
+            data-i18n="trendingSectionTitle">
+            আজকের সান্ধ্য বিশেষ ক্রোড়পত্র
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-zinc-400 mt-1 max-w-xl italic secondary-text"
+            data-i18n="trendingSectionSub">
+            অ্যালগরিদম নয়, আমাদের মনমৌজি খেয়ালে যা সবার মন কেড়েছে—মুদ্রিত পাতায় আজকের বিশেষ আকর্ষণ।
+          </p>
+        </div>
+
+        <!-- Bottom thin divider rule -->
+        <div class="border-b border-slate-300 dark:border-zinc-800 mt-3"></div>
+      </div>
+
+      <!-- Asymmetrical Newspaper Grid Container: Injected dynamically via app.js -->
+      <div id="trending-newspaper-grid" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-6">
+        <!-- Injected by renderTrendingNewspaper() in app.js -->
+      </div>
+
+    </div>
+  </section>
+
   <!-- ================= PRODUCT CATALOG SECTION ================= -->
   <main id="catalog-section" class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full">
 
