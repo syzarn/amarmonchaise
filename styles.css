@@ -302,6 +302,16 @@
   font-display: swap;
 }
 
+/* --- Receipt Order Code Stamp Font: Confidential --- */
+@font-face {
+  font-family: 'Confidential';
+  src: url('./files/Confidential%20Regular.otf') format('opentype'),
+       url('./files/Confidential_Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ==========================================================================
    THEME VARIABLES
    ========================================================================== */
@@ -1731,6 +1741,32 @@ html[lang="en"] #receipt-bn-content .font-biro {
   font-family: 'BiroScript', cursive !important;
   font-size: 19px !important;
   letter-spacing: 0.04em !important;
+}
+
+/* 4. Confidential Stamp Font: Strictly for Order Code on Bengali Receipt */
+.receipt-paper-bn .receipt-order-code-stamp,
+#receipt-bn-content .receipt-order-code-stamp,
+html[lang="bn"] .receipt-paper-bn .receipt-order-code-stamp,
+html[lang="bn"] .receipt-paper-bn .receipt-order-code-stamp *,
+html[lang="en"] .receipt-paper-bn .receipt-order-code-stamp,
+html[lang="en"] .receipt-paper-bn .receipt-order-code-stamp *,
+html[lang="bn"] #receipt-bn-content .receipt-order-code-stamp,
+html[lang="bn"] #receipt-bn-content .receipt-order-code-stamp *,
+html[lang="en"] #receipt-bn-content .receipt-order-code-stamp,
+html[lang="en"] #receipt-bn-content .receipt-order-code-stamp * {
+  font-family: 'Confidential', monospace !important;
+  color: #2b287a !important; /* Authentic stamp seal blue/purple ink */
+  font-size: 24px !important;
+  letter-spacing: 0.08em !important;
+  line-height: 1 !important;
+  display: inline-block;
+  vertical-align: middle;
+  transform: rotate(-1deg);
+  opacity: 0.95;
+  mix-blend-mode: multiply;
+  margin-left: 6px;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
 }
 
 /* Receipt Action Button Pill */

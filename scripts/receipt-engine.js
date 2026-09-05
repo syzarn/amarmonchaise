@@ -229,7 +229,7 @@
     const totalWords = numberToBengaliWords(total);
 
     const paymentMethodLabel = order.payment?.method === 'cod'
-      ? 'ক্যাশ অন ডেলিভারি (COD)'
+      ? 'ক্যাশ অন ডেলিভারি'
       : 'অগ্রিম এমএফএস সেন্ড মানি';
 
     const districtLabel = order.customer?.district === 'dhaka'
@@ -246,12 +246,12 @@
       <div id="receipt-bn-content" class="receipt-paper-bn select-none">
         <!-- Top Traditional Invocation Banner -->
         <div style="text-align: center; margin-bottom: 6px; font-size: 18px; letter-spacing: 0.08em;">
-          <span>॥ ঀ ॥</span>
+          <span>॥ ৭ ॥</span>
         </div>
 
         <!-- Store Masthead (হাতে লেখা খাতা মেমো) -->
         <div style="text-align: center; border-bottom: 2px solid rgba(189,58,84,0.4); padding-bottom: 8px; margin-bottom: 12px;">
-          <h1 style="font-size: 42px; font-weight: bold; margin: 0; line-height: 1.1; color: #166b58;">মঞ্চাইছে</h1>
+          <h1 style="font-size: 42px; font-weight: bold; margin: 0; line-height: 1.1; color: #a71a1aff;">মঞ্চাইছে</h1>
           <p style="font-size: 18px; margin: 2px 0 0; color: #4a3b32;">হস্তশিল্প, শৌখিন কারুশিল্প ও তাঁতবস্ত্রের মেমো</p>
           <p style="font-size: 15px; margin: 2px 0 0; opacity: 0.85;">ঢাকা, বাংলাদেশ — জরুরি যোগাযোগ: ০১৪১০-০০২৭১১</p>
         </div>
@@ -259,7 +259,7 @@
         <!-- Customer & Order Meta Information -->
         <div style="margin-bottom: 12px; font-size: 17px; line-height: 1.6;">
           <div style="display: flex; justify-content: space-between; flex-wrap: wrap; border-bottom: 1px dashed rgba(123,156,179,0.45); padding-bottom: 4px; margin-bottom: 6px;">
-            <span><strong>মেমো নং:</strong> ${toBengaliDigits(order.orderId)}</span>
+            <span><strong>মেমো নং:</strong> <span class="receipt-order-code-stamp">${order.orderId}</span></span>
             <span><strong>তারিখ:</strong> ${dateFormatted}</span>
           </div>
           <div>
@@ -335,6 +335,71 @@
     `;
   }
 
+  // --- CODE 128 (SET B) BARCODE SVG GENERATOR ---
+  const CODE128_PATTERNS = [
+    '212222', '222122', '222221', '121223', '121322', '131222', '122213', '122312', '132212', '221213',
+    '221312', '231212', '112232', '122132', '122231', '113222', '123122', '123221', '223211', '221132',
+    '221231', '213212', '223112', '312131', '311222', '321122', '321221', '312212', '322112', '322211',
+    '212123', '212321', '232121', '111323', '131123', '131321', '112313', '132113', '132311', '211313',
+    '231113', '231311', '112133', '112331', '132131', '113123', '113321', '133121', '313121', '211331',
+    '231131', '213113', '213311', '213131', '311123', '311321', '331121', '312113', '312311', '332111',
+    '314111', '221411', '431111', '111224', '111422', '121124', '121421', '141122', '141221', '112214',
+    '112412', '122114', '122411', '142112', '142211', '241211', '221114', '413111', '241112', '134111',
+    '111242', '121142', '121241', '114212', '124112', '124211', '411212', '421112', '421211', '212141',
+    '214121', '412121', '111143', '111341', '131141', '114113', '114311', '411113', '411311', '113141',
+    '114131', '311141', '411131', '211412', '211214', '211232', '2331112'
+  ];
+
+  function generateCode128Svg(text, options = {}) {
+    const raw = String(text || '').trim();
+    if (!raw) return '';
+    const height = options.height || 42;
+    const barWidth = options.barWidth || 1.6;
+    const quietZone = options.quietZone || 10;
+
+    // Code Set B (standard for ASCII alphanumeric)
+    const startVal = 104;
+    const values = [startVal];
+    let checksum = startVal;
+
+    for (let i = 0; i < raw.length; i++) {
+      const code = raw.charCodeAt(i) - 32;
+      const validCode = (code >= 0 && code <= 95) ? code : 0;
+      values.push(validCode);
+      checksum += (i + 1) * validCode;
+    }
+    checksum %= 103;
+    values.push(checksum);
+    values.push(106); // Stop code
+
+    let totalModules = 0;
+    const allPatterns = [];
+    for (let j = 0; j < values.length; j++) {
+      const p = CODE128_PATTERNS[values[j]];
+      allPatterns.push(p);
+      for (let k = 0; k < p.length; k++) {
+        totalModules += parseInt(p[k], 10);
+      }
+    }
+
+    const svgWidth = (totalModules * barWidth) + (2 * quietZone);
+    const rects = [];
+    let x = quietZone;
+
+    for (let pIdx = 0; pIdx < allPatterns.length; pIdx++) {
+      const pattern = allPatterns[pIdx];
+      for (let wIdx = 0; wIdx < pattern.length; wIdx++) {
+        const w = parseInt(pattern[wIdx], 10) * barWidth;
+        if (wIdx % 2 === 0) { // Black bar
+          rects.push(`<rect x="${x.toFixed(2)}" y="0" width="${w.toFixed(2)}" height="${height}" fill="#000000" />`);
+        }
+        x += w;
+      }
+    }
+
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${svgWidth.toFixed(2)} ${height}" width="${svgWidth.toFixed(2)}" height="${height}" class="receipt-barcode-svg" style="display: block; margin: 0 auto; max-width: 100%; height: ${height}px;" aria-label="Code 128 Barcode: ${raw}">${rects.join('')}</svg>`;
+  }
+
   // --- ENGLISH RECEIPT GENERATOR (THERMAL POS 80MM SLIP) ---
   function generateEnglishReceiptHtml(order) {
     const items = order.items || order.cart || [];
@@ -344,7 +409,7 @@
     const dateFormatted = formatEnglishDate(order.createdAt);
 
     const paymentMethodLabel = order.payment?.method === 'cod'
-      ? 'CASH ON DELIVERY (COD)'
+      ? 'CASH ON DELIVERY'
       : 'MFS ADVANCE SEND MONEY';
 
     const districtLabel = order.customer?.district === 'dhaka'
@@ -465,13 +530,13 @@
 
         <div style="border-top: 1px dashed #000; margin: 10px 0 8px;"></div>
 
-        <!-- Footer / Simulated Barcode -->
+        <!-- Footer / Code 128 Barcode (Vector SVG) -->
         <div style="text-align: center; font-size: 10.5px;">
           <div>* THANK YOU FOR PATRONIZING ARTISANS *</div>
-          <div style="margin: 8px auto 4px; letter-spacing: 3px; font-size: 22px; font-family: 'VKP80II-CP437', monospace; line-height: 1;">
-            ||||||||||||||||||||||||||||||
+          <div style="margin: 8px auto 4px; display: flex; justify-content: center; align-items: center;">
+            ${generateCode128Svg(order.orderId, { height: 42, barWidth: 1.6, quietZone: 8 })}
           </div>
-          <div style="letter-spacing: 2px; font-size: 11px;">${order.orderId}</div>
+          <div style="letter-spacing: 2.5px; font-size: 11px; font-weight: bold; margin-top: 3px;">${order.orderId}</div>
           <div style="margin-top: 6px; font-size: 10px; letter-spacing: 1px;">HTTPS://AMARMONCHAISE.PAGES.DEV</div>
         </div>
       </div>
@@ -578,6 +643,7 @@
       document.fonts.load('bold 14px "VKP80II-CP437"');
       document.fonts.load('16px "Kobiguru"');
       document.fonts.load('18px "BiroScript"');
+      document.fonts.load('24px "Confidential"');
     }
 
     let modalEl = document.getElementById('order-receipt-modal');
@@ -610,10 +676,10 @@
               <!-- Dual Receipt Selector Tabs -->
               <div class="flex items-center gap-1.5 p-1 rounded-xl bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800">
                 <button type="button" id="tab-receipt-bn" class="receipt-tab-btn ${currentLang === 'bn' ? 'active' : ''}">
-                  <span>🇧🇩 বাংলা রসিদ (খাতা মেমো)</span>
+                  <span>বাংলা রসিদ</span>
                 </button>
                 <button type="button" id="tab-receipt-en" class="receipt-tab-btn ${currentLang === 'en' ? 'active' : ''}">
-                  <span>🇬🇧 English Slip (POS)</span>
+                  <span>English Slip</span>
                 </button>
               </div>
             </div>
@@ -627,12 +693,6 @@
 
             <!-- Modal Action Footer -->
             <div class="flex flex-wrap items-center justify-between gap-3 p-4 sm:p-5 border-t border-slate-200 dark:border-zinc-800 bg-white dark:bg-[#14141d]">
-              <div class="text-xs text-slate-500 dark:text-zinc-400">
-                ${currentLang === 'bn'
-          ? 'হস্তলিপির দাগ টানা খাতা শৈলী (Kobiguru ফন্ট)'
-          : 'Generic POS Thermal Slip (VKP80II-CP437 Font)'}
-              </div>
-
               <div class="flex items-center gap-2.5 w-full sm:w-auto">
                 <!-- Download PDF Button -->
                 <button type="button" id="download-pdf-btn" class="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-[#166b58] hover:bg-[#125446] text-white dark:bg-yellow-400 dark:hover:bg-yellow-300 dark:text-black font-bold text-xs sm:text-sm shadow-md transition-all active:scale-95 flex items-center justify-center gap-2">
@@ -722,7 +782,8 @@
     toBengaliDigits,
     romanizeBengali,
     resolveCustomerNameBn,
-    resolveCustomerNameEn
+    resolveCustomerNameEn,
+    generateCode128Svg
   };
 
 })();
