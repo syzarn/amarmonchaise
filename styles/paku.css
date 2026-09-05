@@ -1,0 +1,509 @@
+/* ==========================================================================
+   PAKU (পাঁকু) THE LOOM SHUTTLE MASCOT — CORE STYLING & ANIMATIONS
+   18th-century Jamini Roy folk-art form meets responsive micro-interactions
+   ========================================================================== */
+
+/* Custom Element Root */
+paku-assistant {
+  display: block;
+  position: relative;
+  z-index: 9990;
+}
+
+/* Root Fixed Container */
+.paku-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9990;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+@media (max-width: 640px) {
+  .paku-container {
+    bottom: 14px;
+    right: 14px;
+  }
+}
+
+/* Mascot Wrapper */
+.paku-mascot-wrapper {
+  position: relative;
+  width: 86px;
+  height: 206px;
+  pointer-events: auto;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  touch-action: none;
+}
+
+@media (max-width: 640px) {
+  .paku-mascot-wrapper {
+    width: 70px;
+    height: 168px;
+  }
+}
+
+.paku-mascot-wrapper svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.35));
+  transition: filter 0.3s ease;
+}
+
+/* 1. Ambient Float & Hover Dynamics */
+#paku-body,
+.paku-body {
+  animation: paku-ambient-float 3.5s ease-in-out infinite;
+  transform-origin: 50px 120px;
+  will-change: transform;
+}
+
+@keyframes paku-ambient-float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(1.5deg);
+  }
+}
+
+/* Pause float while user is actively dragging thread */
+.paku-pulling #paku-body {
+  animation-play-state: paused;
+}
+
+/* 2. Idle Blink on #paku-eyes */
+#paku-eyes {
+  transform-origin: 50px 66px;
+  will-change: transform;
+}
+
+#paku-eyes.blinking {
+  animation: paku-blink-action 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes paku-blink-action {
+  0%, 100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0.05);
+  }
+}
+
+/* 3. Subtle Gaze Tracking on #pupil-left and #pupil-right */
+#pupil-left,
+#pupil-right {
+  will-change: transform;
+  transition: transform 0.1s ease-out;
+}
+
+/* Dizzy Rolling Eyes during/after Beyblade spin */
+#paku-eyes.dizzy #pupil-left,
+#paku-eyes.dizzy #pupil-right {
+  animation: paku-dizzy-roll 0.35s linear infinite;
+  transform-origin: 38.35px 65.4px;
+}
+
+#paku-eyes.dizzy #pupil-right {
+  transform-origin: 61.65px 65.4px;
+}
+
+@keyframes paku-dizzy-roll {
+  0% {
+    transform: rotate(0deg) translate(1.6px) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translate(1.6px) rotate(-360deg);
+  }
+}
+
+/* 4. Beyblade Rotational Spin on #paku-hull */
+#paku-hull {
+  transform-origin: 50px 120px;
+  will-change: transform;
+}
+
+#paku-hull.beyblade-spinning {
+  transform: rotate(2160deg);
+  transition: transform 2.0s cubic-bezier(0.1, 0.9, 0.2, 1) !important;
+}
+
+/* 5. Missing Fields Checkout Violent Shake */
+.paku-mascot-wrapper.shake {
+  animation: paku-shake-anim 0.65s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes paku-shake-anim {
+  10%, 90% {
+    transform: translate3d(-3px, 0, 0) rotate(-3deg);
+  }
+  20%, 80% {
+    transform: translate3d(4px, 0, 0) rotate(3deg);
+  }
+  30%, 50%, 70% {
+    transform: translate3d(-6px, 0, 0) rotate(-5deg);
+  }
+  40%, 60% {
+    transform: translate3d(6px, 0, 0) rotate(5deg);
+  }
+}
+
+/* 6. Living Thread Grab Area */
+#living-thread-hitarea,
+#living-thread-hitarea-tip {
+  cursor: grab;
+  touch-action: none;
+}
+
+.paku-pulling #living-thread-hitarea,
+.paku-pulling #living-thread-hitarea-tip,
+.paku-pulling {
+  cursor: grabbing !important;
+}
+
+/* 7. Speech Bubble — 18th-century Torn Paper Slip / Lal Khata Ledger */
+.paku-speech-bubble {
+  position: absolute;
+  bottom: 100%;
+  right: 6px;
+  margin-bottom: 14px;
+  background: #FCFBF7;
+  border: 2px solid #166B58;
+  box-shadow: 3px 3px 0px #166B58;
+  border-radius: 3px;
+  padding: 10px 28px 10px 14px;
+  max-width: 260px;
+  width: max-content;
+  font-family: 'Purno', 'GaramondHalhed', Georgia, serif;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: #166B58;
+  font-weight: 500;
+  pointer-events: auto;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px) scale(0.96);
+  transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), visibility 0.25s;
+  z-index: 20;
+}
+
+@media (max-width: 640px) {
+  .paku-speech-bubble {
+    max-width: 210px;
+    font-size: 12.5px;
+    padding: 8px 24px 8px 12px;
+    right: 0px;
+  }
+}
+
+.paku-speech-bubble.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+/* Torn paper ledger notched edge & authentic down-tail */
+.paku-speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  right: 32px;
+  width: 9px;
+  height: 9px;
+  background: #FCFBF7;
+  border-right: 2px solid #166B58;
+  border-bottom: 2px solid #166B58;
+  transform: rotate(45deg);
+}
+
+/* Red Ink Handloom Close Button */
+.paku-speech-close {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  background: none;
+  border: none;
+  color: #BD3A54;
+  font-size: 16px;
+  font-weight: 900;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.paku-speech-close:hover {
+  color: #931d34;
+  transform: scale(1.25);
+}
+
+.paku-speech-text {
+  display: block;
+}
+
+/* Mood Indicators (Subtle Lal Khata ink stamp variations) */
+.paku-speech-bubble.mood-dizzy {
+  border-color: #BD3A54;
+  box-shadow: 3px 3px 0px #BD3A54;
+  color: #7b1c31;
+}
+
+.paku-speech-bubble.mood-dizzy::after {
+  border-right-color: #BD3A54;
+  border-bottom-color: #BD3A54;
+}
+
+.paku-speech-bubble.mood-alarmed {
+  border-color: #b91c1c;
+  box-shadow: 3px 3px 0px #b91c1c;
+  color: #991b1b;
+}
+
+.paku-speech-bubble.mood-alarmed::after {
+  border-right-color: #b91c1c;
+  border-bottom-color: #b91c1c;
+}
+
+/* ==========================================================================
+   8. DARK MODE THEME SUPPORT (AMOLED Black + Radiant Handloom Gold)
+   ========================================================================== */
+
+.dark .paku-speech-bubble,
+html.dark .paku-speech-bubble,
+:root.dark .paku-speech-bubble,
+[data-theme="dark"] .paku-speech-bubble {
+  background: #121216;
+  border-color: #f2c200;
+  box-shadow: 3px 3px 0px #f2c200;
+  color: #ffd533;
+}
+
+.dark .paku-speech-bubble::after,
+html.dark .paku-speech-bubble::after,
+:root.dark .paku-speech-bubble::after,
+[data-theme="dark"] .paku-speech-bubble::after {
+  background: #121216;
+  border-right-color: #f2c200;
+  border-bottom-color: #f2c200;
+}
+
+.dark .paku-speech-close,
+html.dark .paku-speech-close,
+:root.dark .paku-speech-close,
+[data-theme="dark"] .paku-speech-close {
+  color: #f87171;
+}
+
+.dark .paku-speech-close:hover,
+html.dark .paku-speech-close:hover,
+:root.dark .paku-speech-close:hover,
+[data-theme="dark"] .paku-speech-close:hover {
+  color: #fca5a5;
+}
+
+/* Dark Mode Mood Variations */
+.dark .paku-speech-bubble.mood-dizzy,
+html.dark .paku-speech-bubble.mood-dizzy,
+:root.dark .paku-speech-bubble.mood-dizzy,
+[data-theme="dark"] .paku-speech-bubble.mood-dizzy {
+  border-color: #f87171;
+  box-shadow: 3px 3px 0px #f87171;
+  color: #fca5a5;
+}
+
+.dark .paku-speech-bubble.mood-dizzy::after,
+html.dark .paku-speech-bubble.mood-dizzy::after,
+:root.dark .paku-speech-bubble.mood-dizzy::after,
+[data-theme="dark"] .paku-speech-bubble.mood-dizzy::after {
+  border-right-color: #f87171;
+  border-bottom-color: #f87171;
+}
+
+.dark .paku-speech-bubble.mood-alarmed,
+html.dark .paku-speech-bubble.mood-alarmed,
+:root.dark .paku-speech-bubble.mood-alarmed,
+[data-theme="dark"] .paku-speech-bubble.mood-alarmed {
+  border-color: #ef4444;
+  box-shadow: 3px 3px 0px #ef4444;
+  color: #fca5a5;
+}
+
+.dark .paku-speech-bubble.mood-alarmed::after,
+html.dark .paku-speech-bubble.mood-alarmed::after,
+:root.dark .paku-speech-bubble.mood-alarmed::after,
+[data-theme="dark"] .paku-speech-bubble.mood-alarmed::after {
+  border-right-color: #ef4444;
+  border-bottom-color: #ef4444;
+}
+
+/* Dark Mode Living Thread Stroke & Glow */
+.dark #living-thread-arm,
+html.dark #living-thread-arm,
+[data-theme="dark"] #living-thread-arm {
+  stroke: #f2c200 !important;
+}
+
+.dark #living-thread-tip,
+html.dark #living-thread-tip,
+[data-theme="dark"] #living-thread-tip {
+  fill: #f2c200 !important;
+}
+
+.dark .paku-mascot-wrapper svg,
+html.dark .paku-mascot-wrapper svg,
+[data-theme="dark"] .paku-mascot-wrapper svg {
+  filter: drop-shadow(0 6px 18px rgba(242, 194, 0, 0.18));
+}
+
+/* ==========================================================================
+   9. SLEEPY LATE-NIGHT (1AM - 4AM) Z Z Z THREAD ANIMATIONS & EYES
+   ========================================================================== */
+
+/* Snore glyphs group */
+.paku-thread-zzz {
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.paku-sleeping .paku-thread-zzz,
+paku-assistant.paku-sleeping .paku-thread-zzz {
+  opacity: 1;
+}
+
+.zzz-glyph {
+  fill: #BD3A54;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  user-select: none;
+}
+
+.dark .zzz-glyph,
+html.dark .zzz-glyph,
+[data-theme="dark"] .zzz-glyph {
+  fill: #f2c200 !important;
+}
+
+/* Staggered floating snore drift */
+.paku-sleeping .zzz-1,
+paku-assistant.paku-sleeping .zzz-1 {
+  animation: paku-zzz-drift-1 2.4s ease-in-out infinite 0s;
+}
+
+.paku-sleeping .zzz-2,
+paku-assistant.paku-sleeping .zzz-2 {
+  animation: paku-zzz-drift-2 2.4s ease-in-out infinite 0.75s;
+}
+
+.paku-sleeping .zzz-3,
+paku-assistant.paku-sleeping .zzz-3 {
+  animation: paku-zzz-drift-3 2.4s ease-in-out infinite 1.5s;
+}
+
+@keyframes paku-zzz-drift-1 {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.7);
+  }
+  35% {
+    opacity: 0.95;
+    transform: translate(2px, -6px) scale(1);
+  }
+  70% {
+    opacity: 0.7;
+    transform: translate(4px, -13px) scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(6px, -20px) scale(1.2);
+  }
+}
+
+@keyframes paku-zzz-drift-2 {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.75);
+  }
+  35% {
+    opacity: 1;
+    transform: translate(2.5px, -7px) scale(1.05);
+  }
+  70% {
+    opacity: 0.75;
+    transform: translate(5px, -15px) scale(1.15);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(8px, -23px) scale(1.25);
+  }
+}
+
+@keyframes paku-zzz-drift-3 {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.8);
+  }
+  35% {
+    opacity: 1;
+    transform: translate(3px, -8px) scale(1.1);
+  }
+  70% {
+    opacity: 0.8;
+    transform: translate(7px, -17px) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(10px, -26px) scale(1.3);
+  }
+}
+
+/* Sleepy heavy eyelids on Devi eyes */
+.paku-sleeping #paku-eyes,
+paku-assistant.paku-sleeping #paku-eyes {
+  transform: scaleY(0.42) !important;
+  transform-origin: 50px 66px;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Sleepy gentle undulating breathing float */
+.paku-sleeping #paku-body,
+paku-assistant.paku-sleeping #paku-body {
+  animation: paku-sleepy-breathing 4.5s ease-in-out infinite !important;
+}
+
+@keyframes paku-sleepy-breathing {
+  0%, 100% {
+    transform: translateY(0px) rotate(0.5deg);
+  }
+  50% {
+    transform: translateY(-3px) rotate(-1deg);
+  }
+}
+
+/* Sleepy thread subtle flexing */
+.paku-sleeping #living-thread-arm,
+paku-assistant.paku-sleeping #living-thread-arm {
+  animation: paku-thread-breathing 3.5s ease-in-out infinite;
+  transform-origin: 50px 140.5px;
+}
+
+@keyframes paku-thread-breathing {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.03) rotate(-1.5deg);
+  }
+}

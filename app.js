@@ -696,6 +696,7 @@
 
     saveCart();
     showToast(t('itemAdded'), 'success');
+    window.dispatchEvent(new CustomEvent('paku:cart-add', { detail: { productId } }));
   }
 
   function updateQuantity(productId, delta) {
@@ -1413,6 +1414,7 @@
       banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
     showToast(message, 'error', 6000);
+    window.dispatchEvent(new CustomEvent('paku:checkout-error', { detail: { message } }));
   }
 
   function clearCheckoutError() {

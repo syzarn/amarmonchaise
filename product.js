@@ -662,6 +662,7 @@
 
     saveCart();
     showToast(t('itemAdded'), 'success');
+    window.dispatchEvent(new CustomEvent('paku:cart-add', { detail: { productId } }));
   }
 
   function updateQuantity(productId, delta) {
