@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title id="page-title">পাঁকুর প্রশ্ন-উত্তর | Mon Chaise — যা মন চায় বেচি</title>
+  <title id="page-title">সারুর প্রশ্ন-উত্তর | Mon Chaise — যা মন চায় বেচি</title>
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -39,7 +39,7 @@
 
   <!-- Custom Stylesheet with Purno, GaramondHalhed and IM Fell English -->
   <link rel="stylesheet" href="./styles.css" />
-  <link rel="stylesheet" href="./styles/paku.css" />
+  <link rel="stylesheet" href="./styles/saru.css" />
   <link rel="icon" type="image/svg+xml" href="./files/monchaise_logo_green.svg" id="app-favicon" />
 
   <style>
@@ -128,24 +128,24 @@
       <a href="index.html" class="hover:text-[#1e7e68] dark:hover:text-yellow-400 transition-colors"
         data-i18n="breadcrumbHome">হোম</a>
       <span>/</span>
-      <span class="text-[#166b58] dark:text-yellow-500 font-semibold" data-i18n="breadcrumbFaq">পাঁকুর
+      <span class="text-[#166b58] dark:text-yellow-500 font-semibold" data-i18n="breadcrumbFaq">সারুর
         প্রশ্ন-উত্তর</span>
     </nav>
 
     <!-- HERO HEADER -->
     <div
       class="mb-10 sm:mb-12 text-center sm:text-left border-b border-dashed border-[#166b58]/20 dark:border-yellow-500/20 pb-8">
-      <!-- Paku Logo Emblem (Forehead markings, eyes, nose, lips) replacing old badge -->
+      <!-- Saru Logo Emblem (Forehead markings, eyes, nose, lips) replacing old badge -->
       <div class="mb-4 inline-flex items-center justify-center text-[#166b58] dark:text-yellow-400 select-none"
-        title="পাঁকু (Pãku)">
+        title="সারু (Saru)">
         <svg class="w-14 h-12" viewBox="21 41 58 50" fill="currentColor" fill-rule="evenodd"
-          aria-label="পাঁকু (Pãku) Logo">
+          aria-label="সারু (Saru) Logo">
           <!-- Chandan Design -->
           <path
             d="M 49.81 42.5 L 49.44 42.58 L 49.15 42.83 L 48.85 42.92 L 48.41 43.33 L 48.19 43.66 L 47.89 44.49 L 47.89 45.24 L 48.11 45.74 L 48.11 45.99 L 48.78 46.82 L 49.07 47.07 L 50.19 47.32 L 51.15 46.98 L 51.89 46.24 L 52.11 45.82 L 52.19 45.41 L 52.19 44.41 L 52.11 43.99 L 51.81 43.41 L 51.22 42.83 L 51.07 42.83 L 50.78 42.58 L 50.41 42.5 Z" />
           <path
             d="M 56.26 44.16 L 55.96 43.5 L 55.89 44.66 L 55.67 45.49 L 55.37 46.24 L 55.22 46.4 L 55.15 46.74 L 54.48 47.81 L 53.22 49.14 L 52.7 49.48 L 52.56 49.48 L 52.41 49.64 L 51.96 49.72 L 51.52 49.97 L 51.07 49.97 L 50.63 50.14 L 49.3 50.14 L 48.93 49.97 L 48.48 49.97 L 47.3 49.39 L 46.33 48.64 L 45.74 47.98 L 45.3 47.32 L 44.63 46.07 L 44.56 45.74 L 44.33 45.41 L 44.19 44.66 L 44.19 43.58 L 43.96 43.66 L 43.96 43.91 L 43.74 44.33 L 43.67 44.99 L 43.74 46.9 L 43.96 47.48 L 43.96 47.9 L 44.7 49.56 L 45.89 50.97 L 46.48 51.47 L 46.63 51.47 L 46.85 51.72 L 47.52 52.05 L 47.74 52.05 L 47.89 52.22 L 48.41 52.3 L 48.93 52.55 L 49.74 52.63 L 51.37 52.55 L 52.48 52.22 L 52.63 52.05 L 52.85 52.05 L 53.15 51.8 L 53.44 51.72 L 53.67 51.47 L 53.81 51.47 L 55.07 50.14 L 55.52 49.48 L 56.04 48.23 L 56.33 46.98 L 56.41 46.32 L 56.41 45.07 Z" />
-          <g id="paku-hero-necklace">
+          <g id="saru-hero-necklace">
             <path
               d="M 50.11 53.79 L 49.81 54.04 L 49.81 54.37 L 50.04 54.62 L 50.33 54.62 L 50.56 54.37 L 50.56 54.13 L 50.41 53.88 Z" />
             <path
@@ -203,29 +203,68 @@
       <h1
         class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-[#166b58] dark:text-yellow-400 font-fell leading-tight mb-3"
         data-i18n="faqHeading">
-        পাঁকুর প্রশ্ন-উত্তর
+        সারুর প্রশ্ন-উত্তর
       </h1>
       <p class="text-sm sm:text-base text-slate-600 dark:text-zinc-300 max-w-2xl leading-relaxed" data-i18n="faqSub">
-        মঞ্চাইছের সৃষ্টি, শিল্প, কেনাকাটা ও পাঁকু সম্পর্কে সচরাচর জিজ্ঞাসিত প্রশ্ন ও উত্তর।
+        মঞ্চাইছের সৃষ্টি, শিল্প, কেনাকাটা ও সারু সম্পর্কে সচরাচর জিজ্ঞাসিত প্রশ্ন ও উত্তর।
       </p>
     </div>
 
-    <!-- INTERACTIVE "ASK PĀKU" DESK PROMPT CARD -->
+    <!-- INTERACTIVE "ASK SARU" DESK PROMPT CARD -->
     <div
       class="mb-12 p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-[#f6efe0] to-[#fffdf9] dark:from-[#15151e] dark:to-[#0f0f15] border-2 border-[#166b58]/30 dark:border-yellow-500/30 shadow-lg relative overflow-hidden">
+      <!-- Saru Facial Features Watermark -->
       <div
-        class="absolute -right-6 -bottom-6 w-36 h-36 opacity-10 pointer-events-none text-[#166b58] dark:text-yellow-400 select-none">
-        <svg class="w-full h-full" viewBox="21 41 58 50" fill="currentColor" fill-rule="evenodd">
+        class="absolute right-4 top-4 sm:top-1/2 sm:-translate-y-1/2 sm:right-[300px] md:right-[310px] w-24 h-24 sm:w-36 sm:h-36 opacity-15 dark:opacity-20 pointer-events-none text-[#166b58] dark:text-yellow-400 select-none">
+        <svg class="w-full h-full" viewBox="21 41 58 50" fill="currentColor" fill-rule="evenodd" aria-hidden="true">
+          <!-- Forehead Chandan & Crescent -->
           <path
             d="M 49.81 42.5 L 49.44 42.58 L 49.15 42.83 L 48.85 42.92 L 48.41 43.33 L 48.19 43.66 L 47.89 44.49 L 47.89 45.24 L 48.11 45.74 L 48.11 45.99 L 48.78 46.82 L 49.07 47.07 L 50.19 47.32 L 51.15 46.98 L 51.89 46.24 L 52.11 45.82 L 52.19 45.41 L 52.19 44.41 L 52.11 43.99 L 51.81 43.41 L 51.22 42.83 L 51.07 42.83 L 50.78 42.58 L 50.41 42.5 Z" />
           <path
             d="M 56.26 44.16 L 55.96 43.5 L 55.89 44.66 L 55.67 45.49 L 55.37 46.24 L 55.22 46.4 L 55.15 46.74 L 54.48 47.81 L 53.22 49.14 L 52.7 49.48 L 52.56 49.48 L 52.41 49.64 L 51.96 49.72 L 51.52 49.97 L 51.07 49.97 L 50.63 50.14 L 49.3 50.14 L 48.93 49.97 L 48.48 49.97 L 47.3 49.39 L 46.33 48.64 L 45.74 47.98 L 45.3 47.32 L 44.63 46.07 L 44.56 45.74 L 44.33 45.41 L 44.19 44.66 L 44.19 43.58 L 43.96 43.66 L 43.96 43.91 L 43.74 44.33 L 43.67 44.99 L 43.74 46.9 L 43.96 47.48 L 43.96 47.9 L 44.7 49.56 L 45.89 50.97 L 46.48 51.47 L 46.63 51.47 L 46.85 51.72 L 47.52 52.05 L 47.74 52.05 L 47.89 52.22 L 48.41 52.3 L 48.93 52.55 L 49.74 52.63 L 51.37 52.55 L 52.48 52.22 L 52.63 52.05 L 52.85 52.05 L 53.15 51.8 L 53.44 51.72 L 53.67 51.47 L 53.81 51.47 L 55.07 50.14 L 55.52 49.48 L 56.04 48.23 L 56.33 46.98 L 56.41 46.32 L 56.41 45.07 Z" />
+          <!-- 13 Radiant Beads Necklace (Crescent-Dots) -->
+          <g>
+            <path d="M 50.11 53.79 L 49.81 54.04 L 49.81 54.37 L 50.04 54.62 L 50.33 54.62 L 50.56 54.37 L 50.56 54.13 L 50.41 53.88 Z" />
+            <path d="M 52.56 53.63 L 52.33 53.63 L 52.04 53.88 L 52.11 54.21 L 52.41 54.37 L 52.7 54.21 L 52.78 53.88 Z" />
+            <path d="M 47.44 53.79 L 47.37 54.04 L 47.44 54.21 L 47.67 54.46 L 47.89 54.54 L 48.19 54.37 L 48.33 54.04 L 48.19 53.71 L 47.96 53.54 L 47.59 53.63 Z" />
+            <path d="M 54.56 52.88 L 54.26 52.96 L 54.04 53.3 L 54.33 53.63 L 54.48 53.63 L 54.78 53.38 L 54.85 53.13 Z" />
+            <path d="M 45.59 52.8 L 45.44 52.96 L 45.44 53.38 L 45.67 53.63 L 46.11 53.63 L 46.26 53.46 L 46.26 53.05 L 45.96 52.71 Z" />
+            <path d="M 55.81 51.3 L 55.52 51.8 L 55.81 52.22 L 56.04 52.22 L 56.41 51.88 L 56.41 51.55 L 56.18 51.3 Z" />
+            <path d="M 44.11 51.3 L 43.96 51.39 L 43.89 51.8 L 44.04 52.05 L 44.41 52.22 L 44.56 52.13 L 44.63 51.55 L 44.56 51.39 L 44.41 51.3 Z" />
+            <path d="M 57.15 49.31 L 56.93 49.48 L 56.85 49.64 L 56.85 49.97 L 57.07 50.22 L 57.37 50.22 L 57.59 49.97 L 57.67 49.64 L 57.44 49.31 Z" />
+            <path d="M 42.78 49.39 L 42.7 49.97 L 42.85 50.14 L 43.37 50.06 L 43.44 49.72 L 43.3 49.39 L 43.15 49.31 Z" />
+            <path d="M 57.74 46.82 L 57.44 47.15 L 57.44 47.48 L 57.67 47.73 L 57.89 47.73 L 58.18 47.48 L 58.26 47.15 L 58.18 46.98 L 57.96 46.82 Z" />
+            <path d="M 42.19 46.65 L 42.04 46.74 L 41.89 47.07 L 41.89 47.23 L 42.11 47.57 L 42.33 47.65 L 42.63 47.32 L 42.63 46.98 L 42.48 46.74 Z" />
+            <path d="M 42.11 44.66 L 41.89 44.74 L 41.89 45.16 L 42.11 45.16 L 42.26 44.99 L 42.26 44.83 Z" />
+            <path d="M 58.04 44.49 L 57.67 44.58 L 57.59 44.74 L 57.59 45.07 L 57.96 45.41 L 58.26 45.07 L 58.26 44.83 Z" />
+          </g>
+          <!-- Central Bindi -->
+          <path
+            d="M 49.59 56.28 L 49.22 56.53 L 48.85 57.03 L 48.7 57.53 L 48.7 58.03 L 48.85 58.53 L 49.15 58.94 L 49.52 59.19 L 49.81 59.27 L 50.48 59.27 L 50.78 59.19 L 51.07 58.94 L 51.44 58.44 L 51.52 58.11 L 51.52 57.45 L 51.37 56.95 L 51.07 56.53 L 50.7 56.28 L 50.26 56.2 Z" />
+          <!-- Eyebrows and Nose -->
           <path
             d="M 23.80 59.20 L 24.80 58.80 L 26.20 58.00 L 28.20 57.20 L 30.33 56.45 L 30.63 56.45 L 31.15 56.20 L 31.52 56.20 L 32.04 55.87 L 32.63 55.87 L 33.52 55.62 L 36.78 55.62 L 37.59 55.87 L 38.19 55.87 L 38.48 55.95 L 38.70 56.12 L 39.00 56.12 L 39.30 56.20 L 39.52 56.37 L 39.96 56.45 L 40.33 56.70 L 40.56 56.70 L 41.22 57.03 L 41.37 57.20 L 41.67 57.28 L 43.30 58.36 L 44.78 59.61 L 46.26 61.10 L 46.85 61.52 L 47.15 61.85 L 47.37 62.43 L 47.37 62.76 L 47.59 63.26 L 47.89 64.67 L 47.89 65.09 L 48.11 66.00 L 48.11 66.75 L 48.33 68.08 L 48.41 69.57 L 48.41 72.15 L 48.56 74.14 L 48.56 76.30 L 48.78 76.88 L 48.93 75.88 L 49.00 74.47 L 49.00 69.16 L 48.93 67.91 L 48.78 67.33 L 48.70 66.00 L 48.48 65.25 L 48.48 64.75 L 48.26 64.17 L 48.26 63.84 L 47.96 63.01 L 47.96 62.68 L 47.74 62.26 L 47.74 62.01 L 47.59 61.77 L 47.67 61.10 L 47.44 60.52 L 47.30 60.35 L 47.30 60.19 L 47.00 59.77 L 47.00 59.61 L 46.11 58.28 L 44.26 56.28 L 43.30 55.45 L 42.85 55.21 L 42.63 54.96 L 42.11 54.62 L 41.96 54.62 L 41.67 54.37 L 41.37 54.29 L 41.07 54.04 L 40.56 53.79 L 40.33 53.79 L 39.96 53.54 L 39.67 53.54 L 39.15 53.30 L 37.82 52.96 L 35.89 52.88 L 34.48 53.05 L 34.19 53.21 L 33.52 53.30 L 33.08 53.54 L 32.78 53.54 L 32.04 53.79 L 31.67 54.04 L 31.45 54.04 L 30.04 54.79 L 28.50 55.40 L 26.80 56.40 L 25.20 57.60 Z" />
           <path
             d="M 76.20 59.20 L 75.20 58.80 L 73.80 58.00 L 71.80 57.20 L 69.67 56.45 L 69.37 56.45 L 68.85 56.20 L 68.48 56.20 L 67.96 55.87 L 67.37 55.87 L 66.48 55.62 L 63.22 55.62 L 62.41 55.87 L 61.81 55.87 L 61.52 55.95 L 61.30 56.12 L 61.00 56.12 L 60.70 56.20 L 60.48 56.37 L 60.04 56.45 L 59.67 56.70 L 59.44 56.70 L 58.78 57.03 L 58.63 57.20 L 58.33 57.28 L 56.70 58.36 L 55.22 59.61 L 53.74 61.10 L 53.15 61.52 L 52.85 61.85 L 52.63 62.43 L 52.63 62.76 L 52.41 63.26 L 52.11 64.67 L 52.11 65.09 L 51.89 66.00 L 51.89 66.75 L 51.67 68.08 L 51.59 69.57 L 51.59 72.15 L 51.44 74.14 L 51.44 76.30 L 51.22 76.88 L 51.07 75.88 L 51.00 74.47 L 51.00 69.16 L 51.07 67.91 L 51.22 67.33 L 51.30 66.00 L 51.52 65.25 L 51.52 64.75 L 51.74 64.17 L 51.74 63.84 L 52.04 63.01 L 52.04 62.68 L 52.26 62.26 L 52.26 62.01 L 52.41 61.77 L 52.33 61.10 L 52.56 60.52 L 52.70 60.35 L 52.70 60.19 L 53.00 59.77 L 53.00 59.61 L 53.89 58.28 L 55.74 56.28 L 56.70 55.45 L 57.15 55.21 L 57.37 54.96 L 57.89 54.62 L 58.04 54.62 L 58.33 54.37 L 58.63 54.29 L 58.93 54.04 L 59.44 53.79 L 59.67 53.79 L 60.04 53.54 L 60.33 53.54 L 60.85 53.30 L 62.18 52.96 L 64.11 52.88 L 65.52 53.05 L 65.81 53.21 L 66.48 53.30 L 66.92 53.54 L 67.22 53.54 L 67.96 53.79 L 68.33 54.04 L 68.55 54.04 L 69.96 54.79 L 71.50 55.40 L 73.20 56.40 L 74.80 57.60 Z" />
           <path
+            d="M 46.26 78.95 L 46.26 79.37 L 46.41 79.7 L 46.93 80.28 L 47.3 80.53 L 47.74 80.62 L 47.96 80.78 L 48.63 80.86 L 49.44 81.69 L 50.78 81.69 L 51.22 81.45 L 51.44 81.11 L 51.81 80.78 L 52.19 80.78 L 53.07 80.53 L 53.22 80.37 L 53.37 80.37 L 53.89 79.78 L 54.04 79.45 L 54.04 78.95 L 53.67 78.12 L 53.52 78.04 L 53.37 78.87 L 53.22 79.12 L 52.78 79.54 L 51.3 79.87 L 51.0 80.37 L 50.63 80.7 L 50.41 80.78 L 49.89 80.78 L 49.67 80.7 L 49.07 79.95 L 47.81 79.62 L 47.3 79.29 L 46.85 78.62 L 46.78 78.04 L 46.56 78.21 Z" />
+          <!-- Double Eyelid Creases -->
+          <path
+            d="M 26.20 61.20 L 28.00 60.90 L 30.33 60.69 L 30.93 60.69 L 31.45 60.52 L 32.19 60.52 L 33.08 60.27 L 33.74 60.27 L 34.56 60.02 L 35.52 59.94 L 37.67 59.94 L 38.56 60.02 L 39.67 60.27 L 40.11 60.52 L 40.33 60.52 L 41.15 60.85 L 42.78 61.93 L 43.67 62.76 L 45.00 64.26 L 45.37 64.84 L 45.74 65.17 L 45.74 65.00 L 45.59 64.84 L 45.59 64.67 L 45.37 64.34 L 45.30 64.01 L 44.85 63.18 L 44.26 62.35 L 43.52 61.52 L 42.19 60.44 L 41.15 59.86 L 40.33 59.52 L 40.04 59.52 L 39.82 59.36 L 39.00 59.27 L 38.63 59.11 L 37.89 59.02 L 36.48 59.02 L 35.74 59.11 L 35.22 59.27 L 34.33 59.36 L 33.74 59.61 L 33.37 59.61 L 32.93 59.86 L 32.56 59.86 L 31.74 60.19 L 30.56 60.35 L 30.41 60.44 L 28.00 60.75 Z" />
+          <path
+            d="M 73.80 61.20 L 72.00 60.90 L 69.67 60.69 L 69.07 60.69 L 68.55 60.52 L 67.81 60.52 L 66.92 60.27 L 66.26 60.27 L 65.44 60.02 L 64.48 59.94 L 62.33 59.94 L 61.44 60.02 L 60.33 60.27 L 59.89 60.52 L 59.67 60.52 L 58.85 60.85 L 57.22 61.93 L 56.33 62.76 L 55.00 64.26 L 54.63 64.84 L 54.26 65.17 L 54.26 65.00 L 54.41 64.84 L 54.41 64.67 L 54.63 64.34 L 54.70 64.01 L 55.15 63.18 L 55.74 62.35 L 56.48 61.52 L 57.81 60.44 L 58.85 59.86 L 59.67 59.52 L 59.96 59.52 L 60.18 59.36 L 61.00 59.27 L 61.37 59.11 L 62.11 59.02 L 63.52 59.02 L 64.26 59.11 L 64.78 59.27 L 65.67 59.36 L 66.26 59.61 L 66.63 59.61 L 67.07 59.86 L 67.44 59.86 L 68.26 60.19 L 69.44 60.35 L 69.59 60.44 L 72.00 60.75 Z" />
+          <!-- Almond Devi Eyes (পটলচেরা চোখ) -->
+          <g fill-rule="evenodd">
+            <path fill-rule="evenodd"
+              d="M 23.50 63.20 L 24.80 63.90 L 26.20 64.80 L 28.20 65.90 L 30.04 67.00 L 30.56 67.41 L 31.08 67.99 L 32.26 68.99 L 32.48 69.07 L 32.70 69.32 L 32.85 69.32 L 33.08 69.57 L 33.59 69.90 L 33.74 69.90 L 34.04 70.15 L 35.07 70.65 L 35.52 70.73 L 35.89 70.98 L 36.19 70.98 L 36.70 71.23 L 38.41 71.56 L 40.48 71.56 L 41.15 71.48 L 41.52 71.31 L 42.26 71.23 L 42.78 70.98 L 43.07 70.98 L 43.52 70.73 L 44.63 70.40 L 46.19 69.57 L 46.56 69.24 L 46.70 68.91 L 46.26 67.91 L 45.30 66.75 L 44.63 66.17 L 43.89 65.67 L 43.59 65.59 L 43.44 65.42 L 42.78 65.09 L 42.41 65.00 L 42.26 64.84 L 41.82 64.75 L 41.37 64.51 L 41.07 64.51 L 40.56 64.26 L 39.89 64.17 L 39.67 64.01 L 39.22 63.92 L 38.63 63.92 L 37.37 63.68 L 36.48 63.68 L 35.67 63.43 L 35.15 63.43 L 34.33 63.18 L 32.63 63.09 L 31.96 62.93 L 31.00 62.93 L 30.56 62.76 L 28.50 62.60 L 26.50 62.60 L 24.80 62.80 Z M 27.20 64.75 L 28.80 64.55 L 30.33 64.34 L 30.48 64.42 L 30.85 64.42 L 31.30 64.59 L 33.30 64.67 L 33.82 64.84 L 35.15 64.92 L 35.30 65.09 L 35.37 65.34 L 35.45 66.25 L 35.89 67.25 L 36.48 67.91 L 36.63 67.91 L 36.85 68.16 L 37.67 68.49 L 38.78 68.49 L 39.52 68.24 L 40.33 67.66 L 40.85 67.00 L 40.93 66.75 L 41.30 66.25 L 41.59 66.25 L 42.04 66.50 L 42.48 66.58 L 42.78 66.83 L 43.00 66.83 L 43.22 67.08 L 43.52 67.16 L 43.89 67.41 L 44.41 67.91 L 44.56 67.91 L 45.15 68.41 L 45.15 68.66 L 44.85 68.91 L 44.19 68.99 L 44.04 69.16 L 43.52 69.24 L 43.15 69.49 L 42.85 69.49 L 42.41 69.74 L 41.59 69.82 L 41.22 69.99 L 39.37 69.99 L 38.78 69.82 L 37.59 69.74 L 37.00 69.49 L 36.63 69.49 L 36.19 69.24 L 35.67 69.16 L 34.56 68.66 L 34.26 68.41 L 34.11 68.41 L 33.22 67.83 L 33.00 67.58 L 32.78 67.50 L 31.30 66.17 L 30.33 65.09 L 28.80 64.95 Z" />
+            <path fill-rule="evenodd"
+              d="M 76.50 63.20 L 75.20 63.90 L 73.80 64.80 L 71.80 65.90 L 69.96 67.00 L 69.44 67.41 L 68.92 67.99 L 67.74 68.99 L 67.52 69.07 L 67.30 69.32 L 67.15 69.32 L 66.92 69.57 L 66.41 69.90 L 66.26 69.90 L 65.96 70.15 L 64.93 70.65 L 64.48 70.73 L 64.11 70.98 L 63.81 70.98 L 63.30 71.23 L 61.59 71.56 L 59.52 71.56 L 58.85 71.48 L 58.48 71.31 L 57.74 71.23 L 57.22 70.98 L 56.93 70.98 L 56.48 70.73 L 55.37 70.40 L 53.81 69.57 L 53.44 69.24 L 53.30 68.91 L 53.74 67.91 L 54.70 66.75 L 55.37 66.17 L 56.11 65.67 L 56.41 65.59 L 56.56 65.42 L 57.22 65.09 L 57.59 65.00 L 57.74 64.84 L 58.18 64.75 L 58.63 64.51 L 58.93 64.51 L 59.44 64.26 L 60.11 64.17 L 60.33 64.01 L 60.78 63.92 L 61.37 63.92 L 62.63 63.68 L 63.52 63.68 L 64.33 63.43 L 64.85 63.43 L 65.67 63.18 L 67.37 63.09 L 68.04 62.93 L 69.00 62.93 L 69.44 62.76 L 71.50 62.60 L 73.50 62.60 L 75.20 62.80 Z M 72.80 64.75 L 71.20 64.55 L 69.67 64.34 L 69.52 64.42 L 69.15 64.42 L 68.70 64.59 L 66.70 64.67 L 66.18 64.84 L 64.85 64.92 L 64.70 65.09 L 64.63 65.34 L 64.55 66.25 L 64.11 67.25 L 63.52 67.91 L 63.37 67.91 L 63.15 68.16 L 62.33 68.49 L 61.22 68.49 L 60.48 68.24 L 59.67 67.66 L 59.15 67.00 L 59.07 66.75 L 58.70 66.25 L 58.41 66.25 L 57.96 66.50 L 57.52 66.58 L 57.22 66.83 L 57.00 66.83 L 56.78 67.08 L 56.48 67.16 L 56.11 67.41 L 55.59 67.91 L 55.44 67.91 L 54.85 68.41 L 54.85 68.66 L 55.15 68.91 L 55.81 68.99 L 55.96 69.16 L 56.48 69.24 L 56.85 69.49 L 57.15 69.49 L 57.59 69.74 L 58.41 69.82 L 58.78 69.99 L 60.63 69.99 L 61.22 69.82 L 62.41 69.74 L 63.00 69.49 L 63.37 69.49 L 63.81 69.24 L 64.33 69.16 L 65.44 68.66 L 65.74 68.41 L 65.89 68.41 L 66.78 67.83 L 67.00 67.58 L 67.22 67.50 L 68.70 66.17 L 69.67 65.09 L 71.20 64.95 Z" />
+          </g>
+          <!-- Sculpted Devi Lips -->
+          <path
             d="M 56.78 85.1 L 56.7 84.85 L 56.11 84.85 L 55.74 85.02 L 54.48 85.02 L 54.18 84.85 L 53.81 84.85 L 53.52 84.77 L 53.3 84.6 L 52.19 84.35 L 51.3 84.6 L 50.48 85.18 L 50.04 85.18 L 49.81 85.1 L 49.52 84.85 L 49.37 84.85 L 49.07 84.6 L 48.63 84.44 L 47.74 84.52 L 47.44 84.6 L 47.22 84.77 L 46.63 84.85 L 46.04 85.1 L 44.78 85.1 L 44.33 84.93 L 43.89 84.93 L 43.89 85.1 L 44.26 85.51 L 45.59 86.1 L 46.93 86.35 L 48.04 86.43 L 48.41 86.59 L 49.3 86.68 L 51.07 86.68 L 52.11 86.59 L 53.22 86.35 L 53.89 86.35 L 54.56 86.1 L 54.93 86.1 L 55.37 85.85 L 55.81 85.76 L 55.96 85.6 L 56.33 85.51 Z" />
+          <path
+            d="M 53.67 87.92 L 53.67 87.59 L 53.52 87.51 L 52.93 87.59 L 52.26 87.84 L 50.93 88.01 L 49.74 88.01 L 48.11 87.84 L 47.44 87.59 L 46.78 87.67 L 46.93 88.01 L 47.37 88.5 L 47.59 88.59 L 47.81 88.84 L 48.26 89.09 L 48.78 89.17 L 49.0 89.33 L 49.37 89.42 L 51.15 89.42 L 52.26 89.09 L 52.56 88.84 L 52.7 88.84 L 53.37 88.34 Z" />
         </svg>
       </div>
       <div class="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
@@ -235,15 +274,15 @@
             <span data-i18n="deskBadge">সরাসরি বার্তা পাঠান</span>
           </div>
           <h2 class="text-xl sm:text-2xl font-bold font-fell text-[#166b58] dark:text-yellow-400" data-i18n="deskTitle">
-            পাঁকুর সাথে কথা বলতে চান?
+            সারুর সাথে কথা বলতে চান?
           </h2>
           <p class="text-xs sm:text-sm text-slate-600 dark:text-zinc-300 max-w-lg leading-relaxed" data-i18n="deskDesc">
-            স্ক্রিনের নিচের ডানে থাকা পাঁকুকে ডাবল-ক্লিক করুন (বা মোবাইলে চেপে ধরে রাখুন), অথবা নিচের বাটনে চাপ দিয়ে
+            স্ক্রিনের নিচের ডানে থাকা সারুকে ডাবল-ক্লিক করুন (বা মোবাইলে চেপে ধরে রাখুন), অথবা নিচের বাটনে চাপ দিয়ে
             সরাসরি আপনার প্রশ্ন বা পরামর্শ পাঠিয়ে দিন আমাদের টেলিগ্রাম ডেস্কে।
           </p>
         </div>
         <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
-          <button type="button" id="open-paku-question-btn"
+          <button type="button" id="open-saru-question-btn"
             class="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-[#166b58] hover:bg-[#1b826b] text-white dark:bg-yellow-500 dark:hover:bg-yellow-400 dark:text-black font-bold text-xs sm:text-sm shadow-md transition-all active:scale-95 flex items-center justify-center gap-2">
             <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -253,7 +292,7 @@
             </svg>
             <span data-i18n="btnAskQuestion">প্রশ্ন করুন</span>
           </button>
-          <button type="button" id="open-paku-rec-btn"
+          <button type="button" id="open-saru-rec-btn"
             class="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-white dark:bg-zinc-800 hover:bg-slate-50 dark:hover:bg-zinc-700 text-[#166b58] dark:text-yellow-400 border border-[#166b58]/40 dark:border-yellow-500/40 font-bold text-xs sm:text-sm shadow-sm transition-all active:scale-95 flex items-center justify-center gap-2">
             <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M12 2C13.2 4.2 14.5 6.2 14.5 8.2A2.5 2.5 0 0 1 9.5 8.2C9.5 6.2 10.8 4.2 12 2Z"
@@ -362,11 +401,11 @@
       </div>
     </div>
 
-    <!-- FAQ ACCORDION SECTION 2: PAKU & HANDLOOM -->
+    <!-- FAQ ACCORDION SECTION 2: SARU & HANDLOOM -->
     <div class="space-y-6 mb-14">
       <div class="flex items-center gap-3 border-b border-slate-200 dark:border-zinc-800 pb-3">
         <h2 class="text-lg sm:text-xl font-bold text-[#166b58] dark:text-yellow-400 font-fell" data-i18n="sec2Title">
-          পাঁকু সহকারী ও তাঁতশিল্পের ইতিবৃত্ত
+          সারু সহকারী ও তাঁতশিল্পের ইতিবৃত্ত
         </h2>
       </div>
 
@@ -376,7 +415,7 @@
           class="group rounded-xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 p-5 shadow-sm transition-all hover:border-[#166b58]/40 dark:hover:border-yellow-500/40">
           <summary
             class="flex items-center justify-between cursor-pointer select-none font-bold text-sm sm:text-base text-slate-800 dark:text-zinc-100 gap-4">
-            <span data-i18n="q5">পাঁকু আসলে কে বা কী?</span>
+            <span data-i18n="q5">সারু আসলে কে বা কী?</span>
             <svg
               class="faq-chevron w-5 h-5 text-slate-400 dark:text-zinc-500 transition-transform duration-200 flex-shrink-0"
               fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -386,7 +425,7 @@
           <div
             class="mt-4 pt-3 border-t border-slate-100 dark:border-zinc-800 text-xs sm:text-sm text-slate-600 dark:text-zinc-300 leading-relaxed"
             data-i18n="a5">
-            পাঁকু হলো ঐতিহ্যবাহী বাংলা কাঠের তাঁতের একটি চলন্ত মাকু। এতে ফুটে উঠেছে পটলচেরা চোখ,
+            সারু হলো ঐতিহ্যবাহী বাংলা কাঠের তাঁতের একটি চলন্ত মাকু। এতে ফুটে উঠেছে পটলচেরা চোখ,
             চন্দন ফোঁটা ও দেবী মুখের অপরূপ যামিনী রায় ঘরানার চিত্ররীতি। সে কোনো কৃত্রিম যান্ত্রিক অ্যালগরিদম নয়; বরং
             আমাদের নিপুণ হস্তশিল্পের এক জীবন্ত লোকজ স্মারক (এবং একটি তোতাপাখি)।
           </div>
@@ -397,7 +436,7 @@
           class="group rounded-xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 p-5 shadow-sm transition-all hover:border-[#166b58]/40 dark:hover:border-yellow-500/40">
           <summary
             class="flex items-center justify-between cursor-pointer select-none font-bold text-sm sm:text-base text-slate-800 dark:text-zinc-100 gap-4">
-            <span data-i18n="q6">পাঁকুর লাল সুতো টেনে ছেড়ে দিলে কী ঘটে?</span>
+            <span data-i18n="q6">সারুর লাল সুতো টেনে ছেড়ে দিলে কী ঘটে?</span>
             <svg
               class="faq-chevron w-5 h-5 text-slate-400 dark:text-zinc-500 transition-transform duration-200 flex-shrink-0"
               fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -407,37 +446,17 @@
           <div
             class="mt-4 pt-3 border-t border-slate-100 dark:border-zinc-800 text-xs sm:text-sm text-slate-600 dark:text-zinc-300 leading-relaxed"
             data-i18n="a6">
-            সুতো টেনে ছেড়ে দিলে পাঁকু ত্রিমাত্রিক (3D) উল্লম্ব অক্ষের ওপর আসল লাটিম বা বেব্লেডের মতো দ্রুত চক্কর দেয়! আর
-            সেই চক্করের শেষ মাথায় পাঁকুর চোখের তারা জোড়া গোল ঘূর্ণিপাকে রূপ নিয়ে চক্কর খেতে থাকে।
+            সুতো টেনে ছেড়ে দিলে সারু ত্রিমাত্রিক (3D) উল্লম্ব অক্ষের ওপর আসল লাটিম বা বেব্লেডের মতো দ্রুত চক্কর দেয়! আর
+            সেই চক্করের শেষ মাথায় সারুর চোখের তারা জোড়া গোল ঘূর্ণিপাকে রূপ নিয়ে চক্কর খেতে থাকে।
           </div>
         </details>
-
-        <!-- Q7
-        <details
-          class="group rounded-xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 p-5 shadow-sm transition-all hover:border-[#166b58]/40 dark:hover:border-yellow-500/40">
-          <summary
-            class="flex items-center justify-between cursor-pointer select-none font-bold text-sm sm:text-base text-slate-800 dark:text-zinc-100 gap-4">
-            <span data-i18n="q7">পাঁকুর চোখের দৃষ্টি কীভাবে কাজ করে?</span>
-            <svg
-              class="faq-chevron w-5 h-5 text-slate-400 dark:text-zinc-500 transition-transform duration-200 flex-shrink-0"
-              fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-            </svg>
-          </summary>
-          <div
-            class="mt-4 pt-3 border-t border-slate-100 dark:border-zinc-800 text-xs sm:text-sm text-slate-600 dark:text-zinc-300 leading-relaxed"
-            data-i18n="a7">
-            কম্পিউটারে সাধারণ অবস্থায় পাঁকু আপনার মাউসের কার্সার অনুসরণ করে। তবে তার ফর্ম খোলা থাকলে কিংবা কিছু সময় অলস
-            বসে থাকলে সে নিচের দিকে ফর্মের দিকে তাকায় এবং মাঝে মাঝে মুখ তুলে পরম মমতায় আপনার চোখের দিকে দৃষ্টি দেয়।
-          </div>
-        </details> -->
 
         <!-- Q7 -->
         <details
           class="group rounded-xl bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 p-5 shadow-sm transition-all hover:border-[#166b58]/40 dark:hover:border-yellow-500/40">
           <summary
             class="flex items-center justify-between cursor-pointer select-none font-bold text-sm sm:text-base text-slate-800 dark:text-zinc-100 gap-4">
-            <span data-i18n="q7">রাত ১টা থেকে ভোর ৫টা পর্যন্ত পাঁকু কী করে?</span>
+            <span data-i18n="q7">রাত ১টা থেকে ভোর ৫টা পর্যন্ত সারু কী করে?</span>
             <svg
               class="faq-chevron w-5 h-5 text-slate-400 dark:text-zinc-500 transition-transform duration-200 flex-shrink-0"
               fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -447,7 +466,7 @@
           <div
             class="mt-4 pt-3 border-t border-slate-100 dark:border-zinc-800 text-xs sm:text-sm text-slate-600 dark:text-zinc-300 leading-relaxed"
             data-i18n="a7">
-            তাঁতিদের সারাদিনের অক্লান্ত পরিশ্রমের পর গভীর নিশুতি রাতে পাঁকু চোখ বুজে শান্তিতে ঘুমিয়ে পড়ে আর মৃদু নাক
+            তাঁতিদের সারাদিনের অক্লান্ত পরিশ্রমের পর গভীর নিশুতি রাতে সারু চোখ বুজে শান্তিতে ঘুমিয়ে পড়ে আর মৃদু নাক
             ডাকে। তবে সুতোয় হালকা টান পড়লেই সে সচকিত হয়ে জেগে ওঠে!
           </div>
         </details>
@@ -521,7 +540,7 @@
                 class="hover:text-[#1e7e68] dark:hover:text-yellow-400 transition-colors"
                 data-i18n="checkoutHeading">চেকআউট</a></li>
             <li><a href="faq.html" class="text-[#166b58] dark:text-yellow-500 font-semibold hover:underline"
-                data-i18n="footerFaq">পাঁকুর প্রশ্ন-উত্তর</a></li>
+                data-i18n="footerFaq">সারুর প্রশ্ন-উত্তর</a></li>
             <li><a href="terms.html" class="hover:text-[#1e7e68] dark:hover:text-yellow-400 transition-colors"
                 data-i18n="footerTerms">শর্তাবলী ও নিয়ম</a></li>
             <li><a href="privacy.html" class="hover:text-[#1e7e68] dark:hover:text-yellow-400 transition-colors"
@@ -559,25 +578,26 @@
     </div>
   </footer>
 
-  <!-- PAKU ASSISTANT MASCOT COMPONENT -->
-  <script src="./components/paku-assistant.js" defer></script>
+  <!-- SARU ASSISTANT MASCOT COMPONENT -->
+  <saru-assistant></saru-assistant>
+  <script src="./components/saru-assistant.js" defer></script>
 
   <!-- PAGE LOGIC & BILINGUAL I18N DICTIONARY -->
   <script>
       (function () {
         const i18n = {
           bn: {
-            pageTitle: 'পাঁকুর প্রশ্ন-উত্তর | Mon Chaise — যা মন চায় বেচি',
+            pageTitle: 'সারুর প্রশ্ন-উত্তর | Mon Chaise — যা মন চায় বেচি',
             tagline: 'যা মন চায় বেচি',
             allCategories: 'সব পণ্য',
             breadcrumbHome: 'হোম',
-            breadcrumbFaq: 'পাঁকুর প্রশ্ন-উত্তর',
+            breadcrumbFaq: 'সারুর প্রশ্ন-উত্তর',
             faqBadge: 'জিজ্ঞাসা ও সমাধান',
-            faqHeading: 'পাঁকুর প্রশ্ন-উত্তর',
-            faqSub: 'মঞ্চাইছের সৃষ্টি, তাঁতশিল্প, কেনাকাটা ও মাকু সহকারী পাঁকু সম্পর্কে সচরাচর জিজ্ঞাসিত প্রশ্ন ও উত্তর।',
+            faqHeading: 'সারুর প্রশ্ন-উত্তর',
+            faqSub: 'মঞ্চাইছের সৃষ্টি, শিল্প, কেনাকাটা ও সারু সম্পর্কে সচরাচর জিজ্ঞাসিত প্রশ্ন ও উত্তর।',
             deskBadge: 'সরাসরি বার্তা পাঠান',
-            deskTitle: 'পাঁকুর সাথে কথা বলতে চান?',
-            deskDesc: 'স্ক্রিনের নিচের ডানে থাকা পাঁকুকে ডাবল-ক্লিক করুন (বা মোবাইলে চেপে ধরে রাখুন), অথবা নিচের বাটনে চাপ দিয়ে সরাসরি আপনার প্রশ্ন বা পরামর্শ পাঠিয়ে দিন পাঁকুর ডেস্কে।',
+            deskTitle: 'সারুর সাথে কথা বলতে চান?',
+            deskDesc: 'স্ক্রিনের নিচের ডানে থাকা সারুকে ডাবল-ক্লিক করুন (বা মোবাইলে চেপে ধরে রাখুন), অথবা নিচের বাটনে চাপ দিয়ে সরাসরি আপনার প্রশ্ন বা পরামর্শ পাঠিয়ে দিন সারুর ডেস্কে।',
             btnAskQuestion: 'প্রশ্ন করুন',
             btnGiveRec: 'পরামর্শ দিন',
             sec1Title: 'মঞ্চাইছে ও কেনাকাটা',
@@ -589,16 +609,16 @@
             a3: 'ঢাকার অভ্যন্তরে সাধারণত ২৪ থেকে ৪৮ ঘণ্টার মধ্যে এবং ঢাকার বাইরে সারা দেশে ২ থেকে ৩ কর্মদিবসের মধ্যে পার্সেল নিরাপদে পৌঁছে যায়। অর্ডার নিশ্চিত হওয়ার সাথে সাথেই ট্র্যাকিং তথ্য পাঠিয়ে দেওয়া হয়।',
             q4: 'পণ্য ত্রুটিপূর্ণ হলে বা অমিল থাকলে কী করব?',
             a4: 'ডেলিভারি ম্যানের উপস্থিতিতেই প্যাকেট খুলে পরখ করে নিন। কোনো ত্রুটি বা গরমিল পরিলক্ষিত হলে ডেলিভারি ম্যান থাকা অবস্থাতেই আমাদের হেল্পলাইনে (+880 1410-002711) যোগাযোগ করুন; কোনো বাড়তি খরচ ছাড়াই দ্রুত সমাধান দেওয়া হবে।',
-            sec2Title: 'পাঁকুর ইতিবৃত্ত',
-            q5: 'পাঁকু আসলে কে বা কী?',
-            a5: 'পাঁকু হলো ঐতিহ্যবাহী বাংলা কাঠের তাঁতের একটি চলন্ত মাকু। এতে ফুটে উঠেছে পটলচেরা চোখ, চন্দন ফোঁটা ও দেবী মুখের অপরূপ যামিনী রায় ঘরানার চিত্ররীতি। সে কোনো কৃত্রিম যান্ত্রিক অ্যালগরিদম নয়; বরং আমাদের নিপুণ হস্তশিল্পের এক জীবন্ত লোকজ স্মারক (এবং একটি তোতাপাখি)।',
-            q6: 'পাঁকুর লাল সুতো টেনে ছেড়ে দিলে কী ঘটে?',
-            a6: 'সুতো টেনে ছেড়ে দিলে পাঁকু লাটিমের মতো চক্কর খায় আর চোখে সরিষাফুল দেখে!',
-            q7: 'পাঁকু কি ঘুমায়',
-            a7: 'তাঁতিদের সারাদিনের অক্লান্ত পরিশ্রমের পর গভীর নিশুতি রাতে পাঁকু চোখ বুজে শান্তিতে ঘুমিয়ে পড়ে আর নাক ডাকে। তবে সুতোয় হালকা টান পড়লেই সে সচকিত হয়ে জেগে ওঠে!',
+            sec2Title: 'সারুর ইতিবৃত্ত',
+            q5: 'সারু আসলে কে বা কী?',
+            a5: 'সারু হলো ঐতিহ্যবাহী বাংলা কাঠের তাঁতের একটি চলন্ত মাকু। এতে ফুটে উঠেছে পটলচেরা চোখ, চন্দন ফোঁটা ও দেবী মুখের অপরূপ যামিনী রায় ঘরানার চিত্ররীতি। সে কোনো কৃত্রিম যান্ত্রিক অ্যালগরিদম নয়; বরং আমাদের নিপুণ হস্তশিল্পের এক জীবন্ত লোকজ স্মারক (এবং একটি তোতাপাখি)।',
+            q6: 'সারুর লাল সুতো টেনে ছেড়ে দিলে কী ঘটে?',
+            a6: 'সুতো টেনে ছেড়ে দিলে সারু লাটিমের মতো চক্কর খায় আর চোখে সরিষাফুল দেখে!',
+            q7: 'সারু কি ঘুমায়',
+            a7: 'তাঁতিদের সারাদিনের অক্লান্ত পরিশ্রমের পর গভীর নিশুতি রাতে সারু চোখ বুজে শান্তিতে ঘুমিয়ে পড়ে আর নাক ডাকে। তবে সুতোয় হালকা টান পড়লেই সে সচকিত হয়ে জেগে ওঠে!',
             backToShopping: 'পণ্য তালিকায় ফিরে যান',
             checkoutHeading: 'চেকআউট',
-            footerFaq: 'পাঁকুর প্রশ্ন-উত্তর',
+            footerFaq: 'সারুর প্রশ্ন-উত্তর',
             footerTerms: 'শর্তাবলী ও নিয়ম',
             footerPrivacy: 'গোপনীয়তা নীতি',
             footerQuickLinks: 'প্রয়োজনীয় লিংক',
@@ -611,17 +631,17 @@
             footerCopyright: '© ২০২৬ মঞ্চাইছে (Mon Chaise)। সর্বস্বত্ব সংরক্ষিত।'
           },
           en: {
-            pageTitle: 'Q&A with Pãku | Mon Chaise — We sell whatever our heart desires',
+            pageTitle: 'Q&A with Saru | Mon Chaise — We sell whatever our heart desires',
             tagline: 'We sell whatever our heart desires',
             allCategories: 'All Curios',
             breadcrumbHome: 'Home',
-            breadcrumbFaq: 'Q&A with <span class="paku-name">Pãku</span>',
+            breadcrumbFaq: 'Q&A with <span class="saru-name">Saru</span>',
             faqBadge: 'Inquiry & Knowledge Hub',
-            faqHeading: 'Q&A with <span class="paku-name">Pãku</span>',
-            faqSub: 'Frequently asked questions regarding Mon Chaise creations, handloom heritage, orders, and our shuttle assistant <span class="paku-name">Pãku</span>.',
+            faqHeading: 'Q&A with <span class="saru-name">Saru</span>',
+            faqSub: 'Frequently asked questions regarding Mon Chaise creations, handloom heritage, orders, and our shuttle assistant <span class="saru-name">Saru</span>.',
             deskBadge: 'Dispatch a Direct Message',
-            deskTitle: 'Want to Speak with <span class="paku-name">Pãku</span>?',
-            deskDesc: 'Double-click <span class="paku-name">Pãku</span> at the bottom-right corner (or hold on mobile), or tap the buttons below to dispatch your question or recommendation directly to our Telegram desk.',
+            deskTitle: 'Want to Speak with <span class="saru-name">Saru</span>?',
+            deskDesc: 'Double-click <span class="saru-name">Saru</span> at the bottom-right corner (or hold on mobile), or tap the buttons below to dispatch your question or recommendation directly to our Telegram desk.',
             btnAskQuestion: 'Ask Question',
             btnGiveRec: 'Send Recommendation',
             sec1Title: 'Mon Chaise & Curio Orders',
@@ -633,18 +653,18 @@
             a3: 'Deliveries inside Dhaka arrive within 24 to 48 hours. For deliveries outside Dhaka nationwide, parcels typically arrive within 2 to 3 business days.',
             q4: 'What happens if a curio is defective or mismatched?',
             a4: 'Please open and inspect the package in the presence of the courier. Should you notice any discrepancy, call our helpline (+880 1410-002711) immediately for prompt resolution at zero additional cost.',
-            sec2Title: '<span class="paku-name">Pãku</span> & Handloom Lore',
-            q5: 'Who or what is <span class="paku-name">Pãku</span>?',
-            a5: '<span class="paku-name">Pãku</span> is a traditional wooden weaver\'s shuttle (মাকু) from Bengal\'s handloom heritage. Styled in iconic Jamini Roy folk lines with almond Devi eyes and chandan bindi, she is an authentic non-AI companion.',
-            q6: 'What happens when you pull and release <span class="paku-name">Pãku</span>\'s red thread?',
-            a6: 'When you draw and release her crimson thread, <span class="paku-name">Pãku</span> performs a high-speed true 3D on-axis vertical spin like a traditional spinning top, settling down with counter-rotating hypnotic dizzy spiral eyes!',
-            q7: 'How does <span class="paku-name">Pãku</span>\'s gaze tracking behave?',
+            sec2Title: '<span class="saru-name">Saru</span> & Handloom Lore',
+            q5: 'Who or what is <span class="saru-name">Saru</span>?',
+            a5: '<span class="saru-name">Saru</span> is a traditional wooden weaver\'s shuttle (মাকু) from Bengal\'s handloom heritage. Styled in iconic Jamini Roy folk lines with almond Devi eyes and chandan bindi, she is an authentic non-AI companion.',
+            q6: 'What happens when you pull and release <span class="saru-name">Saru</span>\'s red thread?',
+            a6: 'When you draw and release her crimson thread, <span class="saru-name">Saru</span> performs a high-speed true 3D on-axis vertical spin like a traditional spinning top, settling down with counter-rotating hypnotic dizzy spiral eyes!',
+            q7: 'How does <span class="saru-name">Saru</span>\'s gaze tracking behave?',
             a7: 'On desktop, her pupils follow your cursor when active. When idle or while viewing her inquiry modal, she glances down at the parchment and periodically lifts her gaze back to you.',
-            q8: 'What does <span class="paku-name">Pãku</span> do between 1 AM and 5 AM?',
-            a8: 'After a hard day along the looms, <span class="paku-name">Pãku</span> falls sound asleep between 1:00 AM and 4:59 AM, breathing in rhythmic \'Z Z Z\' snores. A playful pull on her thread wakes her up immediately!',
+            q8: 'What does <span class="saru-name">Saru</span> do between 1 AM and 5 AM?',
+            a8: 'After a hard day along the looms, <span class="saru-name">Saru</span> falls sound asleep between 1:00 AM and 4:59 AM, breathing in rhythmic \'Z Z Z\' snores. A playful pull on her thread wakes her up immediately!',
             backToShopping: 'Return to Curios',
             checkoutHeading: 'Checkout',
-            footerFaq: 'Q&A with <span class="paku-name">Pãku</span>',
+            footerFaq: 'Q&A with <span class="saru-name">Saru</span>',
             footerTerms: 'Terms & Conditions',
             footerPrivacy: 'Privacy Policy',
             footerQuickLinks: 'Quick Links',
@@ -700,17 +720,16 @@
         });
 
         // Interactive modal CTA buttons
-        document.getElementById('open-paku-question-btn')?.addEventListener('click', () => {
-          if (window.paku && typeof window.paku.openAsk === 'function') {
-            window.paku.openAsk('question');
+        const openDesk = (type) => {
+          const assistant = window.saru || window.paku;
+          if (assistant && typeof assistant.openAsk === 'function') {
+            assistant.openAsk(type);
           }
-        });
-
-        document.getElementById('open-paku-rec-btn')?.addEventListener('click', () => {
-          if (window.paku && typeof window.paku.openAsk === 'function') {
-            window.paku.openAsk('recommendation');
-          }
-        });
+        };
+        document.getElementById('open-saru-question-btn')?.addEventListener('click', () => openDesk('question'));
+        document.getElementById('open-saru-rec-btn')?.addEventListener('click', () => openDesk('recommendation'));
+        document.getElementById('open-paku-question-btn')?.addEventListener('click', () => openDesk('question'));
+        document.getElementById('open-paku-rec-btn')?.addEventListener('click', () => openDesk('recommendation'));
 
         applyTheme(theme);
         applyLang(lang);

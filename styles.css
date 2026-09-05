@@ -411,8 +411,11 @@ html[lang="bn"] .font-halhed-title {
   font-weight: normal !important;
 }
 
-/* Smallcaps & Paku Brand Typography */
+/* Smallcaps & Saru Brand Typography */
 .font-fell-sc,
+.font-saru,
+.saru-name,
+.saru-sc,
 .font-paku,
 .paku-name,
 .paku-sc {

@@ -1,5 +1,5 @@
 /**
- * Cloudflare Pages Function: /api/ask-paku
+ * Cloudflare Pages Function: /api/ask-saru
  * Handles questions and recommendations submitted to Saru and dispatches to Telegram.
  */
 

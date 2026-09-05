@@ -62,7 +62,7 @@
       footerAboutTitle: 'মঞ্চাইছে সম্পর্কে',
       footerAbout: 'আমরা কোনো ধরাবাঁধা দোকান নই। যখন যা মন চায়, সেটাই তৈরি করে আপনাদের সামনে নিয়ে আসি। যার যা, যেমনে মন চায়—সেই স্বাধীনতায় আমাদের বিশ্বাস।',
       footerQuickLinks: 'প্রয়োজনীয় লিংক',
-      footerFaq: 'পাঁকুর প্রশ্ন-উত্তর',
+      footerFaq: 'সারুর প্রশ্ন-উত্তর',
       footerTerms: 'শর্তাবলী ও নিয়ম',
       footerPrivacy: 'গোপনীয়তা নীতি',
       footerContact: 'যোগাযোগ',
@@ -145,7 +145,7 @@
       footerAboutTitle: 'About Mon Chaise',
       footerAbout: 'We are not a typical storefront. We sell whatever comes into our mind—to each their own, however the heart pleases.',
       footerQuickLinks: 'Quick Links',
-      footerFaq: 'Q&A with <span class="paku-name">Pãku</span>',
+      footerFaq: 'Q&A with <span class="saru-name">Saru</span>',
       footerTerms: 'Terms & Conditions',
       footerPrivacy: 'Privacy Policy',
       footerContact: 'Contact',
@@ -664,6 +664,7 @@
 
     saveCart();
     showToast(t('itemAdded'), 'success');
+    window.dispatchEvent(new CustomEvent('saru:cart-add', { detail: { productId } }));
     window.dispatchEvent(new CustomEvent('paku:cart-add', { detail: { productId } }));
   }
 
