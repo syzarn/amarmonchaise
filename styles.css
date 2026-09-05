@@ -265,6 +265,43 @@
   font-display: swap;
 }
 
+/* --- Receipt Thermal Font: VKP80II-CP437 (English) --- */
+@font-face {
+  font-family: 'VKP80II-CP437';
+  src: url('./files/VKP80II-CP437/VKP80II-CP437-14x24-regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'VKP80II-CP437';
+  src: url('./files/VKP80II-CP437/VKP80II-CP437-14x24-bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --- Receipt Handwriting Font: Kobiguru (Bengali) --- */
+@font-face {
+  font-family: 'Kobiguru';
+  src: url('./files/Kobiguru.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --- Receipt Handwriting English Fallback: Biro Script --- */
+@font-face {
+  font-family: 'BiroScript';
+  src: url('./files/Biro%20Script.otf') format('opentype'),
+       url('./files/Biro_Script.otf') format('opentype'),
+       url('./files/BiroScript/Biro_Script.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ==========================================================================
    THEME VARIABLES
    ========================================================================== */
@@ -1599,4 +1636,194 @@ html[lang="en"] .broadsheet-dispatch-title {
   line-height: 1.4;
   opacity: 0.75;
   font-style: italic;
+}
+
+/* ==========================================================================
+   ORDER RECEIPT STYLES (DUAL ENGLISH POS & BENGALI HANDWRITTEN KHATA)
+   Strict typography isolation to prevent global theme font overrides
+   ========================================================================== */
+
+/* 1. English Thermal POS Slip (VKP80II-CP437): All elements strictly in VKP80II */
+.receipt-paper-en,
+.receipt-paper-en *,
+#receipt-en-content,
+#receipt-en-content *,
+html[lang="bn"] .receipt-paper-en,
+html[lang="bn"] .receipt-paper-en *,
+html[lang="en"] .receipt-paper-en,
+html[lang="en"] .receipt-paper-en *,
+html[lang="bn"] #receipt-en-content,
+html[lang="bn"] #receipt-en-content *,
+html[lang="en"] #receipt-en-content,
+html[lang="en"] #receipt-en-content * {
+  font-family: 'VKP80II-CP437', 'Courier New', Courier, monospace !important;
+  font-feature-settings: normal !important;
+  font-variant: normal !important;
+  font-style: normal !important;
+  letter-spacing: 0.02em;
+}
+
+.receipt-paper-en {
+  background: #ffffff;
+  color: #111111;
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+  padding: 24px 20px 28px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.12);
+  border: 1px dashed #d1d5db;
+  line-height: 1.35;
+  font-size: 13.5px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* 2. Bengali Ruled Khata (Kobiguru): All elements strictly in Kobiguru */
+.receipt-paper-bn,
+.receipt-paper-bn *,
+#receipt-bn-content,
+#receipt-bn-content *,
+html[lang="bn"] .receipt-paper-bn,
+html[lang="bn"] .receipt-paper-bn *,
+html[lang="en"] .receipt-paper-bn,
+html[lang="en"] .receipt-paper-bn *,
+html[lang="bn"] #receipt-bn-content,
+html[lang="bn"] #receipt-bn-content *,
+html[lang="en"] #receipt-bn-content,
+html[lang="en"] #receipt-bn-content * {
+  font-family: 'Kobiguru', cursive !important;
+  font-feature-settings: normal !important;
+  letter-spacing: normal;
+}
+
+.receipt-paper-bn {
+  background-color: #fdfbf7;
+  background-image: url('./files/dag_tana_khata.svg');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  color: #1b1612;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 28px 26px 36px 36px;
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.15);
+  border: 1px solid #dcd3bf;
+  border-radius: 4px;
+  line-height: 1.45;
+  font-size: 18px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* 3. English customer name / Latin script fallback inside Bengali Khata (Biro Script) */
+.receipt-paper-bn .receipt-customer-latin,
+.receipt-paper-bn .font-biro,
+#receipt-bn-content .receipt-customer-latin,
+#receipt-bn-content .font-biro,
+html[lang="bn"] .receipt-paper-bn .receipt-customer-latin,
+html[lang="bn"] .receipt-paper-bn .font-biro,
+html[lang="en"] .receipt-paper-bn .receipt-customer-latin,
+html[lang="en"] .receipt-paper-bn .font-biro,
+html[lang="bn"] #receipt-bn-content .receipt-customer-latin,
+html[lang="bn"] #receipt-bn-content .font-biro,
+html[lang="en"] #receipt-bn-content .receipt-customer-latin,
+html[lang="en"] #receipt-bn-content .font-biro {
+  font-family: 'BiroScript', cursive !important;
+  font-size: 19px !important;
+  letter-spacing: 0.04em !important;
+}
+
+/* Receipt Action Button Pill */
+.receipt-tab-btn {
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.receipt-tab-btn.active {
+  background-color: #1e7e68;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(30, 126, 104, 0.3);
+}
+
+.dark .receipt-tab-btn.active {
+  background-color: #f2c200;
+  color: #000000;
+  box-shadow: 0 2px 8px rgba(242, 194, 0, 0.3);
+}
+
+.receipt-tab-btn:not(.active) {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #475569;
+}
+
+.dark .receipt-tab-btn:not(.active) {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #94a3b8;
+}
+
+.receipt-tab-btn:not(.active):hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+.dark .receipt-tab-btn:not(.active):hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Authentic Stamp Seal Overlay */
+.receipt-seal-stamp {
+  width: 92px;
+  height: 92px;
+  object-fit: contain;
+  opacity: 0.92;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+  pointer-events: none;
+}
+
+.receipt-red-seal {
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  opacity: 0.94;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+/* Dedicated Print Styles */
+@media print {
+  html, body {
+    background: #ffffff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  body * {
+    visibility: hidden !important;
+  }
+  #printable-receipt-container,
+  #printable-receipt-container * {
+    visibility: visible !important;
+  }
+  #printable-receipt-container {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 10px !important;
+    background: transparent !important;
+    display: block !important;
+  }
+  .receipt-paper-en,
+  .receipt-paper-bn {
+    box-shadow: none !important;
+    border: 1px solid #cccccc !important;
+    margin: 0 auto !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
 }

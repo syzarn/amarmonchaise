@@ -1519,6 +1519,8 @@
       return {
         id: item.id,
         name: prod ? (state.lang === 'bn' ? prod.name_bn : prod.name_en) : item.id,
+        name_bn: prod ? prod.name_bn : (item.name || item.id),
+        name_en: prod ? prod.name_en : (item.name || item.id),
         price: item.price,
         qty: item.qty,
         total: item.price * item.qty
@@ -1614,6 +1616,11 @@
   }
 
   function showOrderReceipt(order) {
+    if (window.ReceiptEngine && typeof window.ReceiptEngine.openReceiptModal === 'function') {
+      window.ReceiptEngine.openReceiptModal(order, state.lang);
+      return;
+    }
+
     if (!elements.orderReceiptModal) return;
 
     elements.orderReceiptModal.innerHTML = `
