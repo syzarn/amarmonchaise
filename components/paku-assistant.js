@@ -13,81 +13,37 @@
   const BASE_TIP_CX = 90;
   const BASE_TIP_CY = 161;
 
-  // Direct Inline Vector SVG Asset for 100% Reliable, Zero-Latency Mounting (Works on file:// and http/s)
-  const PAKU_SVG_TEMPLATE = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 240" width="100%" height="100%" aria-label="পাঁকু (Pãku): The Loom Shuttle Mascot">
-  <!-- =================================================== -->
-  <!-- 1. <defs> LAYER: Wood Shading, Brass & Thread Assets -->
-  <!-- =================================================== -->
+  // Direct Inline Vector SVG Assets for 100% Reliable, Zero-Latency Mounting (Works on file:// and http/s)
+
+  // 1. RECESSED CAVITY BACK FLOOR: Dark carved wooden interior at Z = -5.5px
+  const PAKU_CAVITY_FLOOR_SVG_TEMPLATE = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 240" width="100%" height="100%" aria-hidden="true">
   <defs>
-    <!-- Warm Chestnut / Teak Wood Base Gradient (Clean, artisanal woodblock tone) -->
-    <linearGradient id="paku-wood-fill" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#693b1b" />
-      <stop offset="10%" stop-color="#8a5328" />
-      <stop offset="42%" stop-color="#ad7444" />
-      <stop offset="55%" stop-color="#b67c4a" />
-      <stop offset="88%" stop-color="#8a5328" />
-      <stop offset="100%" stop-color="#5e3417" />
+    <linearGradient id="paku-cavity-floor-dark" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0a0402" />
+      <stop offset="25%" stop-color="#1c0e06" />
+      <stop offset="75%" stop-color="#1c0e06" />
+      <stop offset="100%" stop-color="#080301" />
     </linearGradient>
-
-    <!-- Wood Lateral Cylindrical Shadow Overlay -->
-    <linearGradient id="paku-wood-shading" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#2a1205" stop-opacity="0.65" />
-      <stop offset="12%" stop-color="#2a1205" stop-opacity="0" />
-      <stop offset="88%" stop-color="#2a1205" stop-opacity="0" />
-      <stop offset="100%" stop-color="#2a1205" stop-opacity="0.70" />
+    <linearGradient id="paku-cavity-floor-rim-shadow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.80" />
+      <stop offset="18%" stop-color="#000000" stop-opacity="0" />
+      <stop offset="82%" stop-color="#000000" stop-opacity="0" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.80" />
     </linearGradient>
+  </defs>
+  <!-- Deep Carved Wooden Cavity Floor -->
+  <rect x="35" y="93.5" width="30" height="97" rx="8" ry="8" fill="url(#paku-cavity-floor-dark)" stroke="#0a0502" stroke-width="1.2" />
+  <rect x="35" y="93.5" width="30" height="97" rx="8" ry="8" fill="url(#paku-cavity-floor-rim-shadow)" />
+  <!-- Spindle mounting brackets recessed into chamber ends -->
+  <path d="M 46 95 L 54 95 L 53 100 L 47 100 Z" fill="#754e19" stroke="#120803" stroke-width="0.8" />
+  <path d="M 46 189 L 54 189 L 53 184 L 47 184 Z" fill="#754e19" stroke="#120803" stroke-width="0.8" />
+</svg>`;
 
-    <!-- Antique Brass Conical Tip Gradient -->
-    <linearGradient id="paku-brass-cap" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#73541e" />
-      <stop offset="18%" stop-color="#a68035" />
-      <stop offset="45%" stop-color="#fae395" />
-      <stop offset="60%" stop-color="#d6b052" />
-      <stop offset="85%" stop-color="#a68035" />
-      <stop offset="100%" stop-color="#634718" />
-    </linearGradient>
-
-    <!-- Cutout Cavity Deep Interior -->
-    <linearGradient id="paku-cavity-dark" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#120803" />
-      <stop offset="20%" stop-color="#1c0e06" />
-      <stop offset="80%" stop-color="#1c0e06" />
-      <stop offset="100%" stop-color="#0d0502" />
-    </linearGradient>
-
-    <!-- Ambient Drop Shadow -->
-    <filter id="paku-mascot-shadow" x="-25%" y="-15%" width="150%" height="130%">
-      <feDropShadow dx="1" dy="3.5" stdDeviation="3.5" flood-color="#000000" flood-opacity="0.30" />
-    </filter>
-
+  // 2. SPOOL LAYER: Floating Spool pirn and Living crimson thread at Z = 0px
+  const PAKU_SPOOL_SVG_TEMPLATE = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 240" width="100%" height="100%" aria-hidden="true">
+  <defs>
     <style>
       <![CDATA[
-      /* Interactive Mascot Styling & Theming */
-      #paku-hull {
-        transform-origin: 50px 120px;
-        will-change: transform;
-      }
-      #paku-eyes {
-        transform-origin: 50px 66px;
-        will-change: transform;
-      }
-      #pupil-left, #pupil-right {
-        will-change: transform;
-        transition: transform 0.1s ease-out;
-      }
-
-      #paku-body, #paku-mascot {
-        transform-origin: 50px 120px;
-        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-      }
-      #paku-eye-left, #paku-eye-right {
-        transform-origin: 50px 71px;
-      }
-      #paku-pupil-left, #paku-pupil-right {
-        transition: transform 0.25s ease-out;
-      }
-
-      /* Extended Living Thread: Red for Light Mode, Yellow for Dark Mode */
       #living-thread-arm {
         stroke: #BD3A54;
         transition: stroke 0.3s ease;
@@ -96,8 +52,6 @@
         fill: #BD3A54;
         transition: fill 0.3s ease;
       }
-
-      /* Dark Mode Overrides */
       .dark #living-thread-arm,
       :root.dark #living-thread-arm,
       [data-theme="dark"] #living-thread-arm {
@@ -108,8 +62,6 @@
       [data-theme="dark"] #living-thread-tip {
         fill: #f2c200 !important;
       }
-
-      /* Sleepy Z Z Z indicator glyphs */
       .zzz-glyph {
         fill: #BD3A54;
         transition: fill 0.3s ease;
@@ -122,114 +74,7 @@
       ]]>
     </style>
   </defs>
-
-  <!-- Root Animated Container -->
-  <g id="paku-body" class="paku-body" filter="url(#paku-mascot-shadow)">
-
-    <!-- ======================================================= -->
-    <!-- 2. <g id="paku-hull">: The Main Wooden Shuttle Body    -->
-    <!-- ======================================================= -->
-    <g id="paku-hull">
-      <!-- Main Canoe Hull: Perfectly symmetrical slender canoe hull spanning y=10 to y=230 -->
-      <path id="paku-wood-body"
-        d="M 50 10
-           C 43 18, 36 27, 33.5 37
-           C 31 47, 26 75, 23 100
-           C 22 110, 22 130, 23 140
-           C 26 165, 31 193, 33.5 203
-           C 36 213, 43 222, 50 230
-           C 57 222, 64 213, 66.5 203
-           C 69 193, 74 165, 77 140
-           C 78 130, 78 110, 77 100
-           C 74 75, 69 47, 66.5 37
-           C 64 27, 57 18, 50 10 Z"
-        fill="url(#paku-wood-fill)"
-        stroke="#1a1008"
-        stroke-width="1.6" />
-
-      <!-- Outer Contour Lateral Shading Overlay -->
-      <path
-        d="M 50 10
-           C 43 18, 36 27, 33.5 37
-           C 31 47, 26 75, 23 100
-           C 22 110, 22 130, 23 140
-           C 26 165, 31 193, 33.5 203
-           C 36 213, 43 222, 50 230
-           C 57 222, 64 213, 66.5 203
-           C 69 193, 74 165, 77 140
-           C 78 130, 78 110, 77 100
-           C 74 75, 69 47, 66.5 37
-           C 64 27, 57 18, 50 10 Z"
-        fill="url(#paku-wood-shading)" />
-
-      <!-- Artisanal Wood Grain Strands (Confined strictly between brass caps: y=44 to y=198) -->
-      <g id="paku-wood-grain" stroke="#48250f" stroke-width="0.75" stroke-linecap="round" fill="none">
-        <path d="M 34 44 C 27 65, 26 120, 26 140 C 26 165, 28 185, 34 198" />
-        <path d="M 66 44 C 73 65, 74 120, 74 140 C 74 165, 72 185, 66 198" />
-        <path d="M 50 193 L 50 199" />
-      </g>
-
-      <!-- Top Brass Conical Cap (y=10 to y=37, perfectly flush with hull curves) -->
-      <g id="paku-metal-tip-top">
-        <path
-          d="M 50 10
-             C 43 18, 36 27, 33.5 37
-             C 39 39.5, 61 39.5, 66.5 37
-             C 64 27, 57 18, 50 10 Z"
-          fill="url(#paku-brass-cap)"
-          stroke="#1a1008"
-          stroke-width="1.6" />
-        <!-- Specular Highlight Ridge -->
-        <path d="M 50 11 L 47 38 L 53 38 Z" fill="#ffffff" opacity="0.25" />
-        <!-- Rivets (3 distinct brass pins matching reference) -->
-        <circle cx="41" cy="32.5" r="1.1" fill="#edd690" stroke="#1a1008" stroke-width="0.8" />
-        <circle cx="50" cy="34.0" r="1.1" fill="#edd690" stroke="#1a1008" stroke-width="0.8" />
-        <circle cx="59" cy="32.5" r="1.1" fill="#edd690" stroke="#1a1008" stroke-width="0.8" />
-      </g>
-
-      <!-- Bottom Brass Conical Cap (y=203 to y=230, perfectly symmetric mirror of top cap) -->
-      <g id="paku-metal-tip-bottom">
-        <path
-          d="M 33.5 203
-             C 39 200.5, 61 200.5, 66.5 203
-             C 64 213, 57 222, 50 230
-             C 43 222, 36 213, 33.5 203 Z"
-          fill="url(#paku-brass-cap)"
-          stroke="#1a1008"
-          stroke-width="1.6" />
-        <!-- Specular Highlight Ridge -->
-        <path d="M 47 202 L 53 202 L 50 229 Z" fill="#ffffff" opacity="0.25" />
-        <!-- Rivets (3 distinct brass pins matching reference) -->
-        <circle cx="41" cy="207.5" r="1.1" fill="#edd690" stroke="#1a1008" stroke-width="0.8" />
-        <circle cx="50" cy="206.0" r="1.1" fill="#edd690" stroke="#1a1008" stroke-width="0.8" />
-        <circle cx="59" cy="207.5" r="1.1" fill="#edd690" stroke="#1a1008" stroke-width="0.8" />
-      </g>
-
-      <!-- Internal Cavity: Centered vertical cutout slot (y=95 to y=190, width=28: x=36 to x=64) -->
-      <g id="paku-cavity">
-        <!-- Carved Outer Bevel Rim -->
-        <rect x="35" y="93.5" width="30" height="97" rx="8" ry="8"
-          fill="none"
-          stroke="#3d1d0c"
-          stroke-width="1.8" />
-        <rect x="35" y="93.5" width="30" height="97" rx="8" ry="8"
-          fill="none"
-          stroke="#1a1008"
-          stroke-width="1.4" />
-
-        <!-- Deep Cavity Interior Fill -->
-        <rect id="cavity-cutout" x="36" y="95" width="28" height="94" rx="7" ry="7"
-          fill="url(#paku-cavity-dark)"
-          stroke="#0f0703"
-          stroke-width="0.8" />
-
-        <!-- Top Spindle Bracket -->
-        <path d="M 46 95 L 54 95 L 53 100 L 47 100 Z" fill="#8c6428" stroke="#1a1008" stroke-width="0.8" />
-        <!-- Bottom Spindle Bracket -->
-        <path d="M 46 189 L 54 189 L 53 184 L 47 184 Z" fill="#8c6428" stroke="#1a1008" stroke-width="0.8" />
-      </g>
-    
-
+  <g id="paku-spool-layer-group">
     <!-- ======================================================= -->
     <!-- 3. <g id="paku-spool">: Dense Wound Handloom Thread Pirn -->
     <!-- ======================================================= -->
@@ -334,6 +179,230 @@
           opacity="0.18" />
       </g>
     </g>
+
+    
+    
+  </g>
+</svg>`;
+
+  // 3. FRONT FACE: Front wooden shell with transparent cavity window cutout, Devi face, eyes, and brass caps at Z = +6px
+  const PAKU_FRONT_SVG_TEMPLATE = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 240" width="100%" height="100%" aria-label="পাঁকু (Paku) — The Loom Shuttle Mascot">
+  <!-- =================================================== -->
+  <!-- 1. <defs> LAYER: Wood Shading, Brass & Thread Assets -->
+  <!-- =================================================== -->
+  <defs>
+    <!-- Warm Chestnut / Teak Wood Base Gradient (Clean, artisanal woodblock tone) -->
+    <linearGradient id="paku-wood-fill" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#693b1b" />
+      <stop offset="10%" stop-color="#8a5328" />
+      <stop offset="42%" stop-color="#ad7444" />
+      <stop offset="55%" stop-color="#b67c4a" />
+      <stop offset="88%" stop-color="#8a5328" />
+      <stop offset="100%" stop-color="#5e3417" />
+    </linearGradient>
+
+    <!-- Wood Lateral Cylindrical Shadow Overlay -->
+    <linearGradient id="paku-wood-shading" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2a1205" stop-opacity="0.65" />
+      <stop offset="12%" stop-color="#2a1205" stop-opacity="0" />
+      <stop offset="88%" stop-color="#2a1205" stop-opacity="0" />
+      <stop offset="100%" stop-color="#2a1205" stop-opacity="0.70" />
+    </linearGradient>
+
+    <!-- Antique Brass Conical Tip Gradient -->
+    <linearGradient id="paku-brass-cap" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#73541e" />
+      <stop offset="18%" stop-color="#a68035" />
+      <stop offset="45%" stop-color="#fae395" />
+      <stop offset="60%" stop-color="#d6b052" />
+      <stop offset="85%" stop-color="#a68035" />
+      <stop offset="100%" stop-color="#634718" />
+    </linearGradient>
+
+    <!-- Cutout Cavity Window Mask (Transparent opening into hollow chamber) -->
+    <mask id="paku-cavity-hole-mask">
+      <rect x="0" y="0" width="100" height="240" fill="#ffffff" />
+      <rect x="36" y="95" width="28" height="94" rx="7" ry="7" fill="#000000" />
+    </mask>
+
+    <!-- Cutout Cavity Deep Interior -->
+    <linearGradient id="paku-cavity-dark" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#120803" />
+      <stop offset="20%" stop-color="#1c0e06" />
+      <stop offset="80%" stop-color="#1c0e06" />
+      <stop offset="100%" stop-color="#0d0502" />
+    </linearGradient>
+
+    <!-- Ambient Drop Shadow -->
+    <filter id="paku-mascot-shadow" x="-25%" y="-15%" width="150%" height="130%">
+      <feDropShadow dx="1" dy="3.5" stdDeviation="3.5" flood-color="#000000" flood-opacity="0.30" />
+    </filter>
+
+    <style>
+      <![CDATA[
+      /* Interactive Mascot Styling & Theming */
+      #paku-hull {
+        transform-origin: 50px 120px;
+        will-change: transform;
+      }
+      #paku-eyes {
+        transform-origin: 50px 66px;
+        will-change: transform;
+      }
+      #pupil-left, #pupil-right {
+        will-change: transform;
+        transition: transform 0.1s ease-out;
+      }
+
+      #paku-body, #paku-mascot {
+        transform-origin: 50px 120px;
+        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      #paku-eye-left, #paku-eye-right {
+        transform-origin: 50px 71px;
+      }
+      #paku-pupil-left, #paku-pupil-right {
+        transition: transform 0.25s ease-out;
+      }
+
+      /* Extended Living Thread: Red for Light Mode, Yellow for Dark Mode */
+      #living-thread-arm {
+        stroke: #BD3A54;
+        transition: stroke 0.3s ease;
+      }
+      #living-thread-tip {
+        fill: #BD3A54;
+        transition: fill 0.3s ease;
+      }
+
+      /* Dark Mode Overrides */
+      .dark #living-thread-arm,
+      :root.dark #living-thread-arm,
+      [data-theme="dark"] #living-thread-arm {
+        stroke: #f2c200 !important;
+      }
+      .dark #living-thread-tip,
+      :root.dark #living-thread-tip,
+      [data-theme="dark"] #living-thread-tip {
+        fill: #f2c200 !important;
+      }
+
+      /* Sleepy Z Z Z indicator glyphs */
+      .zzz-glyph {
+        fill: #BD3A54;
+        transition: fill 0.3s ease;
+      }
+      .dark .zzz-glyph,
+      :root.dark .zzz-glyph,
+      [data-theme="dark"] .zzz-glyph {
+        fill: #f2c200 !important;
+      }
+      ]]>
+    </style>
+  </defs>
+
+  <!-- Root Animated Container -->
+  <g id="paku-body" class="paku-body" filter="url(#paku-mascot-shadow)">
+
+    <!-- ======================================================= -->
+    <!-- 2. <g id="paku-hull" mask="url(#paku-cavity-hole-mask)">: The Main Wooden Shuttle Body    -->
+    <!-- ======================================================= -->
+    <g id="paku-hull" mask="url(#paku-cavity-hole-mask)">
+      <!-- Main Canoe Hull: Perfectly symmetrical slender canoe hull spanning y=10 to y=230 -->
+      <path id="paku-wood-body"
+        d="M 50 10
+           C 43 18, 36 27, 33.5 37
+           C 31 47, 26 75, 23 100
+           C 22 110, 22 130, 23 140
+           C 26 165, 31 193, 33.5 203
+           C 36 213, 43 222, 50 230
+           C 57 222, 64 213, 66.5 203
+           C 69 193, 74 165, 77 140
+           C 78 130, 78 110, 77 100
+           C 74 75, 69 47, 66.5 37
+           C 64 27, 57 18, 50 10 Z"
+        fill="url(#paku-wood-fill)"
+        stroke="#1a1008"
+        stroke-width="1.6" />
+
+      <!-- Outer Contour Lateral Shading Overlay -->
+      <path
+        d="M 50 10
+           C 43 18, 36 27, 33.5 37
+           C 31 47, 26 75, 23 100
+           C 22 110, 22 130, 23 140
+           C 26 165, 31 193, 33.5 203
+           C 36 213, 43 222, 50 230
+           C 57 222, 64 213, 66.5 203
+           C 69 193, 74 165, 77 140
+           C 78 130, 78 110, 77 100
+           C 74 75, 69 47, 66.5 37
+           C 64 27, 57 18, 50 10 Z"
+        fill="url(#paku-wood-shading)" />
+
+      <!-- Artisanal Wood Grain Strands (Confined strictly between brass caps: y=44 to y=198) -->
+      <g id="paku-wood-grain" stroke="#48250f" stroke-width="0.75" stroke-linecap="round" fill="none">
+        <path d="M 34 44 C 27 65, 26 120, 26 140 C 26 165, 28 185, 34 198" />
+        <path d="M 66 44 C 73 65, 74 120, 74 140 C 74 165, 72 185, 66 198" />
+        <path d="M 50 193 L 50 199" />
+      </g>
+
+      <!-- Top Brass Conical Cap (y=10 to y=37, perfectly flush with hull curves) -->
+      <g id="paku-metal-tip-top">
+        <path
+          d="M 50 10
+             C 43 18, 36 27, 33.5 37
+             C 39 39.5, 61 39.5, 66.5 37
+             C 64 27, 57 18, 50 10 Z"
+          fill="url(#paku-brass-cap)"
+          stroke="#1a1008"
+          stroke-width="1.6" />
+        <!-- Specular Highlight Ridge -->
+        <path d="M 50 11 L 47 38 L 53 38 Z" fill="#ffffff" opacity="0.25" />
+        <!-- Rivets (3 distinct brass pins matching reference) -->
+        <circle cx="41" cy="32.5" r="1.1" fill="#edd690" stroke="#1a1008" stroke-width="0.8" />
+        <circle cx="50" cy="34.0" r="1.1" fill="#edd690" stroke="#1a1008" stroke-width="0.8" />
+        <circle cx="59" cy="32.5" r="1.1" fill="#edd690" stroke="#1a1008" stroke-width="0.8" />
+      </g>
+
+      <!-- Bottom Brass Conical Cap (y=203 to y=230, perfectly symmetric mirror of top cap) -->
+      <g id="paku-metal-tip-bottom">
+        <path
+          d="M 33.5 203
+             C 39 200.5, 61 200.5, 66.5 203
+             C 64 213, 57 222, 50 230
+             C 43 222, 36 213, 33.5 203 Z"
+          fill="url(#paku-brass-cap)"
+          stroke="#1a1008"
+          stroke-width="1.6" />
+        <!-- Specular Highlight Ridge -->
+        <path d="M 47 202 L 53 202 L 50 229 Z" fill="#ffffff" opacity="0.25" />
+        <!-- Rivets (3 distinct brass pins matching reference) -->
+        <circle cx="41" cy="207.5" r="1.1" fill="#edd690" stroke="#1a1008" stroke-width="0.8" />
+        <circle cx="50" cy="206.0" r="1.1" fill="#edd690" stroke="#1a1008" stroke-width="0.8" />
+        <circle cx="59" cy="207.5" r="1.1" fill="#edd690" stroke="#1a1008" stroke-width="0.8" />
+      </g>
+
+      <!-- Internal Cavity: Centered vertical cutout slot (y=95 to y=190, width=28: x=36 to x=64) -->
+      <g id="paku-cavity">
+        <!-- Carved Outer Bevel Rim -->
+        <rect x="35" y="93.5" width="30" height="97" rx="8" ry="8"
+          fill="none"
+          stroke="#3d1d0c"
+          stroke-width="1.8" />
+        <rect x="35" y="93.5" width="30" height="97" rx="8" ry="8"
+          fill="none"
+          stroke="#1a1008"
+          stroke-width="1.4" />
+
+        <!-- Cavity opening is a true physical window through the wooden front shell -->
+
+        <!-- Top Spindle Bracket -->
+        <path d="M 46 95 L 54 95 L 53 100 L 47 100 Z" fill="#8c6428" stroke="#1a1008" stroke-width="0.8" />
+        <!-- Bottom Spindle Bracket -->
+        <path d="M 46 189 L 54 189 L 53 184 L 47 184 Z" fill="#8c6428" stroke="#1a1008" stroke-width="0.8" />
+      </g>
+    
 
     <!-- ======================================================= -->
     <!-- 4. <g id="paku-face">: Classical Serene Devi Expressions  -->
@@ -461,6 +530,326 @@
     </g>
 
   </g>
+</svg
+  </g>
+</svg>`;
+
+  // 4. BACK FACE: Solid polished teak hardwood and metal brass caps at Z = -6px (No eyes, no cavity)
+  const PAKU_BACK_SVG_TEMPLATE = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 240" width="100%" height="100%" aria-label="পাঁকু (Paku) — The Loom Shuttle Back Face">
+  <!-- =================================================== -->
+  <!-- 1. <defs> LAYER: Wood Shading, Brass & Luster Gradients -->
+  <!-- =================================================== -->
+  <defs>
+    <!-- Warm Chestnut / Teak Wood Base Gradient -->
+    <linearGradient id="paku-back-wood-fill" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#693b1b" />
+      <stop offset="10%" stop-color="#8a5328" />
+      <stop offset="42%" stop-color="#ad7444" />
+      <stop offset="55%" stop-color="#b67c4a" />
+      <stop offset="88%" stop-color="#8a5328" />
+      <stop offset="100%" stop-color="#5e3417" />
+    </linearGradient>
+
+    <!-- Wood Lateral Cylindrical Shadow Overlay -->
+    <linearGradient id="paku-back-wood-shading" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2a1205" stop-opacity="0.65" />
+      <stop offset="12%" stop-color="#2a1205" stop-opacity="0" />
+      <stop offset="88%" stop-color="#2a1205" stop-opacity="0" />
+      <stop offset="100%" stop-color="#2a1205" stop-opacity="0.70" />
+    </linearGradient>
+
+    <!-- Polished Hardwood Centerline Sheen Highlight -->
+    <linearGradient id="paku-back-wood-sheen" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0" />
+      <stop offset="44%" stop-color="#ffffff" stop-opacity="0.04" />
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.18" />
+      <stop offset="56%" stop-color="#ffffff" stop-opacity="0.04" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Antique Brass Conical Tip Gradient -->
+    <linearGradient id="paku-back-brass-cap" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#73541e" />
+      <stop offset="18%" stop-color="#a68035" />
+      <stop offset="45%" stop-color="#fae395" />
+      <stop offset="60%" stop-color="#d6b052" />
+      <stop offset="85%" stop-color="#a68035" />
+      <stop offset="100%" stop-color="#634718" />
+    </linearGradient>
+
+    <!-- Ambient Drop Shadow -->
+    <filter id="paku-back-shadow" x="-25%" y="-15%" width="150%" height="130%">
+      <feDropShadow dx="1" dy="3.5" stdDeviation="3.5" flood-color="#000000" flood-opacity="0.30" />
+    </filter>
+  </defs>
+
+  <!-- Root Container for Reverse Shuttle -->
+  <g id="paku-body-back" filter="url(#paku-back-shadow)">
+    <g id="paku-hull-back">
+      <!-- Main Solid Canoe Hull: Symmetrical slender canoe hull spanning y=10 to y=230 -->
+      <path id="paku-wood-body-back"
+        d="M 50 10
+           C 43 18, 36 27, 33.5 37
+           C 31 47, 26 75, 23 100
+           C 22 110, 22 130, 23 140
+           C 26 165, 31 193, 33.5 203
+           C 36 213, 43 222, 50 230
+           C 57 222, 64 213, 66.5 203
+           C 69 193, 74 165, 77 140
+           C 78 130, 78 110, 77 100
+           C 74 75, 69 47, 66.5 37
+           C 64 27, 57 18, 50 10 Z"
+        fill="url(#paku-back-wood-fill)"
+        stroke="#1a1008"
+        stroke-width="1.6" />
+
+      <!-- Outer Contour Lateral Shading Overlay -->
+      <path
+        d="M 50 10
+           C 43 18, 36 27, 33.5 37
+           C 31 47, 26 75, 23 100
+           C 22 110, 22 130, 23 140
+           C 26 165, 31 193, 33.5 203
+           C 36 213, 43 222, 50 230
+           C 57 222, 64 213, 66.5 203
+           C 69 193, 74 165, 77 140
+           C 78 130, 78 110, 77 100
+           C 74 75, 69 47, 66.5 37
+           C 64 27, 57 18, 50 10 Z"
+        fill="url(#paku-back-wood-shading)" />
+
+      <!-- Continuous Full-Length Artisanal Wood Grain (Solid Teak, uninterrupted across whole height) -->
+      <g id="paku-back-wood-grain" stroke="#48250f" stroke-width="0.75" stroke-linecap="round" fill="none">
+        <!-- Flank Contour Grain Lines -->
+        <path d="M 34 44 C 27 65, 26 100, 25 120 C 24 140, 26 175, 34 198" opacity="0.85" />
+        <path d="M 66 44 C 73 65, 74 100, 75 120 C 76 140, 74 175, 66 198" opacity="0.85" />
+
+        <!-- Mid-Body Flowing Grain Strands -->
+        <path d="M 39 48 C 34 72, 33 110, 33 120 C 33 130, 35 168, 40 194" opacity="0.7" />
+        <path d="M 61 48 C 66 72, 67 110, 67 120 C 67 130, 65 168, 60 194" opacity="0.7" />
+
+        <!-- Inner Subtle Heartwood Grain Lines -->
+        <path d="M 44 54 C 41 80, 40 112, 40 120 C 40 128, 42 160, 45 188" opacity="0.6" />
+        <path d="M 56 54 C 59 80, 60 112, 60 120 C 60 128, 58 160, 55 188" opacity="0.6" />
+
+        <!-- Center Spine Soft Grain Veins -->
+        <path d="M 48 60 C 47 88, 47 115, 47.5 120 C 48 125, 48 152, 48.5 182" opacity="0.45" />
+        <path d="M 52 60 C 53 88, 53 115, 52.5 120 C 52 125, 52 152, 51.5 182" opacity="0.45" />
+        <path d="M 50 42 L 50 56" opacity="0.5" />
+        <path d="M 50 184 L 50 198" opacity="0.5" />
+      </g>
+
+      <!-- Polished Curved Hardwood Centerline Sheen / Luster -->
+      <path
+        d="M 50 10
+           C 43 18, 36 27, 33.5 37
+           C 31 47, 26 75, 23 100
+           C 22 110, 22 130, 23 140
+           C 26 165, 31 193, 33.5 203
+           C 36 213, 43 222, 50 230
+           C 57 222, 64 213, 66.5 203
+           C 69 193, 74 165, 77 140
+           C 78 130, 78 110, 77 100
+           C 74 75, 69 47, 66.5 37
+           C 64 27, 57 18, 50 10 Z"
+        fill="url(#paku-back-wood-sheen)" />
+
+      <!-- Top Brass Conical Cap (y=10 to y=37, identical mirror to front) -->
+      <g id="paku-metal-tip-top-back">
+        <path
+          d="M 50 10
+             C 43 18, 36 27, 33.5 37
+             C 39 39.5, 61 39.5, 66.5 37
+             C 64 27, 57 18, 50 10 Z"
+          fill="url(#paku-back-brass-cap)"
+          stroke="#1a1008"
+          stroke-width="1.6" />
+        <!-- Specular Highlight Ridge -->
+        <path d="M 50 11 L 47 38 L 53 38 Z" fill="#ffffff" opacity="0.25" />
+        <!-- Rivets (3 distinct brass pins matching front) -->
+        <circle cx="41" cy="32.5" r="1.1" fill="#edd690" stroke="#1a1008" stroke-width="0.8" />
+        <circle cx="50" cy="34.0" r="1.1" fill="#edd690" stroke="#1a1008" stroke-width="0.8" />
+        <circle cx="59" cy="32.5" r="1.1" fill="#edd690" stroke="#1a1008" stroke-width="0.8" />
+      </g>
+
+      <!-- Bottom Brass Conical Cap (y=203 to y=230, identical mirror to front) -->
+      <g id="paku-metal-tip-bottom-back">
+        <path
+          d="M 33.5 203
+             C 39 200.5, 61 200.5, 66.5 203
+             C 64 213, 57 222, 50 230
+             C 43 222, 36 213, 33.5 203 Z"
+          fill="url(#paku-back-brass-cap)"
+          stroke="#1a1008"
+          stroke-width="1.6" />
+        <!-- Specular Highlight Ridge -->
+        <path d="M 47 202 L 53 202 L 50 229 Z" fill="#ffffff" opacity="0.25" />
+        <!-- Rivets (3 distinct brass pins matching front) -->
+        <circle cx="41" cy="207.5" r="1.1" fill="#edd690" stroke="#1a1008" stroke-width="0.8" />
+        <circle cx="50" cy="206.0" r="1.1" fill="#edd690" stroke="#1a1008" stroke-width="0.8" />
+        <circle cx="59" cy="207.5" r="1.1" fill="#edd690" stroke="#1a1008" stroke-width="0.8" />
+      </g>
+    </g>
+  </g>
+</svg>`;
+
+  // 5. SIDE FACE: Slender teak profile with delivery eyelet at 90deg / 270deg
+  const PAKU_SIDE_SVG_TEMPLATE = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 240" width="100%" height="100%" aria-label="পাঁকু (Paku) — The Loom Shuttle Side Profile">
+  <!-- =================================================== -->
+  <!-- 1. <defs> LAYER: Wood Shading, Brass & Eyelet Gradients -->
+  <!-- =================================================== -->
+  <defs>
+    <!-- Warm Chestnut / Teak Wood Base Gradient for Slender Profile -->
+    <linearGradient id="paku-side-wood-fill" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5e3417" />
+      <stop offset="15%" stop-color="#8a5328" />
+      <stop offset="50%" stop-color="#b67c4a" />
+      <stop offset="85%" stop-color="#8a5328" />
+      <stop offset="100%" stop-color="#5e3417" />
+    </linearGradient>
+
+    <!-- Lateral Cylindrical Shadow Overlay -->
+    <linearGradient id="paku-side-wood-shading" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2a1205" stop-opacity="0.75" />
+      <stop offset="18%" stop-color="#2a1205" stop-opacity="0" />
+      <stop offset="82%" stop-color="#2a1205" stop-opacity="0" />
+      <stop offset="100%" stop-color="#2a1205" stop-opacity="0.75" />
+    </linearGradient>
+
+    <!-- Polished Hardwood Centerline Sheen Highlight -->
+    <linearGradient id="paku-side-wood-sheen" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0" />
+      <stop offset="42%" stop-color="#ffffff" stop-opacity="0.03" />
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.22" />
+      <stop offset="58%" stop-color="#ffffff" stop-opacity="0.03" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Antique Brass Conical Tip Gradient -->
+    <linearGradient id="paku-side-brass-cap" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#73541e" />
+      <stop offset="18%" stop-color="#a68035" />
+      <stop offset="48%" stop-color="#fae395" />
+      <stop offset="60%" stop-color="#d6b052" />
+      <stop offset="85%" stop-color="#a68035" />
+      <stop offset="100%" stop-color="#634718" />
+    </linearGradient>
+
+    <!-- Eyelet Metal Rim Gradient -->
+    <radialGradient id="paku-side-eyelet-rim" cx="40%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#fae395" />
+      <stop offset="50%" stop-color="#d6b052" />
+      <stop offset="85%" stop-color="#8c6428" />
+      <stop offset="100%" stop-color="#543c16" />
+    </radialGradient>
+
+    <!-- Ambient Drop Shadow -->
+    <filter id="paku-side-shadow" x="-25%" y="-15%" width="150%" height="130%">
+      <feDropShadow dx="1" dy="3.5" stdDeviation="3.5" flood-color="#000000" flood-opacity="0.30" />
+    </filter>
+  </defs>
+
+  <!-- Root Container for Side Profile Shuttle -->
+  <g id="paku-body-side" filter="url(#paku-side-shadow)">
+    <g id="paku-hull-side">
+      <!-- Slender Lateral Hull: Slimmer boat silhouette tapering from x=34 to x=66 (width=32px) -->
+      <path id="paku-wood-body-side"
+        d="M 50 10
+           C 46 18, 41 27, 39 37
+           C 37 55, 34 85, 34 120
+           C 34 155, 37 185, 39 203
+           C 41 213, 46 222, 50 230
+           C 54 222, 59 213, 61 203
+           C 63 185, 66 155, 66 120
+           C 66 85, 63 55, 61 37
+           C 59 27, 54 18, 50 10 Z"
+        fill="url(#paku-side-wood-fill)"
+        stroke="#1a1008"
+        stroke-width="1.6" />
+
+      <!-- Outer Contour Lateral Shading Overlay -->
+      <path
+        d="M 50 10
+           C 46 18, 41 27, 39 37
+           C 37 55, 34 85, 34 120
+           C 34 155, 37 185, 39 203
+           C 41 213, 46 222, 50 230
+           C 54 222, 59 213, 61 203
+           C 63 185, 66 155, 66 120
+           C 66 85, 63 55, 61 37
+           C 59 27, 54 18, 50 10 Z"
+        fill="url(#paku-side-wood-shading)" />
+
+      <!-- Artisanal Longitudinal Side Wood Grain Strands -->
+      <g id="paku-side-wood-grain" stroke="#48250f" stroke-width="0.75" stroke-linecap="round" fill="none">
+        <path d="M 40 44 C 36 65, 35 95, 35 120 C 35 145, 36 175, 40 198" opacity="0.8" />
+        <path d="M 60 44 C 64 65, 65 95, 65 120 C 65 145, 64 175, 60 198" opacity="0.8" />
+        <path d="M 44 48 C 42 75, 41 100, 41 120 C 41 140, 42 165, 44 194" opacity="0.65" />
+        <path d="M 56 48 C 58 75, 59 100, 59 120 C 59 140, 58 165, 56 194" opacity="0.65" />
+        <path d="M 47 54 C 46 80, 46 105, 46 120 C 46 135, 46 160, 47 188" opacity="0.5" />
+        <path d="M 53 54 C 54 80, 54 105, 54 120 C 54 135, 54 160, 53 188" opacity="0.5" />
+        <path d="M 50 42 L 50 56" opacity="0.45" />
+        <path d="M 50 184 L 50 198" opacity="0.45" />
+      </g>
+
+      <!-- Centerline Luster Highlight -->
+      <path
+        d="M 50 10
+           C 46 18, 41 27, 39 37
+           C 37 55, 34 85, 34 120
+           C 34 155, 37 185, 39 203
+           C 41 213, 46 222, 50 230
+           C 54 222, 59 213, 61 203
+           C 63 185, 66 155, 66 120
+           C 66 85, 63 55, 61 37
+           C 59 27, 54 18, 50 10 Z"
+        fill="url(#paku-side-wood-sheen)" />
+
+      <!-- Top Brass Conical Cap (Side Profile, y=10 to y=37) -->
+      <g id="paku-metal-tip-top-side">
+        <path
+          d="M 50 10
+             C 46 18, 41 27, 39 37
+             C 43 38.8, 57 38.8, 61 37
+             C 59 27, 54 18, 50 10 Z"
+          fill="url(#paku-side-brass-cap)"
+          stroke="#1a1008"
+          stroke-width="1.6" />
+        <!-- Specular Highlight Ridge -->
+        <path d="M 50 11 L 48 38 L 52 38 Z" fill="#ffffff" opacity="0.28" />
+        <!-- Center Pin Rivet -->
+        <circle cx="50" cy="33.5" r="1.1" fill="#edd690" stroke="#1a1008" stroke-width="0.8" />
+      </g>
+
+      <!-- Bottom Brass Conical Cap (Side Profile, y=203 to y=230) -->
+      <g id="paku-metal-tip-bottom-side">
+        <path
+          d="M 39 203
+             C 43 201.2, 57 201.2, 61 203
+             C 59 213, 54 222, 50 230
+             C 46 222, 41 213, 39 203 Z"
+          fill="url(#paku-side-brass-cap)"
+          stroke="#1a1008"
+          stroke-width="1.6" />
+        <!-- Specular Highlight Ridge -->
+        <path d="M 48 202 L 52 202 L 50 229 Z" fill="#ffffff" opacity="0.28" />
+        <!-- Center Pin Rivet -->
+        <circle cx="50" cy="206.5" r="1.1" fill="#edd690" stroke="#1a1008" stroke-width="0.8" />
+      </g>
+
+      <!-- Authentic Loom Shuttle Thread Delivery Eyelet (সুতার ছিদ্র) at y=140.5 -->
+      <g id="paku-side-eyelet">
+        <!-- Outer carved recess bevel -->
+        <circle cx="50" cy="140.5" r="5" fill="#3d1d0c" stroke="#1a1008" stroke-width="0.9" />
+        <!-- Polished brass eyelet grommet -->
+        <circle cx="50" cy="140.5" r="3.8" fill="url(#paku-side-eyelet-rim)" stroke="#1a1008" stroke-width="0.7" />
+        <!-- Interior cavity hole -->
+        <circle cx="50" cy="140.5" r="2.1" fill="#120803" stroke="#050201" stroke-width="0.5" />
+        <!-- Brass glint highlight -->
+        <circle cx="48.8" cy="139.3" r="0.8" fill="#ffffff" opacity="0.65" />
+      </g>
+    </g>
+  </g>
 </svg>`;
 
   class PakuAssistant extends HTMLElement {
@@ -473,6 +862,7 @@
       this.speechTimer = null;
       this.idleTimer = null;
       this.blinkTimer = null;
+      this.spinRaf = null;
       this.hasShownIdleMessage = false;
       this.sequenceTimeouts = [];
     }
@@ -492,7 +882,8 @@
     disconnectedCallback() {
       if (this.speechTimer) clearTimeout(this.speechTimer);
       if (this.idleTimer) clearTimeout(this.idleTimer);
-      if (this.blinkTimer) clearTimeout(this.blinkTimer);
+      if (this.blinkTimer) clearInterval(this.blinkTimer);
+      if (this.spinRaf) cancelAnimationFrame(this.spinRaf);
       this.clearSequenceTimeouts();
       this.setSleepy(false);
     }
@@ -506,10 +897,40 @@
             <span class="paku-speech-text" id="paku-speech-text"></span>
           </div>
 
-          <!-- Mascot Shuttle Wrapper -->
+          <!-- Mascot Shuttle Wrapper with 3D Perspective Stage -->
           <div class="paku-mascot-wrapper" id="paku-mascot-wrapper" title="পাঁকু: মঞ্চাইছে “অ-এআই” সহকারী">
-            <div id="paku-svg-slot" class="w-full h-full flex items-center justify-center">
-              ${PAKU_SVG_TEMPLATE}
+            <div class="paku-stage" id="paku-stage">
+              <div id="paku-shuttle-wrapper" class="paku-shuttle-3d">
+                <!-- LAYER 1: Recessed Cavity Floor (Back wall of chamber, Z = -5.5px) -->
+                <div class="paku-face paku-cavity-floor" id="paku-cavity-floor">
+                  ${PAKU_CAVITY_FLOOR_SVG_TEMPLATE}
+                </div>
+
+                <!-- LAYER 2: Floating Spool & Living Thread (Z = 0px) -->
+                <div class="paku-face paku-spool-layer" id="paku-spool-layer">
+                  ${PAKU_SPOOL_SVG_TEMPLATE}
+                </div>
+
+                <!-- LAYER 3: FRONT SHELL: Cutout Window, Beveled Rim, Devi Face, Eyes, Brass Caps (Z = +6px) -->
+                <div class="paku-face paku-face-front" id="paku-face-front">
+                  ${PAKU_FRONT_SVG_TEMPLATE}
+                </div>
+
+                <!-- LAYER 4: BACK FACE: Solid polished teak hardwood and metal brass caps (Z = -6px, rotateY(180deg)) -->
+                <div class="paku-face paku-face-back" id="paku-face-back">
+                  ${PAKU_BACK_SVG_TEMPLATE}
+                </div>
+
+                <!-- LAYER 5: RIGHT SIDE PROFILE: Slender teak profile with delivery eyelet (rotateY(90deg)) -->
+                <div class="paku-face paku-face-right" id="paku-face-right">
+                  ${PAKU_SIDE_SVG_TEMPLATE}
+                </div>
+
+                <!-- LAYER 6: LEFT SIDE PROFILE: Mirrored side profile (rotateY(270deg)) -->
+                <div class="paku-face paku-face-left" id="paku-face-left">
+                  ${PAKU_SIDE_SVG_TEMPLATE}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -525,6 +946,13 @@
     }
 
     initSvgElements() {
+      this.shuttleWrapper = this.querySelector('#paku-shuttle-wrapper');
+      this.cavityFloor = this.querySelector('#paku-cavity-floor');
+      this.spoolLayer = this.querySelector('#paku-spool-layer');
+      this.faceFront = this.querySelector('#paku-face-front');
+      this.faceBack = this.querySelector('#paku-face-back');
+      this.faceRight = this.querySelector('#paku-face-right');
+      this.faceLeft = this.querySelector('#paku-face-left');
       this.bodyEl = this.querySelector('#paku-body') || this.querySelector('#paku-mascot');
       this.hullEl = this.querySelector('#paku-hull');
       this.eyesEl = this.querySelector('#paku-eyes');
@@ -652,11 +1080,16 @@
       if (!wrapper) return;
 
       const quips = [
-        'হেই! আমি পাঁকু; তাঁতের মাকু! কোনো সাহায্য লাগলে টোকা দিয়েন।',
-        'আমি কোনো এআই না! যা শিখিয়েছে আমাকে, তোতাপাখির মতন তা-ই বলি।',
+        'হেই! আমি পাঁকু; তাঁতের মাকু! কোনো সাহায্য লাগলে ডাক দিয়েন।',
+        'আমার এক বিলাতি ভাগ্নে ছিল, ক্লিপি। কেউ কী ওর খবর জানো?',
+        'রুনঝুন করছে না কেন আজ?',
+        'মেশিনটা একটু বেশি শব্দ করছে, তাই না?',
+        'একটা নতুন রঙ খুঁজছি। ফিরোজার মধ্যে হলুদ, আবার একটু কড়া লাল, কিন্তু একটু কম গাঢ়।',
+        'খাওয়াদাওয়া আজ হয়েছে ঠিকঠাক?',
         'আমার সুতো বেশি টান দিয়েন না যেন, মাথা ঘুরায়া চক্কর দেয়!',
+        'আমার এক চোখে ঘুম, আরেক চোখে বাজার!',
         'তাঁতের নিখুঁত কাজের কোনো তুলনা হয় না, তাই না?',
-        'কী ভাবছেন? ফিতার মাপে কোনো খটকা?'
+        'কী ভাবছেন? ফিতার মাপে কোনো খটকা লাগলে আমায় বইলেন!'
       ];
       let quipIndex = 0;
 
@@ -738,62 +1171,122 @@
       }, 700);
     }
 
-    // --- BEYBLADE ROTATIONAL SPIN ---
+    // --- TRUE 3D ON-AXIS BEYBLADE VERTICAL SPIN (rotateY) ---
     spin() {
       this.clearSequenceTimeouts();
       this.setSleepy(false);
 
-      if (!this.hullEl) {
-        this.hullEl = this.querySelector('#paku-hull');
-      }
-      if (!this.hullEl) return;
-
-      const hull = this.hullEl;
+      const shuttle = this.shuttleWrapper || this.querySelector('#paku-shuttle-wrapper');
       const eyes = this.querySelector('#paku-eyes');
 
-      // Trigger dizzy eyes
+      if (!shuttle) return;
+
+      // Trigger dizzy eyes on front face
       if (eyes) eyes.classList.add('dizzy');
 
-      // Add Beyblade spin class (rotate 2160deg over 2s with cubic-bezier(0.1, 0.9, 0.2, 1))
-      hull.classList.remove('beyblade-spinning');
-      void hull.offsetWidth;
-      hull.classList.add('beyblade-spinning');
+      // Add 3D Beyblade spin class
+      shuttle.classList.remove('beyblade-spinning-3d');
+      void shuttle.offsetWidth;
+      shuttle.classList.add('beyblade-spinning-3d');
 
-      // Humorous Bengali dizzy dialogue
+      // Bengali dizzy dialogue
       this.say('আরে আরে থামা! মাথা ঘুরায়া মাটিতে পইড়া যামু তো!', 'dizzy', 6000);
 
-      // Decelerate and reset after 2.4s
-      setTimeout(() => {
-        if (eyes) eyes.classList.remove('dizzy');
-        hull.classList.remove('beyblade-spinning');
-        hull.style.transition = 'none';
-        hull.style.transform = 'rotate(0deg)';
-        void hull.offsetWidth;
-        hull.style.transition = '';
-        hull.style.transform = '';
-      }, 2400);
+      // Cancel any prior spin RAF
+      if (this.spinRaf) {
+        cancelAnimationFrame(this.spinRaf);
+        this.spinRaf = null;
+      }
+
+      // Smooth on-axis Beyblade spin with angle-based face culling (Zero Cross Artifact!)
+      const duration = 2400; // ms
+      const totalRotation = 2160; // 6 full turns (rotateY)
+      const startTime = performance.now();
+
+      const lFront = this.faceFront;
+      const lSpool = this.spoolLayer;
+      const lFloor = this.cavityFloor;
+      const lBack = this.faceBack;
+      const lSideLeft = this.faceLeft;
+      const lSideRight = this.faceRight;
+
+      const updateAngle = (deg) => {
+        const rad = deg * Math.PI / 180;
+        const cosA = Math.cos(rad);
+        const sinA = Math.sin(rad);
+
+        // Near edge-on (within ~12 deg of 90 or 270), abs(cosA) < 0.20
+        // When abs(cosA) < 0.15, front/back drops to 0 and side becomes 1
+        let fbOpacity = 1;
+        let sideOpacity = 0;
+
+        if (Math.abs(cosA) < 0.20) {
+          fbOpacity = Math.max(0, (Math.abs(cosA) - 0.06) / 0.14);
+          sideOpacity = 1 - fbOpacity;
+        }
+
+        shuttle.style.transform = `rotateY(${deg.toFixed(2)}deg)`;
+        if (lFront) lFront.style.opacity = fbOpacity;
+        if (lSpool) lSpool.style.opacity = fbOpacity;
+        if (lFloor) lFloor.style.opacity = fbOpacity;
+        if (lBack) lBack.style.opacity = fbOpacity;
+
+        if (sinA > 0) {
+          if (lSideLeft) lSideLeft.style.opacity = sideOpacity;
+          if (lSideRight) lSideRight.style.opacity = 0;
+        } else {
+          if (lSideRight) lSideRight.style.opacity = sideOpacity;
+          if (lSideLeft) lSideLeft.style.opacity = 0;
+        }
+      };
+
+      const step = (now) => {
+        const elapsed = now - startTime;
+        const p = Math.min(1.0, elapsed / duration);
+        // easeOutCubic: 1 - pow(1 - p, 3)
+        const ease = 1 - Math.pow(1 - p, 3);
+        const deg = ease * totalRotation;
+
+        updateAngle(deg);
+
+        if (p < 1.0) {
+          this.spinRaf = requestAnimationFrame(step);
+        } else {
+          this.spinRaf = null;
+          updateAngle(totalRotation);
+          shuttle.style.transform = 'rotateY(0deg)';
+          if (lFront) lFront.style.opacity = 1;
+          if (lSpool) lSpool.style.opacity = 1;
+          if (lFloor) lFloor.style.opacity = 1;
+          if (lBack) lBack.style.opacity = 1;
+          if (lSideLeft) lSideLeft.style.opacity = 0;
+          if (lSideRight) lSideRight.style.opacity = 0;
+          shuttle.classList.remove('beyblade-spinning-3d');
+          if (eyes) eyes.classList.remove('dizzy');
+        }
+      };
+
+      this.spinRaf = requestAnimationFrame(step);
     }
 
-    // --- IDLE BLINK CONTROLLER ---
+    // --- CONSTANT BLINK CONTROLLER (EVERY 4 SECONDS) ---
     setupBlinkTimer() {
-      const scheduleNextBlink = () => {
-        const delay = 5000 + Math.random() * 2000; // 5 to 7 seconds
-        this.blinkTimer = setTimeout(() => {
-          this.triggerBlink();
-          scheduleNextBlink();
-        }, delay);
-      };
-      scheduleNextBlink();
+      if (this.blinkTimer) clearInterval(this.blinkTimer);
+      this.blinkTimer = setInterval(() => {
+        this.triggerBlink();
+      }, 4000);
     }
 
     triggerBlink() {
       const eyes = this.querySelector('#paku-eyes');
-      if (!eyes || eyes.classList.contains('dizzy')) return;
+      if (!eyes || eyes.classList.contains('dizzy') || this.classList.contains('paku-sleeping')) return;
 
+      eyes.classList.remove('blinking');
+      void eyes.offsetWidth;
       eyes.classList.add('blinking');
       setTimeout(() => {
         eyes.classList.remove('blinking');
-      }, 200);
+      }, 220);
     }
 
     blink() {
@@ -937,7 +1430,19 @@
       const c6x = 80 + svgDx * 0.85 * damping;
       const c6y = 158 + svgDy * 0.85 * damping;
 
-      const newD = `M 50 140.5 C ${c1x.toFixed(1)} ${c1y.toFixed(1)}, ${c2x.toFixed(1)} ${c2y.toFixed(1)}, ${c3x.toFixed(1)} ${c3y.toFixed(1)} C ${c4x.toFixed(1)} ${c4y.toFixed(1)}, ${c5x.toFixed(1)} ${c5y.toFixed(1)}, ${c6x.toFixed(1)} ${c6y.toFixed(1)} C ${(76 + svgDx * 0.9 * damping).toFixed(1)} ${(168 + svgDy * 0.9 * damping).toFixed(1)}, ${(79 + svgDx * 0.95 * damping).toFixed(1)} ${(176 + svgDy * 0.95 * damping).toFixed(1)}, ${(86 + svgDx * 0.98 * damping).toFixed(1)} ${(175 + svgDy * 0.98 * damping).toFixed(1)} C ${(91 + svgDx * damping).toFixed(1)} ${(173 + svgDy * damping).toFixed(1)}, ${(93 + svgDx * damping).toFixed(1)} ${(166 + svgDy * damping).toFixed(1)}, ${tipX.toFixed(1)} ${tipY.toFixed(1)}`;
+      const c7x = 76 + svgDx * 0.9 * damping;
+      const c7y = 168 + svgDy * 0.9 * damping;
+      const c8x = 79 + svgDx * 0.95 * damping;
+      const c8y = 176 + svgDy * 0.95 * damping;
+      const c9x = 86 + svgDx * 0.98 * damping;
+      const c9y = 175 + svgDy * 0.98 * damping;
+
+      const c10x = 91 + svgDx * damping;
+      const c10y = 173 + svgDy * damping;
+      const c11x = 93 + svgDx * damping;
+      const c11y = 166 + svgDy * damping;
+
+      const newD = `M 50 140.5 C ${c1x.toFixed(1)} ${c1y.toFixed(1)}, ${c2x.toFixed(1)} ${c2y.toFixed(1)}, ${c3x.toFixed(1)} ${c3y.toFixed(1)} C ${c4x.toFixed(1)} ${c4y.toFixed(1)}, ${c5x.toFixed(1)} ${c5y.toFixed(1)}, ${c6x.toFixed(1)} ${c6y.toFixed(1)} C ${c7x.toFixed(1)} ${c7y.toFixed(1)}, ${c8x.toFixed(1)} ${c8y.toFixed(1)}, ${c9x.toFixed(1)} ${c9y.toFixed(1)} C ${c10x.toFixed(1)} ${c10y.toFixed(1)}, ${c11x.toFixed(1)} ${c11y.toFixed(1)}, ${tipX.toFixed(1)} ${tipY.toFixed(1)}`;
 
       arm.setAttribute('d', newD);
       tip.setAttribute('cx', tipX.toFixed(1));
@@ -961,7 +1466,7 @@
 
       // Snap thread back into place
       this.snapThreadBack(() => {
-        // If dragged beyond 50px, fire the violent Beyblade spin!
+        // If dragged beyond 50px, fire the true 3D on-axis Beyblade spin!
         if (totalDist > 50) {
           this.spin();
         }
@@ -993,22 +1498,26 @@
 
         const s = 1.70158;
         const p = 1.0 - progress;
-        const factor = p * p * ((s + 1) * p - s);
+        const overshootFactor = p * p * ((s + 1) * p - s);
 
-        const curDx = (startX - BASE_TIP_CX) * factor;
-        const curDy = (startY - BASE_TIP_CY) * factor;
+        const currentX = BASE_TIP_CX + (startX - BASE_TIP_CX) * overshootFactor;
+        const currentY = BASE_TIP_CY + (startY - BASE_TIP_CY) * overshootFactor;
+
+        const currentDx = currentX - BASE_TIP_CX;
+        const currentDy = currentY - BASE_TIP_CY;
+
+        this.updateDeformedThread(currentDx, currentDy);
 
         if (progress < 1.0) {
-          this.updateDeformedThread(curDx, curDy);
           requestAnimationFrame(animateSnap);
         } else {
           arm.setAttribute('d', BASE_THREAD_PATH);
-          tip.setAttribute('cx', String(BASE_TIP_CX));
-          tip.setAttribute('cy', String(BASE_TIP_CY));
+          tip.setAttribute('cx', BASE_TIP_CX);
+          tip.setAttribute('cy', BASE_TIP_CY);
           if (hitArm) hitArm.setAttribute('d', BASE_THREAD_PATH);
           if (hitTip) {
-            hitTip.setAttribute('cx', String(BASE_TIP_CX));
-            hitTip.setAttribute('cy', String(BASE_TIP_CY));
+            hitTip.setAttribute('cx', BASE_TIP_CX);
+            hitTip.setAttribute('cy', BASE_TIP_CY);
           }
           if (onComplete) onComplete();
         }
@@ -1017,108 +1526,125 @@
       requestAnimationFrame(animateSnap);
     }
 
-    // --- 45-SECOND IDLE LISTENER ---
+    // --- IDLE REMINDER CONTROLLER ---
     setupIdleTimer() {
       const resetIdle = () => {
         if (this.idleTimer) clearTimeout(this.idleTimer);
-
         this.idleTimer = setTimeout(() => {
-          this.say('কী ভাবছেন? ফিতার মাপে কোনো খটকা লাগলে আমায় বইলেন!', 'normal', 6500);
+          if (!this.hasShownIdleMessage && !this.isDragging) {
+            this.hasShownIdleMessage = true;
+            this.say('কী ভাবছেন? ফিতার মাপে কোনো খটকা লাগলে আমায় বইলেন!', 'normal', 7000);
+            this.triggerBlink();
+          }
         }, 45000); // 45 seconds
       };
 
-      const events = ['mousemove', 'keydown', 'scroll', 'touchstart', 'click'];
-      events.forEach(ev => window.addEventListener(ev, resetIdle, { passive: true }));
+      window.addEventListener('mousemove', resetIdle, { passive: true });
+      window.addEventListener('keydown', resetIdle, { passive: true });
+      window.addEventListener('scroll', resetIdle, { passive: true });
       resetIdle();
     }
 
-    // --- CONTEXTUAL BENGALI APP HOOKS ---
+    // --- APP EVENT HOOKS ---
     setupAppHooks() {
-      // 1. Empty Cart Click
-      const attachCartTriggers = () => {
-        const cartButtons = document.querySelectorAll('#cart-trigger-btn, #nav-cart-btn, #floating-cart-btn, [data-action="open-cart"]');
-        cartButtons.forEach(btn => {
-          btn.addEventListener('click', () => {
-            let count = 0;
-            try {
-              const saved = JSON.parse(localStorage.getItem('amc_cart') || '[]');
-              count = saved.reduce((sum, item) => sum + (item.qty || 1), 0);
-            } catch (e) {
-              count = 0;
-            }
-
-            if (count === 0) {
-              this.clearSequenceTimeouts();
-              this.setSleepy(false);
-              setTimeout(() => {
-                this.say('কার্ট তো খাঁ খাঁ করতাছে! কিছু পছন্দ হইলো না?', 'normal', 6000);
-              }, 300);
-            }
-          });
-        });
-      };
-      attachCartTriggers();
-
-      // 2. Adding an Item to Cart
-      window.addEventListener('paku:cart-add', () => {
+      // 1. Add to cart event
+      window.addEventListener('paku:cart-add', (e) => {
         this.clearSequenceTimeouts();
         this.setSleepy(false);
-        this.say('চমत्कार পছন্দ! তাঁতির নিপুণ হাতের কাজ কিন্তু এটা।', 'normal', 6000);
+        this.say('চমৎকার পছন্দ! তাঁতির নিপুণ হাতের কাজ কিন্তু এটা।', 'normal', 5000);
+        this.triggerBlink();
       });
 
-      // 3. Selecting bKash/Nagad (MFS) at Checkout
-      document.addEventListener('change', (e) => {
-        if (e.target && e.target.name === 'paymentMethod' && e.target.value === 'mfs') {
-          this.clearSequenceTimeouts();
-          this.setSleepy(false);
-          this.say('টাকা সেন্ড মানি করার পর TrxID দিতে ভুলবেন না যেন! নাইলে পার্সেল আটকায়া যাইব।', 'normal', 6500);
-        }
-      });
-
-      // 4. Missing Checkout Fields
-      window.addEventListener('paku:checkout-error', () => {
+      // 2. Checkout form validation error
+      window.addEventListener('paku:checkout-error', (e) => {
         this.clearSequenceTimeouts();
         this.setSleepy(false);
         this.shake();
         this.say('ঠিকানা আর ফোন নম্বর না দিলে পার্সেল পাঠামু কার কাছে?', 'alarmed', 6500);
       });
+
+      // 3. Payment method selection
+      window.addEventListener('paku:payment-select', (e) => {
+        this.clearSequenceTimeouts();
+        this.setSleepy(false);
+        const method = e.detail && e.detail.method;
+        if (method === 'cod') {
+          this.say('ক্যাশ অন ডেলিভারি? বেশ, পার্সেল বুইঝা পাইয়া তারপর টাকা দিয়েন।', 'normal', 5500);
+        } else if (method === 'mfs') {
+          this.say('টাকা সেন্ড মানি করার পর TrxID দিতে ভুলবেন না যেন! নাইলে পার্সেল আটকায়া যাইব।', 'normal', 6500);
+        }
+      });
+
+      // Direct DOM click bindings
+      setTimeout(() => {
+        const cartBtn = document.getElementById('cart-trigger-btn') || document.querySelector('[data-cart-trigger]');
+        if (cartBtn) {
+          cartBtn.addEventListener('click', () => {
+            const cart = JSON.parse(localStorage.getItem('amc_cart') || '[]');
+            if (cart.length === 0) {
+              this.clearSequenceTimeouts();
+              this.setSleepy(false);
+              this.say('কার্ট তো খাঁ খাঁ করতাছে! কিছু পছন্দ হইলো না?', 'normal', 5000);
+            }
+          });
+        }
+
+        const mfsRadio = document.querySelector('input[name="paymentMethod"][value="mfs"]');
+        if (mfsRadio) {
+          mfsRadio.addEventListener('change', () => {
+            if (mfsRadio.checked) {
+              this.clearSequenceTimeouts();
+              this.setSleepy(false);
+              this.say('টাকা সেন্ড মানি করার পর TrxID দিতে ভুলবেন না যেন! নাইলে পার্সেল আটকায়া যাইব।', 'normal', 6500);
+            }
+          });
+        }
+      }, 1000);
     }
   }
 
-  // Define Custom Element
+  // Register custom element
   if (!customElements.get('paku-assistant')) {
     customElements.define('paku-assistant', PakuAssistant);
   }
 
-  // Register Global window.paku Controller
-  function getPakuInstance() {
-    return document.querySelector('paku-assistant');
-  }
-
+  // Expose global helper API
   window.paku = {
-    say(message, mood = 'normal', duration = 6000) {
-      const paku = getPakuInstance();
-      if (paku) paku.say(message, mood, duration);
+    say: (msg, mood, dur) => {
+      const pakuEl = document.querySelector('paku-assistant');
+      if (pakuEl && typeof pakuEl.say === 'function') {
+        pakuEl.say(msg, mood, dur);
+      }
     },
-    shake() {
-      const paku = getPakuInstance();
-      if (paku) paku.shake();
+    spin: () => {
+      const pakuEl = document.querySelector('paku-assistant');
+      if (pakuEl && typeof pakuEl.spin === 'function') {
+        pakuEl.spin();
+      }
     },
-    spin() {
-      const paku = getPakuInstance();
-      if (paku) paku.spin();
+    shake: () => {
+      const pakuEl = document.querySelector('paku-assistant');
+      if (pakuEl && typeof pakuEl.shake === 'function') {
+        pakuEl.shake();
+      }
     },
-    blink() {
-      const paku = getPakuInstance();
-      if (paku) paku.blink();
+    playIntro: (forcedHour) => {
+      const pakuEl = document.querySelector('paku-assistant');
+      if (pakuEl && typeof pakuEl.playIntro === 'function') {
+        pakuEl.playIntro(forcedHour);
+      }
     },
-    playIntro(hour) {
-      const paku = getPakuInstance();
-      if (paku) paku.playIntro(hour);
+    blink: () => {
+      const pakuEl = document.querySelector('paku-assistant');
+      if (pakuEl && typeof pakuEl.blink === 'function') {
+        pakuEl.blink();
+      }
     },
-    setSleepy(isSleepy) {
-      const paku = getPakuInstance();
-      if (paku) paku.setSleepy(isSleepy);
+    setSleepy: (isSleepy) => {
+      const pakuEl = document.querySelector('paku-assistant');
+      if (pakuEl && typeof pakuEl.setSleepy === 'function') {
+        pakuEl.setSleepy(isSleepy);
+      }
     }
   };
 

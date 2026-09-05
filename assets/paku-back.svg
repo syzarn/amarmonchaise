@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 240" width="100%" height="100%" aria-label="পাঁকু (Paku) — The Loom Shuttle Back Face">
+  <!-- =================================================== -->
+  <!-- 1. <defs> LAYER: Wood Shading, Brass & Luster Gradients -->
+  <!-- =================================================== -->
+  <defs>
+    <!-- Warm Chestnut / Teak Wood Base Gradient -->
+    <linearGradient id="paku-back-wood-fill" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#693b1b" />
+      <stop offset="10%" stop-color="#8a5328" />
+      <stop offset="42%" stop-color="#ad7444" />
+      <stop offset="55%" stop-color="#b67c4a" />
+      <stop offset="88%" stop-color="#8a5328" />
+      <stop offset="100%" stop-color="#5e3417" />
+    </linearGradient>
+
+    <!-- Wood Lateral Cylindrical Shadow Overlay -->
+    <linearGradient id="paku-back-wood-shading" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2a1205" stop-opacity="0.65" />
+      <stop offset="12%" stop-color="#2a1205" stop-opacity="0" />
+      <stop offset="88%" stop-color="#2a1205" stop-opacity="0" />
+      <stop offset="100%" stop-color="#2a1205" stop-opacity="0.70" />
+    </linearGradient>
+
+    <!-- Polished Hardwood Centerline Sheen Highlight -->
+    <linearGradient id="paku-back-wood-sheen" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0" />
+      <stop offset="44%" stop-color="#ffffff" stop-opacity="0.04" />
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.18" />
+      <stop offset="56%" stop-color="#ffffff" stop-opacity="0.04" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Antique Brass Conical Tip Gradient -->
+    <linearGradient id="paku-back-brass-cap" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#73541e" />
+      <stop offset="18%" stop-color="#a68035" />
+      <stop offset="45%" stop-color="#fae395" />
+      <stop offset="60%" stop-color="#d6b052" />
+      <stop offset="85%" stop-color="#a68035" />
+      <stop offset="100%" stop-color="#634718" />
+    </linearGradient>
+
+    <!-- Ambient Drop Shadow -->
+    <filter id="paku-back-shadow" x="-25%" y="-15%" width="150%" height="130%">
+      <feDropShadow dx="1" dy="3.5" stdDeviation="3.5" flood-color="#000000" flood-opacity="0.30" />
+    </filter>
+  </defs>
+
+  <!-- Root Container for Reverse Shuttle -->
+  <g id="paku-body-back" filter="url(#paku-back-shadow)">
+    <g id="paku-hull-back">
+      <!-- Main Solid Canoe Hull: Symmetrical slender canoe hull spanning y=10 to y=230 -->
+      <path id="paku-wood-body-back"
+        d="M 50 10
+           C 43 18, 36 27, 33.5 37
+           C 31 47, 26 75, 23 100
+           C 22 110, 22 130, 23 140
+           C 26 165, 31 193, 33.5 203
+           C 36 213, 43 222, 50 230
+           C 57 222, 64 213, 66.5 203
+           C 69 193, 74 165, 77 140
+           C 78 130, 78 110, 77 100
+           C 74 75, 69 47, 66.5 37
+           C 64 27, 57 18, 50 10 Z"
+        fill="url(#paku-back-wood-fill)"
+        stroke="#1a1008"
+        stroke-width="1.6" />
+
+      <!-- Outer Contour Lateral Shading Overlay -->
+      <path
+        d="M 50 10
+           C 43 18, 36 27, 33.5 37
+           C 31 47, 26 75, 23 100
+           C 22 110, 22 130, 23 140
+           C 26 165, 31 193, 33.5 203
+           C 36 213, 43 222, 50 230
+           C 57 222, 64 213, 66.5 203
+           C 69 193, 74 165, 77 140
+           C 78 130, 78 110, 77 100
+           C 74 75, 69 47, 66.5 37
+           C 64 27, 57 18, 50 10 Z"
+        fill="url(#paku-back-wood-shading)" />
+
+      <!-- Continuous Full-Length Artisanal Wood Grain (Solid Teak, uninterrupted across whole height) -->
+      <g id="paku-back-wood-grain" stroke="#48250f" stroke-width="0.75" stroke-linecap="round" fill="none">
+        <!-- Flank Contour Grain Lines -->
+        <path d="M 34 44 C 27 65, 26 100, 25 120 C 24 140, 26 175, 34 198" opacity="0.85" />
+        <path d="M 66 44 C 73 65, 74 100, 75 120 C 76 140, 74 175, 66 198" opacity="0.85" />
+
+        <!-- Mid-Body Flowing Grain Strands -->
+        <path d="M 39 48 C 34 72, 33 110, 33 120 C 33 130, 35 168, 40 194" opacity="0.7" />
+        <path d="M 61 48 C 66 72, 67 110, 67 120 C 67 130, 65 168, 60 194" opacity="0.7" />
+
+        <!-- Inner Subtle Heartwood Grain Lines -->
+        <path d="M 44 54 C 41 80, 40 112, 40 120 C 40 128, 42 160, 45 188" opacity="0.6" />
+        <path d="M 56 54 C 59 80, 60 112, 60 120 C 60 128, 58 160, 55 188" opacity="0.6" />
+
+        <!-- Center Spine Soft Grain Veins -->
+        <path d="M 48 60 C 47 88, 47 115, 47.5 120 C 48 125, 48 152, 48.5 182" opacity="0.45" />
+        <path d="M 52 60 C 53 88, 53 115, 52.5 120 C 52 125, 52 152, 51.5 182" opacity="0.45" />
+        <path d="M 50 42 L 50 56" opacity="0.5" />
+        <path d="M 50 184 L 50 198" opacity="0.5" />
+      </g>
+
+      <!-- Polished Curved Hardwood Centerline Sheen / Luster -->
+      <path
+        d="M 50 10
+           C 43 18, 36 27, 33.5 37
+           C 31 47, 26 75, 23 100
+           C 22 110, 22 130, 23 140
+           C 26 165, 31 193, 33.5 203
+           C 36 213, 43 222, 50 230
+           C 57 222, 64 213, 66.5 203
+           C 69 193, 74 165, 77 140
+           C 78 130, 78 110, 77 100
+           C 74 75, 69 47, 66.5 37
+           C 64 27, 57 18, 50 10 Z"
+        fill="url(#paku-back-wood-sheen)" />
+
+      <!-- Top Brass Conical Cap (y=10 to y=37, identical mirror to front) -->
+      <g id="paku-metal-tip-top-back">
+        <path
+          d="M 50 10
+             C 43 18, 36 27, 33.5 37
+             C 39 39.5, 61 39.5, 66.5 37
+             C 64 27, 57 18, 50 10 Z"
+          fill="url(#paku-back-brass-cap)"
+          stroke="#1a1008"
+          stroke-width="1.6" />
+        <!-- Specular Highlight Ridge -->
+        <path d="M 50 11 L 47 38 L 53 38 Z" fill="#ffffff" opacity="0.25" />
+        <!-- Rivets (3 distinct brass pins matching front) -->
+        <circle cx="41" cy="32.5" r="1.1" fill="#edd690" stroke="#1a1008" stroke-width="0.8" />
+        <circle cx="50" cy="34.0" r="1.1" fill="#edd690" stroke="#1a1008" stroke-width="0.8" />
+        <circle cx="59" cy="32.5" r="1.1" fill="#edd690" stroke="#1a1008" stroke-width="0.8" />
+      </g>
+
+      <!-- Bottom Brass Conical Cap (y=203 to y=230, identical mirror to front) -->
+      <g id="paku-metal-tip-bottom-back">
+        <path
+          d="M 33.5 203
+             C 39 200.5, 61 200.5, 66.5 203
+             C 64 213, 57 222, 50 230
+             C 43 222, 36 213, 33.5 203 Z"
+          fill="url(#paku-back-brass-cap)"
+          stroke="#1a1008"
+          stroke-width="1.6" />
+        <!-- Specular Highlight Ridge -->
+        <path d="M 47 202 L 53 202 L 50 229 Z" fill="#ffffff" opacity="0.25" />
+        <!-- Rivets (3 distinct brass pins matching front) -->
+        <circle cx="41" cy="207.5" r="1.1" fill="#edd690" stroke="#1a1008" stroke-width="0.8" />
+        <circle cx="50" cy="206.0" r="1.1" fill="#edd690" stroke="#1a1008" stroke-width="0.8" />
+        <circle cx="59" cy="207.5" r="1.1" fill="#edd690" stroke="#1a1008" stroke-width="0.8" />
+      </g>
+    </g>
+  </g>
+</svg>

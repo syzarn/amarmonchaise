@@ -59,6 +59,82 @@ paku-assistant {
   transition: filter 0.3s ease;
 }
 
+/* 3D Perspective Stage & Volumetric Hollow Shuttle Architecture */
+.paku-stage {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  perspective: 850px;
+  perspective-origin: 50% 50%;
+}
+
+.paku-shuttle-3d {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+.paku-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* 1. Recessed Cavity Floor at Z = -5.5px */
+.paku-cavity-floor {
+  transform: translateZ(-5.5px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* 2. Floating Spool & Living Thread Layer at Z = 0px */
+.paku-spool-layer {
+  transform: translateZ(0px);
+  z-index: 3;
+}
+
+/* 3. Front Wooden Shell at Z = +6px (with transparent cavity cutout) */
+.paku-face-front {
+  transform: translateZ(6px);
+  z-index: 4;
+}
+
+/* 4. Solid Teak Reverse Side at Z = -6px (facing backwards) */
+.paku-face-back {
+  transform: rotateY(180deg) translateZ(6px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* 5. Lateral Profiles at 90deg and 270deg (opacity controlled during spin) */
+.paku-face-right {
+  transform: rotateY(90deg);
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.paku-face-left {
+  transform: rotateY(270deg);
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.paku-face-left svg {
+  transform: scaleX(-1);
+}
+
 /* 1. Ambient Float & Hover Dynamics */
 #paku-body,
 .paku-body {
@@ -127,15 +203,25 @@ paku-assistant {
   }
 }
 
-/* 4. Beyblade Rotational Spin on #paku-hull */
-#paku-hull {
-  transform-origin: 50px 120px;
-  will-change: transform;
+/* 4. True 3D On-Axis "Beyblade/Top" Vertical Spin (rotateY) around Longitudinal Spine */
+.paku-shuttle-3d.beyblade-spinning-3d {
+  animation: paku-beyblade-spin-3d 2.2s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
 }
 
-#paku-hull.beyblade-spinning {
-  transform: rotate(2160deg);
-  transition: transform 2.0s cubic-bezier(0.1, 0.9, 0.2, 1) !important;
+/* Pause ambient float during rapid 3D spin for rock-solid stability */
+.beyblade-spinning-3d #paku-body,
+.beyblade-spinning-3d #paku-body-back,
+.beyblade-spinning-3d #paku-body-side {
+  animation-play-state: paused;
+}
+
+@keyframes paku-beyblade-spin-3d {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(2160deg);
+  }
 }
 
 /* 5. Missing Fields Checkout Violent Shake */

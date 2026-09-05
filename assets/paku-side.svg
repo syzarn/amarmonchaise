@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 240" width="100%" height="100%" aria-label="পাঁকু (Paku) — The Loom Shuttle Side Profile">
+  <!-- =================================================== -->
+  <!-- 1. <defs> LAYER: Wood Shading, Brass & Eyelet Gradients -->
+  <!-- =================================================== -->
+  <defs>
+    <!-- Warm Chestnut / Teak Wood Base Gradient for Slender Profile -->
+    <linearGradient id="paku-side-wood-fill" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5e3417" />
+      <stop offset="15%" stop-color="#8a5328" />
+      <stop offset="50%" stop-color="#b67c4a" />
+      <stop offset="85%" stop-color="#8a5328" />
+      <stop offset="100%" stop-color="#5e3417" />
+    </linearGradient>
+
+    <!-- Lateral Cylindrical Shadow Overlay -->
+    <linearGradient id="paku-side-wood-shading" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2a1205" stop-opacity="0.75" />
+      <stop offset="18%" stop-color="#2a1205" stop-opacity="0" />
+      <stop offset="82%" stop-color="#2a1205" stop-opacity="0" />
+      <stop offset="100%" stop-color="#2a1205" stop-opacity="0.75" />
+    </linearGradient>
+
+    <!-- Polished Hardwood Centerline Sheen Highlight -->
+    <linearGradient id="paku-side-wood-sheen" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0" />
+      <stop offset="42%" stop-color="#ffffff" stop-opacity="0.03" />
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.22" />
+      <stop offset="58%" stop-color="#ffffff" stop-opacity="0.03" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Antique Brass Conical Tip Gradient -->
+    <linearGradient id="paku-side-brass-cap" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#73541e" />
+      <stop offset="18%" stop-color="#a68035" />
+      <stop offset="48%" stop-color="#fae395" />
+      <stop offset="60%" stop-color="#d6b052" />
+      <stop offset="85%" stop-color="#a68035" />
+      <stop offset="100%" stop-color="#634718" />
+    </linearGradient>
+
+    <!-- Eyelet Metal Rim Gradient -->
+    <radialGradient id="paku-side-eyelet-rim" cx="40%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#fae395" />
+      <stop offset="50%" stop-color="#d6b052" />
+      <stop offset="85%" stop-color="#8c6428" />
+      <stop offset="100%" stop-color="#543c16" />
+    </radialGradient>
+
+    <!-- Ambient Drop Shadow -->
+    <filter id="paku-side-shadow" x="-25%" y="-15%" width="150%" height="130%">
+      <feDropShadow dx="1" dy="3.5" stdDeviation="3.5" flood-color="#000000" flood-opacity="0.30" />
+    </filter>
+  </defs>
+
+  <!-- Root Container for Side Profile Shuttle -->
+  <g id="paku-body-side" filter="url(#paku-side-shadow)">
+    <g id="paku-hull-side">
+      <!-- Slender Lateral Hull: Slimmer boat silhouette tapering from x=34 to x=66 (width=32px) -->
+      <path id="paku-wood-body-side"
+        d="M 50 10
+           C 46 18, 41 27, 39 37
+           C 37 55, 34 85, 34 120
+           C 34 155, 37 185, 39 203
+           C 41 213, 46 222, 50 230
+           C 54 222, 59 213, 61 203
+           C 63 185, 66 155, 66 120
+           C 66 85, 63 55, 61 37
+           C 59 27, 54 18, 50 10 Z"
+        fill="url(#paku-side-wood-fill)"
+        stroke="#1a1008"
+        stroke-width="1.6" />
+
+      <!-- Outer Contour Lateral Shading Overlay -->
+      <path
+        d="M 50 10
+           C 46 18, 41 27, 39 37
+           C 37 55, 34 85, 34 120
+           C 34 155, 37 185, 39 203
+           C 41 213, 46 222, 50 230
+           C 54 222, 59 213, 61 203
+           C 63 185, 66 155, 66 120
+           C 66 85, 63 55, 61 37
+           C 59 27, 54 18, 50 10 Z"
+        fill="url(#paku-side-wood-shading)" />
+
+      <!-- Artisanal Longitudinal Side Wood Grain Strands -->
+      <g id="paku-side-wood-grain" stroke="#48250f" stroke-width="0.75" stroke-linecap="round" fill="none">
+        <path d="M 40 44 C 36 65, 35 95, 35 120 C 35 145, 36 175, 40 198" opacity="0.8" />
+        <path d="M 60 44 C 64 65, 65 95, 65 120 C 65 145, 64 175, 60 198" opacity="0.8" />
+        <path d="M 44 48 C 42 75, 41 100, 41 120 C 41 140, 42 165, 44 194" opacity="0.65" />
+        <path d="M 56 48 C 58 75, 59 100, 59 120 C 59 140, 58 165, 56 194" opacity="0.65" />
+        <path d="M 47 54 C 46 80, 46 105, 46 120 C 46 135, 46 160, 47 188" opacity="0.5" />
+        <path d="M 53 54 C 54 80, 54 105, 54 120 C 54 135, 54 160, 53 188" opacity="0.5" />
+        <path d="M 50 42 L 50 56" opacity="0.45" />
+        <path d="M 50 184 L 50 198" opacity="0.45" />
+      </g>
+
+      <!-- Centerline Luster Highlight -->
+      <path
+        d="M 50 10
+           C 46 18, 41 27, 39 37
+           C 37 55, 34 85, 34 120
+           C 34 155, 37 185, 39 203
+           C 41 213, 46 222, 50 230
+           C 54 222, 59 213, 61 203
+           C 63 185, 66 155, 66 120
+           C 66 85, 63 55, 61 37
+           C 59 27, 54 18, 50 10 Z"
+        fill="url(#paku-side-wood-sheen)" />
+
+      <!-- Top Brass Conical Cap (Side Profile, y=10 to y=37) -->
+      <g id="paku-metal-tip-top-side">
+        <path
+          d="M 50 10
+             C 46 18, 41 27, 39 37
+             C 43 38.8, 57 38.8, 61 37
+             C 59 27, 54 18, 50 10 Z"
+          fill="url(#paku-side-brass-cap)"
+          stroke="#1a1008"
+          stroke-width="1.6" />
+        <!-- Specular Highlight Ridge -->
+        <path d="M 50 11 L 48 38 L 52 38 Z" fill="#ffffff" opacity="0.28" />
+        <!-- Center Pin Rivet -->
+        <circle cx="50" cy="33.5" r="1.1" fill="#edd690" stroke="#1a1008" stroke-width="0.8" />
+      </g>
+
+      <!-- Bottom Brass Conical Cap (Side Profile, y=203 to y=230) -->
+      <g id="paku-metal-tip-bottom-side">
+        <path
+          d="M 39 203
+             C 43 201.2, 57 201.2, 61 203
+             C 59 213, 54 222, 50 230
+             C 46 222, 41 213, 39 203 Z"
+          fill="url(#paku-side-brass-cap)"
+          stroke="#1a1008"
+          stroke-width="1.6" />
+        <!-- Specular Highlight Ridge -->
+        <path d="M 48 202 L 52 202 L 50 229 Z" fill="#ffffff" opacity="0.28" />
+        <!-- Center Pin Rivet -->
+        <circle cx="50" cy="206.5" r="1.1" fill="#edd690" stroke="#1a1008" stroke-width="0.8" />
+      </g>
+
+      <!-- Authentic Loom Shuttle Thread Delivery Eyelet (সুতার ছিদ্র) at y=140.5 -->
+      <g id="paku-side-eyelet">
+        <!-- Outer carved recess bevel -->
+        <circle cx="50" cy="140.5" r="5" fill="#3d1d0c" stroke="#1a1008" stroke-width="0.9" />
+        <!-- Polished brass eyelet grommet -->
+        <circle cx="50" cy="140.5" r="3.8" fill="url(#paku-side-eyelet-rim)" stroke="#1a1008" stroke-width="0.7" />
+        <!-- Interior cavity hole -->
+        <circle cx="50" cy="140.5" r="2.1" fill="#120803" stroke="#050201" stroke-width="0.5" />
+        <!-- Brass glint highlight -->
+        <circle cx="48.8" cy="139.3" r="0.8" fill="#ffffff" opacity="0.65" />
+      </g>
+    </g>
+  </g>
+</svg>
