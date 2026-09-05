@@ -1044,6 +1044,11 @@
               </div>
 
               <div class="paku-form-group">
+                <label class="paku-form-label" for="paku-user-contact">ই-মেইল বা ফোন নম্বর / Email or Phone <span style="color:#bd3a54;">*</span></label>
+                <input type="text" id="paku-user-contact" class="paku-form-input" placeholder="যেমন: 017... অথবা name@example.com" required maxlength="100" />
+              </div>
+
+              <div class="paku-form-group">
                 <label class="paku-form-label" for="paku-user-message" id="paku-message-label">আপনার জিজ্ঞাসা / Your Question <span style="color:#bd3a54;">*</span></label>
                 <textarea id="paku-user-message" class="paku-form-textarea" placeholder="কী জানতে চান বা মঞ্চাইছে নিয়ে কোনো জিজ্ঞাসা..." required maxlength="2000"></textarea>
               </div>
@@ -1442,6 +1447,7 @@
       const statusEl = this.querySelector('#paku-form-status');
       const submitBtn = this.querySelector('#paku-submit-btn');
       const nameInput = this.querySelector('#paku-user-name');
+      const contactInput = this.querySelector('#paku-user-contact');
       const messageInput = this.querySelector('#paku-user-message');
 
       if (!form) return;
@@ -1450,6 +1456,7 @@
         e.preventDefault();
 
         const name = (nameInput && nameInput.value || '').trim();
+        const contact = (contactInput && contactInput.value || '').trim();
         const message = (messageInput && messageInput.value || '').trim();
         const type = this.inquiryType;
 
@@ -1459,6 +1466,36 @@
             statusEl.textContent = 'অনুগ্রহ করে আপনার নাম লিখুন।';
           }
           if (nameInput) nameInput.focus();
+          return;
+        }
+
+        if (!contact) {
+          if (statusEl) {
+            statusEl.className = 'paku-form-status error';
+            statusEl.textContent = 'অনুগ্রহ করে আপনার ই-মেইল বা মোবাইল নম্বর লিখুন।';
+          }
+          if (contactInput) contactInput.focus();
+          return;
+        }
+
+        // Fast client validation for email or phone
+        const isClientValid = (function (raw) {
+          let str = raw.trim().replace(/[০-৯]/g, d => ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'].indexOf(d));
+          if (str.includes('@')) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str);
+          }
+          let cleaned = str.replace(/[\s\-\(\)\.]/g, '');
+          if (cleaned.startsWith('+88')) cleaned = cleaned.slice(3);
+          else if (cleaned.startsWith('88')) cleaned = cleaned.slice(2);
+          return /^01[3-9]\d{8}$/.test(cleaned) || /^\+?[0-9]{7,15}$/.test(cleaned);
+        })(contact);
+
+        if (!isClientValid) {
+          if (statusEl) {
+            statusEl.className = 'paku-form-status error';
+            statusEl.textContent = 'অনুগ্রহ করে সঠিক ই-মেইল বা মোবাইল নম্বর লিখুন।';
+          }
+          if (contactInput) contactInput.focus();
           return;
         }
 
@@ -1486,20 +1523,20 @@
             res = await fetch('/api/ask-saru', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ name, type, message })
+              body: JSON.stringify({ name, contact, type, message })
             });
             if (res.status === 404) {
               res = await fetch('/api/ask-paku', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, type, message })
+                body: JSON.stringify({ name, contact, type, message })
               });
             }
           } catch (_) {
             res = await fetch('/api/ask-paku', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ name, type, message })
+              body: JSON.stringify({ name, contact, type, message })
             });
           }
 
