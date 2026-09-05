@@ -232,14 +232,14 @@ export async function onRequestPost(context) {
   // 4. Optional Telegram Alert Notification
   if (env.TELEGRAM_BOT_TOKEN && env.TELEGRAM_CHAT_ID) {
     const tgMsg = [
-      `🎉 *New Order: ${clientOrderId}*`,
+      `*New Order: ${clientOrderId}*`,
       ``,
-      `👤 *Customer:* ${customer.name.trim()} (\`${normalizedCustomerPhone}\`)`,
-      `📍 *Address:* ${customer.address.trim()} (${customer.district})`,
-      `💳 *Payment:* ${paymentMethod.toUpperCase()}`,
-      normalizedTrxId ? `🔑 *TrxID:* \`${normalizedTrxId}\` (Sender: \`${normalizedSenderPhone}\`)` : null,
-      `💰 *Total:* ৳${pricing.grandTotal} (Delivery: ৳${deliveryCharge})`,
-      `📦 *Items:*`,
+      `*Customer:* ${customer.name.trim()} (\`${normalizedCustomerPhone}\`)`,
+      `*Address:* ${customer.address.trim()} (${customer.district})`,
+      `*Payment:* ${paymentMethod.toUpperCase()}`,
+      normalizedTrxId ? `*TrxID:* \`${normalizedTrxId}\` (Sender: \`${normalizedSenderPhone}\`)` : null,
+      `*Total:* ৳${pricing.grandTotal} (Delivery: ৳${deliveryCharge})`,
+      `*Items:*`,
       ...cart.map(i => `  • ${i.name || i.id} × ${i.qty} (৳${i.price * i.qty})`)
     ].filter(Boolean).join('\n');
 

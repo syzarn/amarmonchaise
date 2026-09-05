@@ -183,29 +183,55 @@ paku-assistant {
   transition: transform 0.1s ease-out;
 }
 
-/* Dizzy Rolling Eyes during/after Beyblade spin */
+/* Dizzy Spinning Spiral Eyes after/during Beyblade spin */
+.paku-spiral-pupil {
+  display: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
 #paku-eyes.dizzy #pupil-left,
 #paku-eyes.dizzy #pupil-right {
-  animation: paku-dizzy-roll 0.35s linear infinite;
-  transform-origin: 38.35px 65.4px;
+  display: none !important;
+  opacity: 0 !important;
 }
 
-#paku-eyes.dizzy #pupil-right {
-  transform-origin: 61.65px 65.4px;
+#paku-eyes.dizzy .paku-spiral-pupil {
+  display: inline !important;
+  opacity: 1 !important;
 }
 
-@keyframes paku-dizzy-roll {
+#paku-eyes.dizzy #spiral-left {
+  transform-origin: 38.35px 66.5px;
+  animation: paku-spiral-spin-left 0.4s linear infinite;
+}
+
+#paku-eyes.dizzy #spiral-right {
+  transform-origin: 61.65px 66.5px;
+  animation: paku-spiral-spin-right 0.4s linear infinite;
+}
+
+@keyframes paku-spiral-spin-left {
   0% {
-    transform: rotate(0deg) translate(1.6px) rotate(0deg);
+    transform: rotate(0deg);
   }
   100% {
-    transform: rotate(360deg) translate(1.6px) rotate(-360deg);
+    transform: rotate(360deg);
   }
 }
 
-/* 4. True 3D On-Axis "Beyblade/Top" Vertical Spin (rotateY) around Longitudinal Spine */
+@keyframes paku-spiral-spin-right {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+/* 4. True 3D On-Axis "Beyblade/Top" Vertical Spin (rotateY) State */
 .paku-shuttle-3d.beyblade-spinning-3d {
-  animation: paku-beyblade-spin-3d 2.2s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+  will-change: transform;
 }
 
 /* Pause ambient float during rapid 3D spin for rock-solid stability */
@@ -213,15 +239,6 @@ paku-assistant {
 .beyblade-spinning-3d #paku-body-back,
 .beyblade-spinning-3d #paku-body-side {
   animation-play-state: paused;
-}
-
-@keyframes paku-beyblade-spin-3d {
-  0% {
-    transform: rotateY(0deg);
-  }
-  100% {
-    transform: rotateY(2160deg);
-  }
 }
 
 /* 5. Missing Fields Checkout Violent Shake */
@@ -593,3 +610,365 @@ paku-assistant.paku-sleeping #living-thread-arm {
     transform: scale(1.03) rotate(-1.5deg);
   }
 }
+
+/* ==========================================================================
+   8. Paku Inquiry & Recommendation Modal ("পাঁকুর দপ্তর")
+   ========================================================================== */
+
+.paku-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 5, 2, 0.65);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  z-index: 9998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.paku-modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.paku-modal-container {
+  position: fixed;
+  z-index: 9999;
+  right: 155px;
+  bottom: 28px;
+  width: 390px;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+  background: #fcf9f2;
+  color: #1a1008;
+  border-radius: 16px;
+  box-shadow: 
+    0 20px 40px -10px rgba(18, 9, 3, 0.45),
+    0 0 0 1px rgba(189, 58, 84, 0.25),
+    0 0 25px rgba(212, 175, 55, 0.2);
+  border: 2px solid #166b58;
+  opacity: 0;
+  transform: translateY(20px) scale(0.96);
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+:root.dark .paku-modal-container,
+[data-theme="dark"] .paku-modal-container,
+.dark .paku-modal-container {
+  background: #111116;
+  color: #f3f3f5;
+  border-color: #d4af37;
+  box-shadow: 
+    0 20px 45px -10px rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(242, 194, 0, 0.3),
+    0 0 30px rgba(242, 194, 0, 0.15);
+}
+
+.paku-modal-container.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* Modal Header: Lal Khata Ledger Banner */
+.paku-modal-header {
+  padding: 16px 18px 12px;
+  background: #f6efe0;
+  border-bottom: 2px dashed rgba(22, 107, 88, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+:root.dark .paku-modal-header,
+[data-theme="dark"] .paku-modal-header,
+.dark .paku-modal-header {
+  background: #181820;
+  border-bottom-color: rgba(212, 175, 55, 0.25);
+}
+
+.paku-modal-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.paku-modal-icon {
+  width: 32px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #166b58;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+}
+
+:root.dark .paku-modal-icon,
+[data-theme="dark"] .paku-modal-icon,
+.dark .paku-modal-icon {
+  color: #f2c200;
+  background: transparent;
+  box-shadow: none;
+}
+
+.paku-modal-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0;
+  color: #166b58;
+  line-height: 1.25;
+}
+
+:root.dark .paku-modal-title,
+[data-theme="dark"] .paku-modal-title,
+.dark .paku-modal-title {
+  color: #f2c200;
+}
+
+.paku-modal-subtitle {
+  font-size: 11px;
+  opacity: 0.75;
+  margin: 0;
+}
+
+.paku-modal-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  line-height: 1;
+  color: #8a705a;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  transition: color 0.15s, background-color 0.15s;
+}
+
+.paku-modal-close-btn:hover {
+  color: #bd3a54;
+  background-color: rgba(189, 58, 84, 0.1);
+}
+
+/* Modal Body Form */
+.paku-modal-body {
+  padding: 18px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Inquiry Type Pill Switcher */
+.paku-type-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.04);
+  padding: 4px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+:root.dark .paku-type-selector,
+[data-theme="dark"] .paku-type-selector,
+.dark .paku-type-selector {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.paku-type-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  color: inherit;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.paku-type-pill.active {
+  background: #166b58;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(22, 107, 88, 0.35);
+}
+
+:root.dark .paku-type-pill.active,
+[data-theme="dark"] .paku-type-pill.active,
+.dark .paku-type-pill.active {
+  background: #d4af37;
+  color: #121216;
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.35);
+}
+
+.paku-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.paku-form-label {
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.paku-form-input,
+.paku-form-textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  background: #ffffff;
+  color: #1a1008;
+  font-size: 13px;
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+:root.dark .paku-form-input,
+:root.dark .paku-form-textarea,
+[data-theme="dark"] .paku-form-input,
+[data-theme="dark"] .paku-form-textarea,
+.dark .paku-form-input,
+.dark .paku-form-textarea {
+  background: #1a1a24;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.paku-form-input:focus,
+.paku-form-textarea:focus {
+  border-color: #166b58;
+  box-shadow: 0 0 0 3px rgba(22, 107, 88, 0.2);
+}
+
+:root.dark .paku-form-input:focus,
+:root.dark .paku-form-textarea:focus,
+[data-theme="dark"] .paku-form-input:focus,
+[data-theme="dark"] .paku-form-textarea:focus,
+.dark .paku-form-input:focus,
+.dark .paku-form-textarea:focus {
+  border-color: #d4af37;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.25);
+}
+
+.paku-form-textarea {
+  min-height: 85px;
+  resize: vertical;
+}
+
+.paku-form-submit-btn {
+  background: #166b58;
+  color: #ffffff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+  box-shadow: 0 4px 12px rgba(22, 107, 88, 0.3);
+}
+
+.paku-form-submit-btn:hover {
+  background: #1b826b;
+  box-shadow: 0 6px 16px rgba(22, 107, 88, 0.4);
+}
+
+.paku-form-submit-btn:active {
+  transform: scale(0.98);
+}
+
+:root.dark .paku-form-submit-btn,
+[data-theme="dark"] .paku-form-submit-btn,
+.dark .paku-form-submit-btn {
+  background: #d4af37;
+  color: #121216;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+}
+
+:root.dark .paku-form-submit-btn:hover,
+[data-theme="dark"] .paku-form-submit-btn:hover,
+.dark .paku-form-submit-btn:hover {
+  background: #f2c200;
+}
+
+.paku-form-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.paku-form-status {
+  font-size: 12px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  display: none;
+}
+
+.paku-form-status.success {
+  display: block;
+  background: rgba(22, 107, 88, 0.12);
+  color: #166b58;
+  border: 1px solid rgba(22, 107, 88, 0.3);
+}
+
+:root.dark .paku-form-status.success,
+[data-theme="dark"] .paku-form-status.success,
+.dark .paku-form-status.success {
+  background: rgba(212, 175, 55, 0.15);
+  color: #f2c200;
+  border-color: rgba(212, 175, 55, 0.35);
+}
+
+.paku-form-status.error {
+  display: block;
+  background: rgba(189, 58, 84, 0.12);
+  color: #bd3a54;
+  border: 1px solid rgba(189, 58, 84, 0.3);
+}
+
+/* Responsive Mobile Layout for Modal */
+@media (max-width: 640px) {
+  .paku-modal-container {
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    max-width: 100vw;
+    border-radius: 20px 20px 0 0;
+    border-bottom: none;
+  }
+}
+
+/* Smallcaps styling for Pãku */
+.paku-name,
+.paku-sc,
+.font-paku {
+  font-family: 'IMFellEnglishSC', 'IMFellEnglish', serif !important;
+  letter-spacing: 0.02em;
+}
+

@@ -408,8 +408,16 @@ html[lang="bn"] .font-halhed,
 html[lang="bn"] .font-halhed-italic,
 html[lang="bn"] .font-halhed-title {
   font-family: 'GaramondHalhed', serif !important;
-  font-size: calc(1em + 1pt);
   font-weight: normal !important;
+}
+
+/* Smallcaps & Paku Brand Typography */
+.font-fell-sc,
+.font-paku,
+.paku-name,
+.paku-sc {
+  font-family: 'IMFellEnglishSC', 'IMFellEnglish', serif !important;
+  letter-spacing: 0.025em;
 }
 
 html[lang="bn"] h1 *,

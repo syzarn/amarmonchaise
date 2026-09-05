@@ -463,6 +463,16 @@
           <g id="pupil-left">
             <path id="paku-eye-contour-left" d="M 30.33 62.76 L 30.33 64.34 L 30.48 64.42 L 30.85 64.42 L 31.3 64.59 L 33.3 64.67 L 33.82 64.84 L 35.15 64.92 L 35.3 65.09 L 35.37 65.34 L 35.45 66.25 L 35.89 67.25 L 36.48 67.91 L 36.63 67.91 L 36.85 68.16 L 37.67 68.49 L 38.78 68.49 L 39.52 68.24 L 40.33 67.66 L 40.85 67.0 L 40.93 66.75 L 41.3 66.25 L 41.59 66.25 L 42.04 66.5 L 42.48 66.58 L 42.78 66.83 L 43.0 66.83 L 43.22 67.08 L 43.52 67.16 L 43.89 67.41 L 44.41 67.91 L 44.56 67.91 L 45.15 68.41 L 45.15 68.66 L 44.85 68.91 L 44.19 68.99 L 44.04 69.16 L 43.52 69.24 L 43.15 69.49 L 42.85 69.49 L 42.41 69.74 L 41.59 69.82 L 41.22 69.99 L 39.37 69.99 L 38.78 69.82 L 37.59 69.74 L 37.0 69.49 L 36.63 69.49 L 36.19 69.24 L 35.67 69.16 L 34.56 68.66 L 34.26 68.41 L 34.11 68.41 L 33.22 67.83 L 33.0 67.58 L 32.78 67.5 L 31.3 66.17 L 30.33 65.09 L 30.26 67.0 L 30.04 67.0 L 30.56 67.41 L 31.08 67.99 L 32.26 68.99 L 32.48 69.07 L 32.7 69.32 L 32.85 69.32 L 33.08 69.57 L 33.59 69.9 L 33.74 69.9 L 34.04 70.15 L 35.07 70.65 L 35.52 70.73 L 35.89 70.98 L 36.19 70.98 L 36.7 71.23 L 38.41 71.56 L 40.48 71.56 L 41.15 71.48 L 41.52 71.31 L 42.26 71.23 L 42.78 70.98 L 43.07 70.98 L 43.52 70.73 L 44.63 70.4 L 46.19 69.57 L 46.56 69.24 L 46.7 68.91 L 46.26 67.91 L 45.3 66.75 L 44.63 66.17 L 43.89 65.67 L 43.59 65.59 L 43.44 65.42 L 42.78 65.09 L 42.41 65.0 L 42.26 64.84 L 41.82 64.75 L 41.37 64.51 L 41.07 64.51 L 40.56 64.26 L 39.89 64.17 L 39.67 64.01 L 39.22 63.92 L 38.63 63.92 L 37.37 63.68 L 36.48 63.68 L 35.67 63.43 L 35.15 63.43 L 34.33 63.18 L 32.63 63.09 L 31.96 62.93 L 31.0 62.93 L 30.56 62.76 Z" fill="#111111" />
           </g>
+          <!-- Dizzy Spinning Spiral Pupil (Left Eye) -->
+          <g id="spiral-left" class="paku-spiral-pupil" fill="none" stroke="#111111" stroke-width="1.6" stroke-linecap="round">
+            <path d="M 38.35 66.50
+                     C 38.75 66.10, 39.40 66.30, 39.50 66.85
+                     C 39.65 67.65, 38.70 68.35, 37.85 68.15
+                     C 36.65 67.85, 36.15 66.25, 36.65 65.10
+                     C 37.30 63.60, 39.50 63.15, 40.95 64.00
+                     C 42.60 64.95, 42.95 67.75, 41.70 69.45
+                     C 40.85 70.60, 39.50 71.05, 38.20 70.95" />
+          </g>
         </g>
 
       <!-- 5. Right Eye: Classical Elongated Almond Devi Eye (পটলচেরা চোখ) -->
@@ -470,6 +480,16 @@
           <path id="paku-sclera-right" d="M 69.96 64.84 L 69.44 64.75 L 68.33 64.84 L 67.22 65.09 L 65.89 65.09 L 65.22 65.25 L 65.22 66.0 L 65.0 66.42 L 65.0 66.66 L 64.7 67.25 L 63.96 68.08 L 63.07 68.66 L 62.41 68.82 L 61.67 68.82 L 61.0 68.66 L 60.7 68.41 L 60.55 68.41 L 59.89 67.83 L 59.52 67.41 L 59.44 67.16 L 58.93 66.42 L 58.41 66.5 L 58.04 66.75 L 57.74 66.75 L 57.44 67.0 L 57.3 67.0 L 57.0 67.25 L 56.7 67.33 L 55.81 68.16 L 55.74 68.16 L 55.52 68.49 L 55.89 68.49 L 56.18 68.74 L 56.48 68.74 L 56.85 68.99 L 57.52 69.24 L 58.18 69.32 L 58.48 69.49 L 58.85 69.57 L 62.26 69.57 L 63.0 69.32 L 63.52 69.32 L 63.81 69.24 L 64.04 69.07 L 64.55 68.99 L 64.93 68.74 L 65.15 68.74 L 65.44 68.49 L 65.67 68.49 L 66.92 67.66 L 69.44 65.42 L 69.59 65.17 L 69.67 65.17 Z" fill="#ffffff" />
           <g id="pupil-right">
             <path id="paku-eye-contour-right" d="M 69.59 62.84 L 69.07 62.84 L 68.18 63.09 L 66.7 63.18 L 65.3 63.43 L 64.33 63.43 L 62.63 63.68 L 61.52 63.68 L 61.07 63.76 L 60.78 63.92 L 60.04 64.01 L 59.81 64.17 L 59.3 64.26 L 58.33 64.59 L 56.78 65.34 L 55.22 66.5 L 54.7 67.16 L 54.48 67.33 L 54.18 67.91 L 53.96 68.16 L 53.67 68.82 L 53.74 68.99 L 54.11 69.32 L 55.07 69.9 L 56.78 70.65 L 57.3 70.73 L 57.67 70.98 L 57.96 70.98 L 58.41 71.23 L 59.67 71.48 L 62.18 71.48 L 63.59 71.23 L 64.11 70.98 L 64.41 70.98 L 64.78 70.73 L 65.0 70.73 L 65.37 70.48 L 65.74 70.4 L 66.04 70.15 L 66.18 70.15 L 66.48 69.9 L 67.22 69.57 L 68.48 68.74 L 69.67 67.74 L 69.96 67.41 L 69.59 67.33 L 69.59 65.59 L 68.26 66.83 L 67.89 67.08 L 67.52 67.5 L 66.78 68.08 L 66.55 68.16 L 66.33 68.41 L 66.18 68.41 L 66.04 68.57 L 65.74 68.66 L 65.44 68.91 L 65.07 68.99 L 64.7 69.24 L 64.41 69.24 L 63.96 69.49 L 63.3 69.57 L 63.0 69.74 L 61.59 69.9 L 59.37 69.9 L 58.18 69.74 L 57.96 69.57 L 57.37 69.49 L 56.93 69.24 L 56.48 69.16 L 56.33 68.99 L 55.89 68.91 L 55.67 68.74 L 55.44 68.74 L 55.22 68.49 L 55.22 68.33 L 57.0 66.83 L 57.89 66.5 L 58.26 66.25 L 58.63 66.25 L 58.78 66.08 L 59.0 66.08 L 59.22 66.33 L 59.44 66.83 L 59.96 67.58 L 60.63 68.16 L 61.44 68.49 L 62.63 68.49 L 62.93 68.41 L 63.81 67.91 L 64.41 67.25 L 64.78 66.58 L 65.0 65.59 L 65.0 65.09 L 65.15 64.92 L 65.52 64.84 L 66.55 64.84 L 67.15 64.67 L 68.04 64.59 L 69.0 64.59 L 69.44 64.42 L 69.89 64.42 L 69.59 64.34 Z" fill="#111111" />
+          </g>
+          <!-- Dizzy Spinning Spiral Pupil (Right Eye) -->
+          <g id="spiral-right" class="paku-spiral-pupil" fill="none" stroke="#111111" stroke-width="1.6" stroke-linecap="round">
+            <path d="M 61.65 66.50
+                     C 62.05 66.10, 62.70 66.30, 62.80 66.85
+                     C 62.95 67.65, 62.00 68.35, 61.15 68.15
+                     C 59.95 67.85, 59.45 66.25, 59.95 65.10
+                     C 60.60 63.60, 62.80 63.15, 64.25 64.00
+                     C 65.90 64.95, 66.25 67.75, 65.00 69.45
+                     C 64.15 70.60, 62.80 71.05, 61.50 70.95" />
           </g>
         </g>
       </g>
@@ -863,8 +883,14 @@
       this.idleTimer = null;
       this.blinkTimer = null;
       this.spinRaf = null;
+      this.dizzyTimeout = null;
       this.hasShownIdleMessage = false;
       this.sequenceTimeouts = [];
+      this.isModalOpen = false;
+      this.modalIdleInterval = null;
+      this.touchHoldTimer = null;
+      this.lastUserActivity = performance.now();
+      this.inquiryType = 'question';
     }
 
     connectedCallback() {
@@ -874,6 +900,7 @@
       this.setupGazeTracking();
       this.setupThreadPull();
       this.setupClickInteraction();
+      this.setupInquiryModal();
       this.setupIdleTimer();
       this.setupAppHooks();
       this.setupInitialGreeting();
@@ -884,6 +911,9 @@
       if (this.idleTimer) clearTimeout(this.idleTimer);
       if (this.blinkTimer) clearInterval(this.blinkTimer);
       if (this.spinRaf) cancelAnimationFrame(this.spinRaf);
+      if (this.dizzyTimeout) clearTimeout(this.dizzyTimeout);
+      if (this.touchHoldTimer) clearTimeout(this.touchHoldTimer);
+      if (this.modalIdleInterval) clearInterval(this.modalIdleInterval);
       this.clearSequenceTimeouts();
       this.setSleepy(false);
     }
@@ -932,6 +962,99 @@
                 </div>
               </div>
             </div>
+          </div>
+
+          <!-- Paku Inquiry & Recommendation Modal ("পাঁকুর দপ্তর") -->
+          <div class="paku-modal-overlay" id="paku-modal-overlay"></div>
+          <div class="paku-modal-container" id="paku-ask-modal" role="dialog" aria-modal="true" aria-labelledby="paku-modal-title">
+            <div class="paku-modal-header">
+              <div class="paku-modal-title-group">
+                <div class="paku-modal-icon" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="21 41 58 50" width="100%" height="100%" fill="currentColor" fill-rule="evenodd">
+                    <g id="paku-icon-chandan">
+                      <path d="M 49.81 42.5 L 49.44 42.58 L 49.15 42.83 L 48.85 42.92 L 48.41 43.33 L 48.19 43.66 L 47.89 44.49 L 47.89 45.24 L 48.11 45.74 L 48.11 45.99 L 48.78 46.82 L 49.07 47.07 L 50.19 47.32 L 51.15 46.98 L 51.89 46.24 L 52.11 45.82 L 52.19 45.41 L 52.19 44.41 L 52.11 43.99 L 51.81 43.41 L 51.22 42.83 L 51.07 42.83 L 50.78 42.58 L 50.41 42.5 Z" />
+                      <path d="M 56.26 44.16 L 55.96 43.5 L 55.89 44.66 L 55.67 45.49 L 55.37 46.24 L 55.22 46.4 L 55.15 46.74 L 54.48 47.81 L 53.22 49.14 L 52.7 49.48 L 52.56 49.48 L 52.41 49.64 L 51.96 49.72 L 51.52 49.97 L 51.07 49.97 L 50.63 50.14 L 49.3 50.14 L 48.93 49.97 L 48.48 49.97 L 47.3 49.39 L 46.33 48.64 L 45.74 47.98 L 45.3 47.32 L 44.63 46.07 L 44.56 45.74 L 44.33 45.41 L 44.19 44.66 L 44.19 43.58 L 43.96 43.66 L 43.96 43.91 L 43.74 44.33 L 43.67 44.99 L 43.74 46.9 L 43.96 47.48 L 43.96 47.9 L 44.7 49.56 L 45.89 50.97 L 46.48 51.47 L 46.63 51.47 L 46.85 51.72 L 47.52 52.05 L 47.74 52.05 L 47.89 52.22 L 48.41 52.3 L 48.93 52.55 L 49.74 52.63 L 51.37 52.55 L 52.48 52.22 L 52.63 52.05 L 52.85 52.05 L 53.15 51.8 L 53.44 51.72 L 53.67 51.47 L 53.81 51.47 L 55.07 50.14 L 55.52 49.48 L 56.04 48.23 L 56.33 46.98 L 56.41 46.32 L 56.41 45.07 Z" />
+                      <g>
+                        <path d="M 50.11 53.79 L 49.81 54.04 L 49.81 54.37 L 50.04 54.62 L 50.33 54.62 L 50.56 54.37 L 50.56 54.13 L 50.41 53.88 Z" />
+                        <path d="M 52.56 53.63 L 52.33 53.63 L 52.04 53.88 L 52.11 54.21 L 52.41 54.37 L 52.7 54.21 L 52.78 53.88 Z" />
+                        <path d="M 47.44 53.79 L 47.37 54.04 L 47.44 54.21 L 47.67 54.46 L 47.89 54.54 L 48.19 54.37 L 48.33 54.04 L 48.19 53.71 L 47.96 53.54 L 47.59 53.63 Z" />
+                        <path d="M 54.56 52.88 L 54.26 52.96 L 54.04 53.3 L 54.33 53.63 L 54.48 53.63 L 54.78 53.38 L 54.85 53.13 Z" />
+                        <path d="M 45.59 52.8 L 45.44 52.96 L 45.44 53.38 L 45.67 53.63 L 46.11 53.63 L 46.26 53.46 L 46.26 53.05 L 45.96 52.71 Z" />
+                        <path d="M 55.81 51.3 L 55.52 51.8 L 55.81 52.22 L 56.04 52.22 L 56.41 51.88 L 56.41 51.55 L 56.18 51.3 Z" />
+                        <path d="M 44.11 51.3 L 43.96 51.39 L 43.89 51.8 L 44.04 52.05 L 44.41 52.22 L 44.56 52.13 L 44.63 51.55 L 44.56 51.39 L 44.41 51.3 Z" />
+                        <path d="M 57.15 49.31 L 56.93 49.48 L 56.85 49.64 L 56.85 49.97 L 57.07 50.22 L 57.37 50.22 L 57.59 49.97 L 57.67 49.64 L 57.44 49.31 Z" />
+                        <path d="M 42.78 49.39 L 42.7 49.97 L 42.85 50.14 L 43.37 50.06 L 43.44 49.72 L 43.3 49.39 L 43.15 49.31 Z" />
+                        <path d="M 57.74 46.82 L 57.44 47.15 L 57.44 47.48 L 57.67 47.73 L 57.89 47.73 L 58.18 47.48 L 58.26 47.15 L 58.18 46.98 L 57.96 46.82 Z" />
+                        <path d="M 42.19 46.65 L 42.04 46.74 L 41.89 47.07 L 41.89 47.23 L 42.11 47.57 L 42.33 47.65 L 42.63 47.32 L 42.63 46.98 L 42.48 46.74 Z" />
+                        <path d="M 42.11 44.66 L 41.89 44.74 L 41.89 45.16 L 42.11 45.16 L 42.26 44.99 L 42.26 44.83 Z" />
+                        <path d="M 58.04 44.49 L 57.67 44.58 L 57.59 44.74 L 57.59 45.07 L 57.96 45.41 L 58.26 45.07 L 58.26 44.83 Z" />
+                      </g>
+                      <path d="M 49.59 56.28 L 49.22 56.53 L 48.85 57.03 L 48.7 57.53 L 48.7 58.03 L 48.85 58.53 L 49.15 58.94 L 49.52 59.19 L 49.81 59.27 L 50.48 59.27 L 50.78 59.19 L 51.07 58.94 L 51.44 58.44 L 51.52 58.11 L 51.52 57.45 L 51.37 56.95 L 51.07 56.53 L 50.7 56.28 L 50.26 56.2 Z" />
+                    </g>
+                    <g id="paku-icon-eyebrows-and-nose">
+                      <path d="M 23.80 59.20 L 24.80 58.80 L 26.20 58.00 L 28.20 57.20 L 30.33 56.45 L 30.63 56.45 L 31.15 56.20 L 31.52 56.20 L 32.04 55.87 L 32.63 55.87 L 33.52 55.62 L 36.78 55.62 L 37.59 55.87 L 38.19 55.87 L 38.48 55.95 L 38.70 56.12 L 39.00 56.12 L 39.30 56.20 L 39.52 56.37 L 39.96 56.45 L 40.33 56.70 L 40.56 56.70 L 41.22 57.03 L 41.37 57.20 L 41.67 57.28 L 43.30 58.36 L 44.78 59.61 L 46.26 61.10 L 46.85 61.52 L 47.15 61.85 L 47.37 62.43 L 47.37 62.76 L 47.59 63.26 L 47.89 64.67 L 47.89 65.09 L 48.11 66.00 L 48.11 66.75 L 48.33 68.08 L 48.41 69.57 L 48.41 72.15 L 48.56 74.14 L 48.56 76.30 L 48.78 76.88 L 48.93 75.88 L 49.00 74.47 L 49.00 69.16 L 48.93 67.91 L 48.78 67.33 L 48.70 66.00 L 48.48 65.25 L 48.48 64.75 L 48.26 64.17 L 48.26 63.84 L 47.96 63.01 L 47.96 62.68 L 47.74 62.26 L 47.74 62.01 L 47.59 61.77 L 47.67 61.10 L 47.44 60.52 L 47.30 60.35 L 47.30 60.19 L 47.00 59.77 L 47.00 59.61 L 46.11 58.28 L 44.26 56.28 L 43.30 55.45 L 42.85 55.21 L 42.63 54.96 L 42.11 54.62 L 41.96 54.62 L 41.67 54.37 L 41.37 54.29 L 41.07 54.04 L 40.56 53.79 L 40.33 53.79 L 39.96 53.54 L 39.67 53.54 L 39.15 53.30 L 37.82 52.96 L 35.89 52.88 L 34.48 53.05 L 34.19 53.21 L 33.52 53.30 L 33.08 53.54 L 32.78 53.54 L 32.04 53.79 L 31.67 54.04 L 31.45 54.04 L 30.04 54.79 L 28.50 55.40 L 26.80 56.40 L 25.20 57.60 Z" />
+                      <path d="M 76.20 59.20 L 75.20 58.80 L 73.80 58.00 L 71.80 57.20 L 69.67 56.45 L 69.37 56.45 L 68.85 56.20 L 68.48 56.20 L 67.96 55.87 L 67.37 55.87 L 66.48 55.62 L 63.22 55.62 L 62.41 55.87 L 61.81 55.87 L 61.52 55.95 L 61.30 56.12 L 61.00 56.12 L 60.70 56.20 L 60.48 56.37 L 60.04 56.45 L 59.67 56.70 L 59.44 56.70 L 58.78 57.03 L 58.63 57.20 L 58.33 57.28 L 56.70 58.36 L 55.22 59.61 L 53.74 61.10 L 53.15 61.52 L 52.85 61.85 L 52.63 62.43 L 52.63 62.76 L 52.41 63.26 L 52.11 64.67 L 52.11 65.09 L 51.89 66.00 L 51.89 66.75 L 51.67 68.08 L 51.59 69.57 L 51.59 72.15 L 51.44 74.14 L 51.44 76.30 L 51.22 76.88 L 51.07 75.88 L 51.00 74.47 L 51.00 69.16 L 51.07 67.91 L 51.22 67.33 L 51.30 66.00 L 51.52 65.25 L 51.52 64.75 L 51.74 64.17 L 51.74 63.84 L 52.04 63.01 L 52.04 62.68 L 52.26 62.26 L 52.26 62.01 L 52.41 61.77 L 52.33 61.10 L 52.56 60.52 L 52.70 60.35 L 52.70 60.19 L 53.00 59.77 L 53.00 59.61 L 53.89 58.28 L 55.74 56.28 L 56.70 55.45 L 57.15 55.21 L 57.37 54.96 L 57.89 54.62 L 58.04 54.62 L 58.33 54.37 L 58.63 54.29 L 58.93 54.04 L 59.44 53.79 L 59.67 53.79 L 60.04 53.54 L 60.33 53.54 L 60.85 53.30 L 62.18 52.96 L 64.11 52.88 L 65.52 53.05 L 65.81 53.21 L 66.48 53.30 L 66.92 53.54 L 67.22 53.54 L 67.96 53.79 L 68.33 54.04 L 68.55 54.04 L 69.96 54.79 L 71.50 55.40 L 73.20 56.40 L 74.80 57.60 Z" />
+                      <path d="M 46.26 78.95 L 46.26 79.37 L 46.41 79.7 L 46.93 80.28 L 47.3 80.53 L 47.74 80.62 L 47.96 80.78 L 48.63 80.86 L 49.44 81.69 L 50.78 81.69 L 51.22 81.45 L 51.44 81.11 L 51.81 80.78 L 52.19 80.78 L 53.07 80.53 L 53.22 80.37 L 53.37 80.37 L 53.89 79.78 L 54.04 79.45 L 54.04 78.95 L 53.67 78.12 L 53.52 78.04 L 53.37 78.87 L 53.22 79.12 L 52.78 79.54 L 51.3 79.87 L 51.0 80.37 L 50.63 80.7 L 50.41 80.78 L 49.89 80.78 L 49.67 80.7 L 49.07 79.95 L 47.81 79.62 L 47.3 79.29 L 46.85 78.62 L 46.78 78.04 L 46.56 78.21 Z" />
+                    </g>
+                    <g id="paku-icon-creases">
+                      <path d="M 26.20 61.20 L 28.00 60.90 L 30.33 60.69 L 30.93 60.69 L 31.45 60.52 L 32.19 60.52 L 33.08 60.27 L 33.74 60.27 L 34.56 60.02 L 35.52 59.94 L 37.67 59.94 L 38.56 60.02 L 39.67 60.27 L 40.11 60.52 L 40.33 60.52 L 41.15 60.85 L 42.78 61.93 L 43.67 62.76 L 45.00 64.26 L 45.37 64.84 L 45.74 65.17 L 45.74 65.00 L 45.59 64.84 L 45.59 64.67 L 45.37 64.34 L 45.30 64.01 L 44.85 63.18 L 44.26 62.35 L 43.52 61.52 L 42.19 60.44 L 41.15 59.86 L 40.33 59.52 L 40.04 59.52 L 39.82 59.36 L 39.00 59.27 L 38.63 59.11 L 37.89 59.02 L 36.48 59.02 L 35.74 59.11 L 35.22 59.27 L 34.33 59.36 L 33.74 59.61 L 33.37 59.61 L 32.93 59.86 L 32.56 59.86 L 31.74 60.19 L 30.56 60.35 L 30.41 60.44 L 28.00 60.75 Z" />
+                      <path d="M 73.80 61.20 L 72.00 60.90 L 69.67 60.69 L 69.07 60.69 L 68.55 60.52 L 67.81 60.52 L 66.92 60.27 L 66.26 60.27 L 65.44 60.02 L 64.48 59.94 L 62.33 59.94 L 61.44 60.02 L 60.33 60.27 L 59.89 60.52 L 59.67 60.52 L 58.85 60.85 L 57.22 61.93 L 56.33 62.76 L 55.00 64.26 L 54.63 64.84 L 54.26 65.17 L 54.26 65.00 L 54.41 64.84 L 54.41 64.67 L 54.63 64.34 L 54.70 64.01 L 55.15 63.18 L 55.74 62.35 L 56.48 61.52 L 57.81 60.44 L 58.85 59.86 L 59.67 59.52 L 59.96 59.52 L 60.18 59.36 L 61.00 59.27 L 61.37 59.11 L 62.11 59.02 L 63.52 59.02 L 64.26 59.11 L 64.78 59.27 L 65.67 59.36 L 66.26 59.61 L 66.63 59.61 L 67.07 59.86 L 67.44 59.86 L 68.26 60.19 L 69.44 60.35 L 69.59 60.44 L 72.00 60.75 Z" />
+                    </g>
+                    <g id="paku-icon-eyes" fill-rule="evenodd">
+                      <path fill-rule="evenodd" d="M 23.50 63.20 L 24.80 63.90 L 26.20 64.80 L 28.20 65.90 L 30.04 67.00 L 30.56 67.41 L 31.08 67.99 L 32.26 68.99 L 32.48 69.07 L 32.70 69.32 L 32.85 69.32 L 33.08 69.57 L 33.59 69.90 L 33.74 69.90 L 34.04 70.15 L 35.07 70.65 L 35.52 70.73 L 35.89 70.98 L 36.19 70.98 L 36.70 71.23 L 38.41 71.56 L 40.48 71.56 L 41.15 71.48 L 41.52 71.31 L 42.26 71.23 L 42.78 70.98 L 43.07 70.98 L 43.52 70.73 L 44.63 70.40 L 46.19 69.57 L 46.56 69.24 L 46.70 68.91 L 46.26 67.91 L 45.30 66.75 L 44.63 66.17 L 43.89 65.67 L 43.59 65.59 L 43.44 65.42 L 42.78 65.09 L 42.41 65.00 L 42.26 64.84 L 41.82 64.75 L 41.37 64.51 L 41.07 64.51 L 40.56 64.26 L 39.89 64.17 L 39.67 64.01 L 39.22 63.92 L 38.63 63.92 L 37.37 63.68 L 36.48 63.68 L 35.67 63.43 L 35.15 63.43 L 34.33 63.18 L 32.63 63.09 L 31.96 62.93 L 31.00 62.93 L 30.56 62.76 L 28.50 62.60 L 26.50 62.60 L 24.80 62.80 Z M 27.20 64.75 L 28.80 64.55 L 30.33 64.34 L 30.48 64.42 L 30.85 64.42 L 31.30 64.59 L 33.30 64.67 L 33.82 64.84 L 35.15 64.92 L 35.30 65.09 L 35.37 65.34 L 35.45 66.25 L 35.89 67.25 L 36.48 67.91 L 36.63 67.91 L 36.85 68.16 L 37.67 68.49 L 38.78 68.49 L 39.52 68.24 L 40.33 67.66 L 40.85 67.00 L 40.93 66.75 L 41.30 66.25 L 41.59 66.25 L 42.04 66.50 L 42.48 66.58 L 42.78 66.83 L 43.00 66.83 L 43.22 67.08 L 43.52 67.16 L 43.89 67.41 L 44.41 67.91 L 44.56 67.91 L 45.15 68.41 L 45.15 68.66 L 44.85 68.91 L 44.19 68.99 L 44.04 69.16 L 43.52 69.24 L 43.15 69.49 L 42.85 69.49 L 42.41 69.74 L 41.59 69.82 L 41.22 69.99 L 39.37 69.99 L 38.78 69.82 L 37.59 69.74 L 37.00 69.49 L 36.63 69.49 L 36.19 69.24 L 35.67 69.16 L 34.56 68.66 L 34.26 68.41 L 34.11 68.41 L 33.22 67.83 L 33.00 67.58 L 32.78 67.50 L 31.30 66.17 L 30.33 65.09 L 28.80 64.95 Z" />
+                      <path fill-rule="evenodd" d="M 76.50 63.20 L 75.20 63.90 L 73.80 64.80 L 71.80 65.90 L 69.96 67.00 L 69.44 67.41 L 68.92 67.99 L 67.74 68.99 L 67.52 69.07 L 67.30 69.32 L 67.15 69.32 L 66.92 69.57 L 66.41 69.90 L 66.26 69.90 L 65.96 70.15 L 64.93 70.65 L 64.48 70.73 L 64.11 70.98 L 63.81 70.98 L 63.30 71.23 L 61.59 71.56 L 59.52 71.56 L 58.85 71.48 L 58.48 71.31 L 57.74 71.23 L 57.22 70.98 L 56.93 70.98 L 56.48 70.73 L 55.37 70.40 L 53.81 69.57 L 53.44 69.24 L 53.30 68.91 L 53.74 67.91 L 54.70 66.75 L 55.37 66.17 L 56.11 65.67 L 56.41 65.59 L 56.56 65.42 L 57.22 65.09 L 57.59 65.00 L 57.74 64.84 L 58.18 64.75 L 58.63 64.51 L 58.93 64.51 L 59.44 64.26 L 60.11 64.17 L 60.33 64.01 L 60.78 63.92 L 61.37 63.92 L 62.63 63.68 L 63.52 63.68 L 64.33 63.43 L 64.85 63.43 L 65.67 63.18 L 67.37 63.09 L 68.04 62.93 L 69.00 62.93 L 69.44 62.76 L 71.50 62.60 L 73.50 62.60 L 75.20 62.80 Z M 72.80 64.75 L 71.20 64.55 L 69.67 64.34 L 69.52 64.42 L 69.15 64.42 L 68.70 64.59 L 66.70 64.67 L 66.18 64.84 L 64.85 64.92 L 64.70 65.09 L 64.63 65.34 L 64.55 66.25 L 64.11 67.25 L 63.52 67.91 L 63.37 67.91 L 63.15 68.16 L 62.33 68.49 L 61.22 68.49 L 60.48 68.24 L 59.67 67.66 L 59.15 67.00 L 59.07 66.75 L 58.70 66.25 L 58.41 66.25 L 57.96 66.50 L 57.52 66.58 L 57.22 66.83 L 57.00 66.83 L 56.78 67.08 L 56.48 67.16 L 56.11 67.41 L 55.59 67.91 L 55.44 67.91 L 54.85 68.41 L 54.85 68.66 L 55.15 68.91 L 55.81 68.99 L 55.96 69.16 L 56.48 69.24 L 56.85 69.49 L 57.15 69.49 L 57.59 69.74 L 58.41 69.82 L 58.78 69.99 L 60.63 69.99 L 61.22 69.82 L 62.41 69.74 L 63.00 69.49 L 63.37 69.49 L 63.81 69.24 L 64.33 69.16 L 65.44 68.66 L 65.74 68.41 L 65.89 68.41 L 66.78 67.83 L 67.00 67.58 L 67.22 67.50 L 68.70 66.17 L 69.67 65.09 L 71.20 64.95 Z" />
+                    </g>
+                    <g id="paku-icon-lips">
+                      <path d="M 56.78 85.1 L 56.7 84.85 L 56.11 84.85 L 55.74 85.02 L 54.48 85.02 L 54.18 84.85 L 53.81 84.85 L 53.52 84.77 L 53.3 84.6 L 52.19 84.35 L 51.3 84.6 L 50.48 85.18 L 50.04 85.18 L 49.81 85.1 L 49.52 84.85 L 49.37 84.85 L 49.07 84.6 L 48.63 84.44 L 47.74 84.52 L 47.44 84.6 L 47.22 84.77 L 46.63 84.85 L 46.04 85.1 L 44.78 85.1 L 44.33 84.93 L 43.89 84.93 L 43.89 85.1 L 44.26 85.51 L 45.59 86.1 L 46.93 86.35 L 48.04 86.43 L 48.41 86.59 L 49.3 86.68 L 51.07 86.68 L 52.11 86.59 L 53.22 86.35 L 53.89 86.35 L 54.56 86.1 L 54.93 86.1 L 55.37 85.85 L 55.81 85.76 L 55.96 85.6 L 56.33 85.51 Z" />
+                      <path d="M 53.67 87.92 L 53.67 87.59 L 53.52 87.51 L 52.93 87.59 L 52.26 87.84 L 50.93 88.01 L 49.74 88.01 L 48.11 87.84 L 47.44 87.59 L 46.78 87.67 L 46.93 88.01 L 47.37 88.5 L 47.59 88.59 L 47.81 88.84 L 48.26 89.09 L 48.78 89.17 L 49.0 89.33 L 49.37 89.42 L 51.15 89.42 L 52.26 89.09 L 52.56 88.84 L 52.7 88.84 L 53.37 88.34 Z" />
+                    </g>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="paku-modal-title" id="paku-modal-title">পাঁকুর দপ্তর: জিজ্ঞাসা ও পরামর্শ</h3>
+                  <p class="paku-modal-subtitle"><span class="paku-name">Pãku</span>'s Desk: Questions & Suggestions</p>
+                </div>
+              </div>
+              <button type="button" class="paku-modal-close-btn" id="paku-modal-close-btn" aria-label="Close modal">&times;</button>
+            </div>
+            <form class="paku-modal-body" id="paku-ask-form">
+              <div class="paku-type-selector">
+                <button type="button" class="paku-type-pill active" data-type="question" id="paku-pill-question">
+                  <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:14px;height:14px;">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                    <line x1="12" y1="17" x2="12.01" y2="17" stroke-width="2.5"></line>
+                  </svg>
+                  <span>জিজ্ঞাসা / Ask</span>
+                </button>
+                <button type="button" class="paku-type-pill" data-type="recommendation" id="paku-pill-recommendation">
+                  <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="width:14px;height:14px;">
+                    <path d="M12 2C13.2 4.2 14.5 6.2 14.5 8.2A2.5 2.5 0 0 1 9.5 8.2C9.5 6.2 10.8 4.2 12 2Z" fill="currentColor"/>
+                    <path d="M12 4.5C12.5 5.6 13.2 6.7 13.2 7.7A1.2 1.2 0 0 1 10.8 7.7C10.8 6.7 11.5 5.6 12 4.5Z" fill="#fff" opacity="0.8"/>
+                    <path d="M2.5 13.5C3.5 17.5 7 20 12 20S20.5 17.5 21.5 13.5C19.5 15 16 15.8 12 15.8S4.5 15 2.5 13.5Z" fill="currentColor"/>
+                    <ellipse cx="12" cy="13.5" rx="9.5" ry="2.2" fill="currentColor" opacity="0.5"/>
+                  </svg>
+                  <span>পরামর্শ / Suggest</span>
+                </button>
+              </div>
+
+              <div class="paku-form-group">
+                <label class="paku-form-label" for="paku-user-name">আপনার নাম / Your Name <span style="color:#bd3a54;">*</span></label>
+                <input type="text" id="paku-user-name" class="paku-form-input" placeholder="যেমন: ফাহমিদা মুন" required maxlength="100" />
+              </div>
+
+              <div class="paku-form-group">
+                <label class="paku-form-label" for="paku-user-message" id="paku-message-label">আপনার জিজ্ঞাসা / Your Question <span style="color:#bd3a54;">*</span></label>
+                <textarea id="paku-user-message" class="paku-form-textarea" placeholder="কী জানতে চান বা মঞ্চাইছে নিয়ে কোনো জিজ্ঞাসা..." required maxlength="2000"></textarea>
+              </div>
+
+              <div class="paku-form-status" id="paku-form-status"></div>
+
+              <button type="submit" class="paku-form-submit-btn" id="paku-submit-btn">
+                <span>পাঠিয়ে দিন / Send to <span class="paku-name">Pãku</span></span>
+                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px;"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+              </button>
+            </form>
           </div>
         </div>
       `;
@@ -1082,6 +1205,7 @@
       const quips = [
         'হেই! আমি পাঁকু; তাঁতের মাকু! কোনো সাহায্য লাগলে ডাক দিয়েন।',
         'আমার এক বিলাতি ভাগ্নে ছিল, ক্লিপি। কেউ কী ওর খবর জানো?',
+        'তাঁতীর বুননের শব্দ শুনেই তো মন ভালো হয়ে যায়, তাই না?',
         'রুনঝুন করছে না কেন আজ?',
         'মেশিনটা একটু বেশি শব্দ করছে, তাই না?',
         'একটা নতুন রঙ খুঁজছি। ফিরোজার মধ্যে হলুদ, আবার একটু কড়া লাল, কিন্তু একটু কম গাঢ়।',
@@ -1089,13 +1213,18 @@
         'আমার সুতো বেশি টান দিয়েন না যেন, মাথা ঘুরায়া চক্কর দেয়!',
         'আমার এক চোখে ঘুম, আরেক চোখে বাজার!',
         'তাঁতের নিখুঁত কাজের কোনো তুলনা হয় না, তাই না?',
-        'কী ভাবছেন? ফিতার মাপে কোনো খটকা লাগলে আমায় বইলেন!'
+        'আমাকে কিছু বলতে চান? তাহলে আমায় ডাবল-ক্লিক করুন (বা ফোনে হলে একটু চেপে ধরে রাখুন)।',
+        'কী ভাবছেন? ফিতার মাপে কোনো খটকা?'
       ];
       let quipIndex = 0;
 
       wrapper.addEventListener('click', (e) => {
         if (e.target.closest('#paku-speech-close')) return;
         if (this.isDragging || this.wasDragAction) return;
+        if (this.touchHoldTriggered) {
+          this.touchHoldTriggered = false;
+          return;
+        }
 
         this.clearSequenceTimeouts();
         this.setSleepy(false);
@@ -1104,6 +1233,298 @@
         quipIndex++;
         this.say(line, 'normal', 5500);
         this.triggerBlink();
+      });
+    }
+
+    // --- INQUIRY & RECOMMENDATION MODAL CONTROLLER ---
+    setupInquiryModal() {
+      const wrapper = this.querySelector('#paku-mascot-wrapper');
+      if (wrapper) {
+        // Desktop double click
+        wrapper.addEventListener('dblclick', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          this.openAskModal('question');
+        });
+
+        // Mobile tap-and-hold (long-press ~550ms)
+        let touchStartPos = { x: 0, y: 0 };
+        wrapper.addEventListener('touchstart', (e) => {
+          if (e.touches && e.touches[0]) {
+            touchStartPos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            this.touchHoldTriggered = false;
+            if (this.touchHoldTimer) clearTimeout(this.touchHoldTimer);
+            this.touchHoldTimer = setTimeout(() => {
+              this.touchHoldTriggered = true;
+              this.openAskModal('question');
+              if (navigator.vibrate) {
+                try { navigator.vibrate(40); } catch (_) { }
+              }
+            }, 550);
+          }
+        }, { passive: true });
+
+        wrapper.addEventListener('touchmove', (e) => {
+          if (e.touches && e.touches[0]) {
+            const dist = Math.hypot(e.touches[0].clientX - touchStartPos.x, e.touches[0].clientY - touchStartPos.y);
+            if (dist > 10 && this.touchHoldTimer) {
+              clearTimeout(this.touchHoldTimer);
+              this.touchHoldTimer = null;
+            }
+          }
+        }, { passive: true });
+
+        const cancelHold = () => {
+          if (this.touchHoldTimer) {
+            clearTimeout(this.touchHoldTimer);
+            this.touchHoldTimer = null;
+          }
+        };
+        wrapper.addEventListener('touchend', cancelHold, { passive: true });
+        wrapper.addEventListener('touchcancel', cancelHold, { passive: true });
+      }
+
+      // Close modal bindings
+      const overlay = this.querySelector('#paku-modal-overlay');
+      const closeBtn = this.querySelector('#paku-modal-close-btn');
+      if (overlay) {
+        overlay.addEventListener('click', () => this.closeAskModal());
+      }
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => this.closeAskModal());
+      }
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && this.isModalOpen) {
+          this.closeAskModal();
+        }
+      });
+
+      // Pill buttons for inquiry type
+      const pillQuestion = this.querySelector('#paku-pill-question');
+      const pillRec = this.querySelector('#paku-pill-recommendation');
+      if (pillQuestion) {
+        pillQuestion.addEventListener('click', () => this.setInquiryType('question'));
+      }
+      if (pillRec) {
+        pillRec.addEventListener('click', () => this.setInquiryType('recommendation'));
+      }
+
+      // Wire submit event
+      this.setupFormSubmission();
+    }
+
+    openAskModal(initialType = 'question') {
+      this.clearSequenceTimeouts();
+      this.setSleepy(false);
+      this.hideSpeech();
+
+      this.isModalOpen = true;
+      this.lastUserActivity = 0; // Immediately in idle state looking at form
+      this.setInquiryType(initialType);
+
+      const overlay = this.querySelector('#paku-modal-overlay');
+      const modal = this.querySelector('#paku-ask-modal');
+      if (overlay) overlay.classList.add('active');
+      if (modal) modal.classList.add('active');
+
+      const nameInput = this.querySelector('#paku-user-name');
+      if (nameInput) {
+        setTimeout(() => nameInput.focus(), 150);
+      }
+
+      const pLeft = this.pupilLeft || this.querySelector('#pupil-left');
+      const pRight = this.pupilRight || this.querySelector('#pupil-right');
+      if (pLeft && pRight) {
+        pLeft.style.transform = 'translate(-0.75px, 1.35px)';
+        pRight.style.transform = 'translate(-0.75px, 1.35px)';
+      }
+
+      this.startModalIdleEyeCycle();
+    }
+
+    closeAskModal() {
+      this.isModalOpen = false;
+      const overlay = this.querySelector('#paku-modal-overlay');
+      const modal = this.querySelector('#paku-ask-modal');
+      if (overlay) overlay.classList.remove('active');
+      if (modal) modal.classList.remove('active');
+
+      this.stopModalIdleEyeCycle();
+
+      const pLeft = this.pupilLeft || this.querySelector('#pupil-left');
+      const pRight = this.pupilRight || this.querySelector('#pupil-right');
+      if (pLeft && pRight) {
+        pLeft.style.transform = 'translate(0px, 0px)';
+        pRight.style.transform = 'translate(0px, 0px)';
+      }
+    }
+
+    setInquiryType(type) {
+      this.inquiryType = type === 'recommendation' ? 'recommendation' : 'question';
+      const pillQuestion = this.querySelector('#paku-pill-question');
+      const pillRec = this.querySelector('#paku-pill-recommendation');
+      const messageLabel = this.querySelector('#paku-message-label');
+      const messageInput = this.querySelector('#paku-user-message');
+
+      if (this.inquiryType === 'question') {
+        if (pillQuestion) pillQuestion.classList.add('active');
+        if (pillRec) pillRec.classList.remove('active');
+        if (messageLabel) {
+          messageLabel.innerHTML = 'আপনার জিজ্ঞাসা / Your Question <span style="color:#bd3a54;">*</span>';
+        }
+        if (messageInput) {
+          messageInput.placeholder = 'কী জানতে চান বা মঞ্চাইছে নিয়ে কোনো জিজ্ঞাসা...';
+        }
+      } else {
+        if (pillRec) pillRec.classList.add('active');
+        if (pillQuestion) pillQuestion.classList.remove('active');
+        if (messageLabel) {
+          messageLabel.innerHTML = 'আপনার পরামর্শ / Your Recommendation <span style="color:#bd3a54;">*</span>';
+        }
+        if (messageInput) {
+          messageInput.placeholder = 'কীভাবে আরও সুন্দর করা যায়, নতুন কোনো ভাবনার কথা...';
+        }
+      }
+    }
+
+    startModalIdleEyeCycle() {
+      this.stopModalIdleEyeCycle();
+      let glanceAtUser = false;
+      let lastGlanceSwitch = performance.now();
+
+      this.modalIdleInterval = setInterval(() => {
+        if (!this.isModalOpen) return;
+        const now = performance.now();
+        // PC idle threshold > 1.5s or on touch/mobile
+        const isIdle = (now - this.lastUserActivity) > 1500;
+
+        if (isIdle) {
+          const eyes = this.querySelector('#paku-eyes');
+          if (eyes && (eyes.classList.contains('dizzy') || eyes.classList.contains('blinking'))) return;
+
+          // Toggle between looking down at the form and glancing up at user
+          const timeSinceSwitch = now - lastGlanceSwitch;
+          if (!glanceAtUser && timeSinceSwitch > 3500) {
+            glanceAtUser = true;
+            lastGlanceSwitch = now;
+          } else if (glanceAtUser && timeSinceSwitch > 1200) {
+            glanceAtUser = false;
+            lastGlanceSwitch = now;
+          }
+
+          const pLeft = this.pupilLeft || this.querySelector('#pupil-left');
+          const pRight = this.pupilRight || this.querySelector('#pupil-right');
+          if (pLeft && pRight) {
+            if (glanceAtUser) {
+              // Glancing at user
+              pLeft.style.transform = 'translate(0px, -0.25px)';
+              pRight.style.transform = 'translate(0px, -0.25px)';
+            } else {
+              // Looking down towards the inquiry form modal
+              pLeft.style.transform = 'translate(-0.75px, 1.35px)';
+              pRight.style.transform = 'translate(-0.75px, 1.35px)';
+            }
+          }
+        }
+      }, 150);
+    }
+
+    stopModalIdleEyeCycle() {
+      if (this.modalIdleInterval) {
+        clearInterval(this.modalIdleInterval);
+        this.modalIdleInterval = null;
+      }
+    }
+
+    setupFormSubmission() {
+      const form = this.querySelector('#paku-ask-form');
+      const statusEl = this.querySelector('#paku-form-status');
+      const submitBtn = this.querySelector('#paku-submit-btn');
+      const nameInput = this.querySelector('#paku-user-name');
+      const messageInput = this.querySelector('#paku-user-message');
+
+      if (!form) return;
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const name = (nameInput && nameInput.value || '').trim();
+        const message = (messageInput && messageInput.value || '').trim();
+        const type = this.inquiryType;
+
+        if (!name) {
+          if (statusEl) {
+            statusEl.className = 'paku-form-status error';
+            statusEl.textContent = 'অনুগ্রহ করে আপনার নাম লিখুন।';
+          }
+          if (nameInput) nameInput.focus();
+          return;
+        }
+
+        if (!message) {
+          if (statusEl) {
+            statusEl.className = 'paku-form-status error';
+            statusEl.textContent = 'অনুগ্রহ করে বার্তা বা প্রশ্ন লিখুন।';
+          }
+          if (messageInput) messageInput.focus();
+          return;
+        }
+
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<span>পাঠানো হচ্ছে... / Sending...</span>';
+        }
+        if (statusEl) {
+          statusEl.className = 'paku-form-status';
+          statusEl.style.display = 'none';
+        }
+
+        try {
+          const res = await fetch('/api/ask-paku', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, type, message })
+          });
+
+          let data = {};
+          try {
+            data = await res.json();
+          } catch (_) { }
+
+          if (res.ok && data.success !== false) {
+            if (statusEl) {
+              statusEl.className = 'paku-form-status success';
+              statusEl.textContent = data.message || 'ধন্যবাদ! আপনার বার্তা সরাসরি টেলিগ্রামে পৌঁছে গেছে।';
+            }
+
+            if (form) form.reset();
+
+            // Close modal after 1.2s and celebrate with dialogue and blink
+            setTimeout(() => {
+              this.closeAskModal();
+              if (type === 'recommendation') {
+                this.say('অসাধারণ পরামর্শ! মঞ্চাইছেকে আরও সুন্দর করে তুলতে আপনার এই ভাবনা অনেক কাজে দেবে।', 'normal', 6500);
+              } else {
+                this.say('আপনার প্রশ্ন পেয়েছি! মঞ্চাইছে টিমের সাথে আলোচনা করে শীঘ্রই উত্তর দেওয়া হবে।', 'normal', 6500);
+              }
+              this.triggerBlink();
+            }, 1200);
+          } else {
+            throw new Error(data.error || 'সার্ভারে সমস্যা হয়েছে। অনুগ্রহ করে পুনরায় চেষ্টা করুন।');
+          }
+        } catch (err) {
+          this.shake();
+          if (statusEl) {
+            statusEl.className = 'paku-form-status error';
+            statusEl.textContent = err.message || 'পাঠাতে ব্যর্থ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।';
+          }
+        } finally {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<span>পাঠিয়ে দিন / Send to <span class="paku-name">Pãku</span></span><svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px;"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>';
+          }
+        }
       });
     }
 
@@ -1192,13 +1613,17 @@
       // Bengali dizzy dialogue
       this.say('আরে আরে থামা! মাথা ঘুরায়া মাটিতে পইড়া যামু তো!', 'dizzy', 6000);
 
-      // Cancel any prior spin RAF
+      // Cancel any prior spin RAF or dizzy timeout
       if (this.spinRaf) {
         cancelAnimationFrame(this.spinRaf);
         this.spinRaf = null;
       }
+      if (this.dizzyTimeout) {
+        clearTimeout(this.dizzyTimeout);
+        this.dizzyTimeout = null;
+      }
 
-      // Smooth on-axis Beyblade spin with angle-based face culling (Zero Cross Artifact!)
+      // Smooth on-axis Beyblade spin with synchronized 4-phase face culling & strict opacity invariant = 1.000
       const duration = 2400; // ms
       const totalRotation = 2160; // 6 full turns (rotateY)
       const startTime = performance.now();
@@ -1211,33 +1636,60 @@
       const lSideRight = this.faceRight;
 
       const updateAngle = (deg) => {
-        const rad = deg * Math.PI / 180;
-        const cosA = Math.cos(rad);
-        const sinA = Math.sin(rad);
+        let norm = deg % 360;
+        if (norm < 0) norm += 360;
 
-        // Near edge-on (within ~12 deg of 90 or 270), abs(cosA) < 0.20
-        // When abs(cosA) < 0.15, front/back drops to 0 and side becomes 1
-        let fbOpacity = 1;
-        let sideOpacity = 0;
+        let frontOp = 0;
+        let backOp = 0;
+        let sideLeftOp = 0;
+        let sideRightOp = 0;
 
-        if (Math.abs(cosA) < 0.20) {
-          fbOpacity = Math.max(0, (Math.abs(cosA) - 0.06) / 0.14);
-          sideOpacity = 1 - fbOpacity;
+        // 4 Quadrants:
+        // Zone 1: Front dominant [310..360] and [0..50]
+        // Zone 2: Side Left dominant [70..110] (40-degree wide solid window)
+        // Zone 3: Back dominant [130..230] (100-degree wide solid window)
+        // Zone 4: Side Right dominant [250..290] (40-degree wide solid window)
+        // Smooth cross-fades with invariant sum = 1.000:
+        // [50..70]: Front -> Side Left
+        // [110..130]: Side Left -> Back
+        // [230..250]: Back -> Side Right
+        // [290..310]: Side Right -> Front
+
+        if (norm >= 0 && norm < 50) {
+          frontOp = 1;
+        } else if (norm >= 50 && norm < 70) {
+          const t = (norm - 50) / 20;
+          frontOp = 1 - t;
+          sideLeftOp = t;
+        } else if (norm >= 70 && norm < 110) {
+          sideLeftOp = 1;
+        } else if (norm >= 110 && norm < 130) {
+          const t = (norm - 110) / 20;
+          sideLeftOp = 1 - t;
+          backOp = t;
+        } else if (norm >= 130 && norm < 230) {
+          backOp = 1;
+        } else if (norm >= 230 && norm < 250) {
+          const t = (norm - 230) / 20;
+          backOp = 1 - t;
+          sideRightOp = t;
+        } else if (norm >= 250 && norm < 290) {
+          sideRightOp = 1;
+        } else if (norm >= 290 && norm < 310) {
+          const t = (norm - 290) / 20;
+          sideRightOp = 1 - t;
+          frontOp = t;
+        } else { // 310..360
+          frontOp = 1;
         }
 
         shuttle.style.transform = `rotateY(${deg.toFixed(2)}deg)`;
-        if (lFront) lFront.style.opacity = fbOpacity;
-        if (lSpool) lSpool.style.opacity = fbOpacity;
-        if (lFloor) lFloor.style.opacity = fbOpacity;
-        if (lBack) lBack.style.opacity = fbOpacity;
-
-        if (sinA > 0) {
-          if (lSideLeft) lSideLeft.style.opacity = sideOpacity;
-          if (lSideRight) lSideRight.style.opacity = 0;
-        } else {
-          if (lSideRight) lSideRight.style.opacity = sideOpacity;
-          if (lSideLeft) lSideLeft.style.opacity = 0;
-        }
+        if (lFront) lFront.style.opacity = frontOp;
+        if (lSpool) lSpool.style.opacity = frontOp;
+        if (lFloor) lFloor.style.opacity = frontOp;
+        if (lBack) lBack.style.opacity = backOp;
+        if (lSideLeft) lSideLeft.style.opacity = sideLeftOp;
+        if (lSideRight) lSideRight.style.opacity = sideRightOp;
       };
 
       const step = (now) => {
@@ -1258,11 +1710,16 @@
           if (lFront) lFront.style.opacity = 1;
           if (lSpool) lSpool.style.opacity = 1;
           if (lFloor) lFloor.style.opacity = 1;
-          if (lBack) lBack.style.opacity = 1;
+          if (lBack) lBack.style.opacity = 0;
           if (lSideLeft) lSideLeft.style.opacity = 0;
           if (lSideRight) lSideRight.style.opacity = 0;
           shuttle.classList.remove('beyblade-spinning-3d');
-          if (eyes) eyes.classList.remove('dizzy');
+          // Keep spinning spiral eyes dizzy for 2.8s after spinning stops
+          if (this.dizzyTimeout) clearTimeout(this.dizzyTimeout);
+          this.dizzyTimeout = setTimeout(() => {
+            if (eyes) eyes.classList.remove('dizzy');
+            this.triggerBlink();
+          }, 2800);
         }
       };
 
@@ -1297,6 +1754,7 @@
     setupGazeTracking() {
       let isTicking = false;
       window.addEventListener('mousemove', (e) => {
+        this.lastUserActivity = performance.now();
         if (isTicking || this.isDragging) return;
         isTicking = true;
 
@@ -1328,6 +1786,10 @@
           this.pupilLeft.style.transform = transformVal;
           this.pupilRight.style.transform = transformVal;
         });
+      }, { passive: true });
+
+      window.addEventListener('keydown', () => {
+        this.lastUserActivity = performance.now();
       }, { passive: true });
     }
 
@@ -1644,6 +2106,18 @@
       const pakuEl = document.querySelector('paku-assistant');
       if (pakuEl && typeof pakuEl.setSleepy === 'function') {
         pakuEl.setSleepy(isSleepy);
+      }
+    },
+    openAsk: (type) => {
+      const pakuEl = document.querySelector('paku-assistant');
+      if (pakuEl && typeof pakuEl.openAskModal === 'function') {
+        pakuEl.openAskModal(type);
+      }
+    },
+    closeAsk: () => {
+      const pakuEl = document.querySelector('paku-assistant');
+      if (pakuEl && typeof pakuEl.closeAskModal === 'function') {
+        pakuEl.closeAskModal();
       }
     }
   };
