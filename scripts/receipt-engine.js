@@ -242,6 +242,13 @@
       ? `<span class="receipt-customer-bn">${customerBn.name}</span>`
       : `<span class="receipt-customer-latin font-biro">${customerBn.name}</span>`;
 
+    // Address resolution: if English/Latin characters exist, render in Biro Script!
+    const rawAddress = String(order.customer?.address || '').trim();
+    const hasLatinAddress = /[A-Za-z]/.test(rawAddress);
+    const customerAddressHtml = hasLatinAddress
+      ? `<span class="receipt-customer-latin font-biro">${rawAddress}</span>`
+      : `<span>${rawAddress}</span>`;
+
     return `
       <div id="receipt-bn-content" class="receipt-paper-bn select-none">
         <!-- Top Traditional Invocation Banner -->
@@ -269,7 +276,7 @@
             <strong>মোবাইল নম্বর:</strong> ${toBengaliDigits(order.customer?.phone || '')}
           </div>
           <div>
-            <strong>ঠিকানা:</strong> <span>${order.customer?.address || ''} (${districtLabel})</span>
+            <strong>ঠিকানা:</strong> ${customerAddressHtml} <span>(${districtLabel})</span>
           </div>
           <div>
             <strong>মূল্য পরিশোধ:</strong> ${paymentMethodLabel}
@@ -327,8 +334,8 @@
             <img src="./files/saru_seal_stamp.svg" class="receipt-red-seal" style="position: absolute; left: 16px; top: -10px; width: 125px; height: auto; transform: rotate(-10deg); pointer-events: none; mix-blend-mode: multiply; opacity: 0.94; filter: drop-shadow(0 0.5px 1px rgba(184,36,56,0.25));" alt="সিলমোহর" />
           </div>
           <div style="text-align: center; border-top: 1px solid #333333; width: 150px; padding-top: 4px; font-size: 16px;">
-            <span>মঞ্চাইছে</span><br>
-            <span style="font-size: 12.5px; opacity: 0.8;">(অনুমোদিত হস্তলিপি)</span>
+            <span>কোষাধ্যক্ষ</span><br>
+            <span style="font-size: 12.5px; opacity: 0.8;">মঞ্চাইছে</span>
           </div>
         </div>
       </div>

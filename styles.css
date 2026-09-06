@@ -1721,7 +1721,7 @@ html[lang="en"] #receipt-en-content * {
   box-sizing: border-box;
 }
 
-/* 2. Bengali Ruled Khata (Kobiguru): All elements strictly in Kobiguru */
+/* 2. Bengali Ruled Khata (Kobiguru): All elements strictly in Kobiguru with Biro Script fallback */
 .receipt-paper-bn,
 .receipt-paper-bn *,
 #receipt-bn-content,
@@ -1734,7 +1734,7 @@ html[lang="bn"] #receipt-bn-content,
 html[lang="bn"] #receipt-bn-content *,
 html[lang="en"] #receipt-bn-content,
 html[lang="en"] #receipt-bn-content * {
-  font-family: 'Kobiguru', cursive !important;
+  font-family: 'Kobiguru', 'BiroScript', cursive !important;
   font-feature-settings: normal !important;
   letter-spacing: normal;
 }
@@ -1758,7 +1758,7 @@ html[lang="en"] #receipt-bn-content * {
   box-sizing: border-box;
 }
 
-/* 3. English customer name / Latin script fallback inside Bengali Khata (Biro Script) */
+/* 3. English customer name / address / Latin script fallback inside Bengali Khata (Biro Script) */
 .receipt-paper-bn .receipt-customer-latin,
 .receipt-paper-bn .font-biro,
 #receipt-bn-content .receipt-customer-latin,
@@ -1771,8 +1771,8 @@ html[lang="bn"] #receipt-bn-content .receipt-customer-latin,
 html[lang="bn"] #receipt-bn-content .font-biro,
 html[lang="en"] #receipt-bn-content .receipt-customer-latin,
 html[lang="en"] #receipt-bn-content .font-biro {
-  font-family: 'BiroScript', cursive !important;
-  font-size: 19px !important;
+  font-family: 'BiroScript', 'Kobiguru', cursive !important;
+  font-size: 21.5px !important;
   letter-spacing: 0.04em !important;
 }
 
