@@ -579,49 +579,87 @@
       await document.fonts.ready;
     }
 
-    const targetId = lang === 'bn' ? 'receipt-bn-content' : 'receipt-en-content';
-    let element = document.getElementById(targetId);
+    const selectedLang = lang === 'en' ? 'en' : 'bn';
+    const isEn = selectedLang === 'en';
 
-    // If modal is not rendering it currently, construct a detached container
-    let detached = false;
-    if (!element) {
-      element = document.createElement('div');
-      element.innerHTML = lang === 'bn'
-        ? generateBengaliReceiptHtml(order)
-        : generateEnglishReceiptHtml(order);
-      element = element.firstElementChild;
-      element.style.position = 'fixed';
-      element.style.left = '-9999px';
-      element.style.top = '0';
-      document.body.appendChild(element);
-      detached = true;
+    // Create an isolated staging wrapper at top-left, hidden behind the page.
+    // This guarantees a clean, un-scrolled, in-flow element with full height calculation,
+    // completely decoupling PDF generation from active modal tabs, scroll state, or animations.
+    const stagingWrapper = document.createElement('div');
+    stagingWrapper.id = 'receipt-pdf-staging';
+    stagingWrapper.style.position = 'fixed';
+    stagingWrapper.style.left = '0';
+    stagingWrapper.style.top = '0';
+    stagingWrapper.style.zIndex = '-99999';
+    stagingWrapper.style.opacity = '0';
+    stagingWrapper.style.pointerEvents = 'none';
+    stagingWrapper.style.width = isEn ? '380px' : '520px';
+    stagingWrapper.style.margin = '0';
+    stagingWrapper.style.padding = '0';
+
+    stagingWrapper.innerHTML = isEn
+      ? generateEnglishReceiptHtml(order)
+      : generateBengaliReceiptHtml(order);
+
+    const targetEl = stagingWrapper.firstElementChild;
+    if (targetEl) {
+      targetEl.style.position = 'relative';
+      targetEl.style.margin = '0 auto';
     }
 
-    const filename = `MonChaise_Receipt_${order.orderId}_${lang.toUpperCase()}.pdf`;
-
-    // Configure PDF options specifically calibrated for each receipt style
-    const opt = {
-      margin: lang === 'en' ? [4, 4, 4, 4] : [6, 6, 6, 6],
-      filename: filename,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: {
-        scale: 2,
-        useCORS: true,
-        letterRendering: true,
-        logging: false
-      },
-      jsPDF: {
-        unit: 'mm',
-        format: lang === 'en' ? [90, 240] : 'a5',
-        orientation: 'portrait'
-      }
-    };
+    document.body.appendChild(stagingWrapper);
 
     try {
-      await window.html2pdf().set(opt).from(element).save();
+      // Ensure all images within the receipt (stamps, seals, etc.) are fully loaded
+      const imgs = Array.from(stagingWrapper.querySelectorAll('img'));
+      await Promise.all(imgs.map(img => {
+        if (img.complete) return Promise.resolve();
+        return new Promise(res => {
+          img.onload = res;
+          img.onerror = res;
+        });
+      }));
+
+      // Compute exact rendered dimensions in millimeters (at standard 96 DPI: 1px = 25.4/96 mm)
+      const rect = targetEl ? targetEl.getBoundingClientRect() : { width: isEn ? 380 : 520, height: 750 };
+      const renderedWidthPx = Math.max(targetEl ? targetEl.offsetWidth : 0, rect.width || (isEn ? 380 : 520));
+      const renderedHeightPx = Math.max(targetEl ? targetEl.offsetHeight : 0, rect.height || 750);
+      const pxToMm = 25.4 / 96;
+
+      const marginMm = isEn ? 4 : 6;
+      // Dynamically size page dimensions to fit content exactly on 1 page without trailing blank slivers
+      const pageWidthMm = Math.ceil(renderedWidthPx * pxToMm + (marginMm * 2));
+      const totalHeightMm = Math.ceil(renderedHeightPx * pxToMm + (marginMm * 2) + 2);
+
+      const filename = `MonChaise_Receipt_${order.orderId}_${selectedLang.toUpperCase()}.pdf`;
+
+      const opt = {
+        margin: [marginMm, marginMm, marginMm, marginMm],
+        filename: filename,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: {
+          scale: 2,
+          useCORS: true,
+          letterRendering: true,
+          scrollX: 0,
+          scrollY: 0,
+          logging: false
+        },
+        jsPDF: {
+          unit: 'mm',
+          format: [pageWidthMm, totalHeightMm],
+          orientation: 'portrait'
+        }
+      };
+
+      const worker = window.html2pdf().set(opt).from(targetEl || stagingWrapper);
+      await worker.toPdf();
+      const pdf = worker.prop.pdf;
+      await worker.save();
+      return { pdf, worker, filename };
     } finally {
-      if (detached && element.parentNode) {
-        element.parentNode.removeChild(element);
+      if (stagingWrapper.parentNode) {
+        stagingWrapper.parentNode.removeChild(stagingWrapper);
       }
     }
   }

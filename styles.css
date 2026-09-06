@@ -1879,11 +1879,14 @@ html[lang="en"] #receipt-bn-content .receipt-order-code-stamp * {
   }
 
   #printable-receipt-container,
-  #printable-receipt-container * {
+  #printable-receipt-container *,
+  #order-receipt-modal #receipt-dynamic-view,
+  #order-receipt-modal #receipt-dynamic-view * {
     visibility: visible !important;
   }
 
-  #printable-receipt-container {
+  #printable-receipt-container,
+  #order-receipt-modal #receipt-dynamic-view {
     position: absolute !important;
     left: 0 !important;
     top: 0 !important;
@@ -1892,6 +1895,15 @@ html[lang="en"] #receipt-bn-content .receipt-order-code-stamp * {
     padding: 10px !important;
     background: transparent !important;
     display: block !important;
+  }
+
+  #order-receipt-modal {
+    background: transparent !important;
+  }
+
+  #order-receipt-modal > div {
+    background: transparent !important;
+    padding: 0 !important;
   }
 
   .receipt-paper-en,
