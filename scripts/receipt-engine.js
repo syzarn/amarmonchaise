@@ -280,7 +280,7 @@
         <!-- Items Table (হাতের টানে দাগ কাটা ছক) -->
         <table style="width: 100%; border-collapse: collapse; margin-bottom: 10px; font-size: 16.5px;">
           <thead>
-            <tr style="border-top: 1.5px solid #2b1d14; border-bottom: 1.5px solid #2b1d14; background: rgba(189,58,84,0.06);">
+            <tr style="border-top: 1.5px solid #2b1d14; border-bottom: 1.5px solid #2b1d14;">
               <th style="padding: 6px 4px; text-align: center; width: 34px;">ক্র.</th>
               <th style="padding: 6px 6px; text-align: left;">পণ্যের বিবরণ</th>
               <th style="padding: 6px 4px; text-align: center; width: 44px;">পরিমাণ</th>
@@ -314,7 +314,7 @@
           <div style="width: 180px; text-align: right; font-size: 16px; line-height: 1.5;">
             <div>মোট মূল্য: <strong>${formatBengaliMoney(subtotal)}</strong></div>
             <div>ডেলিভারি খরচ: <strong>${formatBengaliMoney(delivery)}</strong></div>
-            <div style="border-top: 1.5px double #2b1d14; margin-top: 3px; padding-top: 2px; font-size: 18.5px; color: #166b58;">
+            <div style="border-top: 1.5px double #2b1d14; margin-top: 3px; padding-top: 2px; font-size: 18.5px; color: #a71a1aff;">
               সর্বমোট: <strong>${formatBengaliMoney(total)}</strong>
             </div>
           </div>
