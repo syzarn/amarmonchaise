@@ -103,7 +103,7 @@
       text-transform: uppercase;
       letter-spacing: 0.05em;
       border-radius: 3px;
-      transform: rotate(-3deg);
+      transform: rotate(-2deg);
     }
     .seal-stamp-verified {
       border-color: #166B58;
@@ -134,6 +134,29 @@
     /* Monospace Ledger numbers */
     .font-ledger {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    /* Print Styles for Packing Slip Modal */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #print-modal-content, #print-modal-content * {
+        visibility: visible;
+      }
+      #print-modal-content {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        background: #fff !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        border: 1px solid #000 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
     }
   </style>
 </head>
@@ -291,7 +314,7 @@
   <!-- ================================================================= -->
   <!-- SCREEN 2: MAIN STAFF DISPATCH DASHBOARD -->
   <!-- ================================================================= -->
-  <main id="dashboard-screen" class="hidden flex-1 max-w-xl mx-auto px-3 sm:px-4 py-4 w-full flex flex-col gap-4">
+  <main id="dashboard-screen" class="hidden flex-1 max-w-xl mx-auto px-3 sm:px-4 py-4 w-full flex flex-col gap-3.5">
 
     <!-- Status Metric Pills Bar (Filter tabs) -->
     <section class="grid grid-cols-4 gap-1.5 sm:gap-2">
@@ -356,6 +379,16 @@
         </button>
       </div>
 
+      <!-- Toggle Expand All / Collapse All Button -->
+      <button 
+        type="button" 
+        id="toggle-all-expand-btn" 
+        class="touch-btn px-2.5 rounded bg-white dark:bg-zinc-900 border-2 border-slate-300 dark:border-zinc-700 text-slate-700 dark:text-zinc-300 font-bold text-xs shadow-sm hover:border-[#166B58] dark:hover:border-yellow-500 transition-colors"
+        title="সব অর্ডার বিস্তারিত বা সংক্ষেপ করুন"
+      >
+        <span id="toggle-all-label">▾ সব বিস্তারিত</span>
+      </button>
+
       <!-- Refresh Feed Button -->
       <button 
         type="button" 
@@ -374,8 +407,14 @@
       <span id="feed-filter-indicator" class="text-[#166B58] dark:text-yellow-400 font-bold uppercase">ফিল্টার: সব</span>
     </div>
 
+    <!-- Interactive Usage Hint Banner -->
+    <div class="px-3 py-1.5 rounded bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-600/30 text-[11px] text-emerald-800 dark:text-emerald-300 flex items-center justify-between font-mono">
+      <span>💡 যেকোনো অর্ডারের উপর ট্যাপ করে সম্পূর্ণ চালানের বিবরণ ও অ্যাকশন দেখুন।</span>
+      <span class="text-[10px] font-bold uppercase tracking-wider">TAP TO EXPAND</span>
+    </div>
+
     <!-- ORDER FEED CONTAINER -->
-    <section id="orders-feed" class="flex flex-col gap-3.5 pb-16">
+    <section id="orders-feed" class="flex flex-col gap-3 pb-16">
       <!-- Dynamic Order Cards will be injected here -->
       <div id="feed-loading-skeleton" class="space-y-3 py-6 text-center">
         <div class="inline-block animate-spin rounded-full h-8 w-8 border-2 border-[#166B58] dark:border-yellow-400 border-t-transparent"></div>
@@ -383,6 +422,132 @@
       </div>
     </section>
   </main>
+
+  <!-- ================================================================= -->
+  <!-- MODAL: ORDER FULL DISPATCH SLIP & PACKING PRINT VIEW -->
+  <!-- ================================================================= -->
+  <div 
+    id="dispatch-modal" 
+    class="fixed inset-0 z-50 hidden bg-slate-950/70 backdrop-blur-sm p-3 sm:p-6 overflow-y-auto flex items-center justify-center"
+    role="dialog"
+    aria-modal="true"
+  >
+    <div 
+      id="print-modal-content" 
+      class="print-press-card bg-[#FCFBF7] dark:bg-[#0c0f0d] max-w-lg w-full p-5 sm:p-6 rounded shadow-2xl relative border-2 border-[#166B58] dark:border-yellow-500 text-slate-900 dark:text-zinc-100"
+    >
+      <!-- Modal Close Button -->
+      <button 
+        type="button" 
+        onclick="closeDispatchModal()" 
+        class="no-print absolute right-3 top-3 w-8 h-8 rounded-full bg-slate-100 dark:bg-zinc-800 hover:bg-slate-200 text-slate-700 dark:text-zinc-200 font-bold flex items-center justify-center text-sm transition-all"
+        title="বন্ধ করুন"
+      >
+        ✕
+      </button>
+
+      <!-- Slip Header -->
+      <div class="border-b-2 border-[#166B58] dark:border-yellow-500 pb-3 mb-4 text-center relative">
+        <div class="text-[10px] font-mono uppercase tracking-widest text-slate-500 dark:text-zinc-400 font-bold">
+          MON CHAISE • OFFICIAL PACKING & DISPATCH SLIP
+        </div>
+        <h2 id="modal-order-id" class="text-xl sm:text-2xl font-black font-ledger text-[#166B58] dark:text-yellow-400 mt-0.5">
+          #MC-000000-XXXX
+        </h2>
+        <div id="modal-order-date" class="text-xs text-slate-500 dark:text-zinc-400 font-mono mt-0.5">
+          তারিখ ও সময়
+        </div>
+        <div id="modal-status-badge" class="mt-2 inline-block"></div>
+      </div>
+
+      <!-- Customer Details Box -->
+      <div class="p-3 rounded bg-slate-100/80 dark:bg-zinc-900/60 border border-slate-300 dark:border-zinc-700 mb-4 space-y-1 text-xs">
+        <div class="flex items-center justify-between font-bold">
+          <span class="text-slate-500 dark:text-zinc-400 uppercase font-mono text-[10px]">প্রাপক (Recipient):</span>
+          <span id="modal-customer-district" class="font-mono text-[10px] text-[#166B58] dark:text-yellow-400">Inside Dhaka</span>
+        </div>
+        <div id="modal-customer-name" class="text-sm font-black text-slate-900 dark:text-white">গ্রাহক নাম</div>
+        <div id="modal-customer-phone" class="font-mono text-slate-800 dark:text-zinc-200">01700-000000</div>
+        <div id="modal-customer-address" class="text-slate-700 dark:text-zinc-300 font-sans leading-relaxed pt-1 border-t border-slate-200 dark:border-zinc-800">
+          ঠিকানা
+        </div>
+        <div class="no-print pt-2 flex items-center gap-2">
+          <button 
+            type="button" 
+            id="modal-copy-address-btn" 
+            class="touch-btn h-8 px-3 rounded bg-white dark:bg-zinc-800 border border-[#166B58]/40 dark:border-yellow-500/40 text-[11px] font-bold text-[#166B58] dark:text-yellow-400"
+          >
+            📋 ঠিকানা কপি করুন
+          </button>
+        </div>
+      </div>
+
+      <!-- Items Table -->
+      <div class="mb-4">
+        <div class="text-[10px] font-mono uppercase font-bold text-slate-500 dark:text-zinc-400 mb-1.5">
+          পণ্যসামগ্রী ও চালান বিবরণী (Order Items)
+        </div>
+        <div class="border border-slate-300 dark:border-zinc-700 rounded overflow-hidden">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-100 dark:bg-zinc-800 font-mono text-[10px] text-slate-600 dark:text-zinc-300 border-b border-slate-300 dark:border-zinc-700">
+              <tr>
+                <th class="p-2">পণ্য (Item Description)</th>
+                <th class="p-2 text-center">পরিমাণ</th>
+                <th class="p-2 text-right">মূল্য</th>
+              </tr>
+            </thead>
+            <tbody id="modal-items-tbody" class="divide-y divide-slate-200 dark:divide-zinc-800">
+              <!-- Injected dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Financial Totals -->
+      <div class="bg-slate-50 dark:bg-zinc-900/40 p-3 rounded border border-slate-200 dark:border-zinc-800 mb-4 space-y-1 text-xs font-mono">
+        <div class="flex justify-between text-slate-600 dark:text-zinc-400">
+          <span>সাবটোটাল (Subtotal):</span>
+          <span id="modal-subtotal" class="font-bold text-slate-900 dark:text-zinc-200">৳ ০</span>
+        </div>
+        <div class="flex justify-between text-slate-600 dark:text-zinc-400">
+          <span>ডেলিভারি চার্জ (Delivery):</span>
+          <span id="modal-delivery" class="font-bold text-slate-900 dark:text-zinc-200">৳ ০</span>
+        </div>
+        <div class="flex justify-between text-sm font-black text-[#166B58] dark:text-yellow-400 pt-1 border-t border-slate-200 dark:border-zinc-700">
+          <span>সর্বমোট (Grand Total):</span>
+          <span id="modal-grand-total">৳ ০</span>
+        </div>
+        <div class="flex justify-between text-[11px] pt-1 text-slate-600 dark:text-zinc-400">
+          <span>পেমেন্ট পদ্ধতি:</span>
+          <span id="modal-payment-method" class="font-bold">COD / MFS</span>
+        </div>
+      </div>
+
+      <!-- Customer Notes if any -->
+      <div id="modal-notes-container" class="hidden mb-4 p-2.5 rounded bg-amber-50 dark:bg-amber-950/20 border-l-2 border-amber-500 text-xs italic text-amber-900 dark:text-amber-200">
+        <span class="font-bold not-italic font-mono text-[10px] uppercase block text-amber-700 dark:text-amber-400 mb-0.5">গ্রাহকের নোট:</span>
+        <span id="modal-notes-text"></span>
+      </div>
+
+      <!-- Modal Footer Actions (No Print) -->
+      <div class="no-print pt-2 border-t border-slate-200 dark:border-zinc-800 flex items-center justify-between gap-2">
+        <button 
+          type="button" 
+          onclick="window.print()" 
+          class="touch-btn flex-1 px-4 rounded bg-[#166B58] hover:bg-[#125446] dark:bg-yellow-500 dark:hover:bg-yellow-400 text-white dark:text-slate-950 font-bold text-xs uppercase tracking-wider shadow-sm"
+        >
+          🖨️ প্রিন্ট চালান (Print Slip)
+        </button>
+        <button 
+          type="button" 
+          onclick="closeDispatchModal()" 
+          class="touch-btn px-4 rounded bg-slate-200 dark:bg-zinc-800 hover:bg-slate-300 text-slate-800 dark:text-zinc-200 font-bold text-xs"
+        >
+          বন্ধ করুন
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- ================================================================= -->
   <!-- TOAST NOTIFICATION -->
@@ -406,6 +571,23 @@
   <script>
     (function () {
       'use strict';
+
+      // --- PRODUCT CATALOG (For robust name & SKU fallback) ---
+      const PRODUCT_CATALOG = {
+        'amc-100': { sku: 'AMC-WEV-THM-01', name_bn: 'ঐতিহ্যবাহী হাতে বোনা থামি', name_en: 'Traditional Handloom Thami (Chakma Weave)', price: 1850 },
+        'amc-101': { sku: 'AMC-WEV-GMC-01', name_bn: 'হাতে বোনা ট্রাইবাল গামছা টোট ব্যাগ', name_en: 'Handloom Tribal Weave Gamcha Tote', price: 850 },
+        'amc-102': { sku: 'AMC-ART-RCK-01', name_bn: 'রিকশা আর্ট কাঠের কোস্টার সেট (৪টি)', name_en: 'Vintage Rickshaw Art Coaster Set (4 pcs)', price: 450 },
+        'amc-103': { sku: 'AMC-KCP-CHM-01', name_bn: 'মেকানিক্যাল কি-ক্যাপ "মাটির চা-কাপ"', name_en: 'Artisan Clay Chai Cup Keycap', price: 650 },
+        'amc-104': { sku: 'AMC-LMP-CAS-01', name_bn: 'নস্টালজিক ক্যাসেট অ্যাম্বিয়েন্ট নাইট ল্যাম্প', name_en: 'Retro Cassette Ambient Night Lamp', price: 1200 },
+        'amc-105': { sku: 'AMC-TEA-CHM-01', name_bn: 'বান্দরবান স্মোকড পাহাড়ি কালো চা (১০০ গ্রাম)', name_en: 'Hill-Tract Wood-Smoked Black Tea (100g)', price: 380 },
+        'amc-106': { sku: 'AMC-CAP-EMB-01', name_bn: 'মঞ্চাইছে এমব্রয়ডারি বেসবল ক্যাপ', name_en: 'Handloom Green "মঞ্চাইছে" Embroidered Cap', price: 950 },
+        'amc-107': { sku: 'AMC-CDL-MST-01', name_bn: 'সরিষা ফুলের মৌতাত সয়া মোমবাতি', name_en: 'Mustard Bloom Soy Scented Candle', price: 490 },
+        'amc-108': { sku: 'AMC-PIN-ENM-01', name_bn: 'বাংলা টাইপোগ্রাফি "খেয়াল" মেটাল পিন', name_en: 'Bengali Typography "খেয়াল" Enamel Pin', price: 250 },
+        'amc-109': { sku: 'AMC-USB-MNS-01', name_bn: 'শ্রাবণের বৃষ্টি ও টিনের চালের শব্দ পেনড্রাইভ', name_en: 'Dhaka Monsoon Rain Soundscapes USB (16GB)', price: 390 },
+        'amc-110': { sku: 'AMC-AST-BRS-01', name_bn: 'খাঁটি পিতলের প্রাচীন পকেট দিকনির্ণায়ক', name_en: 'Solid Brass Ancient Pocket Astrolabe', price: 1550 },
+        'amc-111': { sku: 'AMC-BMK-TRB-01', name_bn: 'সুতি সুতোর ঝালর দেওয়া ট্রাইবাল বুকমার্ক', name_en: 'Handmade Tasseled Tribal Bookmark', price: 180 },
+        'amc-112': { sku: 'AMC-ZIN-CMK-01', name_bn: 'আজব অস্তিত্ববাদী কমিক জিন (ভলিউম ১)', name_en: 'Existential Dhaka Comic Zine (Vol. 1)', price: 280 }
+      };
 
       // --- 1. Internationalization Dictionaries ---
       const i18n = {
@@ -440,10 +622,15 @@
           noOrders: 'কোনো অর্ডার পাওয়া যায়নি।',
           insideDhaka: 'ঢাকার ভেতরে (Inside Dhaka)',
           outsideDhaka: 'ঢাকার বাইরে (Outside Dhaka)',
-          itemsLabel: 'অর্ডারকৃত পণ্যসামগ্রী',
+          itemsLabel: 'অর্ডারকৃত পণ্যসামগ্রী (Order Items)',
           paymentLabel: 'পেমেন্ট লেজার',
           notesLabel: 'গ্রাহকের বিশেষ নির্দেশনা',
-          errInvalidPasskey: 'অননুমোদিত পাসকি! অনুগ্রহ করে সঠিক কি প্রদান করুন।'
+          errInvalidPasskey: 'অননুমোদিত পাসকি! অনুগ্রহ করে সঠিক কি প্রদান করুন।',
+          detailsBtn: 'বিস্তারিত দেখুন',
+          collapseBtn: 'সংক্ষেপ করুন',
+          expandAll: '▾ সব বিস্তারিত',
+          collapseAll: '▴ সব সংক্ষেপ',
+          slipBtn: '📄 পূর্ণ চালান ও প্রিন্ট'
         },
         en: {
           pageTitle: 'Staff Operations & Dispatch Portal — Mon Chaise',
@@ -479,14 +666,55 @@
           itemsLabel: 'Order Items',
           paymentLabel: 'Payment Ledger',
           notesLabel: 'Customer Note',
-          errInvalidPasskey: 'Invalid Passkey! Please provide the correct staff key.'
+          errInvalidPasskey: 'Invalid Passkey! Please provide the correct staff key.',
+          detailsBtn: 'View Details',
+          collapseBtn: 'Collapse',
+          expandAll: '▾ Expand All',
+          collapseAll: '▴ Collapse All',
+          slipBtn: '📄 Full Packing Slip'
         }
       };
 
       let currentLang = localStorage.getItem('amc_lang') || 'bn';
       let currentFilter = 'all';
       let ordersCache = [];
+      let expandedOrders = new Set();
+      let allExpanded = false;
       let activePasskey = sessionStorage.getItem('amc_staff_passkey') || localStorage.getItem('amc_staff_passkey') || '';
+
+      // --- 2. Normalize Order Items (Guarantees zero 'undefined') ---
+      function normalizeOrderItems(rawItems) {
+        let list = rawItems;
+        if (typeof list === 'string') {
+          try { list = JSON.parse(list); } catch (_) { list = []; }
+        }
+        if (!Array.isArray(list)) list = [];
+
+        return list.map(item => {
+          if (!item) return null;
+          const pid = String(item.product_id || item.id || item.item_id || '').trim();
+          const cat = PRODUCT_CATALOG[pid] || {};
+
+          const nameBn = item.title_bn || item.name_bn || (item.title && /[\u0980-\u09FF]/.test(item.title) ? item.title : null) || cat.name_bn || item.title || item.name_en || item.name || (pid ? `পণ্য #${pid}` : 'পণ্য');
+          const nameEn = item.title_en || item.name_en || cat.name_en || item.title || item.name || (pid ? `Product #${pid}` : 'Order Item');
+          const title = currentLang === 'bn' ? (nameBn || item.title || nameEn) : (nameEn || item.title || nameBn);
+
+          const qty = parseInt(item.quantity !== undefined ? item.quantity : (item.qty !== undefined ? item.qty : (item.count !== undefined ? item.count : 1)), 10) || 1;
+          const unitPrice = parseInt(item.unit_price_bdt !== undefined ? item.unit_price_bdt : (item.price_bdt !== undefined ? item.price_bdt : (item.price !== undefined ? item.price : (cat.price || 0))), 10) || 0;
+          const totalPrice = parseInt(item.total_price_bdt !== undefined ? item.total_price_bdt : (qty * unitPrice), 10) || (qty * unitPrice);
+
+          return {
+            product_id: pid,
+            sku: item.sku || cat.sku || pid || 'AMC-ITEM',
+            title: title,
+            title_bn: nameBn,
+            title_en: nameEn,
+            quantity: qty,
+            unit_price_bdt: unitPrice,
+            total_price_bdt: totalPrice
+          };
+        }).filter(Boolean);
+      }
 
       // --- Mock Database for Offline / Static Preview Support ---
       const fallbackLocalOrders = [
@@ -507,7 +735,7 @@
           courier_name: 'Steadfast Courier',
           tracking_code: 'SF-108294',
           items: [
-            { product_id: 'amc-100', sku: 'AMC-WEV-THM-01', title: 'নীলাম্বরী খাঁটি কোমর তাঁতের থামি (Chakma Thami)', quantity: 1, unit_price_bdt: 2450, total_price_bdt: 2450 }
+            { product_id: 'amc-100', sku: 'AMC-WEV-THM-01', title: 'ঐতিহ্যবাহী হাতে বোনা থামি', quantity: 1, unit_price_bdt: 2450, total_price_bdt: 2450 }
           ],
           customer_notes: 'বিকেলের পর ডেলিভারি দিলে সুবিধা হয়।',
           created_at: new Date(Date.now() - 3600000 * 5).toISOString(),
@@ -554,7 +782,7 @@
           tracking_code: null,
           items: [
             { product_id: 'amc-100', sku: 'AMC-WEV-THM-01', title: 'ঐতিহ্যবাহী হাতে বোনা থামি', quantity: 1, unit_price_bdt: 2450, total_price_bdt: 2450 },
-            { product_id: 'amc-103', sku: 'AMC-TEA-CHM-01', title: 'জুম পাহাড়ি কাঠের ধোঁয়ায় সেঁকা ব্ল্যাক টি (১০০ গ্রাম)', quantity: 1, unit_price_bdt: 750, total_price_bdt: 750 }
+            { product_id: 'amc-105', sku: 'AMC-TEA-CHM-01', title: 'বান্দরবান স্মোকড পাহাড়ি কালো চা (১০০ গ্রাম)', quantity: 1, unit_price_bdt: 380, total_price_bdt: 380 }
           ],
           customer_notes: 'প্যাকিং যেন মজবুত হয়। উপহারের পার্সেল।',
           created_at: new Date(Date.now() - 3600000 * 3).toISOString(),
@@ -577,7 +805,7 @@
           courier_name: 'Pathao Courier',
           tracking_code: 'PTH-882190',
           items: [
-            { product_id: 'amc-102', sku: 'AMC-ART-RCK-01', title: 'রিকশা আর্ট কাঠের কোস্টার সেট (৪টি)', quantity: 2, unit_price_bdt: 600, total_price_bdt: 1200 }
+            { product_id: 'amc-102', sku: 'AMC-ART-RCK-01', title: 'রিকশা আর্ট কাঠের কোস্টার সেট (৪টি)', quantity: 2, unit_price_bdt: 450, total_price_bdt: 900 }
           ],
           customer_notes: null,
           created_at: new Date(Date.now() - 86400000 * 2).toISOString(),
@@ -585,7 +813,7 @@
         }
       ];
 
-      // --- 2. Digit & Currency Formatting Helpers ---
+      // --- 3. Digit & Currency Formatting Helpers ---
       function toBnDigits(num) {
         if (num === null || num === undefined) return '';
         const bnDigits = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
@@ -615,7 +843,7 @@
         return lang === 'bn' ? `${toBnDigits(diffDays)} দিন আগে` : `${diffDays}d ago`;
       }
 
-      // --- 3. UI Helpers: Toast & Haptics ---
+      // --- 4. UI Helpers: Toast & Haptics ---
       let toastTimer = null;
       window.showToast = function(msg, icon = '✓') {
         const toast = document.getElementById('toast-notification');
@@ -628,7 +856,7 @@
         toast.classList.remove('hidden');
 
         if (navigator.vibrate) {
-          try { navigator.vibrate(50); } catch (_) {}
+          try { navigator.vibrate(40); } catch (_) {}
         }
 
         clearTimeout(toastTimer);
@@ -642,7 +870,7 @@
         if (toast) toast.classList.add('hidden');
       };
 
-      // --- 4. Language & Theme Initialization ---
+      // --- 5. Language & Theme Initialization ---
       function applyLanguage(lang) {
         currentLang = lang;
         localStorage.setItem('amc_lang', lang);
@@ -688,7 +916,7 @@
         document.getElementById('theme-icon-sun').classList.toggle('hidden', !isDark);
       }
 
-      // --- 5. Live Clock ---
+      // --- 6. Live Clock ---
       function updateLiveClock() {
         const clockEl = document.getElementById('live-clock');
         if (!clockEl) return;
@@ -699,7 +927,7 @@
       setInterval(updateLiveClock, 30000);
       updateLiveClock();
 
-      // --- 6. Passkey Gate & Authentication ---
+      // --- 7. Passkey Gate & Authentication ---
       const passkeyScreen = document.getElementById('passkey-screen');
       const dashboardScreen = document.getElementById('dashboard-screen');
       const passkeyInput = document.getElementById('passkey-input');
@@ -768,6 +996,7 @@
         sessionStorage.removeItem('amc_staff_passkey');
         localStorage.removeItem('amc_staff_passkey');
         ordersCache = [];
+        expandedOrders.clear();
         passkeyInput.value = '';
         authError.classList.add('hidden');
 
@@ -804,7 +1033,7 @@
       });
       logoutBtn.addEventListener('click', handleLogout);
 
-      // --- 7. Fetching & Syncing Orders ---
+      // --- 8. Fetching & Syncing Orders ---
       async function fetchOrders() {
         const refreshIcon = document.getElementById('refresh-icon');
         if (refreshIcon) refreshIcon.classList.add('animate-spin');
@@ -824,7 +1053,14 @@
           if (res.ok) {
             const data = await res.json().catch(() => null);
             if (data && data.success && Array.isArray(data.orders)) {
-              ordersCache = data.orders;
+              ordersCache = data.orders.map(o => ({
+                ...o,
+                items: normalizeOrderItems(o.items)
+              }));
+              // Auto-expand pending orders by default for convenience
+              ordersCache.forEach(o => {
+                if (o.status === 'pending_verification') expandedOrders.add(o.id);
+              });
               updateMetrics(data.metrics);
               renderFeed();
               return;
@@ -840,12 +1076,18 @@
         }
 
         // Static fallback if API is not hosted locally
-        ordersCache = JSON.parse(JSON.stringify(fallbackLocalOrders));
+        ordersCache = JSON.parse(JSON.stringify(fallbackLocalOrders)).map(o => ({
+          ...o,
+          items: normalizeOrderItems(o.items)
+        }));
+        ordersCache.forEach(o => {
+          if (o.status === 'pending_verification') expandedOrders.add(o.id);
+        });
         updateMetrics();
         renderFeed();
       }
 
-      // --- 8. Status Metrics Update ---
+      // --- 9. Status Metrics Update ---
       function updateMetrics(metrics) {
         const totalCount = metrics ? metrics.total_count : ordersCache.length;
         const pendingCount = metrics ? metrics.pending_count : ordersCache.filter(o => o.status === 'pending_verification').length;
@@ -858,7 +1100,7 @@
         document.getElementById('metric-dispatched').textContent = currentLang === 'bn' ? toBnDigits(dispatchedCount) : dispatchedCount;
       }
 
-      // --- 9. Filter Tabs & Search ---
+      // --- 10. Filter Tabs & Search ---
       const filterPills = document.querySelectorAll('.filter-pill');
       filterPills.forEach(pill => {
         pill.addEventListener('click', () => {
@@ -920,7 +1162,24 @@
 
       document.getElementById('refresh-feed-btn').addEventListener('click', fetchOrders);
 
-      // --- 10. Render Order Feed ---
+      // Toggle Expand / Collapse All
+      const toggleAllBtn = document.getElementById('toggle-all-expand-btn');
+      const toggleAllLabel = document.getElementById('toggle-all-label');
+      if (toggleAllBtn) {
+        toggleAllBtn.addEventListener('click', () => {
+          allExpanded = !allExpanded;
+          if (allExpanded) {
+            ordersCache.forEach(o => expandedOrders.add(o.id));
+            toggleAllLabel.textContent = (i18n[currentLang] || i18n.bn).collapseAll;
+          } else {
+            expandedOrders.clear();
+            toggleAllLabel.textContent = (i18n[currentLang] || i18n.bn).expandAll;
+          }
+          renderFeed();
+        });
+      }
+
+      // --- 11. Render Order Feed ---
       function renderFeed() {
         const feedContainer = document.getElementById('orders-feed');
         const feedCountText = document.getElementById('feed-count-text');
@@ -964,16 +1223,40 @@
         feedContainer.innerHTML = list.map(order => renderOrderCard(order, dict)).join('');
       }
 
-      // --- 11. Render Individual Order Card ---
+      // --- 12. Interactive Card Tap Handler ---
+      window.toggleOrderExpand = function(orderId, event) {
+        if (event) {
+          const target = event.target;
+          // Do not toggle if clicked on interactive buttons or form controls
+          if (target.closest('button') || target.closest('a') || target.closest('input') || target.closest('select')) {
+            return;
+          }
+        }
+        if (expandedOrders.has(orderId)) {
+          expandedOrders.delete(orderId);
+        } else {
+          expandedOrders.add(orderId);
+        }
+        if (navigator.vibrate) {
+          try { navigator.vibrate(25); } catch (_) {}
+        }
+        renderFeed();
+      };
+
+      // --- 13. Render Individual Order Card ---
       function renderOrderCard(order, dict) {
         const isBn = currentLang === 'bn';
+        const isExpanded = expandedOrders.has(order.id);
         const cleanPhone = (order.customer_phone || '').replace(/[^0-9]/g, '');
         const waPhone = cleanPhone.startsWith('880') ? cleanPhone : ('880' + cleanPhone.replace(/^0+/, ''));
         const waMessage = encodeURIComponent(
           isBn
-            ? `আসসালামু আলাইকুম ${order.customer_name || 'গ্রাহক'}, মঞ্চাইছে (Mon Chaise) থেকে আপনার অর্ডার ${order.id} সংক্রান্ত তথ্য জানাতে যোগাযোগ করছি।`
+            ? `আসসালামু আলাইকুম ${order.customer_name || 'গ্রাহক'}, মঞ্চাইছে (Mon Chaise) থেকে আপনার অর্ডার #${order.id} সংক্রান্ত তথ্য জানাতে যোগাযোগ করছি।`
             : `Hello ${order.customer_name || 'Customer'}, reaching out from Mon Chaise regarding your order #${order.id}.`
         );
+
+        // Normalized items
+        const normalizedItems = normalizeOrderItems(order.items);
 
         // Status Badge styling
         let statusBadgeHtml = '';
@@ -981,13 +1264,13 @@
           statusBadgeHtml = `
             <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded text-[11px] font-bold bg-amber-50 dark:bg-amber-950/50 border border-amber-500 text-amber-800 dark:text-amber-300">
               <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-              ${isBn ? 'যাচাই বাকি (Pending)' : 'Pending Verification'}
+              ${isBn ? 'যাচাই বাকি (Pending)' : 'Pending'}
             </span>
           `;
         } else if (order.status === 'verified') {
           statusBadgeHtml = `
             <span class="seal-stamp seal-stamp-verified text-[11px]">
-              ✓ ${isBn ? 'প্রস্তুত / প্যাকিং সম্পন্ন' : 'VERIFIED / READY'}
+              ✓ ${isBn ? 'প্রস্তুত / প্যাকিং' : 'VERIFIED'}
             </span>
           `;
         } else if (order.status === 'dispatched') {
@@ -1020,7 +1303,7 @@
         let paymentDetailsHtml = '';
         if (isMFS) {
           paymentDetailsHtml = `
-            <div class="mt-2.5 p-2.5 rounded bg-amber-50/70 dark:bg-amber-950/20 border border-amber-600/30 text-xs">
+            <div class="p-2.5 rounded bg-amber-50/70 dark:bg-amber-950/20 border border-amber-600/30 text-xs">
               <div class="flex items-center justify-between font-mono font-bold text-amber-900 dark:text-amber-300 mb-1">
                 <span>📱 MFS সেন্ড মানি (bKash/Nagad)</span>
                 <span>${order.sender_number ? (isBn ? toBnDigits(order.sender_number) : order.sender_number) : '—'}</span>
@@ -1032,7 +1315,7 @@
                 ${order.trx_id ? `
                   <button 
                     type="button" 
-                    onclick="copyToClipboard('${order.trx_id}', this)" 
+                    onclick="event.stopPropagation(); copyToClipboard('${order.trx_id}', this)" 
                     class="touch-btn h-8 px-2.5 rounded bg-white dark:bg-zinc-900 border border-amber-600/50 text-[11px] font-bold text-amber-800 dark:text-amber-300 shadow-sm active:scale-95 transition-all"
                   >
                     ${dict.copyTrx}
@@ -1043,22 +1326,39 @@
           `;
         } else {
           paymentDetailsHtml = `
-            <div class="mt-2.5 p-2 rounded bg-slate-50 dark:bg-zinc-900/60 border border-slate-200 dark:border-zinc-800 text-xs flex items-center justify-between">
+            <div class="p-2 rounded bg-slate-50 dark:bg-zinc-900/60 border border-slate-200 dark:border-zinc-800 text-xs flex items-center justify-between">
               <span class="font-bold text-slate-700 dark:text-zinc-300 font-mono">💵 ক্যাশ অন ডেলিভারি (COD)</span>
-              <span class="text-[11px] text-slate-500 dark:text-zinc-400">ডেলিভারির সময় নগদ আদায়</span>
+              <span class="text-[11px] text-slate-500 dark:text-zinc-400 font-medium">ডেলিভারির সময় নগদ আদায়</span>
             </div>
           `;
         }
 
-        // Items Breakdown
-        const itemsListHtml = (order.items || []).map(it => `
-          <li class="flex items-center justify-between text-xs py-1 border-b border-dashed border-slate-200 dark:border-zinc-800 last:border-b-0">
-            <span class="truncate pr-2 font-medium text-slate-800 dark:text-zinc-200">${it.title}</span>
-            <span class="font-mono font-bold text-slate-900 dark:text-zinc-100 whitespace-nowrap">
-              ${isBn ? toBnDigits(it.quantity) : it.quantity} × ${formatMoney(it.unit_price_bdt, currentLang)}
-            </span>
-          </li>
-        `).join('');
+        // Items Breakdown (Robust formatting - zero undefined)
+        let itemsListHtml = '';
+        if (normalizedItems.length > 0) {
+          itemsListHtml = normalizedItems.map(it => {
+            const itemTitle = isBn ? (it.title_bn || it.title) : (it.title_en || it.title);
+            const qty = it.quantity || 1;
+            const unitPrice = it.unit_price_bdt || 0;
+            return `
+              <li class="flex items-center justify-between text-xs py-1 border-b border-dashed border-slate-200 dark:border-zinc-800 last:border-b-0">
+                <div class="truncate pr-2">
+                  <span class="font-medium text-slate-900 dark:text-zinc-100">${itemTitle}</span>
+                  <span class="block text-[10px] text-slate-500 dark:text-zinc-400 font-mono">${it.sku || ''}</span>
+                </div>
+                <span class="font-mono font-bold text-slate-900 dark:text-zinc-100 whitespace-nowrap">
+                  ${isBn ? toBnDigits(qty) : qty} × ${formatMoney(unitPrice, currentLang)}
+                </span>
+              </li>
+            `;
+          }).join('');
+        } else {
+          itemsListHtml = `
+            <li class="text-xs text-slate-500 dark:text-zinc-400 italic py-1 text-center">
+              ${isBn ? 'কোনো পণ্যের বিবরণ সংরক্ষিত নেই।' : 'No items recorded.'}
+            </li>
+          `;
+        }
 
         // Action Section by Status
         let actionAreaHtml = '';
@@ -1067,14 +1367,14 @@
             <div class="pt-3 border-t-2 border-[#166B58]/20 dark:border-yellow-500/30 flex items-center gap-2">
               <button 
                 type="button" 
-                onclick="transitionOrder('${order.id}', 'verify_payment', this)" 
+                onclick="event.stopPropagation(); transitionOrder('${order.id}', 'verify_payment', this)" 
                 class="touch-btn flex-1 px-3 rounded bg-[#166B58] hover:bg-[#125446] dark:bg-yellow-500 dark:hover:bg-yellow-400 text-white dark:text-slate-950 font-bold text-xs sm:text-sm tracking-wide shadow-[2px_2px_0px_#bd3a54] dark:shadow-[2px_2px_0px_#1e7e68] active:translate-x-0.5 active:translate-y-0.5 transition-all"
               >
                 ${dict.verifyPayBtn}
               </button>
               <button 
                 type="button" 
-                onclick="transitionOrder('${order.id}', 'cancel_order', this)" 
+                onclick="event.stopPropagation(); transitionOrder('${order.id}', 'cancel_order', this)" 
                 class="touch-btn px-3 rounded bg-rose-50 dark:bg-rose-950/30 border border-rose-600/40 text-rose-700 dark:text-rose-400 font-bold text-xs hover:bg-rose-100 transition-all active:scale-95"
               >
                 ${dict.cancelOrderBtn}
@@ -1087,7 +1387,7 @@
               <div class="text-[11px] font-bold text-emerald-800 dark:text-emerald-300 flex items-center gap-1.5">
                 <span>📦 পার্সেল প্রস্তুত। কুরিয়ারে হস্তান্তর তথ্য এন্ট্রি করুন:</span>
               </div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2" onclick="event.stopPropagation()">
                 <select 
                   id="courier-select-${order.id}" 
                   class="w-full px-2.5 py-2 text-xs rounded bg-white dark:bg-zinc-900 border border-[#166B58]/40 dark:border-yellow-500/40 text-slate-800 dark:text-zinc-200 font-medium focus:outline-none focus:border-[#166B58]"
@@ -1108,7 +1408,7 @@
               </div>
               <button 
                 type="button" 
-                onclick="submitDispatch('${order.id}', this)" 
+                onclick="event.stopPropagation(); submitDispatch('${order.id}', this)" 
                 class="touch-btn w-full px-3 rounded bg-[#166B58] hover:bg-[#125446] dark:bg-yellow-500 dark:hover:bg-yellow-400 text-white dark:text-slate-950 font-bold text-xs sm:text-sm tracking-wide shadow-[2px_2px_0px_#166B58] dark:shadow-[2px_2px_0px_#f2c200] active:translate-x-0.5 active:translate-y-0.5 transition-all"
               >
                 ${dict.dispatchBtn}
@@ -1134,7 +1434,7 @@
                     ${tCode || 'N/A'}
                   </span>
                 </div>
-                <div class="flex items-center gap-2 pt-1">
+                <div class="flex items-center gap-2 pt-1" onclick="event.stopPropagation()">
                   ${directCourierUrl ? `
                     <a 
                       href="${directCourierUrl}" 
@@ -1160,85 +1460,210 @@
           `;
         }
 
+        // Summary Preview of first item for collapsed card view
+        const firstItem = normalizedItems[0];
+        const itemsSummaryStr = firstItem 
+          ? `${firstItem.title} ${normalizedItems.length > 1 ? `(+${normalizedItems.length - 1} আরো)` : ''}`
+          : 'অর্ডার আইটেম';
+
         return `
-          <article class="print-press-card p-4 sm:p-5 flex flex-col gap-3 transition-shadow duration-150" id="card-${order.id}">
-            <!-- Header Row: ID, Time, Badge -->
-            <div class="flex items-start justify-between gap-2 border-b border-[#166B58]/20 dark:border-yellow-500/20 pb-2.5">
+          <article 
+            class="print-press-card p-3.5 sm:p-4 flex flex-col gap-2.5 transition-all cursor-pointer hover:border-black dark:hover:border-white select-none ${isExpanded ? 'shadow-[4px_4px_0px_#166B58] dark:shadow-[4px_4px_0px_#f2c200]' : ''}" 
+            id="card-${order.id}"
+            onclick="toggleOrderExpand('${order.id}', event)"
+          >
+            <!-- Header Row: ID, Time, Badge & Tap Indicator -->
+            <div class="flex items-start justify-between gap-2 border-b border-[#166B58]/20 dark:border-yellow-500/20 pb-2">
               <div>
-                <span class="font-ledger text-sm sm:text-base font-black text-[#166B58] dark:text-yellow-400 select-all tracking-wider">
-                  #${order.id}
-                </span>
-                <span class="block text-[11px] text-slate-500 dark:text-zinc-400 font-mono">
-                  ${formatTimeAgo(order.created_at, currentLang)}
-                </span>
+                <div class="flex items-center gap-2">
+                  <span class="font-ledger text-sm sm:text-base font-black text-[#166B58] dark:text-yellow-400 select-all tracking-wider">
+                    #${order.id}
+                  </span>
+                  <span class="text-[10px] font-mono text-slate-500 dark:text-zinc-400">
+                    ${formatTimeAgo(order.created_at, currentLang)}
+                  </span>
+                </div>
+                <div class="flex items-center gap-1.5 mt-0.5">
+                  <span class="text-xs font-bold text-slate-900 dark:text-white">${order.customer_name || 'গ্রাহক'}</span>
+                  ${districtBadge}
+                </div>
               </div>
-              <div class="text-right">
+              <div class="text-right flex flex-col items-end gap-1">
                 ${statusBadgeHtml}
+                <!-- Tap expand button with chevron -->
+                <button 
+                  type="button" 
+                  class="text-[10px] font-mono font-bold text-[#166B58] dark:text-yellow-400 bg-slate-100 dark:bg-zinc-800 px-2 py-0.5 rounded border border-[#166B58]/30 dark:border-yellow-500/30 flex items-center gap-1 mt-0.5"
+                  title="ট্যাপ করে বিস্তারিত দেখুন"
+                >
+                  <span>${isExpanded ? dict.collapseBtn : dict.detailsBtn}</span>
+                  <svg class="w-3 h-3 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+                </button>
               </div>
             </div>
 
-            <!-- Customer Details & Quick Contact Links (Touch Targets >= 48px) -->
-            <div class="space-y-1">
-              <div class="flex items-center justify-between gap-2">
-                <span class="text-sm font-bold text-slate-900 dark:text-white">${order.customer_name || 'গ্রাহক'}</span>
-                ${districtBadge}
-              </div>
-              <p class="text-xs text-slate-600 dark:text-zinc-300 leading-relaxed font-sans">
-                📍 ${order.shipping_address || 'ঠিকানা পাওয়া যায়নি'}
-              </p>
+            <!-- Compact Bar (Shown in both, emphasized in collapsed view) -->
+            <div class="flex items-center justify-between text-xs font-mono">
+              <span class="truncate text-slate-600 dark:text-zinc-400 max-w-[65%]">📦 ${itemsSummaryStr}</span>
+              <span class="text-[#166B58] dark:text-yellow-400 font-black text-sm">
+                ${formatMoney(order.total_amount_bdt, currentLang)}
+              </span>
             </div>
 
-            <!-- Phone & WhatsApp Touch Buttons (>= 48px) -->
-            <div class="grid grid-cols-2 gap-2 pt-1">
-              <a 
-                href="tel:${cleanPhone}" 
-                class="touch-btn rounded bg-white dark:bg-zinc-900 border border-[#166B58]/40 dark:border-yellow-500/40 text-xs font-bold text-slate-800 dark:text-zinc-100 shadow-[1.5px_1.5px_0px_#166B58] dark:shadow-[1.5px_1.5px_0px_#f2c200] active:translate-x-0.5 active:translate-y-0.5 transition-all text-center"
-              >
-                ${dict.callBtn}
-              </a>
-              <a 
-                href="https://wa.me/${waPhone}?text=${waMessage}" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                class="touch-btn rounded bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-600/40 text-xs font-bold text-emerald-800 dark:text-emerald-300 shadow-[1.5px_1.5px_0px_#059669] active:translate-x-0.5 active:translate-y-0.5 transition-all text-center"
-              >
-                ${dict.waBtn}
-              </a>
+            <!-- EXPANDABLE FULL DETAILS CONTAINER -->
+            <div class="${isExpanded ? 'flex flex-col gap-3 pt-2 border-t border-slate-200 dark:border-zinc-800' : 'hidden'}">
+              
+              <!-- Full Address -->
+              <div class="space-y-1 text-xs">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] font-mono font-bold uppercase text-slate-500 dark:text-zinc-400">ডেলিভারি ঠিকানা (Shipping Address):</span>
+                  <button 
+                    type="button" 
+                    onclick="event.stopPropagation(); copyToClipboard('${order.shipping_address || ''}', this)" 
+                    class="text-[10px] font-mono font-bold text-[#166B58] dark:text-yellow-400 underline decoration-dotted"
+                  >
+                    কপি ঠিকানা
+                  </button>
+                </div>
+                <p class="text-xs text-slate-700 dark:text-zinc-200 leading-relaxed font-sans bg-white/50 dark:bg-zinc-900/50 p-2 rounded border border-slate-200 dark:border-zinc-800">
+                  📍 ${order.shipping_address || 'ঠিকানা পাওয়া যায়নি'}
+                </p>
+              </div>
+
+              <!-- Phone & WhatsApp Touch Buttons (>= 48px) -->
+              <div class="grid grid-cols-2 gap-2" onclick="event.stopPropagation()">
+                <a 
+                  href="tel:${cleanPhone}" 
+                  class="touch-btn rounded bg-white dark:bg-zinc-900 border border-[#166B58]/40 dark:border-yellow-500/40 text-xs font-bold text-slate-800 dark:text-zinc-100 shadow-[1.5px_1.5px_0px_#166B58] dark:shadow-[1.5px_1.5px_0px_#f2c200] active:translate-x-0.5 active:translate-y-0.5 transition-all text-center"
+                >
+                  ${dict.callBtn}
+                </a>
+                <a 
+                  href="https://wa.me/${waPhone}?text=${waMessage}" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="touch-btn rounded bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-600/40 text-xs font-bold text-emerald-800 dark:text-emerald-300 shadow-[1.5px_1.5px_0px_#059669] active:translate-x-0.5 active:translate-y-0.5 transition-all text-center"
+                >
+                  ${dict.waBtn}
+                </a>
+              </div>
+
+              <!-- Payment Row -->
+              ${paymentDetailsHtml}
+
+              <!-- Items & Financial Summary -->
+              <div class="bg-white/60 dark:bg-zinc-900/40 p-2.5 rounded border border-slate-200 dark:border-zinc-800 space-y-1.5">
+                <div class="text-[11px] font-mono font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">
+                  ${dict.itemsLabel}
+                </div>
+                <ul class="space-y-0.5">
+                  ${itemsListHtml}
+                </ul>
+                <div class="pt-2 border-t border-slate-200 dark:border-zinc-700 flex items-center justify-between font-mono font-bold text-xs sm:text-sm">
+                  <span class="text-slate-600 dark:text-zinc-300">মোট টাকা (Total Amount):</span>
+                  <span class="text-[#166B58] dark:text-yellow-400 text-sm font-black">
+                    ${formatMoney(order.total_amount_bdt, currentLang)}
+                  </span>
+                </div>
+              </div>
+
+              <!-- Customer Notes if present -->
+              ${order.customer_notes ? `
+                <div class="p-2 rounded bg-yellow-50 dark:bg-yellow-950/20 border-l-2 border-yellow-500 text-xs text-yellow-900 dark:text-yellow-200 italic font-sans">
+                  "${order.customer_notes}"
+                </div>
+              ` : ''}
+
+              <!-- Full Packing Slip / Print Button -->
+              <div class="flex items-center justify-end" onclick="event.stopPropagation()">
+                <button 
+                  type="button" 
+                  onclick="openDispatchModal('${order.id}')" 
+                  class="touch-btn h-9 px-3 rounded bg-slate-100 dark:bg-zinc-800 border border-[#166B58]/30 dark:border-yellow-500/30 text-[11px] font-bold text-slate-800 dark:text-zinc-200 hover:bg-slate-200 transition-colors flex items-center gap-1"
+                >
+                  <span>${dict.slipBtn}</span>
+                  <span>↗</span>
+                </button>
+              </div>
+
+              <!-- Action Area (Verify, Cancel, Dispatch) -->
+              ${actionAreaHtml}
             </div>
-
-            <!-- Payment Row -->
-            ${paymentDetailsHtml}
-
-            <!-- Items & Financial Summary -->
-            <div class="bg-white/60 dark:bg-zinc-900/40 p-2.5 rounded border border-slate-200 dark:border-zinc-800 space-y-1.5">
-              <div class="text-[11px] font-mono font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider">
-                ${dict.itemsLabel}
-              </div>
-              <ul class="space-y-0.5">
-                ${itemsListHtml}
-              </ul>
-              <div class="pt-2 border-t border-slate-200 dark:border-zinc-700 flex items-center justify-between font-mono font-bold text-xs sm:text-sm">
-                <span class="text-slate-600 dark:text-zinc-300">মোট টাকা (Total Amount):</span>
-                <span class="text-[#166B58] dark:text-yellow-400 text-sm font-black">
-                  ${formatMoney(order.total_amount_bdt, currentLang)}
-                </span>
-              </div>
-            </div>
-
-            <!-- Customer Notes if present -->
-            ${order.customer_notes ? `
-              <div class="p-2 rounded bg-yellow-50 dark:bg-yellow-950/20 border-l-2 border-yellow-500 text-xs text-yellow-900 dark:text-yellow-200 italic font-sans">
-                "${order.customer_notes}"
-              </div>
-            ` : ''}
-
-            <!-- Action Area -->
-            ${actionAreaHtml}
           </article>
         `;
       }
 
-      // --- 12. Actions: Verify, Mark Dispatched, Cancel, Copy ---
+      // --- 14. Dispatch Packing Slip Modal Handlers ---
+      window.openDispatchModal = function(orderId) {
+        const order = ordersCache.find(o => o.id === orderId);
+        if (!order) return;
+
+        const modal = document.getElementById('dispatch-modal');
+        const isBn = currentLang === 'bn';
+        const normalizedItems = normalizeOrderItems(order.items);
+
+        document.getElementById('modal-order-id').textContent = `#${order.id}`;
+        document.getElementById('modal-order-date').textContent = new Date(order.created_at).toLocaleString(isBn ? 'bn-BD' : 'en-US');
+        document.getElementById('modal-customer-name').textContent = order.customer_name || 'গ্রাহক';
+        document.getElementById('modal-customer-phone').textContent = order.customer_phone || '—';
+        document.getElementById('modal-customer-district').textContent = order.district || 'Inside Dhaka';
+        document.getElementById('modal-customer-address').textContent = order.shipping_address || 'ঠিকানা পাওয়া যায়নি';
+        
+        document.getElementById('modal-subtotal').textContent = formatMoney(order.subtotal_bdt || 0, currentLang);
+        document.getElementById('modal-delivery').textContent = formatMoney(order.delivery_charge_bdt || 0, currentLang);
+        document.getElementById('modal-grand-total').textContent = formatMoney(order.total_amount_bdt || 0, currentLang);
+        document.getElementById('modal-payment-method').textContent = order.payment_method === 'mfs' ? 'MFS Send Money (bKash/Nagad)' : 'Cash on Delivery (COD)';
+
+        // Status badge
+        const badgeContainer = document.getElementById('modal-status-badge');
+        badgeContainer.innerHTML = `<span class="seal-stamp text-xs uppercase font-bold">${order.status}</span>`;
+
+        // Copy address button in modal
+        document.getElementById('modal-copy-address-btn').onclick = function() {
+          const fullTxt = `${order.customer_name} | ${order.customer_phone}\n${order.shipping_address}`;
+          copyToClipboard(fullTxt, this);
+        };
+
+        // Notes
+        const notesCont = document.getElementById('modal-notes-container');
+        const notesTxt = document.getElementById('modal-notes-text');
+        if (order.customer_notes) {
+          notesTxt.textContent = order.customer_notes;
+          notesCont.classList.remove('hidden');
+        } else {
+          notesCont.classList.add('hidden');
+        }
+
+        // Items Table Rows
+        const tbody = document.getElementById('modal-items-tbody');
+        tbody.innerHTML = normalizedItems.map(it => `
+          <tr class="hover:bg-slate-50 dark:hover:bg-zinc-800/50">
+            <td class="p-2">
+              <div class="font-bold text-slate-900 dark:text-zinc-100">${isBn ? (it.title_bn || it.title) : (it.title_en || it.title)}</div>
+              <div class="font-mono text-[10px] text-slate-500">${it.sku || ''}</div>
+            </td>
+            <td class="p-2 text-center font-mono font-bold text-slate-800 dark:text-zinc-200">
+              ${isBn ? toBnDigits(it.quantity) : it.quantity}
+            </td>
+            <td class="p-2 text-right font-mono font-bold text-slate-900 dark:text-zinc-100">
+              ${formatMoney(it.total_price_bdt, currentLang)}
+            </td>
+          </tr>
+        `).join('');
+
+        modal.classList.remove('hidden');
+      };
+
+      window.closeDispatchModal = function() {
+        const modal = document.getElementById('dispatch-modal');
+        if (modal) modal.classList.add('hidden');
+      };
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeDispatchModal();
+      });
+
+      // --- 15. Actions: Verify, Mark Dispatched, Cancel, Copy ---
       window.copyToClipboard = async function(text, btnElement) {
         if (!text) return;
         try {
@@ -1250,7 +1675,6 @@
           }
           showToast(`কপি হয়েছে: ${text}`);
         } catch (err) {
-          // Fallback prompt
           window.prompt('কপি করতে চাপুন (Ctrl+C / Cmd+C):', text);
         }
       };
@@ -1291,9 +1715,14 @@
           if (res.ok) {
             const data = await res.json().catch(() => null);
             if (data && data.success && data.order) {
-              // Optimistic update from response
               const idx = ordersCache.findIndex(o => o.id === orderId);
-              if (idx !== -1) ordersCache[idx] = data.order;
+              if (idx !== -1) {
+                ordersCache[idx] = {
+                  ...data.order,
+                  items: normalizeOrderItems(data.order.items)
+                };
+              }
+              expandedOrders.add(orderId);
               updateMetrics();
               renderFeed();
               showToast(data.message || 'অর্ডার স্ট্যাটাস সফলভাবে পরিবর্তিত হয়েছে।');
@@ -1308,6 +1737,7 @@
         if (action === 'verify_payment') {
           order.status = 'verified';
           order.updated_at = new Date().toISOString();
+          expandedOrders.add(orderId);
           showToast(`অর্ডার #${orderId} পেমেন্ট যাচাই সম্পন্ন!`);
         } else if (action === 'cancel_order') {
           order.status = 'cancelled';
@@ -1359,7 +1789,13 @@
             const data = await res.json().catch(() => null);
             if (data && data.success && data.order) {
               const idx = ordersCache.findIndex(o => o.id === orderId);
-              if (idx !== -1) ordersCache[idx] = data.order;
+              if (idx !== -1) {
+                ordersCache[idx] = {
+                  ...data.order,
+                  items: normalizeOrderItems(data.order.items)
+                };
+              }
+              expandedOrders.add(orderId);
               updateMetrics();
               renderFeed();
               showToast(data.message || `অর্ডার #${orderId} সফলভাবে কুরিয়ারে হস্তান্তর হয়েছে!`);
@@ -1375,13 +1811,14 @@
         order.courier_name = courierName;
         order.tracking_code = trackingCode;
         order.updated_at = new Date().toISOString();
+        expandedOrders.add(orderId);
 
         updateMetrics();
         renderFeed();
         showToast(`অর্ডার #${orderId} সফলভাবে কুরিয়ারে হস্তান্তর হয়েছে!`, '🚚');
       };
 
-      // --- 13. Initialization & Event Listeners ---
+      // --- 16. Initialization & Event Listeners ---
       document.getElementById('theme-toggle-btn').addEventListener('click', toggleTheme);
       document.getElementById('lang-toggle-btn').addEventListener('click', () => {
         applyLanguage(currentLang === 'bn' ? 'en' : 'bn');

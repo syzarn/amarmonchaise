@@ -72,6 +72,55 @@ function verifyPasskey(request, env = {}) {
   return false;
 }
 
+const PRODUCT_CATALOG = {
+  'amc-100': { sku: 'AMC-WEV-THM-01', name_bn: 'ঐতিহ্যবাহী হাতে বোনা থামি', name_en: 'Traditional Handloom Thami (Chakma Weave)', price: 1850 },
+  'amc-101': { sku: 'AMC-WEV-GMC-01', name_bn: 'হাতে বোনা ট্রাইবাল গামছা টোট ব্যাগ', name_en: 'Handloom Tribal Weave Gamcha Tote', price: 850 },
+  'amc-102': { sku: 'AMC-ART-RCK-01', name_bn: 'রিকশা আর্ট কাঠের কোস্টার সেট (৪টি)', name_en: 'Vintage Rickshaw Art Coaster Set (4 pcs)', price: 450 },
+  'amc-103': { sku: 'AMC-KCP-CHM-01', name_bn: 'মেকানিক্যাল কি-ক্যাপ "মাটির চা-কাপ"', name_en: 'Artisan Clay Chai Cup Keycap', price: 650 },
+  'amc-104': { sku: 'AMC-LMP-CAS-01', name_bn: 'নস্টালজিক ক্যাসেট অ্যাম্বিয়েন্ট নাইট ল্যাম্প', name_en: 'Retro Cassette Ambient Night Lamp', price: 1200 },
+  'amc-105': { sku: 'AMC-TEA-CHM-01', name_bn: 'বান্দরবান স্মোকড পাহাড়ি কালো চা (১০০ গ্রাম)', name_en: 'Hill-Tract Wood-Smoked Black Tea (100g)', price: 380 },
+  'amc-106': { sku: 'AMC-CAP-EMB-01', name_bn: 'মঞ্চাইছে এমব্রয়ডারি বেসবল ক্যাপ', name_en: 'Handloom Green "মঞ্চাইছে" Embroidered Cap', price: 950 },
+  'amc-107': { sku: 'AMC-CDL-MST-01', name_bn: 'সরিষা ফুলের মৌতাত সয়া মোমবাতি', name_en: 'Mustard Bloom Soy Scented Candle', price: 490 },
+  'amc-108': { sku: 'AMC-PIN-ENM-01', name_bn: 'বাংলা টাইপোগ্রাফি "খেয়াল" মেটাল পিন', name_en: 'Bengali Typography "খেয়াল" Enamel Pin', price: 250 },
+  'amc-109': { sku: 'AMC-USB-MNS-01', name_bn: 'শ্রাবণের বৃষ্টি ও টিনের চালের শব্দ পেনড্রাইভ', name_en: 'Dhaka Monsoon Rain Soundscapes USB (16GB)', price: 390 },
+  'amc-110': { sku: 'AMC-AST-BRS-01', name_bn: 'খাঁটি পিতলের প্রাচীন পকেট দিকনির্ণায়ক', name_en: 'Solid Brass Ancient Pocket Astrolabe', price: 1550 },
+  'amc-111': { sku: 'AMC-BMK-TRB-01', name_bn: 'সুতি সুতোর ঝালর দেওয়া ট্রাইবাল বুকমার্ক', name_en: 'Handmade Tasseled Tribal Bookmark', price: 180 },
+  'amc-112': { sku: 'AMC-ZIN-CMK-01', name_bn: 'আজব অস্তিত্ববাদী কমিক জিন (ভলিউম ১)', name_en: 'Existential Dhaka Comic Zine (Vol. 1)', price: 280 }
+};
+
+function normalizeOrderItems(rawItems) {
+  let list = rawItems;
+  if (typeof list === 'string') {
+    try { list = JSON.parse(list); } catch (_) { list = []; }
+  }
+  if (!Array.isArray(list)) list = [];
+
+  return list.map(item => {
+    if (!item) return null;
+    const pid = String(item.product_id || item.id || item.item_id || '').trim();
+    const cat = PRODUCT_CATALOG[pid] || {};
+
+    const nameBn = item.title_bn || item.name_bn || (item.title && /[\u0980-\u09FF]/.test(item.title) ? item.title : null) || cat.name_bn || item.title || item.name_en || item.name || (pid ? `পণ্য #${pid}` : 'পণ্য');
+    const nameEn = item.title_en || item.name_en || cat.name_en || item.title || item.name || (pid ? `Product #${pid}` : 'Order Item');
+    const displayTitle = item.title || nameBn || nameEn;
+
+    const qty = parseInt(item.quantity !== undefined ? item.quantity : (item.qty !== undefined ? item.qty : (item.count !== undefined ? item.count : 1)), 10) || 1;
+    const unitPrice = parseInt(item.unit_price_bdt !== undefined ? item.unit_price_bdt : (item.price_bdt !== undefined ? item.price_bdt : (item.price !== undefined ? item.price : (cat.price || 0))), 10) || 0;
+    const totalPrice = parseInt(item.total_price_bdt !== undefined ? item.total_price_bdt : (qty * unitPrice), 10) || (qty * unitPrice);
+
+    return {
+      product_id: pid,
+      sku: item.sku || cat.sku || pid,
+      title: displayTitle,
+      title_bn: nameBn,
+      title_en: nameEn,
+      quantity: qty,
+      unit_price_bdt: unitPrice,
+      total_price_bdt: totalPrice
+    };
+  }).filter(Boolean);
+}
+
 // In-memory mock database for local development and demonstration
 let memoryMockOrders = [
   {
@@ -237,7 +286,7 @@ export async function onRequestGet(context) {
             total_amount_bdt: order.total_amount_bdt || 0,
             courier_name: order.courier_name || null,
             tracking_code: order.tracking_code || null,
-            items: order.items || [],
+            items: normalizeOrderItems(order.items),
             customer_notes: order.customer_notes || null,
             created_at: order.created_at,
             updated_at: order.updated_at
@@ -267,7 +316,7 @@ export async function onRequestGet(context) {
   }
 
   // 3. Fallback: Local memory mock store
-  let filtered = [...memoryMockOrders];
+  let filtered = memoryMockOrders.map(o => ({ ...o, items: normalizeOrderItems(o.items) }));
   if (statusFilter && statusFilter !== 'all') {
     filtered = filtered.filter(o => o.status === statusFilter);
   }
