@@ -63,8 +63,9 @@
       footerAbout: 'আমরা কোনো ধরাবাঁধা দোকান নই। যখন যা মন চায়, সেটাই তৈরি করে আপনাদের সামনে নিয়ে আসি। যার যা, যেমনে মন চায়—সেই স্বাধীনতায় আমাদের বিশ্বাস।',
       footerQuickLinks: 'প্রয়োজনীয় লিংক',
       footerFaq: 'সারুর প্রশ্ন-উত্তর',
-      footerTerms: 'শর্তাবলী ও নিয়ম',
+      footerTerms: 'ব্যবহারের শর্তাবলী',
       footerPrivacy: 'গোপনীয়তা নীতি',
+      footerReturns: 'পরিবর্তন ও ফেরত নীতি',
       footerContact: 'যোগাযোগ',
       footerHelpline: 'হেল্পলাইন: +880 1712-345678 (সকাল ১০টা - রাত ১০টা)',
       footerLocation: 'পান্থপথ, ঢাকা - ১২০৫, বাংলাদেশ',
@@ -146,8 +147,9 @@
       footerAbout: 'We are not a typical storefront. We sell whatever comes into our mind—to each their own, however the heart pleases.',
       footerQuickLinks: 'Quick Links',
       footerFaq: 'Q&A with <span class="saru-name">Saru</span>',
-      footerTerms: 'Terms & Conditions',
+      footerTerms: 'Terms of Service',
       footerPrivacy: 'Privacy Policy',
+      footerReturns: 'Return & Refund Policy',
       footerContact: 'Contact',
       footerHelpline: 'Helpline: +880 1712-345678 (10 AM - 10 PM)',
       footerLocation: 'Panthapath, Dhaka - 1205, Bangladesh',
@@ -1702,10 +1704,34 @@
 
     // Update document title and breadcrumb
     if (elements.pageTitle) {
-      elements.pageTitle.textContent = `${title} | Mon Chaise — যা মন চায় বেচি`;
+      elements.pageTitle.textContent = `${title} | Mon Chaise (মঞ্চাইছে)`;
     }
     if (elements.breadcrumbName) {
       elements.breadcrumbName.textContent = title;
+    }
+
+    // Dynamic Open Graph & Meta Tags for Social Crawler Previews
+    try {
+      const descText = state.lang === 'bn' ? (prod.desc_bn || prod.short_desc_bn) : (prod.desc_en || prod.short_desc_en);
+      const ogImgUrl = activeImage ? (activeImage.startsWith('http') ? activeImage : `https://amarmonchaise.pages.dev/${activeImage.replace(/^\/+/, '')}`) : 'https://amarmonchaise.pages.dev/files/og-banner.png';
+      const canonicalProdUrl = `https://amarmonchaise.pages.dev/product.html?id=${encodeURIComponent(prod.id || prod.slug)}`;
+
+      const updateMetaTag = (selector, attr, val) => {
+        let el = document.querySelector(selector);
+        if (el) el.setAttribute(attr, val);
+      };
+
+      updateMetaTag('meta[name="description"]', 'content', descText);
+      updateMetaTag('link[rel="canonical"]', 'href', canonicalProdUrl);
+      updateMetaTag('meta[property="og:title"]', 'content', `${title} | Mon Chaise (মঞ্চাইছে)`);
+      updateMetaTag('meta[property="og:description"]', 'content', descText);
+      updateMetaTag('meta[property="og:image"]', 'content', ogImgUrl);
+      updateMetaTag('meta[property="og:url"]', 'content', canonicalProdUrl);
+      updateMetaTag('meta[name="twitter:title"]', 'content', `${title} | Mon Chaise (মঞ্চাইছে)`);
+      updateMetaTag('meta[name="twitter:description"]', 'content', descText);
+      updateMetaTag('meta[name="twitter:image"]', 'content', ogImgUrl);
+    } catch (_) {
+      // Non-critical metadata update failure
     }
 
     if (!elements.productDetailContainer) return;

@@ -1,10 +1,33 @@
 <!DOCTYPE html>
-<html lang="bn" class="scroll-smooth">
-
+<html lang="bn" dir="ltr" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title id="page-title">শর্তাবলী ও নিয়ম | Mon Chaise — যা মন চায় বেচি</title>
+  <meta http-equiv="content-language" content="bn, en" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+  <title id="page-title">ব্যবহারের শর্তাবলী | Terms of Service — Mon Chaise (মঞ্চাইছে)</title>
+  <meta name="description" content="মঞ্চাইছে (Mon Chaise) ব্যবহারের শর্তাবলী: হস্তচালিত কোমর তাঁতের খাঁটি বুননের বৈশিষ্ট্য, ১-অব-১ পণ্যের রিজার্ভেশন, বিকাশ/নগদ ৪-৬ ঘণ্টা অডিট ভেরিফিকেশন এবং অর্ডার বাতিলকরণ নীতি।" />
+  <link rel="canonical" href="https://amarmonchaise.pages.dev/terms.html" />
+
+  <!-- Open Graph & Meta Ads Compliance Tags -->
+  <meta property="og:site_name" content="Mon Chaise (মঞ্চাইছে)" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="ব্যবহারের শর্তাবলী | Terms of Service — Mon Chaise (মঞ্চাইছে)" />
+  <meta property="og:description" content="খাঁটি তাঁত ও ঐতিহ্যবাহী কারুশিল্পের নিয়মাবলী: কোমর তাঁতের বুনন বৈচিত্র্য, ১-অব-১ পিস লক, এবং নিরাপদ এমএফএস পেমেন্ট নীতি।" />
+  <meta property="og:url" content="https://amarmonchaise.pages.dev/terms.html" />
+  <meta property="og:image" content="https://amarmonchaise.pages.dev/files/og-banner.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:locale" content="bn_BD" />
+  <meta property="og:locale:alternate" content="en_US" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ব্যবহারের শর্তাবলী | Terms of Service — Mon Chaise (মঞ্চাইছে)" />
+  <meta name="twitter:description" content="খাঁটি তাঁত ও ঐতিহ্যবাহী কারুশিল্পের নিয়মাবলী: কোমর তাঁতের বুনন বৈচিত্র্য, ১-অব-১ পিস লক, এবং নিরাপদ এমএফএস পেমেন্ট নীতি।" />
+  <meta name="twitter:image" content="https://amarmonchaise.pages.dev/files/og-banner.png" />
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -14,22 +37,20 @@
       theme: {
         extend: {
           colors: {
+            paper: '#FCFBF7',
             amoled: '#040406',
-            surface: {
-              DEFAULT: '#0a0a0f',
-              elevated: '#111118',
-              card: '#15151e',
-              border: '#1f1f2b'
-            },
             greenAccent: {
               500: '#1e7e68',
               600: '#166b58',
               700: '#125446'
             },
+            crimson: {
+              600: '#bd3a54',
+              700: '#991b1b'
+            },
             gold: {
               400: '#ffd533',
-              500: '#f2c200',
-              600: '#d1a300'
+              500: '#f2c200'
             }
           }
         }
@@ -37,67 +58,102 @@
     }
   </script>
 
-  <!-- Custom Stylesheet with Purno, GaramondHalhed and IM Fell English -->
+  <!-- Print-press stylesheet and brand typography -->
   <link rel="stylesheet" href="./styles.css" />
   <link rel="icon" type="image/svg+xml" href="./files/monchaise_logo_green.svg" id="app-favicon" />
+
+  <style>
+    /* 18th-century Print-Press Aesthetic Utilities */
+    .print-press-card {
+      background-color: #FCFBF7;
+      border: 2px solid #166B58;
+      box-shadow: 4px 4px 0px #166B58;
+      border-radius: 4px;
+    }
+    .dark .print-press-card {
+      background-color: #0c0f0d;
+      border: 2px solid #f2c200;
+      box-shadow: 4px 4px 0px #f2c200;
+    }
+    .clause-number-badge {
+      background: #166B58;
+      color: #FCFBF7;
+      border: 1px solid #166B58;
+      box-shadow: 2px 2px 0px #BD3A54;
+    }
+    .dark .clause-number-badge {
+      background: #f2c200;
+      color: #000;
+      border: 1px solid #f2c200;
+      box-shadow: 2px 2px 0px #1e7e68;
+    }
+    .compliance-pill {
+      border: 1.5px solid #166B58;
+      background: rgba(22, 107, 88, 0.08);
+      color: #166B58;
+    }
+    .dark .compliance-pill {
+      border: 1.5px solid #f2c200;
+      background: rgba(242, 194, 0, 0.1);
+      color: #f2c200;
+    }
+  </style>
 </head>
 
-<body
-  class="selection:bg-[#1e7e68] selection:text-white dark:selection:bg-yellow-500 dark:selection:text-black antialiased min-h-screen flex flex-col">
+<body class="bg-[#F8F7F2] dark:bg-[#060608] selection:bg-[#166b58] selection:text-white dark:selection:bg-yellow-500 dark:selection:text-black antialiased min-h-screen flex flex-col font-serif">
 
   <!-- TOP HANDLOOM ACCENT STRIP -->
   <div class="handloom-banner-slim w-full"></div>
 
   <!-- NAVBAR -->
-  <header
-    class="sticky top-0 z-40 bg-white/95 dark:bg-[#060608]/90 backdrop-blur-md border-b border-slate-200 dark:border-zinc-900 transition-colors">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-
-      <!-- Brand Logo & Identity with italic "Mon Chaiſe" -->
+  <header class="sticky top-0 z-40 bg-[#FCFBF7]/95 dark:bg-[#060608]/90 backdrop-blur-md border-b-2 border-[#166B58] dark:border-yellow-500/40 transition-colors">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo & Identity -->
       <a href="index.html" class="flex items-center gap-3 group">
         <div class="relative py-1">
-          <img src="./files/monchaise_logo_green.svg" alt="মঞ্চাইছে" id="navbar-logo"
-            class="h-8 sm:h-9 w-auto transition-transform group-hover:scale-105" />
+          <img 
+            src="./files/monchaise_logo_green.svg" 
+            alt="মঞ্চাইছে" 
+            id="navbar-logo"
+            class="h-8 sm:h-9 w-auto transition-transform group-hover:scale-105" 
+          />
         </div>
         <div class="hidden sm:flex flex-col justify-center">
-          <span
-            class="font-fell italic text-xl text-[#166b58] dark:text-yellow-500 font-bold tracking-wide leading-none mb-1">Mon
-            Chaiſe</span>
-          <span class="nav-tagline text-[10px] sm:text-[11px] text-slate-500 dark:text-zinc-400 font-medium"
-            data-i18n="tagline">যা মন চায় বেচি</span>
+          <span class="font-fell italic text-xl text-[#166b58] dark:text-yellow-500 font-bold tracking-wide leading-none mb-1">Mon Chaiſe</span>
+          <span class="nav-tagline text-[10px] sm:text-[11px] text-slate-600 dark:text-zinc-400 font-medium" data-i18n="tagline">যা মন চায় বেচি • যার যা, যেমনে মন চায়</span>
         </div>
       </a>
 
-      <!-- Quick Actions -->
+      <!-- Actions -->
       <div class="flex items-center gap-2 sm:gap-3">
-        <a href="index.html#catalog-section"
-          class="hidden sm:flex items-center gap-1 text-xs text-slate-600 dark:text-zinc-400 hover:text-[#1e7e68] dark:hover:text-yellow-400 transition-colors font-semibold px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-zinc-800 hover:border-[#1e7e68] dark:hover:border-yellow-500">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-          </svg>
-          <span data-i18n="allCategories">সব পণ্য</span>
+        <a 
+          href="index.html#catalog-section" 
+          class="flex items-center gap-1.5 text-xs text-slate-700 dark:text-zinc-300 hover:text-[#166b58] dark:hover:text-yellow-400 font-bold px-3 py-1.5 rounded bg-white dark:bg-zinc-900 border border-[#166B58]/40 dark:border-yellow-500/40 shadow-[2px_2px_0px_#166B58] dark:shadow-[2px_2px_0px_#f2c200] transition-all active:translate-x-0.5 active:translate-y-0.5"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+          <span data-i18n="allCategories">সব পণ্য (Catalog)</span>
         </a>
 
-        <!-- Theme Switcher Button -->
-        <button type="button" id="theme-toggle-btn"
-          class="flex items-center justify-center w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-zinc-900 dark:hover:bg-zinc-800 border border-slate-300 dark:border-zinc-700 text-slate-700 dark:text-yellow-400 transition-all active:scale-95"
-          title="Toggle Light / Dark Mode" aria-label="Toggle Theme">
-          <svg id="theme-icon-moon" class="w-4 h-4 text-slate-700" fill="none" stroke="currentColor"
-            viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-          </svg>
-          <svg id="theme-icon-sun" class="w-4 h-4 text-yellow-400 hidden" fill="none" stroke="currentColor"
-            viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-          </svg>
+        <!-- Theme Toggle -->
+        <button 
+          type="button" 
+          id="theme-toggle-btn" 
+          class="flex items-center justify-center w-8 h-8 rounded bg-white dark:bg-zinc-900 border border-[#166B58]/40 dark:border-yellow-500/40 text-slate-800 dark:text-yellow-400 transition-all shadow-[2px_2px_0px_#166B58] dark:shadow-[2px_2px_0px_#f2c200]"
+          title="Toggle Theme"
+          aria-label="Toggle Theme"
+        >
+          <svg id="theme-icon-moon" class="w-4 h-4 text-slate-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+          <svg id="theme-icon-sun" class="w-4 h-4 text-yellow-400 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
         </button>
 
-        <!-- Language Switcher Button: Simple EN / বাং -->
-        <button type="button" id="lang-toggle-btn"
-          class="flex items-center justify-center px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-zinc-900 dark:hover:bg-zinc-800 border border-slate-300 dark:border-zinc-700 hover:border-[#1e7e68] dark:hover:border-yellow-500 text-xs sm:text-sm font-bold text-slate-700 dark:text-zinc-200 hover:text-[#1e7e68] dark:hover:text-yellow-400 transition-all active:scale-95"
-          title="Toggle Language">
+        <!-- Language Switcher: EN / বাং -->
+        <button 
+          type="button" 
+          id="lang-toggle-btn" 
+          class="flex items-center justify-center px-3 py-1 rounded bg-white dark:bg-zinc-900 border border-[#166B58]/40 dark:border-yellow-500/40 text-xs font-black text-[#166B58] dark:text-yellow-400 shadow-[2px_2px_0px_#166B58] dark:shadow-[2px_2px_0px_#f2c200] active:translate-x-0.5 active:translate-y-0.5 transition-all"
+          title="Toggle Language"
+        >
           <span id="lang-label">EN</span>
         </button>
       </div>
@@ -105,335 +161,273 @@
   </header>
 
   <!-- BREADCRUMBS -->
-  <div
-    class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4 w-full text-xs text-slate-500 dark:text-zinc-400 flex items-center gap-2">
-    <a href="index.html" class="hover:text-[#1e7e68] dark:hover:text-yellow-400 transition-colors"
-      data-i18n="breadcrumbHome">হোম</a>
+  <nav class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2 w-full text-xs text-slate-500 dark:text-zinc-400 flex items-center gap-2" aria-label="Breadcrumb">
+    <a href="index.html" class="hover:text-[#166b58] dark:hover:text-yellow-400 font-semibold transition-colors" data-i18n="breadcrumbHome">হোম</a>
     <span>/</span>
-    <span class="text-[#166b58] dark:text-yellow-400 font-semibold" data-i18n="termsHeading">শর্তাবলী ও নিয়ম</span>
-  </div>
+    <span class="text-[#166b58] dark:text-yellow-400 font-bold" data-i18n="termsHeading">ব্যবহারের শর্তাবলী</span>
+  </nav>
 
   <!-- MAIN CONTENT CONTAINER -->
-  <main class="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
-
-    <!-- Header Block with Nakshikantha Stitching Badge -->
-    <div class="text-center mb-12">
-      <div class="nakshikantha-badge mb-4">
-        <span class="font-bold text-xs uppercase tracking-wider" data-i18n="termsBadge">অফিসিয়াল নীতি ও খেয়াল</span>
+  <main class="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
+    
+    <!-- Editorial Print-Press Header -->
+    <header class="text-center mb-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-sm compliance-pill font-mono text-[11px] font-bold uppercase tracking-wider mb-3">
+        <span>📜 TERMS OF SERVICE & ARTISAN CHARTER • সেবা ও বিক্রয় শর্তাবলী</span>
       </div>
-      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 font-title"
-        data-i18n="termsHeading">
-        শর্তাবলী ও নিয়মকানুন
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-3 font-title tracking-tight" data-i18n="termsHeading">
+        ব্যবহারের শর্তাবলী (Terms of Service)
       </h1>
-      <p class="text-sm sm:text-base text-slate-600 dark:text-zinc-400 max-w-xl mx-auto italic secondary-text"
-        data-i18n="termsSub">
-        আমরা কোনো ধরাবাঁধা রোবট-কর্পোরেশন নই। তাই আমাদের নিয়মকানুনও খুব সহজ, মানবিক ও খেয়ালী।
+      <p class="text-sm sm:text-base text-slate-700 dark:text-zinc-300 max-w-2xl mx-auto leading-relaxed" data-i18n="termsSub">
+        মঞ্চাইছেতে কেনাকাটা করার আগে আমাদের খাঁটি কোমর তাঁত, ১-অব-১ সংরক্ষণ নীতি ও পেমেন্ট ভেরিফিকেশনের নিয়মাবলি জেনে নিন।
       </p>
-    </div>
+      <div class="mt-3 text-xs text-slate-500 dark:text-zinc-400 font-mono">
+        কার্যকর তারিখ: সেপ্টেম্বর ২০২৬ • Last Revised: September 2026
+      </div>
+    </header>
 
-    <!-- Clauses Box with Thin Nakshikantha Stitching Border -->
-    <div
-      class="bg-white dark:bg-surface-card rounded-2xl border border-dashed border-[#1e7e68]/35 dark:border-yellow-500/35 p-6 sm:p-10 shadow-sm space-y-8">
-
-      <!-- Clause 1 -->
-      <article class="space-y-2 border-b border-slate-100 dark:border-zinc-800/80 pb-6">
+    <!-- Clauses Print-Press Card -->
+    <div class="print-press-card p-6 sm:p-10 space-y-8 text-slate-800 dark:text-zinc-200">
+      
+      <!-- Clause 1: Artisanal Handloom Realities -->
+      <article class="space-y-2 border-b border-dashed border-[#166B58]/30 dark:border-yellow-500/30 pb-6">
         <div class="flex items-center gap-3">
-          <span
-            class="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-yellow-500/10 text-[#166b58] dark:text-yellow-400 border border-dashed border-[#1e7e68]/40 dark:border-yellow-500/40 text-xs font-black flex items-center justify-center">১</span>
-          <h2 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white font-title" data-i18n="termTitle1">
-            ১. খেয়াল ও মর্জির সার্বভৌমিক নিয়ম (Principle of Whimsy)
+          <span class="clause-number-badge w-6 h-6 rounded-sm text-xs font-black flex items-center justify-center shrink-0">১</span>
+          <h2 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white font-title" data-i18n="tTitle1">
+            ১. আদিবাসী কোমর তাঁত ও খাঁটি উপকরণের স্বভাবজাত বৈচিত্র্য (Artisanal Handloom Nuances)
           </h2>
         </div>
-        <p class="text-xs sm:text-sm text-slate-700 dark:text-zinc-300 leading-relaxed pl-10 secondary-text"
-          data-i18n="termBody1">
-          আমাদের যখন যা মন চায়, আমরা সেটাই তৈরি করি। আপনার যখন যা মন চায়, আপনি সেটাই কেনেন। কাল সকালে যদি আমাদের হঠাৎ
-          মনে হয় আমরা শুকনা মরিচ, পুরান ক্যাসেট কিংবা পিতলের জাহাজী কম্পাস বিক্রি করব—তবে আমরা সেটাই করব। কোনো পণ্য
-          কেনায় কোনো সামাজিক চাপ নেই; মনের স্বাধীনতা সর্বাগ্রে।
-        </p>
+        <div class="pl-9 space-y-2 text-xs sm:text-sm leading-relaxed text-slate-700 dark:text-zinc-300">
+          <p class="clause-bn" data-i18n="tBody1">
+            মঞ্চাইছের প্রতিটি আদিবাসী থামি (Chakma Thami), গামছা ও টেক্সটাইল পণ্য পার্বত্য চট্টগ্রামের ঐতিহ্যবাহী কোমর তাঁত (Backstrap Waist Loom) এবং খটখটি তাঁতে হাতে বোনা হয়। ফলে সুতোর হালকা গিঁট (yarn slubs), তাঁতীর হাতের টানের সূক্ষ্ম বৈচিত্র্য কিংবা উদ্ভিজ্জ ডাই ভ্যাটের মৃদু রঙের তারতম্য কোনো কারখানার ত্রুটি নয়—বরং এটি হাতে বোনা খাঁটি কারুশিল্পের আসল প্রাণ ও ঐতিহ্য। শিল্পহীন প্লাস্টিকের মতো নিখুঁত হতে চাওয়া আমাদের দর্শন নয়।
+          </p>
+          <div class="clause-en text-xs text-slate-600 dark:text-zinc-400 italic pt-1 border-t border-slate-200/60 dark:border-zinc-800" data-i18n="tBody1En">
+            Every indigenous wrap-skirt (Thami), towel, and textile curated by Mon Chaise is hand-crafted on traditional backstrap waist looms or indigenous wooden looms. Minor organic yarn slubs, weave tension variations, and natural dye-bath tone shifts are inherent signatures of human artisanal heritage, not industrial manufacturing defects.
+          </div>
+        </div>
       </article>
 
-      <!-- Clause 2 -->
-      <article class="space-y-2 border-b border-slate-100 dark:border-zinc-800/80 pb-6">
+      <!-- Clause 2: 1-of-1 Piece Reservation Policy -->
+      <article class="space-y-2 border-b border-dashed border-[#166B58]/30 dark:border-yellow-500/30 pb-6">
         <div class="flex items-center gap-3">
-          <span
-            class="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-yellow-500/10 text-[#166b58] dark:text-yellow-400 border border-dashed border-[#1e7e68]/40 dark:border-yellow-500/40 text-xs font-black flex items-center justify-center">২</span>
-          <h2 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white font-title" data-i18n="termTitle2">
-            ২. বুনন ও খাঁটি জিনিসের স্বভাব (Imperfections Are Soul)
+          <span class="clause-number-badge w-6 h-6 rounded-sm text-xs font-black flex items-center justify-center shrink-0">২</span>
+          <h2 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white font-title" data-i18n="tTitle2">
+            ২. ১-অব-১ একক পণ্যের পারমাণবিক রিজার্ভেশন (1-of-1 Handloom Reservation)
           </h2>
         </div>
-        <p class="text-xs sm:text-sm text-slate-700 dark:text-zinc-300 leading-relaxed pl-10 secondary-text"
-          data-i18n="termBody2">
-          আমাদের কোমর তাঁতের থামি, গামছা কিংবা কাঠের জিনিসপত্র কারখানায় লেজার দিয়ে কাটা নয়। এতে তাঁতীর হাতের সামান্য
-          টান, সুতোর হালকা গিঁট বা কাঠের প্রাকৃতিক আঁশ থাকতে পারে। এটিকে খুঁত বলবেন না—এটাই এই জিনিসের প্রাণ।
-          প্লাস্টিকের মতো নিখুঁত হতে চাইলে যেকোনো শপিং মলই যথেষ্ট!
-        </p>
+        <div class="pl-9 space-y-2 text-xs sm:text-sm leading-relaxed text-slate-700 dark:text-zinc-300">
+          <p class="clause-bn" data-i18n="tBody2">
+            আমাদের ক্যাটালগের যেসকল মাস্টারপিস পণ্য "১-অব-১" (One-of-a-Kind) হিসেবে চিহ্নিত (যেমন: একক বুননের ঐতিহ্যবাহী থামি বা হস্তনির্মিত পিতলের অ্যাস্ট্রোল্যাব), চেকআউট নিশ্চিত হওয়ার সাথে সাথে ডাটাবেজ স্তরে পারমাণবিকভাবে লক হয়ে যায় যাতে দুইজন ক্রেতা একই পণ্য কিনতে না পারেন। যদি কোনো অর্ডারে MFS পেমেন্ট ভেরিফিকেশন ব্যর্থ হয় বা অর্ডার বাতিল হয়, তবেই পণ্যটি পুনরায় সাধারণ ক্যাটালগে ফেরত পাঠানো হবে।
+          </p>
+          <div class="clause-en text-xs text-slate-600 dark:text-zinc-400 italic pt-1 border-t border-slate-200/60 dark:border-zinc-800" data-i18n="tBody2En">
+            Authentic 1-of-1 handloom artifacts are atomically locked at the database level upon checkout completion to prevent duplicate acquisition. Should an order fail manual MFS audit or be cancelled by the patron, the piece is automatically released back to the active catalog.
+          </div>
+        </div>
       </article>
 
-      <!-- Clause 3 -->
-      <article class="space-y-2 border-b border-slate-100 dark:border-zinc-800/80 pb-6">
+      <!-- Clause 3: Payment Verification Timeframes -->
+      <article class="space-y-2 border-b border-dashed border-[#166B58]/30 dark:border-yellow-500/30 pb-6">
         <div class="flex items-center gap-3">
-          <span
-            class="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-yellow-500/10 text-[#166b58] dark:text-yellow-400 border border-dashed border-[#1e7e68]/40 dark:border-yellow-500/40 text-xs font-black flex items-center justify-center">৩</span>
-          <h2 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white font-title" data-i18n="termTitle3">
-            ৩. ডেলিভারি ভাইয়ের আপ্যায়ন (Courier Brother Hospitality)
+          <span class="clause-number-badge w-6 h-6 rounded-sm text-xs font-black flex items-center justify-center shrink-0">৩</span>
+          <h2 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white font-title" data-i18n="tTitle3">
+            ৩. পেমেন্ট পদ্ধতি ও ম্যানুয়াল ভেরিফিকেশন সময়সীমা (Payment Audit & Timeframes)
           </h2>
         </div>
-        <p class="text-xs sm:text-sm text-slate-700 dark:text-zinc-300 leading-relaxed pl-10 secondary-text"
-          data-i18n="termBody3">
-          ঢাকার তীব্র ট্রাফিক কিংবা দূরের জেলার মেঠোপথ পাড়ি দিয়ে যে কুরিয়ার ভাই আপনার দরজায় পার্সেল নিয়ে যান, তিনি
-          আমাদের শ্রদ্ধার পাত্র। অনুগ্রহ করে তার সাথে সদয় ব্যবহার করুন। গরমের দিনে তাকে এক গ্লাস ঠাণ্ডা পানি দিতে পারলে
-          মনটা ভরে যাবে।
-        </p>
+        <div class="pl-9 space-y-2 text-xs sm:text-sm leading-relaxed text-slate-700 dark:text-zinc-300">
+          <p class="clause-bn" data-i18n="tBody3">
+            আমরা ক্যাশ অন ডেলিভারি (COD) এবং বিকাশ/নগদ/রকেট MFS সেন্ড মানি গ্রহণ করি। MFS অর্ডারের ক্ষেত্রে জালিয়াতি রোধে আমাদের অডিট টিম সরাসরি মোবাইল স্টেটমেন্টের সাথে ট্রানজ্যাকশন আইডি (TrxID) মিলিয়ে দেখে। এই ম্যানুয়াল ভেরিফিকেশন সম্পন্ন হতে সর্বোচ্চ ৪ থেকে ৬ কার্যঘণ্টা (সকাল ১০টা থেকে রাত ১০টা BST) সময় লাগতে পারে। স্টেটমেন্টে অর্থ পাওয়ার পর অর্ডারটি চূড়ান্তভাবে 'Confirmed' স্ট্যাটাসে উত্তীর্ণ হয়।
+          </p>
+          <div class="clause-en text-xs text-slate-600 dark:text-zinc-400 italic pt-1 border-t border-slate-200/60 dark:border-zinc-800" data-i18n="tBody3En">
+            Orders are accepted via Cash on Delivery (COD) and MFS Send Money (bKash, Nagad, Rocket). MFS orders undergo manual ledger verification against verified bank/mobile statements within 4 to 6 business hours (10:00 AM – 10:00 PM BST). Orders enter "Confirmed" status once funds are matched.
+          </div>
+        </div>
       </article>
 
-      <!-- Clause 4 -->
-      <article class="space-y-2 border-b border-slate-100 dark:border-zinc-800/80 pb-6">
+      <!-- Clause 4: Pricing, Delivery & Order Rights -->
+      <article class="space-y-2 border-b border-dashed border-[#166B58]/30 dark:border-yellow-500/30 pb-6">
         <div class="flex items-center gap-3">
-          <span
-            class="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-yellow-500/10 text-[#166b58] dark:text-yellow-400 border border-dashed border-[#1e7e68]/40 dark:border-yellow-500/40 text-xs font-black flex items-center justify-center">৪</span>
-          <h2 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white font-title" data-i18n="termTitle4">
-            ৪. ফেরত ও মত বদলের বিধান (Returns & Mind Changing)
+          <span class="clause-number-badge w-6 h-6 rounded-sm text-xs font-black flex items-center justify-center shrink-0">৪</span>
+          <h2 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white font-title" data-i18n="tTitle4">
+            ৪. পণ্যের মূল্য, ডেলিভারি ও অর্ডার বাতিলের অধিকার (Pricing & Order Rights)
           </h2>
         </div>
-        <p class="text-xs sm:text-sm text-slate-700 dark:text-zinc-300 leading-relaxed pl-10 secondary-text"
-          data-i18n="termBody4">
-          যদি কোনো পণ্য রাস্তায় ক্ষতিগ্রস্ত হয়ে আপনার কাছে পৌঁছায়, আমরা এক বাক্যে ও সম্পূর্ণ বিনামূল্যে তা বদলে দেব। তবে
-          পণ্যটি পাওয়ার পর যদি হঠাৎ মধ্যরাতে মনে হয় "মন আর চাইছে না"—অযথা হতাশ হবেন না। কোনো বন্ধুকে উপহার দিয়ে দিন,
-          অথবা আমাদের স্টুডিওতে এক কাপ চা খেতে চলে আসুন।
-        </p>
+        <div class="pl-9 space-y-2 text-xs sm:text-sm leading-relaxed text-slate-700 dark:text-zinc-300">
+          <p class="clause-bn" data-i18n="tBody4">
+            ওয়েবসাইটে প্রদর্শিত পণ্যের দাম বাংলাদেশি টাকায় (BDT) সুনির্দিষ্ট এবং ডাটাবেজ মূল্যেই চূড়ান্ত লেনদেন হিসাব করা হয়। ডেলিভারি চার্জ: ঢাকা শহরের ভেতরে ৬০ টাকা এবং ঢাকার বাইরে ১২০ টাকা। অসত্য ডেলিভারি তথ্য, বারবার ডুপ্লিকেট TrxID সাবমিশন কিংবা অসদুপায় অবলম্বনের ক্ষেত্রে মঞ্চাইছে যেকোনো অর্ডার বাতিল বা পণ্য সরবরাহ প্রত্যাখ্যানের অধিকার সংরক্ষণ করে।
+          </p>
+          <div class="clause-en text-xs text-slate-600 dark:text-zinc-400 italic pt-1 border-t border-slate-200/60 dark:border-zinc-800" data-i18n="tBody4En">
+            Prices are authoritative and denominated in Bangladeshi Taka (BDT). Standard delivery fees are ৳60 within Dhaka city and ৳120 across all other districts. Mon Chaise reserves the right to decline or cancel orders submitting fraudulent TrxIDs, incorrect contact details, or abusive transactions.
+          </div>
+        </div>
       </article>
 
-      <!-- Clause 5 -->
+      <!-- Clause 5: Courier Sisterhood & Hospitality -->
+      <article class="space-y-2 border-b border-dashed border-[#166B58]/30 dark:border-yellow-500/30 pb-6">
+        <div class="flex items-center gap-3">
+          <span class="clause-number-badge w-6 h-6 rounded-sm text-xs font-black flex items-center justify-center shrink-0">৫</span>
+          <h2 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white font-title" data-i18n="tTitle5">
+            ৫. কুরিয়ার রাইডার ও ডেলিভারি আতিথেয়তা (Courier Rider Hospitality)
+          </h2>
+        </div>
+        <div class="pl-9 space-y-2 text-xs sm:text-sm leading-relaxed text-slate-700 dark:text-zinc-300">
+          <p class="clause-bn" data-i18n="tBody5">
+            ঢাকার তীব্র জ্যাম কিংবা প্রত্যন্ত জেলার পথ অতিক্রম করে যে কুরিয়ার ভাই বা বোন আপনার দরজায় খাঁটি হস্তশিল্পটি পৌঁছে দেন, তাদের সাথে বিনম্র ও সদয় আচরণ করার অনুরোধ জানানো হচ্ছে। তীব্র গরমে এক গ্লাস ঠাণ্ডা পানি কিংবা একটু আন্তরিক হাসি আমাদের এই ঐতিহ্যবাহী হস্তশিল্প আন্দোলনের সৌন্দর্যকে আরও পূর্ণতা দেয়।
+          </p>
+          <div class="clause-en text-xs text-slate-600 dark:text-zinc-400 italic pt-1 border-t border-slate-200/60 dark:border-zinc-800" data-i18n="tBody5En">
+            The delivery personnel navigating heavy traffic and unpaved rural routes to place these textiles into your hands deserve respect and warmth. Offering them a chilled glass of water during sweltering afternoons enriches the cultural soul of this craft collective.
+          </div>
+        </div>
+      </article>
+
+      <!-- Clause 6: Governing Law & Mediation -->
       <article class="space-y-2">
         <div class="flex items-center gap-3">
-          <span
-            class="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-yellow-500/10 text-[#166b58] dark:text-yellow-400 border border-dashed border-[#1e7e68]/40 dark:border-yellow-500/40 text-xs font-black flex items-center justify-center">৫</span>
-          <h2 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white font-title" data-i18n="termTitle5">
-            ৫. সালিশ ও বাকরখানি চুক্তি (Arbitration Over Cha & Bakarkhani)
+          <span class="clause-number-badge w-6 h-6 rounded-sm text-xs font-black flex items-center justify-center shrink-0">৬</span>
+          <h2 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white font-title" data-i18n="tTitle6">
+            ৬. আইনগত এক্তিয়ার ও সমঝোতা (Governing Law & Amicable Resolution)
           </h2>
         </div>
-        <p class="text-xs sm:text-sm text-slate-700 dark:text-zinc-300 leading-relaxed pl-10 secondary-text"
-          data-i18n="termBody5">
-          আপনার সাথে আমাদের যদি কোনো মতভেদ বা জটিলতা তৈরি হয়, তার বিচার কোনো আদালত বা পুলিশের কাছে যাবে না। পুরান ঢাকার
-          যেকোনো ঐতিহ্যবাহী টং দোকানে বসে গরম চা আর বাকরখানি সহযোগে খোলামেলা আড্ডায় সেই সমস্যার মীমাংসা করা হবে।
-        </p>
+        <div class="pl-9 space-y-2 text-xs sm:text-sm leading-relaxed text-slate-700 dark:text-zinc-300">
+          <p class="clause-bn" data-i18n="tBody6">
+            এই শর্তাবলী গণপ্রজাতন্ত্রী বাংলাদেশের প্রচলিত ভোক্তা অধিকার সংরক্ষণ ও বাণিজ্যিক আইন অনুযায়ী পরিচালিত হবে। কোনো জটিলতা বা মতানৈক্যের ক্ষেত্রে উভয় পক্ষ আনুষ্ঠানিক মামলার আগে সরাসরি আলোচনা, বন্ধুত্বপূর্ণ সমঝোতা এবং পারস্পরিক সম্মান প্রদর্শনের নীতি অনুসরণ করতে দায়বদ্ধ থাকবেন।
+          </p>
+          <div class="clause-en text-xs text-slate-600 dark:text-zinc-400 italic pt-1 border-t border-slate-200/60 dark:border-zinc-800" data-i18n="tBody6En">
+            These terms are interpreted and enforced under the consumer protection laws of the People's Republic of Bangladesh. Both parties agree that any disputes shall first be addressed through good-faith direct consultation and friendly mediation before seeking formal judicial adjudication.
+          </div>
+        </div>
       </article>
 
     </div>
 
-    <!-- Back to Store Action -->
+    <!-- Noscript Crawler Fallback for Spiders -->
+    <noscript>
+      <section class="mt-8 p-6 bg-amber-50 border border-amber-300 rounded text-xs text-slate-800 leading-relaxed">
+        <h3 class="font-bold text-sm mb-2">Notice for Automated Crawlers & Spiders (Full English Terms of Service):</h3>
+        <p>Mon Chaise sells authentic backstrap waist-loom handloom textiles and curios. Organic yarn slubs and natural dye variations are natural craft realities. 1-of-1 pieces are atomically locked on order. Manual MFS bKash/Nagad verification is conducted within 4 to 6 business hours. All transactions governed under the laws of Bangladesh.</p>
+      </section>
+    </noscript>
+
+    <!-- Navigation Action -->
     <div class="text-center mt-10">
-      <a href="index.html#catalog-section"
-        class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#1e7e68] hover:bg-[#166b58] dark:bg-yellow-400 dark:hover:bg-yellow-300 text-white dark:text-black font-extrabold text-sm shadow-md transition-all">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-        </svg>
-        <span data-i18n="backToShopping">এবার কেনাকাটায় ফিরুন</span>
+      <a href="index.html#catalog-section" class="inline-flex items-center gap-2 px-6 py-3 rounded bg-[#166B58] hover:bg-[#125446] dark:bg-yellow-400 dark:hover:bg-yellow-300 text-white dark:text-black font-extrabold text-sm shadow-[3px_3px_0px_#BD3A54] dark:shadow-[3px_3px_0px_#166B58] transition-all">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        <span data-i18n="backToShopping">পণ্য তালিকায় ফিরুন (Return to Catalog)</span>
       </a>
     </div>
 
   </main>
 
   <!-- THEME BORDER FOOTER -->
-  <div class="handloom-banner-footer w-full" aria-hidden="true"></div>
+  <div class="handloom-banner-footer w-full mt-12" aria-hidden="true"></div>
 
   <!-- FOOTER -->
-  <footer
-    class="bg-[#f1f5f3] dark:bg-[#030305] text-slate-600 dark:text-zinc-400 text-xs sm:text-sm border-t border-slate-200 dark:border-zinc-900 pt-12 pb-8 transition-colors">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-        <div class="md:col-span-2 space-y-4">
+  <footer class="bg-[#FCFBF7] dark:bg-[#030305] text-slate-700 dark:text-zinc-400 text-xs sm:text-sm border-t-2 border-[#166B58] dark:border-zinc-900 pt-10 pb-8 transition-colors">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        
+        <!-- Col 1 -->
+        <div class="md:col-span-2 space-y-3">
           <div class="flex items-center gap-3">
             <img src="./files/monchaise_logo_green.svg" alt="মঞ্চাইছে" id="footer-logo" class="h-8 w-auto" />
-            <span class="font-fell italic text-xl font-bold text-[#166b58] dark:text-yellow-500 tracking-wide">Mon
-              Chaiſe</span>
+            <span class="font-fell italic text-xl font-bold text-[#166b58] dark:text-yellow-500 tracking-wide">Mon Chaiſe</span>
           </div>
           <div class="text-xs font-bold text-[#166b58] dark:text-yellow-400">
-            <span data-i18n="tagline">যা মন চায় বেচি</span> • <span class="italic text-slate-600 dark:text-zinc-300"
-              data-i18n="secondaryTagline">যার যা, যেমনে মন চায়</span>
+            <span>যা মন চায় বেচি</span> • <span class="italic text-slate-600 dark:text-zinc-300">যার যা, যেমনে মন চায়</span>
           </div>
-          <div class="text-xs text-slate-500 dark:text-zinc-500 space-y-1">
-            <p data-i18n="footerHelpline">হেল্পলাইন: +880 1410-002711 (সকাল ১০টা - রাত ১০টা)</p>
-            <p data-i18n="footerLocation">ঢাকা, বাংলাদেশ</p>
-          </div>
-          <!-- Facebook & Instagram Buttons -->
-          <div class="flex items-center gap-2.5 pt-2">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-btn group"
-              title="Facebook">
-              <svg class="w-3.5 h-3.5 text-[#1e7e68] dark:text-yellow-400 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-              </svg>
-              <span data-i18n="facebookLabel">ফেসবুক</span>
-            </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-btn group"
-              title="Instagram">
-              <svg class="w-3.5 h-3.5 text-[#1e7e68] dark:text-yellow-400 fill-current" viewBox="0 0 24 24">
-                <path
-                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-              </svg>
-              <span data-i18n="instagramLabel">ইনস্টাগ্রাম</span>
-            </a>
+          <div class="text-xs text-slate-600 dark:text-zinc-500 space-y-1">
+            <p>হেল্পলাইন: +880 1410-002711 (সকাল ১০টা - রাত ১০টা BST)</p>
+            <p>লজিস্টিকস পার্টনার: পাঠাও (Pathao) • স্টেডফাস্ট (Steadfast)</p>
+            <p>স্টুডিও: ঢাকা, বাংলাদেশ</p>
           </div>
         </div>
 
+        <!-- Col 2: Legal & Quick Links -->
         <div>
-          <h4 class="font-bold text-slate-900 dark:text-white uppercase text-xs tracking-wider mb-3 font-fell-sc"
-            data-i18n="footerQuickLinks">Quick Links</h4>
+          <h4 class="font-bold text-slate-900 dark:text-white uppercase text-xs tracking-wider mb-3 font-fell-sc">আইনগত ও পলিসি লিংক</h4>
           <ul class="space-y-2 text-xs">
-            <li><a href="index.html#catalog-section"
-                class="hover:text-[#1e7e68] dark:hover:text-yellow-400 transition-colors" data-i18n="allCategories">সব
-                পণ্য</a></li>
-            <li><a href="index.html#checkout-section"
-                class="hover:text-[#1e7e68] dark:hover:text-yellow-400 transition-colors"
-                data-i18n="checkoutHeading">চেকআউট</a></li>
-            <li><a href="faq.html" class="hover:text-[#1e7e68] dark:hover:text-yellow-400 transition-colors"
-                data-i18n="footerFaq">সারুর প্রশ্ন-উত্তর</a></li>
-            <li><a href="terms.html" class="text-[#166b58] dark:text-yellow-400 font-bold"
-                data-i18n="footerTerms">শর্তাবলী ও নিয়ম</a></li>
-            <li><a href="privacy.html" class="hover:text-[#1e7e68] dark:hover:text-yellow-400 transition-colors"
-                data-i18n="footerPrivacy">গোপনীয়তা নীতি</a></li>
+            <li><a href="privacy.html" class="hover:text-[#166b58] dark:hover:text-yellow-400 transition-colors">গোপনীয়তা নীতি (Privacy)</a></li>
+            <li><a href="terms.html" class="text-[#166b58] dark:text-yellow-400 font-black underline">ব্যবহারের শর্তাবলী (Terms)</a></li>
+            <li><a href="returns.html" class="hover:text-[#166b58] dark:hover:text-yellow-400 transition-colors">পরিবর্তন ও ফেরত নীতি (Returns)</a></li>
+            <li><a href="faq.html" class="hover:text-[#166b58] dark:hover:text-yellow-400 transition-colors">সাধারণ প্রশ্ন (FAQ)</a></li>
+            <li><a href="index.html#catalog-section" class="hover:text-[#166b58] dark:hover:text-yellow-400 transition-colors">সব পণ্য (Catalog)</a></li>
           </ul>
         </div>
 
+        <!-- Col 3: Payment Partners -->
         <div>
-          <h4 class="font-bold text-slate-900 dark:text-white uppercase text-xs tracking-wider mb-3 font-fell-sc"
-            data-i18n="footerPayments">Payment Partners</h4>
+          <h4 class="font-bold text-slate-900 dark:text-white uppercase text-xs tracking-wider mb-3 font-fell-sc">Payment Partners</h4>
           <div class="flex flex-wrap gap-2 text-[11px]">
-            <span
-              class="px-2.5 py-1 rounded bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 text-pink-600 dark:text-pink-400 font-bold shadow-sm">bKash</span>
-            <span
-              class="px-2.5 py-1 rounded bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 text-orange-600 dark:text-orange-400 font-bold shadow-sm">Nagad</span>
-            <span
-              class="px-2.5 py-1 rounded bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 text-purple-600 dark:text-purple-400 font-bold shadow-sm">Rocket</span>
-            <span
-              class="px-2.5 py-1 rounded bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 text-yellow-600 dark:text-yellow-400 font-bold shadow-sm">upay</span>
-            <span
-              class="px-2.5 py-1 rounded bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 text-blue-700 dark:text-blue-400 font-bold shadow-sm">COD</span>
+            <span class="px-2 py-0.5 rounded bg-white dark:bg-zinc-900 border border-slate-300 dark:border-zinc-800 text-pink-600 font-bold">bKash</span>
+            <span class="px-2 py-0.5 rounded bg-white dark:bg-zinc-900 border border-slate-300 dark:border-zinc-800 text-orange-600 font-bold">Nagad</span>
+            <span class="px-2 py-0.5 rounded bg-white dark:bg-zinc-900 border border-slate-300 dark:border-zinc-800 text-purple-600 font-bold">Rocket</span>
+            <span class="px-2 py-0.5 rounded bg-white dark:bg-zinc-900 border border-slate-300 dark:border-zinc-800 text-emerald-700 dark:text-yellow-400 font-bold">COD</span>
+          </div>
+          <div class="mt-4 text-[11px] text-slate-500 dark:text-zinc-500 font-fell">
+            100% Authentic Handloom & Backstrap Weaves
           </div>
         </div>
+
       </div>
 
-      <!-- Mon Chaise Authentic Postage Stamp Seal -->
-      <div class="flex justify-center md:block md:absolute md:bottom-2 md:right-8 lg:right-12 my-6 md:my-0 z-10 select-none">
+      <!-- Stamp Seal -->
+      <div class="flex justify-center md:block md:absolute md:bottom-2 md:right-8 lg:right-12 my-4 md:my-0 z-10 select-none">
         <img src="./files/monchaise_stamp.png" alt="মঞ্চাইছে ডাকটিকিট"
-          class="h-20 sm:h-24 md:h-24 lg:h-28 w-auto object-contain transform -rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300 drop-shadow-md cursor-default pointer-events-auto"
-          title="Mon Chaise Authentic Handloom Postage Stamp" />
+          class="h-20 sm:h-24 w-auto object-contain transform -rotate-2 drop-shadow-md pointer-events-auto" />
       </div>
 
-      <div
-        class="pt-6 border-t border-slate-200 dark:border-zinc-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-zinc-600">
-        <p data-i18n="footerCopyright">© ২০২৬ মঞ্চাইছে (Mon Chaise)। সর্বস্বত্ব সংরক্ষিত।</p>
+      <div class="pt-6 border-t border-slate-300 dark:border-zinc-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-zinc-600">
+        <p>© ২০২৬ মঞ্চাইছে (Mon Chaise)। সর্বস্বত্ব সংরক্ষিত।</p>
       </div>
     </div>
   </footer>
 
-  <!-- Bilingual & Theme Script for Terms Page -->
+  <!-- Bilingual & Theme Script -->
   <script>
-      (function () {
-        const i18n = {
-          bn: {
-            tagline: 'যা মন চায় বেচি',
-            secondaryTagline: 'যার যা, যেমনে মন চায়',
-            allCategories: 'সব পণ্য',
-            breadcrumbHome: 'হোম',
-            termsBadge: 'অফিসিয়াল নীতি ও খেয়াল',
-            termsHeading: 'শর্তাবলী ও নিয়মকানুন',
-            termsSub: 'আমরা কোনো ধরাবাঁধা রোবট-কর্পোরেশন নই। তাই আমাদের নিয়মকানুনও খুব সহজ, মানবিক ও খেয়ালী।',
-            termTitle1: '১. খেয়াল ও মর্জির সার্বভৌমিক নিয়ম (Principle of Whimsy)',
-            termBody1: 'আমাদের যখন যা মন চায়, আমরা সেটাই তৈরি করি। আপনার যখন যা মন চায়, আপনি সেটাই কেনেন। কাল সকালে যদি আমাদের হঠাৎ মনে হয় আমরা শুকনা মরিচ, পুরান ক্যাসেট কিংবা পিতলের জাহাজী কম্পাস বিক্রি করব—তবে আমরা সেটাই করব। কোনো পণ্য কেনায় কোনো সামাজিক চাপ নেই; মনের স্বাধীনতা সর্বাগ্রে।',
-            termTitle2: '২. বুনন ও খাঁটি জিনিসের স্বভাব (Imperfections Are Soul)',
-            termBody2: 'আমাদের কোমর তাঁতের থামি, গামছা কিংবা কাঠের জিনিসপত্র কারখানায় লেজার দিয়ে কাটা নয়। এতে তাঁতীর হাতের সামান্য টান, সুতোর হালকা গিঁট বা কাঠের প্রাকৃতিক আঁশ থাকতে পারে। এটিকে খুঁত বলবেন না—এটাই এই জিনিসের প্রাণ। প্লাস্টিকের মতো নিখুঁত হতে চাইলে যেকোনো শপিং মলই যথেষ্ট!',
-            termTitle3: '৩. ডেলিভারি ভাইয়ের আপ্যায়ন (Courier Brother Hospitality)',
-            termBody3: 'ঢাকার তীব্র ট্রাফিক কিংবা দূরের জেলার মেঠোপথ পাড়ি দিয়ে যে কুরিয়ার ভাই আপনার দরজায় পার্সেল নিয়ে যান, তিনি আমাদের শ্রদ্ধার পাত্র। অনুগ্রহ করে তার সাথে সদয় ব্যবহার করুন। গরমের দিনে তাকে এক গ্লাস ঠাণ্ডা পানি দিতে পারলে মনটা ভরে যাবে।',
-            termTitle4: '৪. ফেরত ও মত বদলের বিধান (Returns & Mind Changing)',
-            termBody4: 'যদি কোনো পণ্য রাস্তায় ক্ষতিগ্রস্ত হয়ে আপনার কাছে পৌঁছায়, আমরা এক বাক্যে ও সম্পূর্ণ বিনামূল্যে তা বদলে দেব। তবে পণ্যটি পাওয়ার পর যদি হঠাৎ মধ্যরাতে মনে হয় "মন আর চাইছে না"—অযথা হতাশ হবেন না। কোনো বন্ধুকে উপহার দিয়ে দিন, অথবা আমাদের স্টুডিওতে এক কাপ চা খেতে চলে আসুন।',
-            termTitle5: '৫. সালিশ ও বাকরখানি চুক্তি (Arbitration Over Cha & Bakarkhani)',
-            termBody5: 'আপনার সাথে আমাদের যদি কোনো মতভেদ বা জটিলতা তৈরি হয়, তার বিচার কোনো আদালত বা পুলিশের কাছে যাবে না। পুরান ঢাকার যেকোনো ঐতিহ্যবাহী টং দোকানে বসে গরম চা আর বাকরখানি সহযোগে খোলামেলা আড্ডায় সেই সমস্যার মীমাংসা করা হবে।',
-            backToShopping: 'এবার কেনাকাটায় ফিরুন',
-            checkoutHeading: 'চেকআউট',
-            footerFaq: 'সারুর প্রশ্ন-উত্তর',
-            footerTerms: 'শর্তাবলী ও নিয়ম',
-            footerPrivacy: 'গোপনীয়তা নীতি',
-            footerQuickLinks: 'প্রয়োজনীয় লিংক',
-            footerPayments: 'গ্রহণযোগ্য পেমেন্ট মাধ্যম',
-            facebookLabel: 'ফেসবুক',
-            instagramLabel: 'ইনস্টাগ্রাম',
-            footerHelpline: 'হেল্পলাইন: +880 1410-002711 (সকাল ১০টা - রাত ১০টা)',
-            footerLocation: 'ঢাকা, বাংলাদেশ',
-            footerCopyright: '© ২০২৬ মঞ্চাইছে (Mon Chaise)। সর্বস্বত্ব সংরক্ষিত।'
-          },
-          en: {
-            tagline: 'We sell whatever our heart desires',
-            secondaryTagline: 'To each their own, however the heart pleases',
-            allCategories: 'All Curios',
-            breadcrumbHome: 'Home',
-            termsBadge: 'Official Whims & Code',
-            termsHeading: 'Terms & Whimsical Conditions',
-            termsSub: 'We are not a grave corporation with cold legalese. Our rules are warm, human, and rooted in whimsy.',
-            termTitle1: '1. The Sovereign Principle of Whimsy',
-            termBody1: 'We sell whatever comes into our wandering minds. You purchase whatever catches your fancy. If tomorrow morning we decide to roast smoked mountain tea or source vintage brass astrolabes, we will. Nobody shall judge anyone’s peculiar tastes.',
-            termTitle2: '2. Handcrafted Soul & Imperfections',
-            termBody2: 'Our indigenous waist-loom Thami wrap-skirts, tribal towels, and woodwork are not punched out by robotic assembly lines. Slight organic knots, weave tensions, and timber grains are not defects—they are the soul of the craft. For soulless geometric perfection, suburban malls are only a ride away.',
-            termTitle3: '3. Courier Brother Hospitality',
-            termBody3: 'The delivery riders navigating treacherous Dhaka traffic and remote village roads to hand you your parcel carry our deepest gratitude. Please greet them warmly. Handing them a chilled glass of water on a scorching afternoon earns you cosmic karma.',
-            termTitle4: '4. Returns & Changing of Mind',
-            termBody4: 'If an item arrives damaged on the road, we replace it immediately without interrogation. But if you wake up at midnight regretting a whimsical purchase because your mood shifted, don’t stress—gift it to a friend, or drop by our studio for a cup of tea instead.',
-            termTitle5: '5. Dispute Resolution Over Bakarkhani & Cha',
-            termBody5: 'Should any dispute ever arise between you and Mon Chaise, jurisdiction shall not reside in sterile courtrooms. Both parties mutually agree to settle all quarrels over steaming cups of Old Dhaka street tea and fresh bakarkhani.',
-            backToShopping: 'Return to Curios',
-            checkoutHeading: 'Checkout',
-            footerFaq: 'Q&A with <span class="saru-name">Saru</span>',
-            footerTerms: 'Terms & Conditions',
-            footerPrivacy: 'Privacy Policy',
-            footerQuickLinks: 'Quick Links',
-            footerPayments: 'Accepted Payment Methods',
-            facebookLabel: 'Facebook',
-            instagramLabel: 'Instagram',
-            footerHelpline: 'Helpline: +880 1410-002711 (10 AM - 10 PM)',
-            footerLocation: 'Dhaka, Bangladesh',
-            footerCopyright: '© 2026 Mon Chaise (মঞ্চাইছে). All rights reserved.'
+    (function () {
+      let lang = localStorage.getItem('amc_lang') || 'bn';
+      let theme = localStorage.getItem('amc_theme') || 'light';
+
+      function applyTheme(t) {
+        theme = t;
+        localStorage.setItem('amc_theme', t);
+        const isDark = t === 'dark';
+        document.documentElement.classList.toggle('dark', isDark);
+        document.getElementById('theme-icon-moon')?.classList.toggle('hidden', isDark);
+        document.getElementById('theme-icon-sun')?.classList.toggle('hidden', !isDark);
+        const logo = isDark ? './files/monchaise_logo.svg' : './files/monchaise_logo_green.svg';
+        document.getElementById('navbar-logo').src = logo;
+        document.getElementById('footer-logo').src = logo;
+      }
+
+      function applyLang(l) {
+        lang = l;
+        localStorage.setItem('amc_lang', l);
+        document.documentElement.lang = l;
+        document.getElementById('lang-label').textContent = l === 'bn' ? 'EN' : 'বাং';
+        
+        // When in English, highlight English translation block prominently
+        document.querySelectorAll('.clause-en').forEach(el => {
+          if (l === 'en') {
+            el.classList.remove('text-slate-600', 'dark:text-zinc-400', 'italic');
+            el.classList.add('text-slate-900', 'dark:text-white', 'font-medium', 'text-sm');
+          } else {
+            el.classList.add('text-slate-600', 'dark:text-zinc-400', 'italic');
+            el.classList.remove('text-slate-900', 'dark:text-white', 'font-medium', 'text-sm');
           }
-        };
-
-        let lang = localStorage.getItem('amc_lang') || 'bn';
-        let theme = localStorage.getItem('amc_theme') || 'light';
-
-        function applyTheme(t) {
-          theme = t;
-          localStorage.setItem('amc_theme', t);
-          const isDark = t === 'dark';
-          document.documentElement.classList.toggle('dark', isDark);
-          document.getElementById('theme-icon-moon')?.classList.toggle('hidden', isDark);
-          document.getElementById('theme-icon-sun')?.classList.toggle('hidden', !isDark);
-          const logo = isDark ? './files/monchaise_logo.svg' : './files/monchaise_logo_green.svg';
-          document.getElementById('navbar-logo').src = logo;
-          document.getElementById('footer-logo').src = logo;
-        }
-
-        function applyLang(l) {
-          lang = l;
-          localStorage.setItem('amc_lang', l);
-          document.documentElement.lang = l;
-          document.getElementById('lang-label').textContent = l === 'bn' ? 'EN' : 'বাং';
-          document.querySelectorAll('[data-i18n]').forEach(el => {
-            const k = el.getAttribute('data-i18n');
-            if (i18n[l] && i18n[l][k]) el.innerHTML = i18n[l][k];
-          });
-        }
-
-        document.getElementById('theme-toggle-btn')?.addEventListener('click', () => {
-          applyTheme(theme === 'dark' ? 'light' : 'dark');
         });
+      }
 
-        document.getElementById('lang-toggle-btn')?.addEventListener('click', () => {
-          applyLang(lang === 'bn' ? 'en' : 'bn');
-        });
+      document.getElementById('theme-toggle-btn')?.addEventListener('click', () => {
+        applyTheme(theme === 'dark' ? 'light' : 'dark');
+      });
 
-        applyTheme(theme);
-        applyLang(lang);
-      })();
+      document.getElementById('lang-toggle-btn')?.addEventListener('click', () => {
+        applyLang(lang === 'bn' ? 'en' : 'bn');
+      });
+
+      applyTheme(theme);
+      applyLang(lang);
+    })();
   </script>
 </body>
-
 </html>
