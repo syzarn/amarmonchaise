@@ -376,20 +376,35 @@ body {
   transition: background-color 0.25s ease, color 0.25s ease;
 }
 
+/* Global Complex Text Layout (CTL) & OpenType Ligature Shaping */
+html,
+body {
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "liga" 1, "kern" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html[lang="bn"],
+.bn-text,
+[data-i18n] {
+  font-feature-settings: "liga" 1, "kern" 1, "calt" 1;
+}
+
 /* ==========================================================================
-   DYNAMIC BILINGUAL TYPOGRAPHY ENGINE (NO SANS-SERIF FALLBACKS)
+   DYNAMIC BILINGUAL TYPOGRAPHY ENGINE (MULTI-TIER SERIF FALLBACKS)
    ========================================================================== */
 
 /* --- 1. ENGLISH MODE (html[lang="en"]) --- */
 html[lang="en"],
 html[lang="en"] body,
 html[lang="en"] * {
-  font-family: 'GaramondHalhed', serif;
+  font-family: 'GaramondHalhed', 'Georgia', 'Garamond', 'Times New Roman', serif;
 }
 
 html[lang="en"] p,
 html[lang="en"] .secondary-text {
-  font-family: 'GaramondHalhed', serif !important;
+  font-family: 'GaramondHalhed', 'Georgia', 'Garamond', 'Times New Roman', serif !important;
   line-height: 1.6;
 }
 
@@ -400,12 +415,12 @@ html[lang="en"] textarea,
 html[lang="en"] select,
 html[lang="en"] option,
 html[lang="en"] label {
-  font-family: 'GaramondHalhed', serif !important;
+  font-family: 'GaramondHalhed', 'Georgia', 'Garamond', 'Times New Roman', serif !important;
 }
 
 html[lang="en"] input::placeholder,
 html[lang="en"] textarea::placeholder {
-  font-family: 'GaramondHalhed', serif !important;
+  font-family: 'GaramondHalhed', 'Georgia', 'Garamond', 'Times New Roman', serif !important;
 }
 
 html[lang="en"] h1,
@@ -417,30 +432,30 @@ html[lang="en"] h6,
 html[lang="en"] .font-title,
 html[lang="en"] .product-title,
 html[lang="en"] .font-fell {
-  font-family: 'IMFellEnglish', serif !important;
+  font-family: 'IMFellEnglish', 'Bodoni24', 'Georgia', 'Garamond', 'Times New Roman', serif !important;
 }
 
 /* --- 2. BENGALI MODE (html[lang="bn"]) --- */
-/* Universal Bengali Font Family: strictly Purno for all body/secondary text (zero sans-serif fallback) */
+/* Universal Bengali Font Family: strictly Purno with multi-tier CTL serif fallbacks */
 html[lang="bn"],
 html[lang="bn"] body,
 html[lang="bn"] * {
-  font-family: 'Purno', serif;
+  font-family: 'Purno', 'GaramondHalhed', 'SolaimanLipi', 'Kalpurush', 'Noto Serif Bengali', 'Vrinda', 'Times New Roman', serif;
 }
 
 /* Paragraphs & secondary body text */
 html[lang="bn"] p,
 html[lang="bn"] .secondary-text {
-  font-family: 'Purno', serif !important;
+  font-family: 'Purno', 'GaramondHalhed', 'SolaimanLipi', 'Kalpurush', 'Noto Serif Bengali', 'Vrinda', 'Times New Roman', serif !important;
   line-height: 1.65;
 }
 
 html[lang="bn"] input::placeholder,
 html[lang="bn"] textarea::placeholder {
-  font-family: 'Purno', serif !important;
+  font-family: 'Purno', 'GaramondHalhed', 'SolaimanLipi', 'Kalpurush', 'Noto Serif Bengali', 'Vrinda', 'Times New Roman', serif !important;
 }
 
-/* Bengali Titles & Halhed: strictly GaramondHalhed (+1pt larger), normal weight (prevent faux bold) */
+/* Bengali Titles & Halhed: strictly GaramondHalhed (+1pt larger), normal weight with Bengali CTL fallbacks */
 html[lang="bn"] h1,
 html[lang="bn"] h2,
 html[lang="bn"] h3,
@@ -452,7 +467,7 @@ html[lang="bn"] .product-title,
 html[lang="bn"] .font-halhed,
 html[lang="bn"] .font-halhed-italic,
 html[lang="bn"] .font-halhed-title {
-  font-family: 'GaramondHalhed', serif !important;
+  font-family: 'GaramondHalhed', 'SolaimanLipi', 'Kalpurush', 'Noto Serif Bengali', 'Vrinda', 'Times New Roman', serif !important;
   font-weight: normal !important;
 }
 
@@ -464,8 +479,12 @@ html[lang="bn"] .font-halhed-title {
 .font-paku,
 .paku-name,
 .paku-sc {
-  font-family: 'IMFellEnglishSC', 'IMFellEnglish', serif !important;
+  font-family: 'IMFellEnglishSC', 'IMFellEnglish', 'Georgia', 'Times New Roman', serif !important;
   letter-spacing: 0.025em;
+}
+
+html[lang="bn"] .font-fell-sc {
+  font-family: 'Purno', 'GaramondHalhed', 'SolaimanLipi', 'Kalpurush', 'Noto Serif Bengali', 'Vrinda', 'Times New Roman', serif !important;
 }
 
 html[lang="bn"] h1 *,
@@ -482,21 +501,21 @@ html[lang="bn"] .font-halhed-title * {
 
 /* Broadsheet Typography Utilities */
 .font-shokuntola {
-  font-family: 'Shokuntola', serif !important;
+  font-family: 'Shokuntola', 'SolaimanLipi', 'Kalpurush', 'Noto Serif Bengali', 'Vrinda', 'Times New Roman', serif !important;
 }
 
 .font-fette-fraktur,
 .font-fraktur,
 .font-old-english {
-  font-family: 'FetteFrakturLTPro', 'FetteFraktur', 'OldEnglish', serif !important;
+  font-family: 'FetteFrakturLTPro', 'FetteFraktur', 'OldEnglish', 'Georgia', serif !important;
 }
 
 .font-bodoni {
-  font-family: 'Bodoni24', serif !important;
+  font-family: 'Bodoni24', 'Bodoni 24', 'Bodoni* 24pt', 'Didot', 'Georgia', 'Times New Roman', serif !important;
 }
 
 .font-sangbadpatra {
-  font-family: 'LiAlinurSangbadpatra', serif !important;
+  font-family: 'LiAlinurSangbadpatra', 'SolaimanLipi', 'Kalpurush', 'Noto Serif Bengali', 'Vrinda', 'Times New Roman', serif !important;
 }
 
 /* 1. Broadsheet Section Masthead Title: Li Alinur Sangbadpatra Unicode (BN) & Fette Fraktur LT Pro (EN) */
@@ -509,7 +528,7 @@ html[lang="bn"] .broadsheet-section-title,
 html[lang="bn"] h2.broadsheet-section-title,
 html[lang="bn"] .font-broadsheet-title,
 html[lang="bn"] h2.font-broadsheet-title {
-  font-family: 'LiAlinurSangbadpatra', serif !important;
+  font-family: 'LiAlinurSangbadpatra', 'SolaimanLipi', 'Kalpurush', 'Noto Serif Bengali', 'Vrinda', 'Times New Roman', serif !important;
   font-size: clamp(2.2rem, 4.5vw, 3.75rem) !important;
   font-weight: 700 !important;
   line-height: 1.22 !important;
@@ -519,7 +538,7 @@ html[lang="en"] .broadsheet-section-title,
 html[lang="en"] h2.broadsheet-section-title,
 html[lang="en"] .font-broadsheet-title,
 html[lang="en"] h2.font-broadsheet-title {
-  font-family: 'FetteFrakturLTPro', 'FetteFraktur', 'OldEnglish', serif !important;
+  font-family: 'FetteFrakturLTPro', 'FetteFraktur', 'OldEnglish', 'Georgia', serif !important;
   font-size: clamp(2.2rem, 4.5vw, 3.75rem) !important;
   font-weight: normal !important;
   line-height: 1.18 !important;
@@ -527,7 +546,7 @@ html[lang="en"] h2.font-broadsheet-title {
 
 /* 2. Broadsheet Product Titles: Shokuntola (BN) & Bodoni 24 (EN) */
 .broadsheet-product-title {
-  font-family: 'Shokuntola', serif;
+  font-family: 'Shokuntola', 'SolaimanLipi', 'Kalpurush', 'Noto Serif Bengali', 'Vrinda', 'Times New Roman', serif;
 }
 
 html[lang="bn"] .broadsheet-product-title,
@@ -541,7 +560,7 @@ html[lang="bn"] .broadsheet-dispatch-title,
 html[lang="bn"] a.broadsheet-dispatch-title,
 html[lang="bn"] .font-shokuntola,
 html[lang="bn"] a.font-shokuntola {
-  font-family: 'Shokuntola', serif !important;
+  font-family: 'Shokuntola', 'SolaimanLipi', 'Kalpurush', 'Noto Serif Bengali', 'Vrinda', 'Times New Roman', serif !important;
   font-weight: normal !important;
 }
 
@@ -556,14 +575,14 @@ html[lang="en"] .broadsheet-dispatch-title,
 html[lang="en"] a.broadsheet-dispatch-title,
 html[lang="en"] .font-bodoni,
 html[lang="en"] a.font-bodoni {
-  font-family: 'Bodoni24', 'Bodoni 24', 'Bodoni* 24pt', serif !important;
+  font-family: 'Bodoni24', 'Bodoni 24', 'Bodoni* 24pt', 'Didot', 'Georgia', 'Times New Roman', serif !important;
   font-weight: 700 !important;
 }
 
 
 /* Price tags: strictly Purno in Bengali, GaramondHalhed in English (NEVER monospace), fully responsive to Tailwind sizing */
 html[lang="bn"] .price-tag {
-  font-family: 'Purno', serif !important;
+  font-family: 'Purno', 'GaramondHalhed', 'SolaimanLipi', 'Kalpurush', 'Noto Serif Bengali', 'Vrinda', 'Times New Roman', serif !important;
   font-weight: 900 !important;
   line-height: 1 !important;
   letter-spacing: -0.01em;
@@ -571,7 +590,7 @@ html[lang="bn"] .price-tag {
 }
 
 html[lang="en"] .price-tag {
-  font-family: 'GaramondHalhed', serif !important;
+  font-family: 'GaramondHalhed', 'Georgia', 'Garamond', 'Times New Roman', serif !important;
   font-weight: 900 !important;
   line-height: 1 !important;
   letter-spacing: -0.01em;
@@ -581,7 +600,7 @@ html[lang="en"] .price-tag {
 /* Original / Strikethrough Regular Price for Discounted Items */
 .price-original,
 html[lang="bn"] .price-original {
-  font-family: 'Purno', serif !important;
+  font-family: 'Purno', 'GaramondHalhed', 'SolaimanLipi', 'Kalpurush', 'Noto Serif Bengali', 'Vrinda', 'Times New Roman', serif !important;
   font-weight: 600 !important;
   text-decoration: line-through !important;
   color: #94a3b8 !important;
@@ -596,7 +615,7 @@ html.dark .price-original {
 }
 
 html[lang="en"] .price-original {
-  font-family: 'GaramondHalhed', serif !important;
+  font-family: 'GaramondHalhed', 'Georgia', 'Garamond', 'Times New Roman', serif !important;
   font-weight: 600 !important;
   text-decoration: line-through !important;
   color: #94a3b8 !important;
@@ -631,7 +650,7 @@ html.dark[lang="en"] .price-original {
 }
 
 html[lang="bn"] .product-detail-title {
-  font-family: 'GaramondHalhed', serif !important;
+  font-family: 'GaramondHalhed', 'SolaimanLipi', 'Kalpurush', 'Noto Serif Bengali', 'Vrinda', 'Times New Roman', serif !important;
   font-size: calc(1.75rem + 1pt) !important;
   font-weight: normal !important;
   line-height: 1.3 !important;
@@ -667,7 +686,7 @@ html[lang="bn"] .product-detail-title {
 }
 
 html[lang="bn"] .product-detail-price {
-  font-family: 'Purno', serif !important;
+  font-family: 'Purno', 'GaramondHalhed', 'SolaimanLipi', 'Kalpurush', 'Noto Serif Bengali', 'Vrinda', 'Times New Roman', serif !important;
   font-weight: 900 !important;
   font-size: calc(1.75rem + 1pt) !important;
 }
@@ -685,7 +704,7 @@ html[lang="bn"] .product-detail-price {
 }
 
 html[lang="en"] .product-detail-price {
-  font-family: 'GaramondHalhed', serif !important;
+  font-family: 'GaramondHalhed', 'Georgia', 'Garamond', 'Times New Roman', serif !important;
   font-weight: 900 !important;
   font-size: 1.75rem !important;
 }
@@ -741,7 +760,7 @@ html[lang="bn"] .preview-desc {
 .nav-tagline,
 html[lang="bn"] .nav-tagline,
 html[lang="en"] .nav-tagline {
-  font-family: 'Purno', serif !important;
+  font-family: 'Purno', 'GaramondHalhed', 'SolaimanLipi', 'Kalpurush', 'Noto Serif Bengali', 'Vrinda', 'Times New Roman', serif !important;
   font-size: 0.8125rem !important;
   /* ~13px - comfortable, legible, beautifully proportioned */
   line-height: 1.25 !important;
@@ -753,20 +772,20 @@ html[lang="en"] .nav-tagline {
 /* Navbar Language Switcher: Simple EN / বাং (Strictly GaramondHalhed, NOT Purno) */
 #lang-toggle-btn,
 #lang-label {
-  font-family: 'GaramondHalhed', serif !important;
+  font-family: 'GaramondHalhed', 'SolaimanLipi', 'Kalpurush', 'Noto Serif Bengali', 'Vrinda', 'Times New Roman', serif !important;
   font-weight: 700 !important;
 }
 
 html[lang="bn"] #lang-toggle-btn,
 html[lang="bn"] #lang-label {
-  font-family: 'GaramondHalhed', serif !important;
+  font-family: 'GaramondHalhed', 'SolaimanLipi', 'Kalpurush', 'Noto Serif Bengali', 'Vrinda', 'Times New Roman', serif !important;
   font-weight: 700 !important;
   letter-spacing: 0.04em;
 }
 
 html[lang="en"] #lang-toggle-btn,
 html[lang="en"] #lang-label {
-  font-family: 'GaramondHalhed', serif !important;
+  font-family: 'GaramondHalhed', 'Georgia', 'Garamond', 'Times New Roman', serif !important;
   font-weight: 700 !important;
 }
 
@@ -801,33 +820,33 @@ html[lang="bn"] .product-card-title {
 
 /* Explicit Utility Classes */
 .font-fell {
-  font-family: 'IMFellEnglish', serif !important;
+  font-family: 'IMFellEnglish', 'Bodoni24', 'Georgia', 'Garamond', 'Times New Roman', serif !important;
 }
 
 .font-fell-italic {
-  font-family: 'IMFellEnglish', serif !important;
+  font-family: 'IMFellEnglish', 'Bodoni24', 'Georgia', 'Garamond', 'Times New Roman', serif !important;
   font-style: italic !important;
 }
 
 .font-fell-sc {
-  font-family: 'IMFellEnglishSC', 'IMFellEnglish', serif !important;
+  font-family: 'IMFellEnglishSC', 'IMFellEnglish', 'Georgia', 'Times New Roman', serif !important;
 }
 
 html[lang="bn"] .font-fell-sc {
-  font-family: 'Purno', 'GaramondHalhed', serif !important;
+  font-family: 'Purno', 'GaramondHalhed', 'SolaimanLipi', 'Kalpurush', 'Noto Serif Bengali', 'Vrinda', 'Times New Roman', serif !important;
 }
 
 .font-halhed {
-  font-family: 'GaramondHalhed', serif !important;
+  font-family: 'GaramondHalhed', 'SolaimanLipi', 'Kalpurush', 'Noto Serif Bengali', 'Vrinda', 'Times New Roman', serif !important;
 }
 
 .font-halhed-italic {
-  font-family: 'GaramondHalhed', serif !important;
+  font-family: 'GaramondHalhed', 'SolaimanLipi', 'Kalpurush', 'Noto Serif Bengali', 'Vrinda', 'Times New Roman', serif !important;
   font-style: italic !important;
 }
 
 .font-purno {
-  font-family: 'Purno', serif !important;
+  font-family: 'Purno', 'GaramondHalhed', 'SolaimanLipi', 'Kalpurush', 'Noto Serif Bengali', 'Vrinda', 'Times New Roman', serif !important;
   font-size: calc(1em + 1pt) !important;
 }
 
@@ -1503,24 +1522,24 @@ html[lang="bn"] .mfs-section-label {
 
 /* Broadsheet Masthead Dateline Bar Typography: Strictly Serif */
 .dateline-item {
-  font-family: 'Purno', 'GaramondHalhed', 'Noto Serif SC', serif;
+  font-family: 'Purno', 'GaramondHalhed', 'SolaimanLipi', 'Kalpurush', 'Noto Serif Bengali', 'Vrinda', 'Noto Serif SC', 'Times New Roman', serif;
 }
 
 html[lang="bn"] .broadsheet-masthead-rule,
 html[lang="bn"] .broadsheet-masthead-rule *,
 html[lang="bn"] .dateline-item {
-  font-family: 'Purno', 'GaramondHalhed', 'Noto Serif SC', serif !important;
+  font-family: 'Purno', 'GaramondHalhed', 'SolaimanLipi', 'Kalpurush', 'Noto Serif Bengali', 'Vrinda', 'Noto Serif SC', 'Times New Roman', serif !important;
   font-weight: 700 !important;
 }
 
 html[lang="en"] .broadsheet-masthead-rule .dateline-left,
 html[lang="en"] .broadsheet-masthead-rule .dateline-right {
-  font-family: 'IMFellEnglishSC', 'GaramondHalhed', 'Noto Serif SC', serif !important;
+  font-family: 'IMFellEnglishSC', 'GaramondHalhed', 'Georgia', 'Noto Serif SC', 'Times New Roman', serif !important;
   letter-spacing: 0.08em;
 }
 
 html[lang="en"] .broadsheet-masthead-rule .dateline-center {
-  font-family: 'GaramondHalhed', 'IMFellEnglish', serif !important;
+  font-family: 'GaramondHalhed', 'IMFellEnglish', 'Georgia', 'Times New Roman', serif !important;
   letter-spacing: 0.1em;
 }
 
@@ -1734,7 +1753,7 @@ html[lang="bn"] #receipt-bn-content,
 html[lang="bn"] #receipt-bn-content *,
 html[lang="en"] #receipt-bn-content,
 html[lang="en"] #receipt-bn-content * {
-  font-family: 'Kobiguru', 'BiroScript', cursive !important;
+  font-family: 'Kobiguru', 'SolaimanLipi', 'Kalpurush', 'Noto Serif Bengali', 'Vrinda', 'BiroScript', cursive, serif !important;
   font-feature-settings: normal !important;
   letter-spacing: normal;
 }
@@ -1914,4 +1933,184 @@ html[lang="en"] #receipt-bn-content .receipt-order-code-stamp * {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
+}
+
+/* ==========================================================================
+   MOBILE ERGONOMICS, TOUCH TARGETS & DRAWER CONTROLS
+   ========================================================================== */
+
+/* 1. Slide-Over Cart Drawer Smooth Touch-Scrolling & Boundary Containment */
+#cart-drawer {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+#cart-items-container {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* 2. Category Filter Bar Pills: Strictly >= 44px Tap Targets & Tactile Press State */
+.category-pill {
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: transform 0.08s ease, box-shadow 0.08s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.category-pill:active {
+  transform: translate(1.5px, 1.5px);
+  box-shadow: none !important;
+}
+
+/* 3. Header & Mobile Subnav 4-Point Focal Navigation */
+.header-nav-link {
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+  transition: color 0.15s ease, border-color 0.15s ease, transform 0.08s ease;
+}
+
+.mobile-subnav-bar {
+  border-top: 1px solid rgba(30, 126, 104, 0.15);
+  background: var(--bg-surface);
+}
+
+.dark .mobile-subnav-bar {
+  border-top-color: rgba(242, 194, 0, 0.15);
+  background: #0b0b10;
+}
+
+.mobile-subnav-btn {
+  min-height: 44px;
+  min-width: 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  touch-action: manipulation;
+  transition: transform 0.08s ease, color 0.15s ease, background-color 0.15s ease;
+}
+
+.mobile-subnav-btn:active {
+  transform: translate(1px, 1px);
+}
+
+/* 4. Interactive Measuring Tape ("ফিতার মাপ") Modal Styling */
+#size-guide-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  padding: 1rem;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+#size-guide-modal.hidden {
+  display: none;
+}
+
+/* ==========================================================================
+   5. Sold Out Seal & Archival Greying Architecture
+   ========================================================================== */
+.sold-out-card {
+  position: relative;
+}
+
+.sold-out-card .product-visual-wrapper,
+.sold-out-card .product-card-title,
+.sold-out-card .preview-desc,
+.sold-out-card .price-tag,
+.sold-out-frame img,
+.sold-out-frame svg {
+  filter: grayscale(80%) contrast(90%);
+  opacity: 0.65;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.sold-out-card:hover .product-visual-wrapper,
+.sold-out-card:hover .product-card-title,
+.sold-out-card:hover .preview-desc,
+.sold-out-card:hover .price-tag {
+  filter: grayscale(60%) contrast(95%);
+  opacity: 0.8;
+}
+
+/* The Authentic Woodcut / Inked Stamp Seal */
+.sold-out-seal-stamp {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-12deg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.9rem;
+  border: 2.5px solid #bd3a54;
+  border-radius: 4px;
+  color: #bd3a54;
+  background-color: rgba(252, 251, 247, 0.94);
+  box-shadow: 0 0 0 1.5px rgba(189, 58, 84, 0.35), inset 0 0 0 1px rgba(189, 58, 84, 0.2), 2px 2px 4px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+  z-index: 35;
+  text-transform: uppercase;
+  white-space: nowrap;
+  user-select: none;
+  line-height: 1;
+}
+
+.dark .sold-out-seal-stamp {
+  color: #ff5c77;
+  border-color: #ff5c77;
+  background-color: rgba(15, 15, 22, 0.94);
+  box-shadow: 0 0 0 1.5px rgba(255, 92, 119, 0.4), inset 0 0 0 1px rgba(255, 92, 119, 0.25), 2px 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* Halhed font for Bengali */
+.sold-out-seal-stamp.seal-bn {
+  font-family: 'GaramondHalhed', 'SolaimanLipi', 'Kalpurush', 'Noto Serif Bengali', serif !important;
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: 0.06em;
+}
+
+/* Confidential font for English */
+.sold-out-seal-stamp.seal-en {
+  font-family: 'Confidential', monospace !important;
+  font-weight: 400;
+  font-size: 1.35rem;
+  letter-spacing: 0.14em;
+}
+
+/* Larger stamp variant for Product Detail Page slideshow frame */
+.sold-out-seal-stamp.seal-large {
+  padding: 0.65rem 1.75rem;
+  border-width: 3.5px;
+  transform: translate(-50%, -50%) rotate(-14deg);
+  border-radius: 6px;
+  box-shadow: 0 0 0 2px rgba(189, 58, 84, 0.4), inset 0 0 0 1.5px rgba(189, 58, 84, 0.25), 3px 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.sold-out-seal-stamp.seal-large.seal-bn {
+  font-size: 1.85rem;
+  letter-spacing: 0.08em;
+}
+
+.sold-out-seal-stamp.seal-large.seal-en {
+  font-size: 2.2rem;
+  letter-spacing: 0.16em;
 }

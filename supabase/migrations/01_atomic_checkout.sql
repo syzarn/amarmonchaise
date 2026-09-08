@@ -64,6 +64,8 @@ CREATE TABLE IF NOT EXISTS public.orders (
     status TEXT NOT NULL DEFAULT 'pending_verification' CHECK (status IN ('pending_verification', 'confirmed', 'verified', 'dispatched', 'delivered', 'cancelled')),
     shipping_address TEXT NOT NULL,
     customer_notes TEXT,
+    courier_name TEXT,
+    tracking_code TEXT,
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );

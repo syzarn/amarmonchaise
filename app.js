@@ -76,6 +76,9 @@
       viewDetails: 'বিস্তারিত',
       addToCart: 'থলেতে ভরুন',
       inStock: 'স্টকে আছে',
+      soldOut: 'বিক্রিত',
+      soldOutNotice: 'বিক্রিত (মজুদ নেই)',
+      soldOutBtn: 'বিক্রিত',
       badgeHot: 'হট',
       badgeLimited: 'সীমিত সংস্করণ',
       badgeStaff: 'পছন্দের',
@@ -127,8 +130,22 @@
       trendingReadStory: 'আসল গল্প পড়ুন',
       trendingDispatchBadge1: 'মাসিক প্রতিবেদন',
       trendingDispatchBadge2: 'শিল্প কলাম',
-      trendingDispatchBadge3: 'স্বাদ ও ঘ্রাণ',
-      trendingTeaQuote: '“বাঁশের চোঙায় কাঠের ধোঁয়ায় সেঁকা পাতা—এক কাপেই পাহাড়ের মেঘলা সন্ধ্যার ঘ্রাণ।”'
+      trendingTeaQuote: '“বাঁশের চোঙায় কাঠের ধোঁয়ায় সেঁকা পাতা—এক কাপেই পাহাড়ের মেঘলা সন্ধ্যার ঘ্রাণ।”',
+      navCollections: 'সংগ্রহ',
+      navStory: 'আমাদের গল্প',
+      navSizeGuide: 'ফিতার মাপ',
+      navTrack: 'অর্ডার ট্র্যাকিং',
+      footerTrack: 'অর্ডার ট্র্যাকিং (Order Tracking)',
+      navCart: 'ব্যাগ',
+      sizeGuideTitle: 'ফিতার মাপ ও ঝুল নির্দেশিকা',
+      sizeGuideSubtitle: 'কোমর থেকে গোড়ালি ও ঝুল পরিমাপ',
+      sizeGuideProfileLabel: 'উচ্চতা অনুযায়ী রূপরেখা নির্বাচন করুন:',
+      sizeGuideSliderLabel: 'ঝুলের মাপ (ইঞ্চি):',
+      sizeGuideQuickPresets: 'জনপ্রিয় ঐতিহ্যবাহী ঝুল:',
+      sizeGuideGojGiraLabel: 'বস্ত্রের দেশীয় পরিমাপ (গজ ও গিরা):',
+      sizeGuideDrapeNote: 'ঝুল ও পরনের ভাব:',
+      sizeGuideExploreBtn: 'পসরা দেখুন',
+      sizeGuideCloseBtn: 'বন্ধ করুন'
     },
     en: {
       siteTitle: 'Mon Chaise | মঞ্চাইছে',
@@ -194,6 +211,9 @@
       viewDetails: 'View Details',
       addToCart: 'Add to Cart',
       inStock: 'In Stock',
+      soldOut: 'SOLD OUT',
+      soldOutNotice: 'Sold Out',
+      soldOutBtn: 'Sold Out',
       badgeHot: 'Hot',
       badgeLimited: 'Limited Edition',
       badgeStaff: 'Staff Pick',
@@ -245,8 +265,22 @@
       trendingReadStory: 'Read Full Story',
       trendingDispatchBadge1: 'MONTHLY REPORT',
       trendingDispatchBadge2: 'ARTISAN COLUMN',
-      trendingDispatchBadge3: 'AROMA & FLAVOUR',
-      trendingTeaQuote: '“Smoked in bamboo cylinders over wildwood embers—an aroma of misty hills in every cup.”'
+      trendingTeaQuote: '“Smoked in bamboo cylinders over wildwood embers—an aroma of misty hills in every cup.”',
+      navCollections: 'Collections',
+      navStory: 'Our Craft Story',
+      navSizeGuide: 'Size & Drape Guide',
+      navTrack: 'Order Tracking',
+      footerTrack: 'Order Tracking',
+      navCart: 'Bag',
+      sizeGuideTitle: 'Measuring Tape & Drape Guide',
+      sizeGuideSubtitle: 'Waist-to-ankle drape & fit guidance',
+      sizeGuideProfileLabel: 'Select by height profile:',
+      sizeGuideSliderLabel: 'Drape Length (Inches):',
+      sizeGuideQuickPresets: 'Traditional Drape Presets:',
+      sizeGuideGojGiraLabel: 'Traditional Bazaar Units (Yards & Gira):',
+      sizeGuideDrapeNote: 'Drape Evaluation:',
+      sizeGuideExploreBtn: 'Explore Weaves',
+      sizeGuideCloseBtn: 'Close Guide'
     }
   };
 
@@ -291,6 +325,7 @@
       id: 'amc-101',
       slug: 'gamcha-tote',
       category: 'weaves',
+      isSoldOut: true,
       price: 850,
       badge: 'badgeStaff',
       name_en: 'Handloom Tribal Weave Gamcha Tote',
@@ -616,7 +651,12 @@
     toastContainer: document.getElementById('toast-container'),
     orderReceiptModal: document.getElementById('order-receipt-modal'),
     quickViewModal: document.getElementById('quick-view-modal'),
-    trendingNewspaperGrid: document.getElementById('trending-newspaper-grid')
+    trendingNewspaperGrid: document.getElementById('trending-newspaper-grid'),
+    navSizeGuideBtn: document.getElementById('nav-size-guide-btn'),
+    mobileNavSizeGuideBtn: document.getElementById('mobile-nav-size-guide-btn'),
+    mobileNavCartBtn: document.getElementById('mobile-nav-cart-btn'),
+    mobileCartCountBadge: document.getElementById('mobile-cart-count-badge'),
+    sizeGuideModal: document.getElementById('size-guide-modal')
   };
 
   // --- THEME ENGINE ---
@@ -686,7 +726,7 @@
   // --- CART ---
   function addToCart(productId, qty = 1) {
     const product = PRODUCTS.find(p => p.id === productId);
-    if (!product) return;
+    if (!product || product.isSoldOut) return;
     const pricing = getProductPricing(product);
 
     const existingIndex = state.cart.findIndex(item => item.id === productId);
@@ -740,15 +780,15 @@
   function openCartDrawer() {
     if (!elements.cartDrawer || !elements.cartBackdrop) return;
     elements.cartBackdrop.classList.remove('hidden');
-    requestAnimationFrame(() => {
-      elements.cartBackdrop.classList.remove('opacity-0');
-      elements.cartDrawer.classList.remove('translate-x-full');
-    });
+    elements.cartBackdrop.classList.remove('opacity-0');
+    elements.cartDrawer.classList.remove('translate-x-full');
+    elements.cartDrawer.classList.add('translate-x-0');
     document.body.style.overflow = 'hidden';
   }
 
   function closeCartDrawer() {
     if (!elements.cartDrawer || !elements.cartBackdrop) return;
+    elements.cartDrawer.classList.remove('translate-x-0');
     elements.cartDrawer.classList.add('translate-x-full');
     elements.cartBackdrop.classList.add('opacity-0');
     setTimeout(() => {
@@ -771,9 +811,9 @@
     elements.categoryFilterBar.innerHTML = cats.map(cat => {
       const isActive = state.selectedCategory === cat.id;
       return `
-        <button type="button" data-category="${cat.id}" class="category-pill whitespace-nowrap px-4 py-2 rounded-full text-xs md:text-sm font-semibold transition-all border ${isActive
-          ? 'bg-[#1e7e68] text-white border-[#1e7e68] dark:bg-yellow-400 dark:text-black dark:border-yellow-400 shadow-md font-bold'
-          : 'bg-white dark:bg-zinc-900/80 text-slate-700 dark:text-zinc-300 border-slate-200 dark:border-zinc-800 hover:border-[#1e7e68]/50 dark:hover:border-yellow-500/50 hover:text-black dark:hover:text-white'
+        <button type="button" data-category="${cat.id}" class="category-pill min-h-[44px] min-w-[44px] whitespace-nowrap px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all border-2 ${isActive
+          ? 'bg-[#166b58] text-white border-[#166b58] dark:bg-yellow-400 dark:text-black dark:border-yellow-400 shadow-[2px_2px_0px_#114439] dark:shadow-[2px_2px_0px_rgba(242,194,0,0.5)] font-bold'
+          : 'bg-[#fcfbf7] dark:bg-zinc-900/90 text-slate-800 dark:text-zinc-200 border-slate-300 dark:border-zinc-700 hover:border-[#166b58] dark:hover:border-yellow-500 shadow-[2px_2px_0px_rgba(0,0,0,0.08)] dark:shadow-[2px_2px_0px_rgba(0,0,0,0.4)] hover:text-black dark:hover:text-white'
         }">
           ${t(cat.labelKey)}
         </button>
@@ -827,9 +867,10 @@
       const badgeText = t(prod.badge);
       const isCrimsonBadge = prod.badge === 'badgeHot' || prod.badge === 'badgeLimited';
       const pricing = getProductPricing(prod);
+      const isSold = Boolean(prod.isSoldOut);
 
       return `
-        <div class="product-card group relative p-3 sm:p-5 flex flex-col justify-between overflow-hidden">
+        <div class="product-card group relative p-3 sm:p-5 flex flex-col justify-between overflow-hidden ${isSold ? 'sold-out-card' : ''}">
           
           <div class="flex items-start justify-between gap-1.5 mb-2 sm:mb-3">
             <span class="text-[9px] sm:text-[11px] font-bold uppercase tracking-wider px-2 sm:px-2.5 py-0.5 rounded-full ${isCrimsonBadge ? 'badge-crimson' : 'badge-accent'}">
@@ -843,10 +884,15 @@
           </div>
 
           <!-- Product Visual Link to separate page with thin dashed nakshikantha border -->
-          <a href="product.html?id=${prod.slug}" class="block relative w-full aspect-square rounded-xl bg-slate-50/70 dark:bg-[#101017] border border-dashed border-[#1e7e68]/30 dark:border-yellow-500/30 flex items-center justify-center p-3 sm:p-6 mb-2.5 sm:mb-4 hover:border-[#1e7e68] dark:hover:border-yellow-500 transition-colors overflow-hidden">
+          <a href="product.html?id=${prod.slug}" class="product-visual-wrapper block relative w-full aspect-square rounded-xl bg-slate-50/70 dark:bg-[#101017] border border-dashed border-[#1e7e68]/30 dark:border-yellow-500/30 flex items-center justify-center p-3 sm:p-6 mb-2.5 sm:mb-4 hover:border-[#1e7e68] dark:hover:border-yellow-500 transition-colors overflow-hidden">
             <div class="transition-transform duration-300 group-hover:scale-110 flex items-center justify-center [&>svg]:w-14 [&>svg]:h-14 sm:[&>svg]:w-20 sm:[&>svg]:h-20">
               ${prod.iconSvg}
             </div>
+            ${isSold ? `
+              <div class="sold-out-seal-stamp ${state.lang === 'bn' ? 'seal-bn' : 'seal-en'}">
+                ${state.lang === 'bn' ? 'বিক্রিত' : 'SOLD OUT'}
+              </div>
+            ` : ''}
             <div class="absolute bottom-1.5 right-1.5 sm:bottom-2 sm:right-2 text-[9px] sm:text-[10px] text-slate-400 dark:text-zinc-500 tracking-tighter">
               #${prod.id}
             </div>
@@ -878,15 +924,16 @@
               </div>
 
               <div class="flex items-center gap-1 sm:gap-2 shrink-0">
-                <!-- [OPTIONAL: View Details Button - Commented out per preference]
-                <a href="product.html?id=${prod.slug}" class="hidden sm:inline-flex px-2.5 py-1.5 rounded-lg bg-slate-100/80 hover:bg-slate-200 dark:bg-zinc-900/80 dark:hover:bg-zinc-800 border border-slate-200 dark:border-zinc-800 text-slate-600 dark:text-zinc-300 text-[11px] font-semibold transition-all hover:text-black dark:hover:text-white whitespace-nowrap" title="${t('viewDetails')}">
-                  ${t('viewDetails')}
-                </a>
-                -->
-                <!-- Cart button: prominent and touch-friendly -->
-                <button type="button" data-add-cart="${prod.id}" class="flex items-center justify-center w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-[#1e7e68] hover:bg-[#166b58] dark:bg-yellow-400 dark:hover:bg-yellow-300 text-white dark:text-black font-bold shadow-md hover:scale-105 active:scale-95 transition-all shrink-0" title="${t('addToCart')}">
-                  <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-                </button>
+                ${isSold ? `
+                  <button type="button" disabled class="flex items-center justify-center w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-slate-200 dark:bg-zinc-800 text-slate-400 dark:text-zinc-500 font-bold cursor-not-allowed shadow-none shrink-0" title="${state.lang === 'bn' ? 'বিক্রিত (মজুদ নেই)' : 'Sold Out'}">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+                  </button>
+                ` : `
+                  <!-- Cart button: prominent and touch-friendly -->
+                  <button type="button" data-add-cart="${prod.id}" class="flex items-center justify-center w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-[#1e7e68] hover:bg-[#166b58] dark:bg-yellow-400 dark:hover:bg-yellow-300 text-white dark:text-black font-bold shadow-md hover:scale-105 active:scale-95 transition-all shrink-0" title="${t('addToCart')}">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                  </button>
+                `}
               </div>
             </div>
           </div>
@@ -1137,10 +1184,11 @@
 
     const title = state.lang === 'bn' ? prod.name_bn : prod.name_en;
     const desc = state.lang === 'bn' ? prod.desc_bn : prod.desc_en;
+    const isSold = Boolean(prod.isSoldOut);
 
     elements.quickViewModal.innerHTML = `
       <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 dark:bg-black/85 backdrop-blur-sm">
-        <div class="modal-animate-in relative w-full max-w-lg bg-white dark:bg-[#121218] border border-slate-200 dark:border-yellow-500/30 rounded-2xl p-6 shadow-2xl overflow-hidden">
+        <div class="modal-animate-in relative w-full max-w-lg bg-white dark:bg-[#121218] border border-slate-200 dark:border-yellow-500/30 rounded-2xl p-6 shadow-2xl overflow-hidden ${isSold ? 'sold-out-card' : ''}">
           <button type="button" id="close-quickview-btn" class="absolute top-4 right-4 text-slate-400 dark:text-zinc-400 hover:text-black dark:hover:text-white p-2 text-xl font-bold">&times;</button>
           
           <div class="flex items-center gap-2 mb-3">
@@ -1148,27 +1196,36 @@
             <span class="text-xs text-slate-400 dark:text-zinc-400">ID: #${prod.id}</span>
           </div>
 
-          <div class="flex items-center justify-center p-8 bg-slate-50/80 dark:bg-zinc-950/80 rounded-xl border border-dashed border-[#1e7e68]/30 dark:border-yellow-500/30 mb-5">
-            ${prod.iconSvg}
+          <div class="product-visual-wrapper relative flex items-center justify-center p-8 bg-slate-50/80 dark:bg-zinc-950/80 rounded-xl border border-dashed border-[#1e7e68]/30 dark:border-yellow-500/30 mb-5 overflow-hidden">
+            <div class="${isSold ? 'opacity-60 grayscale' : ''}">
+              ${prod.iconSvg}
+            </div>
+            ${isSold ? `
+              <div class="sold-out-seal-stamp ${state.lang === 'bn' ? 'seal-bn' : 'seal-en'}">
+                ${state.lang === 'bn' ? 'বিক্রিত' : 'SOLD OUT'}
+              </div>
+            ` : ''}
           </div>
 
-          <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 font-title">${title}</h3>
-          <p class="text-sm text-slate-600 dark:text-zinc-300 leading-relaxed mb-6 secondary-text">${desc}</p>
+          <h3 class="product-card-title text-xl font-bold text-slate-900 dark:text-white mb-2 font-title">${title}</h3>
+          <p class="preview-desc text-sm text-slate-600 dark:text-zinc-300 leading-relaxed mb-6 secondary-text">${desc}</p>
 
           <div class="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-zinc-800">
             <div>
               <span class="price-tag text-3xl font-black text-[#166b58] dark:text-yellow-400">${formatMoney(prod.price)}</span>
             </div>
             <div class="flex items-center gap-2">
-              <!-- [OPTIONAL: View Details Button - Commented out per preference]
-              <a href="product.html?id=${prod.slug}" class="px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-zinc-900 dark:hover:bg-zinc-800 border border-slate-300 dark:border-zinc-700 text-slate-700 dark:text-zinc-200 font-bold text-xs">
-                ${t('viewDetails')}
-              </a>
-              -->
-              <button type="button" id="quickview-add-btn" class="px-4 py-2.5 rounded-xl bg-[#1e7e68] hover:bg-[#166b58] dark:bg-yellow-400 dark:hover:bg-yellow-300 text-white dark:text-black font-bold text-sm active:scale-95 transition-all flex items-center gap-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-                <span>${t('addToCart')}</span>
-              </button>
+              ${isSold ? `
+                <button type="button" disabled class="px-4 py-2.5 rounded-xl bg-slate-200 dark:bg-zinc-800 text-slate-400 dark:text-zinc-500 font-bold text-sm cursor-not-allowed shadow-none flex items-center gap-2">
+                  <svg class="w-4 h-4 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+                  <span>${t('soldOutNotice')}</span>
+                </button>
+              ` : `
+                <button type="button" id="quickview-add-btn" class="px-4 py-2.5 rounded-xl bg-[#1e7e68] hover:bg-[#166b58] dark:bg-yellow-400 dark:hover:bg-yellow-300 text-white dark:text-black font-bold text-sm active:scale-95 transition-all flex items-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                  <span>${t('addToCart')}</span>
+                </button>
+              `}
             </div>
           </div>
         </div>
@@ -1177,14 +1234,247 @@
 
     elements.quickViewModal.classList.remove('hidden');
 
-    document.getElementById('close-quickview-btn').addEventListener('click', () => {
+    document.getElementById('close-quickview-btn')?.addEventListener('click', () => {
       elements.quickViewModal.classList.add('hidden');
     });
 
-    document.getElementById('quickview-add-btn').addEventListener('click', () => {
+    document.getElementById('quickview-add-btn')?.addEventListener('click', () => {
       addToCart(prod.id, 1);
       elements.quickViewModal.classList.add('hidden');
     });
+  }
+
+  // --- INTERACTIVE MEASURING TAPE ("ফিতার মাপ") & DRAPE GUIDE MODAL ---
+  const SIZE_HEIGHT_PROFILES = {
+    bilai: { name_bn: 'বিলাই (৪\'১০")', name_en: 'Bilai (4\'10")', waistToFloor: 36, knee: 18, calf: 26, ankle: 34 },
+    petite: { name_bn: 'পেটিট (৫\'১")', name_en: 'Petite (5\'1")', waistToFloor: 38, knee: 20, calf: 28, ankle: 36 },
+    regular: { name_bn: 'রেগুলার (৫\'৩")', name_en: 'Regular (5\'3")', waistToFloor: 40, knee: 22, calf: 30, ankle: 38 },
+    tall: { name_bn: 'লম্বা (৫\'৬")', name_en: 'Tall (5\'6")', waistToFloor: 42, knee: 24, calf: 32, ankle: 41 },
+    kudrot: { name_bn: 'কুদরত (৫\'৯"+)', name_en: 'Kudrot (5\'9"+)', waistToFloor: 46, knee: 26, calf: 35, ankle: 44 }
+  };
+
+  function formatGiraAndGoj(inches, lang) {
+    const goj = Math.floor(inches / 36);
+    const remInches = inches % 36;
+    const remGira = remInches / 2.25;
+    const remGiraFormatted = remGira % 1 === 0 ? remGira.toFixed(0) : remGira.toFixed(1);
+
+    if (lang === 'bn') {
+      if (goj > 0) {
+        if (remGira < 0.05) return `${toBengaliDigits(goj)} গজ (${toBengaliDigits(inches)} ইঞ্চি)`;
+        return `${toBengaliDigits(goj)} গজ ${toBengaliDigits(remGiraFormatted)} গিরা (${toBengaliDigits(inches)} ইঞ্চি)`;
+      }
+      return `${toBengaliDigits(remGiraFormatted)} গিরা (${toBengaliDigits((inches / 36).toFixed(2))} গজ • ${toBengaliDigits(inches)} ইঞ্চি)`;
+    } else {
+      if (goj > 0) {
+        if (remGira < 0.05) return `${goj} Yard (${inches} inches)`;
+        return `${goj} Yard ${remGiraFormatted} Gira (${inches} inches)`;
+      }
+      return `${remGiraFormatted} Gira (${(inches / 36).toFixed(2)} Yd • ${inches} inches)`;
+    }
+  }
+
+  function getSizeGuideDrapeEvaluation(inches, profileKey, lang) {
+    const prof = SIZE_HEIGHT_PROFILES[profileKey] || SIZE_HEIGHT_PROFILES.regular;
+    if (inches < prof.knee) {
+      return lang === 'bn'
+        ? 'হাঁটুর উপরে (Above Knee Length)'
+        : 'Above Knee Level — short tunic or crop drape';
+    } else if (inches <= prof.knee + 3) {
+      return lang === 'bn'
+        ? 'হাঁটু ছোঁয়া ঝুল (At Knee Level)'
+        : 'Knee Level — standard knee drape';
+    } else if (inches < prof.ankle - 2) {
+      return lang === 'bn'
+        ? 'পায়ের ডিম বা কাফ পর্যন্ত — ঐতিহ্যবাহী থামির খাঁটি আরামদায়ক ঝুল (Mid-Calf Traditional Thami Drape)'
+        : 'Mid-Calf Drape — authentic traditional Chakma Thami daily length';
+    } else if (inches <= prof.ankle + 1) {
+      return lang === 'bn'
+        ? 'গোড়ালি ছোঁয়া পরিপাটি ঝুল (Full Ankle Length)'
+        : 'Full Ankle Length — elegant modest drape';
+    } else {
+      return lang === 'bn'
+        ? 'মেঝে ছোঁয়া দীর্ঘ ঝুল — জমকালো রাজকীয় বহর (Floor-Sweeping Maxi Drape)'
+        : 'Floor-Sweeping Drape — grand maxi drape';
+    }
+  }
+
+  function renderSizeGuideModalContent() {
+    if (!elements.sizeGuideModal) return;
+    const currentInch = state.sizeGuideInch || 31;
+    const currentProfile = state.sizeGuideProfile || 'regular';
+    const lang = state.lang;
+
+    const cmVal = (currentInch * 2.54).toFixed(1);
+    const haatVal = (currentInch / 18).toFixed(1);
+    const bazaarUnits = formatGiraAndGoj(currentInch, lang);
+    const drapeEvaluation = getSizeGuideDrapeEvaluation(currentInch, currentProfile, lang);
+
+    const presets = [
+      { val: 31, label_bn: '৩১" থামির ঝুল', label_en: '31" Thami' },
+      { val: 36, label_bn: '৩৬" ১ গজ বহর', label_en: '36" 1-Yard' },
+      { val: 38, label_bn: '৩৮" গোড়ালি ঝুল', label_en: '38" Ankle' },
+      { val: 44, label_bn: '৪৪" শাড়ির বহর', label_en: '44" Saree' }
+    ];
+
+    elements.sizeGuideModal.innerHTML = `
+      <div class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/65 dark:bg-black/85 backdrop-blur-sm">
+        <div class="modal-animate-in relative w-full max-w-xl bg-[#fcfbf7] dark:bg-[#0e0e14] border-2 border-[#166b58] dark:border-yellow-500/70 rounded-2xl p-5 sm:p-7 shadow-[5px_5px_0px_#166b58] dark:shadow-[5px_5px_0px_rgba(242,194,0,0.4)] overflow-y-auto max-h-[90vh]">
+          
+          <!-- Header Bar -->
+          <div class="flex items-start justify-between pb-3 border-b-2 border-slate-200 dark:border-zinc-800">
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <span class="w-3 h-0.5 bg-[#166b58] dark:bg-yellow-400"></span>
+                <span class="text-[11px] uppercase tracking-widest font-bold text-[#166b58] dark:text-yellow-400 font-fell-sc">
+                  ${lang === 'bn' ? 'ঐতিহ্যবাহী বস্ত্র পরিমাপ' : 'Traditional Weave Sizing'}
+                </span>
+              </div>
+              <h3 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white font-title">
+                ${t('sizeGuideTitle')}
+              </h3>
+              <p class="text-xs text-slate-600 dark:text-zinc-400 secondary-text mt-0.5">
+                ${t('sizeGuideSubtitle')}
+              </p>
+            </div>
+            <button type="button" id="close-size-guide-btn" class="p-2 text-slate-400 hover:text-black dark:text-zinc-400 dark:hover:text-white text-2xl font-bold leading-none" aria-label="Close">&times;</button>
+          </div>
+
+          <!-- Height Profile Selector -->
+          <div class="mt-4">
+            <label class="block text-xs font-bold text-slate-700 dark:text-zinc-300 mb-2 font-serif">
+              ${t('sizeGuideProfileLabel')}
+            </label>
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-1.5 sm:gap-2">
+              ${Object.entries(SIZE_HEIGHT_PROFILES).map(([k, v]) => `
+                <button type="button" data-profile="${k}" class="profile-select-btn px-2 py-2 rounded-lg text-xs font-bold border-2 transition-all text-center ${k === currentProfile
+                  ? 'bg-[#166b58] text-white border-[#166b58] dark:bg-yellow-400 dark:text-black dark:border-yellow-400 shadow-[2px_2px_0px_#114439]'
+                  : 'bg-white dark:bg-zinc-900 text-slate-700 dark:text-zinc-300 border-slate-300 dark:border-zinc-700 hover:border-[#166b58]'
+                }">
+                  ${lang === 'bn' ? v.name_bn : v.name_en}
+                </button>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- Interactive Slider & Presets -->
+          <div class="mt-5 p-4 rounded-xl bg-white dark:bg-[#15151f] border border-slate-200 dark:border-zinc-800">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-slate-700 dark:text-zinc-300 font-serif">
+                ${t('sizeGuideSliderLabel')}
+              </span>
+              <span class="price-tag text-2xl sm:text-3xl font-black text-[#166b58] dark:text-yellow-400">
+                ${lang === 'bn' ? toBengaliDigits(currentInch) : currentInch}"
+              </span>
+            </div>
+
+            <input type="range" id="size-guide-range" min="20" max="48" step="1" value="${currentInch}" class="w-full accent-[#166b58] dark:accent-yellow-400 h-2 bg-slate-200 dark:bg-zinc-700 rounded-lg appearance-none cursor-pointer" />
+
+            <!-- Preset Buttons -->
+            <div class="flex flex-wrap items-center gap-1.5 mt-3 pt-3 border-t border-slate-100 dark:border-zinc-800">
+              <span class="text-[11px] font-bold text-slate-500 dark:text-zinc-400 mr-1 font-serif">
+                ${t('sizeGuideQuickPresets')}
+              </span>
+              ${presets.map(p => `
+                <button type="button" data-preset="${p.val}" class="size-preset-btn px-2.5 py-1 rounded-md text-xs font-bold border ${currentInch === p.val
+                  ? 'bg-[#166b58] text-white border-[#166b58] dark:bg-yellow-400 dark:text-black dark:border-yellow-400'
+                  : 'bg-slate-100 dark:bg-zinc-800 text-slate-700 dark:text-zinc-300 border-slate-300 dark:border-zinc-700 hover:border-[#166b58]'
+                }">
+                  ${lang === 'bn' ? p.label_bn : p.label_en}
+                </button>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- Traditional Bazaar Calculation Result Box -->
+          <div class="mt-4 p-4 rounded-xl bg-[#f4f8f6] dark:bg-[#0c1411] border-2 border-dashed border-[#166b58]/40 dark:border-yellow-500/40 space-y-2.5">
+            <div class="flex flex-wrap items-baseline justify-between gap-1">
+              <span class="text-xs font-bold text-slate-600 dark:text-zinc-400 font-serif">
+                ${t('sizeGuideGojGiraLabel')}
+              </span>
+              <span class="font-bold text-sm sm:text-base text-[#166b58] dark:text-yellow-400">
+                ${bazaarUnits}
+              </span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2 text-xs text-slate-700 dark:text-zinc-300 pt-2 border-t border-slate-200/80 dark:border-zinc-800">
+              <div>
+                <span class="text-slate-500 dark:text-zinc-400 font-serif">${lang === 'bn' ? 'হাতে হিসাব:' : 'Haat (Cubit):'}</span>
+                <span class="font-bold ml-1">${lang === 'bn' ? toBengaliDigits(haatVal) : haatVal} ${lang === 'bn' ? 'হাত' : 'Haat'}</span>
+              </div>
+              <div>
+                <span class="text-slate-500 dark:text-zinc-400 font-serif">${lang === 'bn' ? 'ম্যাট্রিক হিসাব:' : 'Metric:'}</span>
+                <span class="font-bold ml-1">${lang === 'bn' ? toBengaliDigits(cmVal) : cmVal} ${lang === 'bn' ? 'সেমি' : 'cm'}</span>
+              </div>
+            </div>
+
+            <div class="pt-2 border-t border-slate-200/80 dark:border-zinc-800">
+              <span class="text-xs font-bold text-slate-700 dark:text-zinc-300 font-serif block mb-0.5">
+                ${t('sizeGuideDrapeNote')}
+              </span>
+              <p class="text-xs font-medium text-[#166b58] dark:text-yellow-400 bg-white/70 dark:bg-zinc-900/70 p-2 rounded-lg border border-[#166b58]/20 dark:border-yellow-500/20">
+                ${drapeEvaluation}
+              </p>
+            </div>
+          </div>
+
+          <!-- Bottom Actions -->
+          <div class="mt-5 flex items-center justify-end gap-2.5 pt-3 border-t border-slate-200 dark:border-zinc-800">
+            <button type="button" id="size-guide-close-btn" class="px-4 py-2.5 rounded-xl border border-slate-300 dark:border-zinc-700 text-slate-700 dark:text-zinc-300 font-bold text-xs hover:bg-slate-100 dark:hover:bg-zinc-800 transition-colors">
+              ${t('sizeGuideCloseBtn')}
+            </button>
+            <a href="#catalog-section" id="size-guide-explore-btn" class="px-5 py-2.5 rounded-xl bg-[#166b58] hover:bg-[#114439] dark:bg-yellow-400 dark:hover:bg-yellow-300 text-white dark:text-black font-extrabold text-xs shadow-md active:scale-95 transition-all">
+              ${t('sizeGuideExploreBtn')}
+            </a>
+          </div>
+
+        </div>
+      </div>
+    `;
+
+    document.getElementById('close-size-guide-btn')?.addEventListener('click', closeSizeGuideModal);
+    document.getElementById('size-guide-close-btn')?.addEventListener('click', closeSizeGuideModal);
+    document.getElementById('size-guide-explore-btn')?.addEventListener('click', () => {
+      closeSizeGuideModal();
+    });
+
+    const rangeInput = document.getElementById('size-guide-range');
+    if (rangeInput) {
+      rangeInput.addEventListener('input', (e) => {
+        state.sizeGuideInch = parseInt(e.target.value, 10);
+        renderSizeGuideModalContent();
+      });
+    }
+
+    elements.sizeGuideModal.querySelectorAll('[data-preset]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.sizeGuideInch = parseInt(btn.dataset.preset, 10);
+        renderSizeGuideModalContent();
+      });
+    });
+
+    elements.sizeGuideModal.querySelectorAll('[data-profile]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.sizeGuideProfile = btn.dataset.profile;
+        renderSizeGuideModalContent();
+      });
+    });
+  }
+
+  function openSizeGuideModal(defaultInch = 31) {
+    if (!elements.sizeGuideModal) return;
+    state.sizeGuideInch = state.sizeGuideInch || defaultInch;
+    state.sizeGuideProfile = state.sizeGuideProfile || 'regular';
+
+    renderSizeGuideModalContent();
+    elements.sizeGuideModal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeSizeGuideModal() {
+    if (!elements.sizeGuideModal) return;
+    elements.sizeGuideModal.classList.add('hidden');
+    document.body.style.overflow = '';
   }
 
   // Update Cart Drawer UI
@@ -1195,6 +1485,10 @@
     if (elements.cartCountBadge) {
       elements.cartCountBadge.textContent = state.lang === 'bn' ? toBengaliDigits(totalItems) : totalItems;
       elements.cartCountBadge.classList.toggle('hidden', totalItems === 0);
+    }
+    if (elements.mobileCartCountBadge) {
+      elements.mobileCartCountBadge.textContent = state.lang === 'bn' ? toBengaliDigits(totalItems) : totalItems;
+      elements.mobileCartCountBadge.classList.toggle('hidden', totalItems === 0);
     }
 
     if (elements.cartSubtotal) {
@@ -1687,12 +1981,19 @@
             </div>
           </div>
 
-          <div class="flex items-center gap-3 pt-4 border-t border-slate-200 dark:border-zinc-800">
-            <button type="button" id="print-receipt-btn" class="flex-1 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-zinc-900 dark:hover:bg-zinc-800 border border-slate-300 dark:border-zinc-700 text-slate-700 dark:text-zinc-200 font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-1.5">
+          <div class="flex flex-wrap items-center gap-2.5 pt-4 border-t border-slate-200 dark:border-zinc-800">
+            <a href="track.html?id=${encodeURIComponent(order.orderId || '')}${String(order.customer?.phone || '').replace(/\D/g, '').length >= 4 ? `&p=${encodeURIComponent(String(order.customer?.phone || '').replace(/\D/g, '').slice(-4))}` : ''}" target="_blank" class="flex-1 min-w-[120px] py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs sm:text-sm shadow-md transition-all flex items-center justify-center gap-1.5">
+              <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <span>${state.lang === 'bn' ? 'পার্সেল ট্র্যাক' : 'Track Order'}</span>
+            </a>
+            <button type="button" id="print-receipt-btn" class="flex-1 min-w-[110px] py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-zinc-900 dark:hover:bg-zinc-800 border border-slate-300 dark:border-zinc-700 text-slate-700 dark:text-zinc-200 font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-1.5">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
               <span>${t('printReceipt')}</span>
             </button>
-            <button type="button" id="close-receipt-btn" class="flex-1 py-2.5 rounded-xl bg-[#1e7e68] hover:bg-[#166b58] dark:bg-yellow-400 dark:hover:bg-yellow-300 text-white dark:text-black font-bold text-xs sm:text-sm transition-all">
+            <button type="button" id="close-receipt-btn" class="px-4 py-2.5 rounded-xl bg-[#1e7e68] hover:bg-[#166b58] dark:bg-yellow-400 dark:hover:bg-yellow-300 text-white dark:text-black font-bold text-xs sm:text-sm transition-all">
               ${t('closeBtn')}
             </button>
           </div>
@@ -1760,6 +2061,15 @@
     if (elements.cartTriggerBtn) {
       elements.cartTriggerBtn.addEventListener('click', openCartDrawer);
     }
+    if (elements.mobileNavCartBtn) {
+      elements.mobileNavCartBtn.addEventListener('click', openCartDrawer);
+    }
+    if (elements.navSizeGuideBtn) {
+      elements.navSizeGuideBtn.addEventListener('click', () => openSizeGuideModal(31));
+    }
+    if (elements.mobileNavSizeGuideBtn) {
+      elements.mobileNavSizeGuideBtn.addEventListener('click', () => openSizeGuideModal(31));
+    }
     if (elements.closeCartBtn) {
       elements.closeCartBtn.addEventListener('click', closeCartDrawer);
     }
@@ -1782,6 +2092,7 @@
         closeCartDrawer();
         if (elements.quickViewModal) elements.quickViewModal.classList.add('hidden');
         if (elements.orderReceiptModal) elements.orderReceiptModal.classList.add('hidden');
+        closeSizeGuideModal();
       }
     });
 
@@ -1830,6 +2141,11 @@
     if (elements.checkoutForm) {
       elements.checkoutForm.addEventListener('submit', handleCheckoutSubmit);
     }
+
+    window.openSizeGuideModal = openSizeGuideModal;
+    window.closeSizeGuideModal = closeSizeGuideModal;
+    window.openCartDrawer = openCartDrawer;
+    window.closeCartDrawer = closeCartDrawer;
 
     applyLanguage(state.lang);
   }

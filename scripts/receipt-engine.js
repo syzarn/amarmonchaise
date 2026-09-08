@@ -738,7 +738,16 @@
 
             <!-- Modal Action Footer -->
             <div class="flex flex-wrap items-center justify-between gap-3 p-4 sm:p-5 border-t border-slate-200 dark:border-zinc-800 bg-white dark:bg-[#14141d]">
-              <div class="flex items-center gap-2.5 w-full sm:w-auto">
+              <div class="flex flex-wrap items-center gap-2.5 w-full sm:w-auto">
+                <!-- Track Order Button -->
+                <a href="track.html?id=${encodeURIComponent(order.orderId || '')}${String(order.customerPhone || (order.customer && order.customer.phone) || order.phone || '').replace(/\D/g, '').length >= 4 ? `&p=${encodeURIComponent(String(order.customerPhone || (order.customer && order.customer.phone) || order.phone || '').replace(/\D/g, '').slice(-4))}` : ''}" target="_blank" class="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs sm:text-sm shadow-md transition-all active:scale-95 flex items-center justify-center gap-2">
+                  <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <span>${currentLang === 'bn' ? 'পার্সেল ট্র্যাক করুন' : 'Track Order'}</span>
+                </a>
+
                 <!-- Download PDF Button -->
                 <button type="button" id="download-pdf-btn" class="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-[#166b58] hover:bg-[#125446] text-white dark:bg-yellow-400 dark:hover:bg-yellow-300 dark:text-black font-bold text-xs sm:text-sm shadow-md transition-all active:scale-95 flex items-center justify-center gap-2">
                   <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">

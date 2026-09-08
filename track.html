@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="content-language" content="bn, en" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+  <title id="page-title">অর্ডার ট্র্যাকিং | Order Tracking — Mon Chaise (মঞ্চাইছে)</title>
+  <meta name="description" content="মঞ্চাইছে (Mon Chaise) গ্রাহক পার্সেল ট্র্যাকিং লেজার: অর্ডার নম্বর এবং মোবাইল নম্বরের শেষ ৪ ডিজিট দিয়ে আপনার পার্সেলের সর্বশেষ অবস্থা ও লাইভ কুরিয়ার ট্র্যাকিং জানুন।" />
+  <link rel="canonical" href="https://amarmonchaise.pages.dev/track.html" />
+
+  <!-- Open Graph & Social Cards -->
+  <meta property="og:site_name" content="Mon Chaise (মঞ্চাইছে)" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="অর্ডার ট্র্যাকিং ও পার্সেল লেজার | Mon Chaise" />
+  <meta property="og:description" content="অর্ডার নম্বর এবং মোবাইল নম্বরের শেষ ৪ ডিজিট দিয়ে আপনার পার্সেলের সর্বশেষ অবস্থা ও লাইভ কুরিয়ার ট্র্যাকিং জানুন।" />
+  <meta property="og:url" content="https://amarmonchaise.pages.dev/track.html" />
+  <meta property="og:image" content="https://amarmonchaise.pages.dev/files/og-banner.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:locale" content="bn_BD" />
+  <meta property="og:locale:alternate" content="en_US" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="অর্ডার ট্র্যাকিং ও পার্সেল লেজার | Mon Chaise" />
+  <meta name="twitter:description" content="অর্ডার নম্বর এবং মোবাইল নম্বরের শেষ ৪ ডিজিট দিয়ে আপনার পার্সেলের সর্বশেষ অবস্থা ও লাইভ কুরিয়ার ট্র্যাকিং জানুন।" />
+  <meta name="twitter:image" content="https://amarmonchaise.pages.dev/files/og-banner.png" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            paper: '#FCFBF7',
+            amoled: '#040406',
+            greenAccent: {
+              500: '#1e7e68',
+              600: '#166b58',
+              700: '#125446'
+            },
+            crimson: {
+              600: '#bd3a54',
+              700: '#991b1b'
+            },
+            gold: {
+              400: '#ffd533',
+              500: '#f2c200'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Print-press typography and styling -->
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="./styles/saru.css" />
+  <link rel="icon" type="image/svg+xml" href="./files/monchaise_logo_green.svg" id="app-favicon" />
+
+  <style>
+    /* 18th-century Print-Press Broadside Aesthetics */
+    .print-press-card {
+      background-color: #FCFBF7;
+      border: 2px solid #166B58;
+      box-shadow: 4px 4px 0px #166B58;
+      border-radius: 4px;
+    }
+    .dark .print-press-card {
+      background-color: #0c0f0d;
+      border: 2px solid #f2c200;
+      box-shadow: 4px 4px 0px #f2c200;
+    }
+    .chapter-badge {
+      background: #166B58;
+      color: #FCFBF7;
+      border: 1px solid #166B58;
+      box-shadow: 2px 2px 0px #BD3A54;
+    }
+    .dark .chapter-badge {
+      background: #f2c200;
+      color: #000;
+      border: 1px solid #f2c200;
+      box-shadow: 2px 2px 0px #1e7e68;
+    }
+    .craft-tag-pill {
+      border: 1.5px solid #166B58;
+      background: rgba(22, 107, 88, 0.08);
+      color: #166B58;
+    }
+    .dark .craft-tag-pill {
+      border: 1.5px solid #f2c200;
+      background: rgba(242, 194, 0, 0.12);
+      color: #f2c200;
+    }
+    .woodcut-stamp-box {
+      border: 2px dashed #BD3A54;
+      background: rgba(189, 58, 84, 0.04);
+    }
+    .dark .woodcut-stamp-box {
+      border: 2px dashed #ffd533;
+      background: rgba(255, 213, 51, 0.05);
+    }
+    .timeline-node-active {
+      background-color: #166B58;
+      color: #FCFBF7;
+      border-color: #166B58;
+      box-shadow: 0 0 0 4px rgba(22, 107, 88, 0.2);
+    }
+    .dark .timeline-node-active {
+      background-color: #f2c200;
+      color: #000;
+      border-color: #f2c200;
+      box-shadow: 0 0 0 4px rgba(242, 194, 0, 0.2);
+    }
+  </style>
+</head>
+
+<body class="bg-[#F8F7F2] dark:bg-[#060608] selection:bg-[#166b58] selection:text-white dark:selection:bg-yellow-500 dark:selection:text-black antialiased min-h-screen flex flex-col font-serif">
+
+  <!-- TOP HANDLOOM ACCENT STRIP -->
+  <div class="handloom-banner-slim w-full"></div>
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-40 bg-[#FCFBF7]/95 dark:bg-[#060608]/90 backdrop-blur-md border-b-2 border-[#166B58] dark:border-yellow-500/40 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo & Identity -->
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="relative py-1">
+          <img 
+            src="./files/monchaise_logo_green.svg" 
+            alt="মঞ্চাইছে" 
+            id="navbar-logo"
+            class="h-8 sm:h-9 w-auto transition-transform group-hover:scale-105" 
+          />
+        </div>
+        <div class="hidden sm:flex flex-col justify-center">
+          <span class="font-fell italic text-xl text-[#166b58] dark:text-yellow-500 font-bold tracking-wide leading-none mb-1">Mon Chaiſe</span>
+          <span class="nav-tagline text-[10px] sm:text-[11px] text-slate-600 dark:text-zinc-400 font-medium" data-i18n="tagline">যা মন চায় বেচি • যার যা, যেমনে মন চায়</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center gap-1 lg:gap-2" aria-label="Main Navigation">
+        <a 
+          href="index.html#catalog-section" 
+          class="header-nav-link px-3 py-1.5 rounded-lg text-xs lg:text-sm font-bold text-slate-700 dark:text-zinc-200 hover:text-[#166b58] dark:hover:text-yellow-400 hover:bg-slate-100 dark:hover:bg-zinc-900 transition-colors"
+          data-i18n="navCollections"
+        >
+          সংগ্রহ (Catalog)
+        </a>
+        <a 
+          href="story.html" 
+          class="header-nav-link px-3 py-1.5 rounded-lg text-xs lg:text-sm font-bold text-slate-700 dark:text-zinc-200 hover:text-[#166b58] dark:hover:text-yellow-400 hover:bg-slate-100 dark:hover:bg-zinc-900 transition-colors"
+          data-i18n="navStory"
+        >
+          আমাদের গল্প (Our Story)
+        </a>
+        <a 
+          href="faq.html" 
+          class="header-nav-link px-3 py-1.5 rounded-lg text-xs lg:text-sm font-bold text-slate-700 dark:text-zinc-200 hover:text-[#166b58] dark:hover:text-yellow-400 hover:bg-slate-100 dark:hover:bg-zinc-900 transition-colors"
+          data-i18n="navFaq"
+        >
+          প্রশ্ন-উত্তর (FAQs)
+        </a>
+        <a 
+          href="track.html" 
+          class="header-nav-link px-3 py-1.5 rounded-lg text-xs lg:text-sm font-extrabold text-[#166b58] dark:text-yellow-400 bg-slate-100 dark:bg-zinc-900 border border-[#166B58]/30 dark:border-yellow-500/30"
+          data-i18n="navTrack"
+        >
+          অর্ডার ট্র্যাকিং (Tracking)
+        </a>
+      </nav>
+
+      <!-- Actions: Theme & Language Toggle -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Return to Shop Button -->
+        <a 
+          href="index.html" 
+          class="flex items-center gap-1.5 text-xs text-slate-700 dark:text-zinc-300 hover:text-[#166b58] dark:hover:text-yellow-400 font-bold px-3 py-1.5 rounded bg-white dark:bg-zinc-900 border border-[#166B58]/40 dark:border-yellow-500/40 shadow-[2px_2px_0px_#166B58] dark:shadow-[2px_2px_0px_#f2c200] transition-all active:translate-x-0.5 active:translate-y-0.5"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+          <span data-i18n="backToShop">দোকানে ফিরুন</span>
+        </a>
+
+        <!-- Theme Toggle -->
+        <button 
+          type="button" 
+          id="theme-toggle-btn" 
+          class="flex items-center justify-center w-8 h-8 rounded bg-white dark:bg-zinc-900 border border-[#166B58]/40 dark:border-yellow-500/40 text-slate-800 dark:text-yellow-400 transition-all shadow-[2px_2px_0px_#166B58] dark:shadow-[2px_2px_0px_#f2c200]"
+          title="Toggle Theme"
+          aria-label="Toggle Theme"
+        >
+          <svg id="theme-icon-moon" class="w-4 h-4 text-slate-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+          <svg id="theme-icon-sun" class="w-4 h-4 text-yellow-400 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+        </button>
+
+        <!-- Language Switcher: EN / বাং -->
+        <button 
+          type="button" 
+          id="lang-toggle-btn" 
+          class="flex items-center justify-center px-3 py-1 rounded bg-white dark:bg-zinc-900 border border-[#166B58]/40 dark:border-yellow-500/40 text-xs font-black text-[#166B58] dark:text-yellow-400 shadow-[2px_2px_0px_#166B58] dark:shadow-[2px_2px_0px_#f2c200] active:translate-x-0.5 active:translate-y-0.5 transition-all"
+          title="Toggle Language"
+        >
+          <span id="lang-label">EN</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- BREADCRUMBS -->
+  <nav class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2 w-full text-xs text-slate-500 dark:text-zinc-400 flex items-center gap-2" aria-label="Breadcrumb">
+    <a href="index.html" class="hover:text-[#166b58] dark:hover:text-yellow-400 font-semibold transition-colors" data-i18n="breadcrumbHome">হোম</a>
+    <span>/</span>
+    <span class="text-[#166b58] dark:text-yellow-400 font-bold" data-i18n="breadcrumbTrack">অর্ডার ট্র্যাকিং</span>
+  </nav>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
+    
+    <!-- Broadsheet Masthead Header -->
+    <header class="text-center mb-8">
+      <div class="flex flex-wrap items-center justify-between text-[11px] font-mono font-bold uppercase tracking-wider text-slate-600 dark:text-zinc-400 border-t-2 border-b border-[#166B58] dark:border-yellow-500/60 py-1.5 px-2 mb-6">
+        <span data-i18n="datelineVol">ভলিউম ১ • ডাক বিভাগীয় রেকর্ড</span>
+        <span class="text-[#166B58] dark:text-yellow-400 font-bold" data-i18n="datelineCenter">গ্রাহক পার্সেল ও অর্ডার অনুসন্ধান বহি</span>
+        <span data-i18n="datelineDate">ঢাকা, ২০২৬ • Mon Chaise Dispatch</span>
+      </div>
+
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-sm craft-tag-pill font-mono text-[11px] font-bold uppercase tracking-wider mb-3">
+        <span>📦 CONSIGNMENT & PARCEL TRACKING • ডাক ও পার্সেল ট্র্যাকিং</span>
+      </div>
+
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#166B58] dark:text-yellow-400 font-title tracking-tight mb-2" data-i18n="mainHeading">
+        আপনার পার্সেল বা অর্ডার ট্র্যাক করুন
+      </h1>
+      <p class="text-xs sm:text-sm text-slate-600 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed" data-i18n="mainSub">
+        অর্ডার নম্বর এবং গোপনীয়তা রক্ষার স্বার্থে অর্ডারে ব্যবহৃত মোবাইল নম্বরের শেষ ৪ ডিজিট প্রদান করে পার্সেলের সর্বশেষ অবস্থা ও লাইভ কুরিয়ার ট্র্যাকিং লিংক যাচাই করুন।
+      </p>
+    </header>
+
+    <!-- SEARCH LEDGER FORM CARD -->
+    <section class="print-press-card p-6 sm:p-8 mb-8">
+      <div class="flex items-center gap-2 pb-4 mb-6 border-b border-[#166B58]/20 dark:border-yellow-500/30">
+        <span class="chapter-badge font-mono text-xs px-2.5 py-0.5 rounded-sm font-bold uppercase">LEDGER LOOKUP</span>
+        <h2 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white font-title" data-i18n="formCardTitle">
+          পার্সেল অনুসন্ধান ফর্ম (Search Ledger)
+        </h2>
+      </div>
+
+      <form id="track-form" class="space-y-6" novalidate>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          
+          <!-- Order ID Input -->
+          <div>
+            <label for="track-order-id" class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-zinc-300 mb-1.5 font-mono">
+              <span data-i18n="orderIdLabel">অর্ডার নম্বর / Order ID</span>
+              <span class="text-red-600">*</span>
+            </label>
+            <input 
+              type="text" 
+              id="track-order-id" 
+              name="orderId" 
+              placeholder="MC-260908-A4F1" 
+              required 
+              autocomplete="off"
+              spellcheck="false"
+              class="w-full px-4 py-2.5 rounded bg-white dark:bg-zinc-950 border-2 border-[#166B58] dark:border-yellow-500/60 font-mono text-sm tracking-wider uppercase text-slate-900 dark:text-yellow-100 placeholder-slate-400 dark:placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-[#166B58] dark:focus:ring-yellow-400 transition-all"
+            />
+            <span class="block text-[11px] text-slate-500 dark:text-zinc-400 mt-1" data-i18n="orderIdHelper">
+              অর্ডার রসিদ বা SMS-এ প্রাপ্ত কোড (যেমন: MC-260908-A4F1)
+            </span>
+          </div>
+
+          <!-- Phone Suffix (4 digits) Input -->
+          <div>
+            <label for="track-phone-4" class="block text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-zinc-300 mb-1.5 font-mono">
+              <span data-i18n="phone4Label">মোবাইলের শেষ ৪ ডিজিট / Last 4 Digits</span>
+              <span class="text-red-600">*</span>
+            </label>
+            <input 
+              type="text" 
+              id="track-phone-4" 
+              name="phone4" 
+              placeholder="4935" 
+              maxlength="4" 
+              pattern="\d{4}" 
+              inputmode="numeric" 
+              required 
+              autocomplete="off"
+              class="w-full px-4 py-2.5 rounded bg-white dark:bg-zinc-950 border-2 border-[#166B58] dark:border-yellow-500/60 font-mono text-sm tracking-widest text-center text-slate-900 dark:text-yellow-100 placeholder-slate-400 dark:placeholder-zinc-600 focus:outline-none focus:ring-2 focus:ring-[#166B58] dark:focus:ring-yellow-400 transition-all"
+            />
+            <span class="block text-[11px] text-slate-500 dark:text-zinc-400 mt-1" data-i18n="phone4Helper">
+              অর্ডারের সময় ব্যবহৃত মোবাইল নম্বরের শেষ ৪টি সংখ্যা
+            </span>
+          </div>
+
+        </div>
+
+        <!-- Action Submit Button & Sample Trigger -->
+        <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+          <button 
+            type="submit" 
+            id="track-submit-btn" 
+            class="w-full sm:w-auto min-h-[44px] px-8 py-2.5 rounded bg-[#166B58] hover:bg-[#125446] dark:bg-yellow-400 dark:hover:bg-yellow-300 text-white dark:text-black font-bold text-xs sm:text-sm shadow-[3px_3px_0px_#BD3A54] dark:shadow-[3px_3px_0px_#166B58] transition-all active:translate-x-0.5 active:translate-y-0.5 flex items-center justify-center gap-2 cursor-pointer"
+          >
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <span id="submit-btn-text" data-i18n="submitBtn">লেজারে অনুসন্ধান করুন</span>
+          </button>
+
+          <button 
+            type="button" 
+            id="sample-fill-btn" 
+            class="text-xs font-mono text-[#166B58] dark:text-yellow-400 underline hover:opacity-80 py-1.5 transition-opacity cursor-pointer"
+            data-i18n="sampleBtn"
+          >
+            নমুনা অর্ডার দিয়ে পরীক্ষা করুন (Fill Sample)
+          </button>
+        </div>
+      </form>
+
+      <!-- Error Alert Message Box -->
+      <div 
+        id="track-error-box" 
+        class="hidden mt-6 p-4 rounded bg-rose-50 dark:bg-rose-950/40 border-2 border-[#BD3A54] text-[#BD3A54] dark:text-rose-300 text-xs sm:text-sm flex items-start gap-3 shadow-[2px_2px_0px_#BD3A54]"
+        role="alert"
+      >
+        <svg class="w-5 h-5 shrink-0 mt-0.5 text-[#BD3A54]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+        </svg>
+        <div id="track-error-message" class="flex-1 font-medium leading-relaxed">
+          এই অর্ডার নম্বর বা ফোন নম্বরের কোনো তথ্য পাওয়া যায়নি।
+        </div>
+      </div>
+    </section>
+
+    <!-- LIVE RESULTS LEDGER CONTAINER -->
+    <section id="track-results-container" class="hidden space-y-6 mb-12">
+      
+      <!-- ORDER HEADER & STATUS OVERVIEW -->
+      <div class="print-press-card p-6 sm:p-8">
+        
+        <div class="flex flex-wrap items-start justify-between gap-4 pb-5 border-b border-[#166B58]/20 dark:border-yellow-500/30">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="chapter-badge font-mono text-[10px] px-2 py-0.5 rounded-sm font-bold uppercase">ORDER VERIFIED</span>
+              <span class="text-xs text-slate-500 dark:text-zinc-400 font-mono" id="res-created-date">২০২৬-০৯-০৮</span>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-black font-mono tracking-wide text-slate-900 dark:text-white" id="res-order-id">
+              MC-260908-A4F1
+            </h2>
+          </div>
+
+          <!-- Dynamic Status Pill -->
+          <div id="res-status-badge-container">
+            <span id="res-status-badge" class="inline-flex items-center px-3.5 py-1 rounded border-2 font-mono text-xs sm:text-sm font-bold shadow-sm">
+              অর্ডার গৃহীত
+            </span>
+          </div>
+        </div>
+
+        <!-- CANCELLED STAMP (Conditionally Visible) -->
+        <div id="res-cancelled-stamp" class="hidden woodcut-stamp-box p-4 my-6 text-center border-2 border-dashed border-[#BD3A54] bg-[#BD3A54]/10 rounded">
+          <div class="font-fell text-lg sm:text-xl font-bold text-[#BD3A54] tracking-widest uppercase rotate-[-1.5deg]">
+            [ বাতিল / CANCELLED — অর্ডার স্থগিত করা হয়েছে ]
+          </div>
+          <p class="text-xs text-slate-600 dark:text-zinc-400 mt-1" data-i18n="cancelledHelp">
+            অর্ডার সংক্রান্ত তথ্যের জন্য সরাসরি আমাদের কনসিয়ার্জে যোগাযোগ করুন।
+          </p>
+        </div>
+
+        <!-- 4-POINT VISUAL PROGRESS TIMELINE -->
+        <div id="res-timeline-section" class="py-6 border-b border-[#166B58]/20 dark:border-yellow-500/30">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-zinc-300 font-mono mb-6" data-i18n="timelineTitle">
+            পার্সেল প্রেরণের পর্যায়ক্রম (Dispatch Milestones)
+          </h3>
+
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 relative">
+            
+            <!-- Step 1: Placed -->
+            <div id="timeline-step-1" class="timeline-step relative flex flex-col items-center text-center p-3 rounded bg-white dark:bg-zinc-950 border border-slate-300 dark:border-zinc-800 transition-all">
+              <div class="timeline-step-icon w-8 h-8 rounded-full flex items-center justify-center font-mono font-bold text-xs mb-2 border-2 border-slate-300 dark:border-zinc-700 bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400">
+                ১
+              </div>
+              <span class="text-xs font-bold text-slate-800 dark:text-zinc-200" data-i18n="stepPlaced">অর্ডার গৃহীত</span>
+              <span class="text-[10px] text-slate-500 dark:text-zinc-400 mt-0.5">Order Placed</span>
+            </div>
+
+            <!-- Step 2: Verified -->
+            <div id="timeline-step-2" class="timeline-step relative flex flex-col items-center text-center p-3 rounded bg-white dark:bg-zinc-950 border border-slate-300 dark:border-zinc-800 transition-all">
+              <div class="timeline-step-icon w-8 h-8 rounded-full flex items-center justify-center font-mono font-bold text-xs mb-2 border-2 border-slate-300 dark:border-zinc-700 bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400">
+                ২
+              </div>
+              <span class="text-xs font-bold text-slate-800 dark:text-zinc-200" data-i18n="stepVerified">মূল্য ও স্টক যাচাইকৃত</span>
+              <span class="text-[10px] text-slate-500 dark:text-zinc-400 mt-0.5">Verified & Packed</span>
+            </div>
+
+            <!-- Step 3: Dispatched -->
+            <div id="timeline-step-3" class="timeline-step relative flex flex-col items-center text-center p-3 rounded bg-white dark:bg-zinc-950 border border-slate-300 dark:border-zinc-800 transition-all">
+              <div class="timeline-step-icon w-8 h-8 rounded-full flex items-center justify-center font-mono font-bold text-xs mb-2 border-2 border-slate-300 dark:border-zinc-700 bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400">
+                ৩
+              </div>
+              <span class="text-xs font-bold text-slate-800 dark:text-zinc-200" data-i18n="stepDispatched">ডাকযোগে প্রেরিত</span>
+              <span class="text-[10px] text-slate-500 dark:text-zinc-400 mt-0.5">In Transit / Courier</span>
+            </div>
+
+            <!-- Step 4: Delivered -->
+            <div id="timeline-step-4" class="timeline-step relative flex flex-col items-center text-center p-3 rounded bg-white dark:bg-zinc-950 border border-slate-300 dark:border-zinc-800 transition-all">
+              <div class="timeline-step-icon w-8 h-8 rounded-full flex items-center justify-center font-mono font-bold text-xs mb-2 border-2 border-slate-300 dark:border-zinc-700 bg-slate-100 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400">
+                ৪
+              </div>
+              <span class="text-xs font-bold text-slate-800 dark:text-zinc-200" data-i18n="stepDelivered">সফল ডেলিভারি</span>
+              <span class="text-[10px] text-slate-500 dark:text-zinc-400 mt-0.5">Delivered</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- SMART COURIER TRACKING SECTION -->
+        <div id="res-courier-box" class="pt-6">
+          <div class="p-4 sm:p-5 rounded-lg border-2 border-[#166B58]/40 dark:border-yellow-500/40 bg-[#166B58]/5 dark:bg-yellow-500/5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            
+            <div class="space-y-1">
+              <span class="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-zinc-400 block" data-i18n="courierPartnerLabel">
+                লজিস্টিক ও কুরিয়ার পার্টনার / Logistics Partner
+              </span>
+              <div class="flex items-center gap-2">
+                <span id="res-courier-name" class="font-bold text-base sm:text-lg text-[#166B58] dark:text-yellow-400">
+                  Steadfast Courier
+                </span>
+                <span class="text-slate-400">•</span>
+                <span id="res-tracking-code" class="font-mono font-bold text-slate-900 dark:text-white text-sm sm:text-base">
+                  SF-108294
+                </span>
+              </div>
+              <p id="res-courier-note" class="text-[11px] text-slate-600 dark:text-zinc-400">
+                কুরিয়ারের অনলাইন পোর্টাল থেকে সরাসরি পার্সেলের লাইভ আপডেট পর্যবেক্ষণ করুন।
+              </p>
+            </div>
+
+            <!-- Direct Action Button / Link (Smart URL or Copy) -->
+            <div id="res-courier-action-container" class="w-full md:w-auto">
+              <!-- Dynamically populated -->
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ITEMIZED ORDER RECEIPT SUMMARY -->
+      <div class="print-press-card p-6 sm:p-8">
+        <div class="flex items-center gap-2 pb-4 mb-4 border-b border-[#166B58]/20 dark:border-yellow-500/30">
+          <span class="chapter-badge font-mono text-xs px-2.5 py-0.5 rounded-sm font-bold uppercase">LEDGER RECEIPT</span>
+          <h3 class="text-base sm:text-lg font-bold text-slate-900 dark:text-white font-title" data-i18n="receiptTitle">
+            অর্ডারকৃত পণ্যের হিসাব (Itemized Summary)
+          </h3>
+        </div>
+
+        <!-- Item List -->
+        <div id="res-items-list" class="divide-y divide-slate-200 dark:divide-zinc-800 mb-6">
+          <!-- Dynamically populated -->
+        </div>
+
+        <!-- Financial Breakdown -->
+        <div class="p-4 rounded bg-white dark:bg-zinc-950 border border-slate-300 dark:border-zinc-800 space-y-2 text-xs sm:text-sm">
+          <div class="flex justify-between text-slate-600 dark:text-zinc-400">
+            <span data-i18n="subtotalLabel">পণ্যের মূল্য (Subtotal):</span>
+            <span id="res-subtotal" class="font-mono font-bold text-slate-900 dark:text-white">৳ ০</span>
+          </div>
+          <div class="flex justify-between text-slate-600 dark:text-zinc-400">
+            <span data-i18n="deliveryLabel">ডেলিভারি চার্জ (Delivery):</span>
+            <span id="res-delivery" class="font-mono font-bold text-slate-900 dark:text-white">৳ ০</span>
+          </div>
+          <div class="flex justify-between text-slate-600 dark:text-zinc-400">
+            <span data-i18n="paymentMethodLabel">পরিশোধের মাধ্যম (Payment):</span>
+            <span id="res-payment-method" class="font-bold text-slate-900 dark:text-white">ক্যাশ অন ডেলিভারি (COD)</span>
+          </div>
+          <div class="pt-2 border-t border-slate-300 dark:border-zinc-800 flex justify-between text-sm sm:text-base font-black text-[#166B58] dark:text-yellow-400">
+            <span data-i18n="grandTotalLabel">সর্বমোট প্রদেয় (Grand Total):</span>
+            <span id="res-grand-total" class="font-mono font-bold">৳ ০</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- STUDIO CONCIERGE / HELP CARD -->
+      <div class="print-press-card p-6 sm:p-8 bg-amber-50/50 dark:bg-zinc-950">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <h4 class="font-bold text-slate-900 dark:text-white text-sm sm:text-base font-title mb-1" data-i18n="conciergeTitle">
+              ঠিকানা সংশোধন বা কোনো জিজ্ঞাসা রয়েছে?
+            </h4>
+            <p class="text-xs text-slate-600 dark:text-zinc-400" data-i18n="conciergeSub">
+              ডেলিভারি রিসিভার পরিবর্তন বা পার্সেল জরুরি হলে সরাসরি আমাদের স্টুডিওতে বার্তা দিন।
+            </p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2.5">
+            <a 
+              href="https://wa.me/8801410002711?text=Hello%20Mon%20Chaise%2C%20I%20need%20assistance%20with%20my%20order" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="px-4 py-2 rounded bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs flex items-center gap-2 shadow-sm transition-all"
+            >
+              <span>হোয়াটসঅ্যাপ (WhatsApp)</span>
+            </a>
+            <a 
+              href="tel:+8801410002711" 
+              class="px-4 py-2 rounded bg-white dark:bg-zinc-900 border border-slate-300 dark:border-zinc-700 text-slate-800 dark:text-zinc-200 font-bold text-xs flex items-center gap-1.5 transition-all"
+            >
+              <span>+৮৮০ ১৪১০-০০২৭১১</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="mt-auto border-t-2 border-[#166B58] dark:border-yellow-500/40 bg-[#FCFBF7] dark:bg-[#060608] text-slate-700 dark:text-zinc-300 transition-colors">
+    <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        
+        <!-- Col 1: Identity & Story -->
+        <div class="space-y-3">
+          <div class="flex items-center gap-2">
+            <img src="./files/monchaise_logo_green.svg" alt="মঞ্চাইছে" id="footer-logo" class="h-8 w-auto" />
+            <span class="font-fell italic text-xl text-[#166B58] dark:text-yellow-400 font-bold">Mon Chaiſe</span>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-zinc-400 leading-relaxed font-serif" data-i18n="footerBio">
+            আদিবাসী কোমর তাঁতের আদি ঐশ্বর্য, পাহাড়ি বুননশিল্পীর শ্রমের যথার্থ মর্যাদা এবং বোহেমিয়ান জীবনের স্পর্শযোগ্য সংকলন।
+          </p>
+          <div class="text-xs font-mono text-slate-500 dark:text-zinc-500 pt-1">
+            <span>স্টুডিও হটলাইন: +৮৮০ ১৪১০-০০২৭১১</span>
+          </div>
+        </div>
+
+        <!-- Col 2: Quick Links -->
+        <div>
+          <h4 class="font-bold text-slate-900 dark:text-white uppercase text-xs tracking-wider mb-3 font-fell-sc" data-i18n="footerQuickLinks">Quick Links</h4>
+          <ul class="space-y-2 text-xs">
+            <li><a href="index.html" class="hover:text-[#166B58] dark:hover:text-yellow-400 transition-colors" data-i18n="footerHome">হোম (Home)</a></li>
+            <li><a href="index.html#catalog-section" class="hover:text-[#166B58] dark:hover:text-yellow-400 transition-colors" data-i18n="allCategories">সব পণ্য (Catalog)</a></li>
+            <li><a href="story.html" class="hover:text-[#166B58] dark:hover:text-yellow-400 transition-colors" data-i18n="footerStory">আমাদের গল্প (Our Story)</a></li>
+            <li><a href="faq.html" class="hover:text-[#166B58] dark:hover:text-yellow-400 transition-colors" data-i18n="footerFaq">প্রশ্ন-উত্তর (FAQs)</a></li>
+            <li><a href="track.html" class="text-[#166B58] dark:text-yellow-400 font-bold transition-colors" data-i18n="footerTrack">অর্ডার ট্র্যাকিং (Order Tracking)</a></li>
+            <li><a href="privacy.html" class="hover:text-[#166B58] dark:hover:text-yellow-400 transition-colors" data-i18n="footerPrivacy">গোপনীয়তা নীতি (Privacy)</a></li>
+            <li><a href="terms.html" class="hover:text-[#166B58] dark:hover:text-yellow-400 transition-colors" data-i18n="footerTerms">ব্যবহারের শর্ত (Terms)</a></li>
+            <li><a href="returns.html" class="hover:text-[#166B58] dark:hover:text-yellow-400 transition-colors" data-i18n="footerReturns">ফেরত নীতি (Returns)</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Payment Badges -->
+        <div>
+          <h4 class="font-bold text-slate-900 dark:text-white uppercase text-xs tracking-wider mb-3 font-fell-sc">Payment & Couriers</h4>
+          <div class="flex flex-wrap gap-2 text-[11px] mb-4">
+            <span class="px-2 py-0.5 rounded bg-white dark:bg-zinc-900 border border-slate-300 dark:border-zinc-800 text-pink-600 font-bold">bKash</span>
+            <span class="px-2 py-0.5 rounded bg-white dark:bg-zinc-900 border border-slate-300 dark:border-zinc-800 text-orange-600 font-bold">Nagad</span>
+            <span class="px-2 py-0.5 rounded bg-white dark:bg-zinc-900 border border-slate-300 dark:border-zinc-800 text-purple-600 font-bold">Rocket</span>
+            <span class="px-2 py-0.5 rounded bg-white dark:bg-zinc-900 border border-slate-300 dark:border-zinc-800 text-emerald-700 dark:text-yellow-400 font-bold">COD</span>
+          </div>
+          <div class="text-[11px] text-slate-500 dark:text-zinc-500 font-fell">
+            Logistics: Steadfast Courier & Pathao Express Nationwide.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Stamp Seal -->
+      <div class="flex justify-center md:block md:absolute md:bottom-2 md:right-8 lg:right-12 my-4 md:my-0 z-10 select-none">
+        <img src="./files/monchaise_stamp.png" alt="মঞ্চাইছে ডাকটিকিট"
+          class="h-20 sm:h-24 w-auto object-contain transform -rotate-2 drop-shadow-md pointer-events-auto" />
+      </div>
+
+      <div class="pt-6 border-t border-slate-300 dark:border-zinc-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-zinc-600">
+        <p data-i18n="footerCopyright">© ২০২৬ মঞ্চাইছে (Mon Chaise)। সর্বস্বত্ব সংরক্ষিত।</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CLIENT-SIDE TRACKING & BILINGUAL ENGINE -->
+  <script>
+    (function () {
+      'use strict';
+
+      const BN_DIGITS = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+      function toBnDigits(num) {
+        if (num === null || num === undefined) return '';
+        return String(num).replace(/[0-9]/g, (d) => BN_DIGITS[d]);
+      }
+
+      function formatMoney(amount, lang) {
+        const val = Math.round(Number(amount) || 0);
+        if (lang === 'bn') {
+          return '৳ ' + toBnDigits(val.toLocaleString('en-US'));
+        }
+        return 'BDT ' + val.toLocaleString('en-US');
+      }
+
+      const i18n = {
+        bn: {
+          pageTitle: 'অর্ডার ট্র্যাকিং | Order Tracking — Mon Chaise (মঞ্চাইছে)',
+          tagline: 'যা মন চায় বেচি • যার যা, যেমনে মন চায়',
+          navCollections: 'সংগ্রহ (Catalog)',
+          navStory: 'আমাদের গল্প (Our Story)',
+          navFaq: 'প্রশ্ন-উত্তর (FAQs)',
+          navTrack: 'অর্ডার ট্র্যাকিং (Tracking)',
+          backToShop: 'দোকানে ফিরুন',
+          breadcrumbHome: 'হোম',
+          breadcrumbTrack: 'অর্ডার ট্র্যাকিং',
+          datelineVol: 'ভলিউম ১ • ডাক বিভাগীয় রেকর্ড',
+          datelineCenter: 'গ্রাহক পার্সেল ও অর্ডার অনুসন্ধান বহি',
+          datelineDate: 'ঢাকা, ২০২৬ • Mon Chaise Dispatch',
+          mainHeading: 'আপনার পার্সেল বা অর্ডার ট্র্যাক করুন',
+          mainSub: 'অর্ডার নম্বর এবং গোপনীয়তা রক্ষার স্বার্থে অর্ডারে ব্যবহৃত মোবাইল নম্বরের শেষ ৪ ডিজিট প্রদান করে পার্সেলের সর্বশেষ অবস্থা ও লাইভ কুরিয়ার ট্র্যাকিং লিংক যাচাই করুন।',
+          formCardTitle: 'পার্সেল অনুসন্ধান ফর্ম (Search Ledger)',
+          orderIdLabel: 'অর্ডার নম্বর / Order ID',
+          orderIdHelper: 'অর্ডার রসিদ বা SMS-এ প্রাপ্ত কোড (যেমন: MC-260908-A4F1)',
+          phone4Label: 'মোবাইলের শেষ ৪ ডিজিট / Last 4 Digits',
+          phone4Helper: 'অর্ডারের সময় ব্যবহৃত মোবাইল নম্বরের শেষ ৪টি সংখ্যা',
+          submitBtn: 'লেজারে অনুসন্ধান করুন',
+          searchingBtn: 'অনুসন্ধান চলছে...',
+          sampleBtn: 'নমুনা অর্ডার দিয়ে পরীক্ষা করুন (Fill Sample)',
+          timelineTitle: 'পার্সেল প্রেরণের পর্যায়ক্রম (Dispatch Milestones)',
+          stepPlaced: 'অর্ডার গৃহীত',
+          stepVerified: 'মূল্য ও স্টক যাচাইকৃত',
+          stepDispatched: 'ডাকযোগে প্রেরিত',
+          stepDelivered: 'সফল ডেলিভারি',
+          courierPartnerLabel: 'লজিস্টিক ও কুরিয়ার পার্টনার / Logistics Partner',
+          receiptTitle: 'অর্ডারকৃত পণ্যের হিসাব (Itemized Summary)',
+          subtotalLabel: 'পণ্যের মূল্য (Subtotal):',
+          deliveryLabel: 'ডেলিভারি চার্জ (Delivery):',
+          paymentMethodLabel: 'পরিশোধের মাধ্যম (Payment):',
+          grandTotalLabel: 'সর্বমোট প্রদেয় (Grand Total):',
+          conciergeTitle: 'ঠিকানা সংশোধন বা কোনো জিজ্ঞাসা রয়েছে?',
+          conciergeSub: 'ডেলিভারি রিসিভার পরিবর্তন বা পার্সেল জরুরি হলে সরাসরি আমাদের স্টুডিওতে বার্তা দিন।',
+          footerHome: 'হোম (Home)',
+          allCategories: 'সব পণ্য (Catalog)',
+          footerStory: 'আমাদের গল্প (Our Story)',
+          footerFaq: 'প্রশ্ন-উত্তর (FAQs)',
+          footerTrack: 'অর্ডার ট্র্যাকিং (Order Tracking)',
+          footerPrivacy: 'গোপনীয়তা নীতি (Privacy)',
+          footerTerms: 'ব্যবহারের শর্ত (Terms)',
+          footerReturns: 'ফেরত নীতি (Returns)',
+          footerQuickLinks: 'প্রয়োজনীয় লিংক',
+          footerBio: 'আদিবাসী কোমর তাঁতের আদি ঐশ্বর্য, পাহাড়ি বুননশিল্পীর শ্রমের যথার্থ মর্যাদা এবং বোহেমিয়ান জীবনের স্পর্শযোগ্য সংকলন।',
+          footerCopyright: '© ২০২৬ মঞ্চাইছে (Mon Chaise)। সর্বস্বত্ব সংরক্ষিত।',
+          errNotFound: 'এই অর্ডার নম্বর বা ফোন নম্বরের কোনো তথ্য পাওয়া যায়নি। সঠিক তথ্য দিয়ে আবার চেষ্টা করুন।',
+          errInvalidInput: 'দয়া করে সঠিক অর্ডার নম্বর ও ৪ ডিজিটের ফোন কোড প্রদান করুন।',
+          cancelledHelp: 'অর্ডার সংক্রান্ত তথ্যের জন্য সরাসরি আমাদের কনসিয়ার্জে যোগাযোগ করুন।'
+        },
+        en: {
+          pageTitle: 'Order Tracking | Mon Chaise Ledger Dispatch',
+          tagline: 'We sell whatever the heart desires',
+          navCollections: 'Catalog',
+          navStory: 'Our Story',
+          navFaq: 'FAQs',
+          navTrack: 'Order Tracking',
+          backToShop: 'Back to Shop',
+          breadcrumbHome: 'Home',
+          breadcrumbTrack: 'Order Tracking',
+          datelineVol: 'Volume I • Postal Ledger Dispatch',
+          datelineCenter: 'Official Consignment & Order Record',
+          datelineDate: 'Dhaka, 2026 • Mon Chaise Registry',
+          mainHeading: 'Track Your Parcel & Consignment',
+          mainSub: 'Verify the live fulfillment status and courier consignment link using your Order ID and the last 4 digits of your contact number.',
+          formCardTitle: 'Parcel Search Form (Search Ledger)',
+          orderIdLabel: 'Order ID',
+          orderIdHelper: 'Found on your invoice or receipt (e.g., MC-260908-A4F1)',
+          phone4Label: 'Last 4 Digits of Phone',
+          phone4Helper: 'Last 4 digits of the phone number used during checkout',
+          submitBtn: 'Search Ledger',
+          searchingBtn: 'Searching...',
+          sampleBtn: 'Fill Sample Order for Testing',
+          timelineTitle: 'Dispatch Milestones & Transit Progress',
+          stepPlaced: 'Order Placed',
+          stepVerified: 'Payment & Stock Verified',
+          stepDispatched: 'Handed to Courier',
+          stepDelivered: 'Delivered',
+          courierPartnerLabel: 'Assigned Courier & Logistics Partner',
+          receiptTitle: 'Itemized Order Summary',
+          subtotalLabel: 'Subtotal:',
+          deliveryLabel: 'Delivery Charge:',
+          paymentMethodLabel: 'Payment Method:',
+          grandTotalLabel: 'Grand Total:',
+          conciergeTitle: 'Need to modify address or expedite delivery?',
+          conciergeSub: 'Reach our concierge team directly via WhatsApp or telephone for urgent requests.',
+          footerHome: 'Home',
+          allCategories: 'Catalog',
+          footerStory: 'Our Story',
+          footerFaq: 'FAQs',
+          footerTrack: 'Order Tracking',
+          footerPrivacy: 'Privacy Policy',
+          footerTerms: 'Terms of Service',
+          footerReturns: 'Return Policy',
+          footerQuickLinks: 'Quick Links',
+          footerBio: 'Authentic indigenous backstrap handlooms, fair artisan dignity, and tangible bohemian curiosities.',
+          footerCopyright: '© 2026 Mon Chaise. All rights reserved.',
+          errNotFound: 'No order matching this ID and phone number suffix was found. Please verify your details.',
+          errInvalidInput: 'Please enter a valid Order ID and a 4-digit phone number suffix.',
+          cancelledHelp: 'Please contact our concierge team directly for information regarding cancelled orders.'
+        }
+      };
+
+      let currentLang = localStorage.getItem('amc_lang') || 'bn';
+      let currentTheme = localStorage.getItem('amc_theme') || 'light';
+      let currentOrderData = null;
+
+      // Theme toggle
+      function applyTheme(theme) {
+        currentTheme = theme;
+        localStorage.setItem('amc_theme', theme);
+        const isDark = theme === 'dark';
+        document.documentElement.classList.toggle('dark', isDark);
+        document.getElementById('theme-icon-moon')?.classList.toggle('hidden', isDark);
+        document.getElementById('theme-icon-sun')?.classList.toggle('hidden', !isDark);
+        const logo = isDark ? './files/monchaise_logo.svg' : './files/monchaise_logo_green.svg';
+        const navLogo = document.getElementById('navbar-logo');
+        const footerLogo = document.getElementById('footer-logo');
+        if (navLogo) navLogo.src = logo;
+        if (footerLogo) footerLogo.src = logo;
+      }
+
+      // Language toggle
+      function applyLang(lang) {
+        currentLang = lang;
+        localStorage.setItem('amc_lang', lang);
+        document.documentElement.lang = lang;
+        const dict = i18n[lang] || i18n.bn;
+        document.getElementById('lang-label').textContent = lang === 'bn' ? 'EN' : 'বাং';
+        document.querySelectorAll('[data-i18n]').forEach((el) => {
+          const key = el.getAttribute('data-i18n');
+          if (dict[key]) {
+            el.textContent = dict[key];
+          }
+        });
+        if (dict.pageTitle) {
+          document.title = dict.pageTitle;
+        }
+        if (currentOrderData) {
+          renderOrderResults(currentOrderData);
+        }
+      }
+
+      // DOM Elements
+      const form = document.getElementById('track-form');
+      const orderIdInput = document.getElementById('track-order-id');
+      const phone4Input = document.getElementById('track-phone-4');
+      const submitBtn = document.getElementById('track-submit-btn');
+      const submitBtnText = document.getElementById('submit-btn-text');
+      const errorBox = document.getElementById('track-error-box');
+      const errorMsg = document.getElementById('track-error-message');
+      const resultsContainer = document.getElementById('track-results-container');
+      const sampleBtn = document.getElementById('sample-fill-btn');
+
+      function showError(msg) {
+        if (errorBox && errorMsg) {
+          errorMsg.textContent = msg;
+          errorBox.classList.remove('hidden');
+        }
+        if (resultsContainer) {
+          resultsContainer.classList.add('hidden');
+        }
+      }
+
+      function hideError() {
+        if (errorBox) {
+          errorBox.classList.add('hidden');
+        }
+      }
+
+      // Status helper
+      function getStatusInfo(status, lang) {
+        const s = String(status || '').toLowerCase();
+        if (s === 'delivered' || s === 'completed') {
+          return {
+            step: 4,
+            label: lang === 'bn' ? 'সফল ডেলিভারি' : 'Delivered',
+            classes: 'bg-emerald-100 text-emerald-900 border-emerald-600 dark:bg-emerald-950 dark:text-emerald-300'
+          };
+        }
+        if (s === 'dispatched' || s === 'in_transit' || s === 'shipped') {
+          return {
+            step: 3,
+            label: lang === 'bn' ? 'ডাকযোগে প্রেরিত' : 'In Transit / Dispatched',
+            classes: 'bg-teal-100 text-teal-900 border-teal-600 dark:bg-teal-950 dark:text-teal-300'
+          };
+        }
+        if (s === 'verified' || s === 'processing' || s === 'confirmed') {
+          return {
+            step: 2,
+            label: lang === 'bn' ? 'মূল্য ও স্টক যাচাইকৃত' : 'Verified & Processing',
+            classes: 'bg-sky-100 text-sky-900 border-sky-600 dark:bg-sky-950 dark:text-sky-300'
+          };
+        }
+        if (s === 'cancelled' || s === 'canceled') {
+          return {
+            step: 0,
+            label: lang === 'bn' ? 'বাতিলকৃত' : 'Cancelled',
+            classes: 'bg-rose-100 text-rose-900 border-rose-600 dark:bg-rose-950 dark:text-rose-300'
+          };
+        }
+        // default: pending_verification / placed
+        return {
+          step: 1,
+          label: lang === 'bn' ? 'অর্ডার গৃহীত' : 'Order Placed',
+          classes: 'bg-amber-100 text-amber-900 border-amber-600 dark:bg-amber-950 dark:text-amber-300'
+        };
+      }
+
+      // Render Order Results
+      function renderOrderResults(data) {
+        currentOrderData = data;
+        hideError();
+
+        // 1. Order ID & Date
+        document.getElementById('res-order-id').textContent = data.order_id || 'N/A';
+        const dateStr = data.created_at ? new Date(data.created_at).toLocaleDateString(currentLang === 'bn' ? 'bn-BD' : 'en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        }) : '';
+        document.getElementById('res-created-date').textContent = dateStr;
+
+        // 2. Status Badge
+        const statusInfo = getStatusInfo(data.status, currentLang);
+        const statusBadge = document.getElementById('res-status-badge');
+        statusBadge.className = `inline-flex items-center px-3.5 py-1 rounded border-2 font-mono text-xs sm:text-sm font-bold shadow-sm ${statusInfo.classes}`;
+        statusBadge.textContent = statusInfo.label;
+
+        // 3. Cancelled stamp
+        const cancelledStamp = document.getElementById('res-cancelled-stamp');
+        const timelineSection = document.getElementById('res-timeline-section');
+        const isCancelled = String(data.status).toLowerCase().includes('cancel');
+
+        if (isCancelled) {
+          cancelledStamp.classList.remove('hidden');
+          timelineSection.classList.add('opacity-50', 'pointer-events-none');
+        } else {
+          cancelledStamp.classList.add('hidden');
+          timelineSection.classList.remove('opacity-50', 'pointer-events-none');
+        }
+
+        // 4. Milestone Timeline Steps
+        for (let i = 1; i <= 4; i++) {
+          const stepEl = document.getElementById(`timeline-step-${i}`);
+          const iconEl = stepEl?.querySelector('.timeline-step-icon');
+          if (!stepEl || !iconEl) continue;
+
+          if (!isCancelled && i <= statusInfo.step) {
+            stepEl.classList.add('border-[#166B58]', 'dark:border-yellow-400', 'shadow-[2px_2px_0px_#166B58]');
+            stepEl.classList.remove('opacity-40');
+            iconEl.classList.add('timeline-node-active');
+            iconEl.classList.remove('bg-slate-100', 'dark:bg-zinc-800', 'border-slate-300', 'dark:border-zinc-700');
+          } else {
+            stepEl.classList.remove('border-[#166B58]', 'dark:border-yellow-400', 'shadow-[2px_2px_0px_#166B58]');
+            stepEl.classList.add('opacity-40');
+            iconEl.classList.remove('timeline-node-active');
+            iconEl.classList.add('bg-slate-100', 'dark:bg-zinc-800', 'border-slate-300', 'dark:border-zinc-700');
+          }
+        }
+
+        // 5. Courier Details & Smart Clickable Links
+        const courierBox = document.getElementById('res-courier-box');
+        const courierNameEl = document.getElementById('res-courier-name');
+        const trackingCodeEl = document.getElementById('res-tracking-code');
+        const courierActionContainer = document.getElementById('res-courier-action-container');
+
+        const courier = String(data.courier_name || '').trim();
+        const trackingCode = String(data.tracking_code || '').trim();
+
+        if (courier || trackingCode) {
+          courierBox.classList.remove('hidden');
+          courierNameEl.textContent = courier || (currentLang === 'bn' ? 'কুরিয়ার পার্টনার' : 'Courier Partner');
+          trackingCodeEl.textContent = trackingCode ? trackingCode : (currentLang === 'bn' ? 'প্রক্রিয়াধীন' : 'Pending');
+
+          // Generate Smart Link or Copy Fallback
+          const cLower = courier.toLowerCase();
+          if (trackingCode && cLower.includes('steadfast')) {
+            const steadfastUrl = `https://steadfast.com.bd/t/${encodeURIComponent(trackingCode)}`;
+            courierActionContainer.innerHTML = `
+              <a href="${steadfastUrl}" target="_blank" rel="noopener noreferrer" class="w-full md:w-auto px-5 py-2.5 rounded bg-[#166B58] hover:bg-[#125446] dark:bg-yellow-400 dark:hover:bg-yellow-300 text-white dark:text-black font-bold text-xs flex items-center justify-center gap-2 shadow-[2px_2px_0px_#BD3A54] dark:shadow-[2px_2px_0px_#166B58] transition-all">
+                <span>Steadfast-এ লাইভ ট্র্যাক করুন</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              </a>
+            `;
+          } else if (trackingCode && cLower.includes('pathao')) {
+            const pathaoUrl = `https://pathao.com/courier-tracking/?consignment_id=${encodeURIComponent(trackingCode)}`;
+            courierActionContainer.innerHTML = `
+              <a href="${pathaoUrl}" target="_blank" rel="noopener noreferrer" class="w-full md:w-auto px-5 py-2.5 rounded bg-[#E4222D] hover:bg-[#c91823] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-[2px_2px_0px_#166B58] transition-all">
+                <span>Pathao-তে লাইভ ট্র্যাক করুন</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+              </a>
+            `;
+          } else if (trackingCode) {
+            courierActionContainer.innerHTML = `
+              <button type="button" id="copy-tracking-code-btn" class="w-full md:w-auto px-4 py-2 rounded bg-slate-200 hover:bg-slate-300 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-slate-800 dark:text-zinc-200 font-bold text-xs flex items-center justify-center gap-1.5 transition-all">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                <span id="copy-btn-label">${currentLang === 'bn' ? 'কোড কপি করুন' : 'Copy Code'}</span>
+              </button>
+            `;
+            document.getElementById('copy-tracking-code-btn')?.addEventListener('click', () => {
+              navigator.clipboard?.writeText(trackingCode).then(() => {
+                const lbl = document.getElementById('copy-btn-label');
+                if (lbl) {
+                  lbl.textContent = currentLang === 'bn' ? '✓ কপি সম্পন্ন!' : '✓ Copied!';
+                  setTimeout(() => {
+                    lbl.textContent = currentLang === 'bn' ? 'কোড কপি করুন' : 'Copy Code';
+                  }, 2500);
+                }
+              });
+            });
+          } else {
+            courierActionContainer.innerHTML = `
+              <span class="text-xs text-slate-500 dark:text-zinc-500 font-mono italic">
+                ${currentLang === 'bn' ? 'কনসাইনমেন্ট প্রস্তুত হচ্ছে' : 'Preparing Consignment'}
+              </span>
+            `;
+          }
+        } else {
+          // If courier not assigned yet, show pending notification
+          courierNameEl.textContent = currentLang === 'bn' ? 'প্যাকেজিং ও বরাদ্দ চলছে' : 'Awaiting Courier Assignment';
+          trackingCodeEl.textContent = '—';
+          courierActionContainer.innerHTML = `
+            <span class="text-xs text-slate-500 dark:text-zinc-500 font-mono italic">
+              ${currentLang === 'bn' ? 'ডাক প্রেরণের পর লিংক যুক্ত হবে' : 'Tracking link available after dispatch'}
+            </span>
+          `;
+        }
+
+        // 6. Itemized List
+        const itemsList = document.getElementById('res-items-list');
+        if (itemsList && Array.isArray(data.items) && data.items.length > 0) {
+          itemsList.innerHTML = data.items.map((item) => `
+            <div class="py-3 flex items-center justify-between gap-3 text-xs sm:text-sm">
+              <div class="flex-1">
+                <span class="font-bold text-slate-800 dark:text-zinc-100 block">${item.title}</span>
+                <span class="text-[11px] text-slate-500 dark:text-zinc-400 font-mono">
+                  ${currentLang === 'bn' ? 'পরিমাণ' : 'Qty'}: ${currentLang === 'bn' ? toBnDigits(item.quantity) : item.quantity} × ${formatMoney(item.unit_price_bdt, currentLang)}
+                </span>
+              </div>
+              <div class="font-mono font-bold text-slate-900 dark:text-white">
+                ${formatMoney(item.total_price_bdt, currentLang)}
+              </div>
+            </div>
+          `).join('');
+        } else if (itemsList) {
+          itemsList.innerHTML = `<div class="py-3 text-xs text-slate-500 italic">${currentLang === 'bn' ? 'পণ্যের তালিকা সংরক্ষিত নেই।' : 'No items recorded.'}</div>`;
+        }
+
+        // 7. Financial breakdown
+        document.getElementById('res-subtotal').textContent = formatMoney(data.subtotal_bdt || 0, currentLang);
+        document.getElementById('res-delivery').textContent = formatMoney(data.delivery_charge_bdt || 0, currentLang);
+        const grandTotalEl = document.getElementById('res-grand-total');
+        if (grandTotalEl) grandTotalEl.textContent = formatMoney(data.total_amount_bdt || 0, currentLang);
+
+        const pmEl = document.getElementById('res-payment-method');
+        const pMethod = String(data.payment_method || 'cod').toLowerCase();
+        if (pmEl) {
+          pmEl.textContent = pMethod === 'cod' 
+            ? (currentLang === 'bn' ? 'ক্যাশ অন ডেলিভারি (COD)' : 'Cash on Delivery')
+            : (currentLang === 'bn' ? 'বিকাশ / MFS সেন্ড মানি' : 'bKash / MFS Direct');
+        }
+
+        // Reveal results and scroll into view smoothly
+        resultsContainer.classList.remove('hidden');
+        resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      // Track API Request
+      async function trackOrder(orderId, phone4) {
+        hideError();
+        submitBtn.disabled = true;
+        const origHtml = submitBtnText.textContent;
+        submitBtnText.textContent = (i18n[currentLang] || i18n.bn).searchingBtn;
+
+        try {
+          // Send request to /api/track endpoint
+          const url = `/api/track?orderId=${encodeURIComponent(orderId)}&phone4=${encodeURIComponent(phone4)}`;
+          const res = await fetch(url, {
+            method: 'GET',
+            headers: { 'Accept': 'application/json' }
+          });
+
+          const data = await res.json().catch(() => null);
+
+          if (res.ok && data && data.success) {
+            renderOrderResults(data);
+          } else if ((orderId.toUpperCase() === 'MC-260908-A4F1' && phone4 === '4935') && (!res.ok || !data)) {
+            // Local dev / static preview fallback for sample order
+            renderOrderResults({
+              success: true,
+              order_id: 'MC-260908-A4F1',
+              status: 'dispatched',
+              payment_method: 'cod',
+              subtotal_bdt: 2450,
+              delivery_charge_bdt: 120,
+              total_amount_bdt: 2570,
+              courier_name: 'Steadfast Courier',
+              tracking_code: 'SF-108294',
+              items: [
+                { title: 'নীলাম্বরী খাঁটি কোমর তাঁতের থামি (Chakma Thami)', quantity: 1, unit_price_bdt: 2450, total_price_bdt: 2450 }
+              ],
+              created_at: '2026-09-08T14:30:00.000Z'
+            });
+          } else {
+            // Error handling
+            const errMsg = data?.error || (i18n[currentLang] || i18n.bn).errNotFound;
+            showError(errMsg);
+          }
+        } catch (err) {
+          console.error('Tracking fetch error:', err);
+          // If in local development or static preview without edge function server running,
+          // check if this is the sample order to permit flawless local testing:
+          if (orderId.toUpperCase() === 'MC-260908-A4F1' && phone4 === '4935') {
+            renderOrderResults({
+              success: true,
+              order_id: 'MC-260908-A4F1',
+              status: 'dispatched',
+              payment_method: 'cod',
+              subtotal_bdt: 2450,
+              delivery_charge_bdt: 120,
+              total_amount_bdt: 2570,
+              courier_name: 'Steadfast Courier',
+              tracking_code: 'SF-108294',
+              items: [
+                { title: 'নীলাম্বরী খাঁটি কোমর তাঁতের থামি (Chakma Thami)', quantity: 1, unit_price_bdt: 2450, total_price_bdt: 2450 }
+              ],
+              created_at: '2026-09-08T14:30:00.000Z'
+            });
+          } else {
+            showError((i18n[currentLang] || i18n.bn).errNotFound);
+          }
+        } finally {
+          submitBtn.disabled = false;
+          submitBtnText.textContent = origHtml;
+        }
+      }
+
+      // Handle form submit
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const orderId = orderIdInput.value.trim();
+        const phone4 = phone4Input.value.trim();
+
+        if (!orderId || !/^\d{4}$/.test(phone4)) {
+          showError((i18n[currentLang] || i18n.bn).errInvalidInput);
+          return;
+        }
+
+        trackOrder(orderId, phone4);
+      });
+
+      // Sample Button
+      if (sampleBtn) {
+        sampleBtn.addEventListener('click', () => {
+          orderIdInput.value = 'MC-260908-A4F1';
+          phone4Input.value = '4935';
+          trackOrder('MC-260908-A4F1', '4935');
+        });
+      }
+
+      // Initial URL Params Check (Deep-linking)
+      function checkUrlParams() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const oId = urlParams.get('orderId') || urlParams.get('id');
+        const p4 = urlParams.get('phone4') || urlParams.get('p') || urlParams.get('phone');
+
+        if (oId) {
+          orderIdInput.value = oId.trim().toUpperCase();
+        }
+        if (p4 && /^\d{4}$/.test(p4.trim())) {
+          phone4Input.value = p4.trim();
+        }
+
+        if (oId && p4 && /^\d{4}$/.test(p4.trim())) {
+          trackOrder(oId.trim().toUpperCase(), p4.trim());
+        }
+      }
+
+      // Event Listeners for Theme & Language
+      document.getElementById('theme-toggle-btn')?.addEventListener('click', () => {
+        applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+      });
+
+      document.getElementById('lang-toggle-btn')?.addEventListener('click', () => {
+        applyLang(currentLang === 'bn' ? 'en' : 'bn');
+      });
+
+      // Initial Bootstrap
+      applyTheme(currentTheme);
+      applyLang(currentLang);
+      checkUrlParams();
+
+    })();
+  </script>
+</body>
+</html>

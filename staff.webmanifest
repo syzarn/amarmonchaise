@@ -1,0 +1,28 @@
+{
+  "name": "মঞ্চাইছে স্টাফ পোর্টাল | Mon Chaise Staff Dispatch",
+  "short_name": "MC Staff",
+  "description": "মঞ্চাইছে (Mon Chaise) অভ্যন্তরীণ মোবাইল স্টাফ ও পার্সেল বিতরণ পোর্টাল",
+  "start_url": "./staff.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#166B58",
+  "background_color": "#FCFBF7",
+  "lang": "bn",
+  "dir": "ltr",
+  "categories": ["business", "productivity", "utilities"],
+  "icons": [
+    {
+      "src": "./files/monchaise_stamp.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./files/monchaise_logo_green.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

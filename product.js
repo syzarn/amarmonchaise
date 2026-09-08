@@ -40,6 +40,10 @@
       viewDetails: 'বিস্তারিত',
       buyNow: 'এখনই কিনুন',
       inStock: 'স্টকে আছে',
+      soldOut: 'বিক্রিত',
+      soldOutArchival: '১-এর ১ পিস: বিক্রি সম্পন্ন',
+      soldOutArchivalSub: 'নতুন পিস বুননের অনুরোধ জানাতে যোগাযোগ করুন',
+      soldOutBtn: 'বিক্রিত (মজুদ নেই)',
       badgeHot: 'হট',
       badgeLimited: 'সীমিত সংস্করণ',
       badgeStaff: 'পছন্দের',
@@ -99,7 +103,13 @@
       tapeAnkle: 'গোড়ালি',
       tapeFloor: 'মেঝে',
       tapePresetsHeading: 'প্রস্তাবিত মাপসমূহ (Presets):',
-      tapeDragHint: '◄ ফিতা ডানে বা বামে টেনে দেখুন ►'
+      tapeDragHint: '◄ ফিতা ডানে বা বামে টেনে দেখুন ►',
+      navCollections: 'সংগ্রহ',
+      navStory: 'আমাদের গল্প',
+      navSizeGuide: 'ফিতার মাপ',
+      navTrack: 'অর্ডার ট্র্যাকিং',
+      footerTrack: 'অর্ডার ট্র্যাকিং (Order Tracking)',
+      navCart: 'ব্যাগ'
     },
     en: {
       siteTitle: 'Mon Chaise | মঞ্চাইছে',
@@ -124,6 +134,10 @@
       viewDetails: 'View Details',
       buyNow: 'Buy Now',
       inStock: 'In Stock',
+      soldOut: 'SOLD OUT',
+      soldOutArchival: '1-of-1 Piece: Sold Out',
+      soldOutArchivalSub: 'Inquire to commission a custom weave',
+      soldOutBtn: 'Sold Out',
       badgeHot: 'Hot',
       badgeLimited: 'Limited Edition',
       badgeStaff: 'Staff Pick',
@@ -183,7 +197,13 @@
       tapeAnkle: 'Ankle',
       tapeFloor: 'Floor',
       tapePresetsHeading: 'Product Dimension Presets:',
-      tapeDragHint: '◄ Drag tape horizontally to scrub ►'
+      tapeDragHint: '◄ Drag tape horizontally to scrub ►',
+      navCollections: 'Collections',
+      navStory: 'Our Craft Story',
+      navSizeGuide: 'Size & Drape Guide',
+      navTrack: 'Order Tracking',
+      footerTrack: 'Order Tracking',
+      navCart: 'Bag'
     }
   };
 
@@ -218,6 +238,7 @@
       "id": "amc-101",
       "slug": "gamcha-tote",
       "category": "weaves",
+      "isSoldOut": true,
       "price": 850,
       "original_price": null,
       "discount_price": null,
@@ -567,7 +588,11 @@
     zoomInBtn: document.getElementById('zoom-in-btn'),
     zoomOutBtn: document.getElementById('zoom-out-btn'),
     zoomResetBtn: document.getElementById('zoom-reset-btn'),
-    zoomLevelText: document.getElementById('zoom-level-text')
+    zoomLevelText: document.getElementById('zoom-level-text'),
+    navSizeGuideBtn: document.getElementById('nav-size-guide-btn'),
+    mobileNavSizeGuideBtn: document.getElementById('mobile-nav-size-guide-btn'),
+    mobileNavCartBtn: document.getElementById('mobile-nav-cart-btn'),
+    mobileCartCountBadge: document.getElementById('mobile-cart-count-badge')
   };
 
   // --- DIGIT & MONEY HELPERS ---
@@ -650,7 +675,7 @@
 
   function addToCart(productId, qty = 1) {
     const product = PRODUCTS.find(p => p.id === productId || p.slug === productId);
-    if (!product) return;
+    if (!product || product.isSoldOut) return;
     const pricing = getProductPricing(product);
 
     const existingIndex = state.cart.findIndex(item => item.id === product.id);
@@ -704,15 +729,15 @@
   function openCartDrawer() {
     if (!elements.cartDrawer || !elements.cartBackdrop) return;
     elements.cartBackdrop.classList.remove('hidden');
-    requestAnimationFrame(() => {
-      elements.cartBackdrop.classList.remove('opacity-0');
-      elements.cartDrawer.classList.remove('translate-x-full');
-    });
+    elements.cartBackdrop.classList.remove('opacity-0');
+    elements.cartDrawer.classList.remove('translate-x-full');
+    elements.cartDrawer.classList.add('translate-x-0');
     document.body.style.overflow = 'hidden';
   }
 
   function closeCartDrawer() {
     if (!elements.cartDrawer || !elements.cartBackdrop) return;
+    elements.cartDrawer.classList.remove('translate-x-0');
     elements.cartDrawer.classList.add('translate-x-full');
     elements.cartBackdrop.classList.add('opacity-0');
     setTimeout(() => {
@@ -728,6 +753,10 @@
     if (elements.cartCountBadge) {
       elements.cartCountBadge.textContent = state.lang === 'bn' ? toBengaliDigits(totalItems) : totalItems;
       elements.cartCountBadge.classList.toggle('hidden', totalItems === 0);
+    }
+    if (elements.mobileCartCountBadge) {
+      elements.mobileCartCountBadge.textContent = state.lang === 'bn' ? toBengaliDigits(totalItems) : totalItems;
+      elements.mobileCartCountBadge.classList.toggle('hidden', totalItems === 0);
     }
 
     if (elements.cartSubtotal) {
@@ -1701,6 +1730,7 @@
     const pricing = getProductPricing(prod);
     const images = getProductImages(prod);
     const activeImage = images[0] || '';
+    const isSold = Boolean(prod.isSoldOut);
 
     // Update document title and breadcrumb
     if (elements.pageTitle) {
@@ -1741,12 +1771,11 @@
       <div class="lg:col-span-6 flex flex-col gap-4">
         
         <!-- Main Showcase Frame with Anti-Download Shield & Thin Nakshikantha Stitching Border -->
-        <div id="slideshow-frame" class="relative w-full aspect-square md:aspect-[4/3] rounded-3xl bg-slate-50/70 dark:bg-[#101016] border border-dashed border-[#1e7e68]/35 dark:border-yellow-500/35 flex items-center justify-center p-4 sm:p-8 shadow-sm dark:shadow-2xl overflow-hidden group select-none" oncontextmenu="return false;" ondragstart="return false;">
+        <div id="slideshow-frame" class="relative w-full aspect-square md:aspect-[4/3] rounded-3xl bg-slate-50/70 dark:bg-[#101016] border border-dashed border-[#1e7e68]/35 dark:border-yellow-500/35 flex items-center justify-center p-4 sm:p-8 shadow-sm dark:shadow-2xl overflow-hidden group select-none ${isSold ? 'sold-out-frame' : ''}" oncontextmenu="return false;" ondragstart="return false;">
           
           <!-- Top Badges -->
           <div class="absolute top-4 left-4 z-30 flex items-center gap-2">
-            <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full ${isCrimsonBadge ? 'badge-crimson' : 'badge-accent'
-      }">
+            <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full ${isCrimsonBadge ? 'badge-crimson' : 'badge-accent'}">
               ${badgeText}
             </span>
           </div>
@@ -1768,6 +1797,12 @@
               </div>
             `}
           </div>
+
+          ${isSold ? `
+            <div class="sold-out-seal-stamp seal-large ${state.lang === 'bn' ? 'seal-bn' : 'seal-en'}">
+              ${state.lang === 'bn' ? 'বিক্রিত' : 'SOLD OUT'}
+            </div>
+          ` : ''}
 
           <!-- Slideshow Prev / Next Buttons (visible if >1 image) -->
           ${images.length > 1 ? `
@@ -1803,12 +1838,20 @@
           </div>
         ` : ''}
 
-        <!-- In-Stock Guarantee bar -->
-        <div class="flex items-center gap-3 p-3 rounded-2xl bg-white dark:bg-zinc-950/80 border border-dashed border-[#1e7e68]/30 dark:border-yellow-500/30 text-xs text-slate-600 dark:text-zinc-400 shadow-sm">
-          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span>${t('inStock')}</span>
-          <span class="ml-auto text-slate-400 dark:text-zinc-500 text-[11px]">Free Returns if Damaged</span>
-        </div>
+        <!-- In-Stock Guarantee / Archival Sold-Out Bar -->
+        ${isSold ? `
+          <div class="flex items-center gap-3 p-3 rounded-2xl bg-red-50/60 dark:bg-red-950/20 border border-dashed border-red-300 dark:border-red-900/50 text-xs text-red-700 dark:text-red-300 shadow-sm">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-500 shrink-0"></span>
+            <span class="font-bold font-title">${t('soldOutArchival')}</span>
+            <span class="ml-auto text-red-600/70 dark:text-red-400/70 text-[11px] secondary-text hidden sm:inline">${t('soldOutArchivalSub')}</span>
+          </div>
+        ` : `
+          <div class="flex items-center gap-3 p-3 rounded-2xl bg-white dark:bg-zinc-950/80 border border-dashed border-[#1e7e68]/30 dark:border-yellow-500/30 text-xs text-slate-600 dark:text-zinc-400 shadow-sm">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>${t('inStock')}</span>
+            <span class="ml-auto text-slate-400 dark:text-zinc-500 text-[11px]">Free Returns if Damaged</span>
+          </div>
+        `}
       </div>
 
       <!-- Column 2: Details & Actions -->
@@ -1885,33 +1928,65 @@
 
         <!-- Quantity & Action Buttons -->
         <div class="pt-6 border-t border-slate-200 dark:border-zinc-900 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-          <!-- Quantity Selector -->
-          <div class="flex items-center justify-between sm:justify-start bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 px-3 py-2.5 rounded-xl">
-            <button type="button" id="detail-qty-dec" class="w-8 h-8 flex items-center justify-center text-slate-500 dark:text-zinc-400 hover:text-black dark:hover:text-white text-base font-bold active:scale-90">-</button>
-            <span id="detail-qty-display" class="price-tag px-4 text-sm font-bold text-slate-900 dark:text-white min-w-[28px] text-center">
-              ${state.lang === 'bn' ? toBengaliDigits(state.currentQty) : state.currentQty}
-            </span>
-            <button type="button" id="detail-qty-inc" class="w-8 h-8 flex items-center justify-center text-slate-500 dark:text-zinc-400 hover:text-black dark:hover:text-white text-base font-bold active:scale-90">+</button>
-          </div>
+          ${isSold ? `
+            <!-- Quantity Selector: Disabled -->
+            <div class="flex items-center justify-between sm:justify-start bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 px-3 py-2.5 rounded-xl opacity-40 pointer-events-none select-none">
+              <button type="button" id="detail-qty-dec" class="w-8 h-8 flex items-center justify-center text-slate-500 dark:text-zinc-400 text-base font-bold">-</button>
+              <span id="detail-qty-display" class="price-tag px-4 text-sm font-bold text-slate-900 dark:text-white min-w-[28px] text-center">
+                ${state.lang === 'bn' ? toBengaliDigits(state.currentQty) : state.currentQty}
+              </span>
+              <button type="button" id="detail-qty-inc" class="w-8 h-8 flex items-center justify-center text-slate-500 dark:text-zinc-400 text-base font-bold">+</button>
+            </div>
 
-          <!-- Add to Cart Button -->
-          <button 
-            type="button" 
-            id="detail-add-cart-btn" 
-            class="flex-1 py-3 px-6 rounded-xl bg-[#1e7e68] hover:bg-[#166b58] dark:bg-yellow-400 dark:hover:bg-yellow-300 text-white dark:text-black font-extrabold text-sm sm:text-base shadow-lg shadow-emerald-800/15 dark:shadow-yellow-500/20 active:scale-98 transition-all flex items-center justify-center gap-2"
-          >
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-            <span>${t('addToCart')}</span>
-          </button>
+            <!-- Add to Cart Button: Disabled -->
+            <button 
+              type="button" 
+              id="detail-add-cart-btn" 
+              disabled
+              class="flex-1 py-3 px-6 rounded-xl bg-slate-200 dark:bg-zinc-800 text-slate-400 dark:text-zinc-500 font-bold text-sm sm:text-base cursor-not-allowed shadow-none flex items-center justify-center gap-2 select-none"
+            >
+              <svg class="w-5 h-5 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+              <span>${t('soldOutBtn')}</span>
+            </button>
 
-          <!-- Buy Now Button -->
-          <button 
-            type="button" 
-            id="detail-buy-now-btn" 
-            class="py-3 px-6 rounded-xl bg-white dark:bg-zinc-900 border border-slate-300 dark:border-zinc-700 hover:border-[#1e7e68] dark:hover:border-yellow-500/60 text-slate-800 dark:text-zinc-200 hover:text-black dark:hover:text-white font-bold text-sm sm:text-base transition-all shadow-sm"
-          >
-            <span>${t('buyNow')}</span>
-          </button>
+            <!-- Buy Now Button: Disabled -->
+            <button 
+              type="button" 
+              id="detail-buy-now-btn" 
+              disabled
+              class="py-3 px-6 rounded-xl bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 text-slate-400 dark:text-zinc-600 font-bold text-sm sm:text-base cursor-not-allowed shadow-none opacity-40 pointer-events-none"
+            >
+              <span>${t('buyNow')}</span>
+            </button>
+          ` : `
+            <!-- Quantity Selector -->
+            <div class="flex items-center justify-between sm:justify-start bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 px-3 py-2.5 rounded-xl">
+              <button type="button" id="detail-qty-dec" class="w-8 h-8 flex items-center justify-center text-slate-500 dark:text-zinc-400 hover:text-black dark:hover:text-white text-base font-bold active:scale-90">-</button>
+              <span id="detail-qty-display" class="price-tag px-4 text-sm font-bold text-slate-900 dark:text-white min-w-[28px] text-center">
+                ${state.lang === 'bn' ? toBengaliDigits(state.currentQty) : state.currentQty}
+              </span>
+              <button type="button" id="detail-qty-inc" class="w-8 h-8 flex items-center justify-center text-slate-500 dark:text-zinc-400 hover:text-black dark:hover:text-white text-base font-bold active:scale-90">+</button>
+            </div>
+
+            <!-- Add to Cart Button -->
+            <button 
+              type="button" 
+              id="detail-add-cart-btn" 
+              class="flex-1 py-3 px-6 rounded-xl bg-[#1e7e68] hover:bg-[#166b58] dark:bg-yellow-400 dark:hover:bg-yellow-300 text-white dark:text-black font-extrabold text-sm sm:text-base shadow-lg shadow-emerald-800/15 dark:shadow-yellow-500/20 active:scale-98 transition-all flex items-center justify-center gap-2"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+              <span>${t('addToCart')}</span>
+            </button>
+
+            <!-- Buy Now Button -->
+            <button 
+              type="button" 
+              id="detail-buy-now-btn" 
+              class="py-3 px-6 rounded-xl bg-white dark:bg-zinc-900 border border-slate-300 dark:border-zinc-700 hover:border-[#1e7e68] dark:hover:border-yellow-500/60 text-slate-800 dark:text-zinc-200 hover:text-black dark:hover:text-white font-bold text-sm sm:text-base transition-all shadow-sm"
+            >
+              <span>${t('buyNow')}</span>
+            </button>
+          `}
         </div>
       </div>
     `;
@@ -1983,21 +2058,26 @@
       const isCrimsonBadge = prod.badge === 'badgeHot' || prod.badge === 'badgeLimited';
       const pricing = getProductPricing(prod);
       const linkUrl = `product.html?id=${prod.slug}`;
+      const isSold = Boolean(prod.isSoldOut);
 
       return `
-        <div class="product-card group relative p-3 sm:p-5 flex flex-col justify-between overflow-hidden">
+        <div class="product-card group relative p-3 sm:p-5 flex flex-col justify-between overflow-hidden ${isSold ? 'sold-out-card' : ''}">
           <div class="flex items-start justify-between gap-1.5 mb-2 sm:mb-3">
-            <span class="text-[9px] sm:text-[11px] font-bold uppercase tracking-wider px-2 sm:px-2.5 py-0.5 rounded-full ${isCrimsonBadge ? 'badge-crimson' : 'badge-accent'
-        }">
+            <span class="text-[9px] sm:text-[11px] font-bold uppercase tracking-wider px-2 sm:px-2.5 py-0.5 rounded-full ${isCrimsonBadge ? 'badge-crimson' : 'badge-accent'}">
               ${badgeText}
             </span>
             <span class="text-[9px] sm:text-[10px] text-slate-400 dark:text-zinc-500 tracking-tighter">#${prod.id}</span>
           </div>
 
-          <a href="${linkUrl}" class="block relative w-full aspect-square rounded-xl bg-slate-50/70 dark:bg-[#101017] border border-dashed border-[#1e7e68]/30 dark:border-yellow-500/30 flex items-center justify-center p-3 sm:p-5 mb-2.5 sm:mb-4 hover:border-[#1e7e68] dark:hover:border-yellow-500 transition-colors overflow-hidden select-none" oncontextmenu="return false;" ondragstart="return false;">
+          <a href="${linkUrl}" class="product-visual-wrapper block relative w-full aspect-square rounded-xl bg-slate-50/70 dark:bg-[#101017] border border-dashed border-[#1e7e68]/30 dark:border-yellow-500/30 flex items-center justify-center p-3 sm:p-5 mb-2.5 sm:mb-4 hover:border-[#1e7e68] dark:hover:border-yellow-500 transition-colors overflow-hidden select-none" oncontextmenu="return false;" ondragstart="return false;">
             <div class="transition-transform duration-300 group-hover:scale-110 [&>svg]:w-14 [&>svg]:h-14 sm:[&>svg]:w-16 sm:[&>svg]:h-16 flex items-center justify-center pointer-events-none">
               ${prod.iconSvg}
             </div>
+            ${isSold ? `
+              <div class="sold-out-seal-stamp ${state.lang === 'bn' ? 'seal-bn' : 'seal-en'}">
+                ${state.lang === 'bn' ? 'বিক্রিত' : 'SOLD OUT'}
+              </div>
+            ` : ''}
             <div class="absolute bottom-1.5 right-1.5 sm:bottom-2 sm:right-2 text-[9px] sm:text-[10px] text-slate-400 dark:text-zinc-500 tracking-tighter">
               #${prod.id}
             </div>
@@ -2026,14 +2106,15 @@
               </div>
 
               <div class="flex items-center gap-1 sm:gap-2 shrink-0">
-                <!-- [OPTIONAL: View Details Button - Commented out per preference]
-                <a href="${linkUrl}" class="hidden sm:inline-flex px-2.5 py-1.5 rounded-lg bg-slate-100/80 hover:bg-slate-200 dark:bg-zinc-900/80 dark:hover:bg-zinc-800 border border-slate-200 dark:border-zinc-800 text-slate-600 dark:text-zinc-300 text-[11px] font-semibold transition-all hover:text-black dark:hover:text-white whitespace-nowrap" title="${t('viewDetails')}">
-                  ${t('viewDetails')}
-                </a>
-                -->
-                <button type="button" data-add-cart="${prod.id}" class="flex items-center justify-center w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-[#1e7e68] hover:bg-[#166b58] dark:bg-yellow-400 dark:hover:bg-yellow-300 text-white dark:text-black font-bold shadow-md hover:scale-105 active:scale-95 transition-all shrink-0" title="${t('addToCart')}">
-                  <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-                </button>
+                ${isSold ? `
+                  <button type="button" disabled class="flex items-center justify-center w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-slate-200 dark:bg-zinc-800 text-slate-400 dark:text-zinc-500 font-bold cursor-not-allowed shadow-none shrink-0" title="${state.lang === 'bn' ? 'বিক্রিত (মজুদ নেই)' : 'Sold Out'}">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+                  </button>
+                ` : `
+                  <button type="button" data-add-cart="${prod.id}" class="flex items-center justify-center w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-[#1e7e68] hover:bg-[#166b58] dark:bg-yellow-400 dark:hover:bg-yellow-300 text-white dark:text-black font-bold shadow-md hover:scale-105 active:scale-95 transition-all shrink-0" title="${t('addToCart')}">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+                  </button>
+                `}
               </div>
             </div>
           </div>
@@ -2136,7 +2217,28 @@
       });
     }
 
-    // Drawer Listeners
+    // Drawer & Navigation Listeners
+    function scrollToTapeGuide() {
+      const tapeHeader = document.getElementById('tape-accordion-header');
+      if (tapeHeader) {
+        tapeHeader.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        const body = document.getElementById('tape-accordion-body');
+        if (body && body.classList.contains('hidden')) {
+          tapeHeader.click();
+        }
+      }
+    }
+
+    if (elements.navSizeGuideBtn) {
+      elements.navSizeGuideBtn.addEventListener('click', scrollToTapeGuide);
+    }
+    if (elements.mobileNavSizeGuideBtn) {
+      elements.mobileNavSizeGuideBtn.addEventListener('click', scrollToTapeGuide);
+    }
+    if (elements.mobileNavCartBtn) {
+      elements.mobileNavCartBtn.addEventListener('click', openCartDrawer);
+    }
+
     if (elements.cartToggleBtn) {
       elements.cartToggleBtn.addEventListener('click', openCartDrawer);
     }

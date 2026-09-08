@@ -55,6 +55,7 @@
     "id": "amc-101",
     "slug": "gamcha-tote",
     "category": "weaves",
+    "isSoldOut": true,
     "price": 850,
     "original_price": null,
     "discount_price": null,
