@@ -74,9 +74,12 @@ async function handleTrackRequest(orderIdInput, phone4Input, env = {}) {
   };
 
   try {
-    // Step A: Fetch order record
+    // Step A: Fetch order record (supports querying by bigint id or alphanumeric order_no)
+    const matchFilter = /^\d+$/.test(orderId)
+      ? `or=(id.eq.${orderId},order_no.eq.${encodeURIComponent(orderId)})`
+      : `order_no=eq.${encodeURIComponent(orderId)}`;
     const orderResp = await fetch(
-      `${supabaseUrl}/rest/v1/orders?id=eq.${encodeURIComponent(orderId)}&select=*`,
+      `${supabaseUrl}/rest/v1/orders?${matchFilter}&select=*`,
       { headers }
     );
 

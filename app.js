@@ -640,6 +640,7 @@
     productGrid: document.getElementById('product-grid'),
     categoryFilterBar: document.getElementById('category-filter-bar'),
     searchInput: document.getElementById('search-input'),
+    searchInputMobile: document.getElementById('search-input-mobile'),
     clearSearchBtn: document.getElementById('clear-search-btn'),
     checkoutForm: document.getElementById('checkout-form'),
     districtSelect: document.getElementById('district-select'),
@@ -841,10 +842,15 @@
     if (state.searchQuery.trim() !== '') {
       const q = state.searchQuery.toLowerCase().trim();
       filtered = filtered.filter(p =>
-        p.name_en.toLowerCase().includes(q) ||
-        p.name_bn.toLowerCase().includes(q) ||
-        p.desc_en.toLowerCase().includes(q) ||
-        p.desc_bn.toLowerCase().includes(q)
+        (p.name_en || '').toLowerCase().includes(q) ||
+        (p.name_bn || '').toLowerCase().includes(q) ||
+        (p.desc_en || '').toLowerCase().includes(q) ||
+        (p.desc_bn || '').toLowerCase().includes(q) ||
+        (p.short_desc_en || '').toLowerCase().includes(q) ||
+        (p.short_desc_bn || '').toLowerCase().includes(q) ||
+        (p.sku || '').toLowerCase().includes(q) ||
+        (p.id || '').toLowerCase().includes(q) ||
+        (p.category || '').toLowerCase().includes(q)
       );
     }
 
@@ -2096,22 +2102,75 @@
       }
     });
 
+    const handleSearchInput = (queryVal, shouldScroll = false) => {
+      const trimmed = String(queryVal || '');
+      state.searchQuery = trimmed;
+
+      if (elements.searchInput && elements.searchInput.value !== trimmed) {
+        elements.searchInput.value = trimmed;
+      }
+      if (elements.searchInputMobile && elements.searchInputMobile.value !== trimmed) {
+        elements.searchInputMobile.value = trimmed;
+      }
+      if (elements.clearSearchBtn) {
+        elements.clearSearchBtn.classList.toggle('hidden', trimmed === '');
+      }
+
+      // Automatically reset category filter so all matching items across categories are found
+      if (trimmed.trim() !== '' && state.selectedCategory !== 'all') {
+        state.selectedCategory = 'all';
+        renderCategories();
+      }
+
+      renderProducts();
+
+      if (shouldScroll && trimmed.trim() !== '') {
+        const catalogSec = document.getElementById('catalog-section');
+        if (catalogSec) {
+          catalogSec.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    };
+
     if (elements.searchInput) {
       elements.searchInput.addEventListener('input', (e) => {
-        state.searchQuery = e.target.value;
-        if (elements.clearSearchBtn) {
-          elements.clearSearchBtn.classList.toggle('hidden', state.searchQuery === '');
+        handleSearchInput(e.target.value, false);
+      });
+      elements.searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          handleSearchInput(e.target.value, true);
+          elements.searchInput.blur();
         }
-        renderProducts();
       });
     }
+
+    if (elements.searchInputMobile) {
+      elements.searchInputMobile.addEventListener('input', (e) => {
+        handleSearchInput(e.target.value, false);
+      });
+      elements.searchInputMobile.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          handleSearchInput(e.target.value, true);
+          elements.searchInputMobile.blur();
+        }
+      });
+    }
+
     if (elements.clearSearchBtn) {
       elements.clearSearchBtn.addEventListener('click', () => {
-        state.searchQuery = '';
-        elements.searchInput.value = '';
-        elements.clearSearchBtn.classList.add('hidden');
-        renderProducts();
+        handleSearchInput('', false);
       });
+    }
+
+    // Auto-search if URL contains ?search=... or ?q=... (e.g. redirected from product.html)
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialQuery = (urlParams.get('search') || urlParams.get('q') || '').trim();
+    if (initialQuery) {
+      setTimeout(() => {
+        handleSearchInput(initialQuery, true);
+      }, 150);
     }
 
     if (elements.districtSelect) {

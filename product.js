@@ -2267,6 +2267,19 @@
       }
     });
 
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          const q = searchInput.value.trim();
+          if (q) {
+            window.location.href = `index.html?q=${encodeURIComponent(q)}#catalog-section`;
+          }
+        }
+      });
+    }
+
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         closeCartDrawer();

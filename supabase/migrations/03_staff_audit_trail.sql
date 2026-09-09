@@ -48,11 +48,43 @@ CREATE TABLE IF NOT EXISTS public.order_audit_logs (
 CREATE INDEX IF NOT EXISTS idx_order_audit_logs_order_id 
 ON public.order_audit_logs (order_id, created_at DESC);
 
--- 3. Add last_modified_by to orders table
+-- 3. Add order_no and last_modified_by to orders table
 ALTER TABLE public.orders 
+ADD COLUMN IF NOT EXISTS order_no TEXT,
 ADD COLUMN IF NOT EXISTS last_modified_by TEXT;
+
+CREATE INDEX IF NOT EXISTS idx_orders_order_no 
+ON public.orders (order_no) 
+WHERE order_no IS NOT NULL;
+
+-- 4. Idempotent Schema Alignment & Legacy Parcels Backfill
+-- Ensures total_amount_bdt, subtotal_bdt, delivery_charge_bdt exist on orders
+ALTER TABLE public.orders 
+ADD COLUMN IF NOT EXISTS total_amount_bdt INTEGER,
+ADD COLUMN IF NOT EXISTS subtotal_bdt INTEGER,
+ADD COLUMN IF NOT EXISTS delivery_charge_bdt INTEGER;
+
+-- Backfill order_no and amounts from legacy columns for existing parcels
+DO $$
+BEGIN
+    IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='orders' AND column_name='client_order_id') THEN
+        UPDATE public.orders 
+        SET order_no = COALESCE(order_no, client_order_id)
+        WHERE order_no IS NULL AND client_order_id IS NOT NULL;
+    END IF;
+
+    IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='orders' AND column_name='total_amount') THEN
+        UPDATE public.orders 
+        SET total_amount_bdt = COALESCE(total_amount_bdt, total_amount),
+            subtotal_bdt = COALESCE(subtotal_bdt, subtotal),
+            delivery_charge_bdt = COALESCE(delivery_charge_bdt, delivery_charge)
+        WHERE total_amount_bdt IS NULL;
+    END IF;
+END $$;
 
 -- Comments for database documentation
 COMMENT ON TABLE public.staff_members IS 'Authorized operational staff members for Mon Chaise fulfillment';
 COMMENT ON TABLE public.order_audit_logs IS 'Immutable audit trail recording which staff member performed each order update';
+COMMENT ON COLUMN public.orders.order_no IS 'Customer-facing alphanumeric order code (e.g. MC-MTR643A1)';
 COMMENT ON COLUMN public.orders.last_modified_by IS 'Name of the staff member who executed the most recent status or courier transition';
+

@@ -281,7 +281,9 @@ function normalizeOrderItems(rawItems) {
 // In-memory mock database for local development and demonstration
 let memoryMockOrders = [
   {
-    id: 'MC-260908-A4F1',
+    id: 101,
+    order_no: 'MC-MTR643A1',
+    chronological_no: '#101',
     customer_id: 'cust-101',
     customer_name: 'ফারহানা চৌধুরী',
     customer_phone: '01712-344935',
@@ -309,7 +311,9 @@ let memoryMockOrders = [
     ]
   },
   {
-    id: 'MC-260908-B7D2',
+    id: 102,
+    order_no: 'MC-MTR682B2',
+    chronological_no: '#102',
     customer_id: 'cust-102',
     customer_name: 'মাহমুদুল হক সাজিদ',
     customer_phone: '01887-454935',
@@ -334,7 +338,9 @@ let memoryMockOrders = [
     audit_trail: []
   },
   {
-    id: 'MC-260908-C9K4',
+    id: 103,
+    order_no: 'MC-MTR719C4',
+    chronological_no: '#103',
     customer_id: 'cust-103',
     customer_name: 'তানজিলা তাসনিম',
     customer_phone: '01923-887711',
@@ -362,7 +368,9 @@ let memoryMockOrders = [
     ]
   },
   {
-    id: 'MC-260907-D5S8',
+    id: 104,
+    order_no: 'MC-MTR755D5',
+    chronological_no: '#104',
     customer_id: 'cust-105',
     customer_name: 'আহমেদ জুবায়ের',
     customer_phone: '01715-998877',
@@ -388,7 +396,9 @@ let memoryMockOrders = [
     audit_trail: []
   },
   {
-    id: 'MC-260907-E2M1',
+    id: 105,
+    order_no: 'MC-MTR801E6',
+    chronological_no: '#105',
     customer_id: 'cust-104',
     customer_name: 'রুবাইয়া আক্তার',
     customer_phone: '01611-223344',
@@ -488,8 +498,28 @@ export async function onRequestGet(context) {
 
         const enrichedOrders = rawOrders.map(order => {
           const cust = order.customer_id ? customerMap.get(order.customer_id) : null;
+          const normalizedItems = normalizeOrderItems(order.items);
+
+          // Support both new (*_bdt) and legacy (without _bdt) column names
+          const subtotal = Number(order.subtotal_bdt ?? order.subtotal ?? 0);
+          const deliveryCharge = Number(order.delivery_charge_bdt ?? order.delivery_charge ?? order.delivery_fee ?? 0);
+          let totalAmount = Number(order.total_amount_bdt ?? order.total_amount ?? order.total ?? order.grand_total ?? 0);
+
+          // If totalAmount is 0 but we have items, compute from items
+          if ((!totalAmount || totalAmount === 0) && normalizedItems.length > 0) {
+            const itemsSum = normalizedItems.reduce((acc, it) => acc + (Number(it.total_price_bdt || it.price_bdt || 0)), 0);
+            totalAmount = itemsSum + (deliveryCharge || (String(order.shipping_address || '').includes('ঢাকা') ? 60 : 120));
+          }
+
+          // Support order_no, client_order_id (legacy), order_code, or derived
+          const orderNo = order.order_no || order.client_order_id || order.order_code || (order.id ? ('MC-MTR' + (typeof order.id === 'number' ? order.id.toString(36).toUpperCase() : order.id)) : 'MC-ORDER');
+          const chronoNo = '#' + order.id;
+
           return {
             id: order.id,
+            order_no: orderNo,
+            client_order_id: order.client_order_id || orderNo,
+            chronological_no: chronoNo,
             customer_id: order.customer_id,
             customer_name: cust?.name || 'গ্রাহক',
             customer_phone: cust?.phone || order.sender_number || '',
@@ -499,17 +529,17 @@ export async function onRequestGet(context) {
             sender_number: order.sender_number || null,
             trx_id: order.trx_id || null,
             status: order.status || 'pending_verification',
-            subtotal_bdt: order.subtotal_bdt || 0,
-            delivery_charge_bdt: order.delivery_charge_bdt || 0,
-            total_amount_bdt: order.total_amount_bdt || 0,
+            subtotal_bdt: subtotal,
+            delivery_charge_bdt: deliveryCharge,
+            total_amount_bdt: totalAmount,
             courier_name: order.courier_name || null,
             tracking_code: order.tracking_code || null,
             last_modified_by: order.last_modified_by || null,
-            items: normalizeOrderItems(order.items),
+            items: normalizedItems,
             customer_notes: order.customer_notes || null,
             created_at: order.created_at,
             updated_at: order.updated_at,
-            audit_trail: auditMap.get(order.id) || []
+            audit_trail: auditMap.get(String(order.id)) || auditMap.get(String(orderNo)) || []
           };
         });
 
@@ -778,15 +808,41 @@ export async function onRequestPost(context) {
     };
 
     try {
-      // 1. Update orders table
-      const updateResp = await fetch(
-        `${supabaseUrl}/rest/v1/orders?id=eq.${encodeURIComponent(orderId)}`,
+      // 1. Update orders table (supports querying by bigint id, client_order_id, or order_no)
+      let matchFilter;
+      if (/^\d+$/.test(orderId)) {
+        matchFilter = `or=(id.eq.${orderId},client_order_id.eq.${encodeURIComponent(orderId)},order_no.eq.${encodeURIComponent(orderId)})`;
+      } else {
+        matchFilter = `or=(client_order_id.eq.${encodeURIComponent(orderId)},order_no.eq.${encodeURIComponent(orderId)})`;
+      }
+
+      // Try updating with last_modified_by first
+      let patchBody = { ...updates };
+      let updateResp = await fetch(
+        `${supabaseUrl}/rest/v1/orders?${matchFilter}`,
         {
           method: 'PATCH',
           headers,
-          body: JSON.stringify(updates)
+          body: JSON.stringify(patchBody)
         }
       );
+
+      // If failed because last_modified_by column does not exist yet in Supabase, retry without it
+      if (!updateResp.ok) {
+        const errTxt = await updateResp.text();
+        console.warn('First PATCH attempt failed, retrying without last_modified_by:', updateResp.status, errTxt);
+        if (errTxt.includes('last_modified_by') || errTxt.includes('does not exist')) {
+          delete patchBody.last_modified_by;
+          updateResp = await fetch(
+            `${supabaseUrl}/rest/v1/orders?${matchFilter}`,
+            {
+              method: 'PATCH',
+              headers,
+              body: JSON.stringify(patchBody)
+            }
+          );
+        }
+      }
 
       // 2. Insert audit log record (fire and record)
       fetch(`${supabaseUrl}/rest/v1/order_audit_logs`, {
@@ -802,12 +858,26 @@ export async function onRequestPost(context) {
       }).catch(e => console.error('Failed to write audit log to Supabase:', e));
 
       if (updateResp.ok) {
-        const updatedRows = await updateResp.json();
+        const updatedRows = await updateResp.json().catch(() => []);
+        const savedOrder = Array.isArray(updatedRows) && updatedRows.length > 0 ? updatedRows[0] : null;
+
         return jsonResponse({
           success: true,
           message: `অর্ডার #${orderId} সফলভাবে হালনাগাদ করা হয়েছে (${staffName} কর্তৃক)।`,
-          order: Array.isArray(updatedRows) && updatedRows.length > 0 ? updatedRows[0] : updates
+          order: savedOrder ? {
+            ...savedOrder,
+            subtotal_bdt: Number(savedOrder.subtotal_bdt ?? savedOrder.subtotal ?? 0),
+            delivery_charge_bdt: Number(savedOrder.delivery_charge_bdt ?? savedOrder.delivery_charge ?? 0),
+            total_amount_bdt: Number(savedOrder.total_amount_bdt ?? savedOrder.total_amount ?? 0)
+          } : updates
         }, 200);
+      } else {
+        const errTxt = await updateResp.text().catch(() => '');
+        console.error('Supabase update failed:', updateResp.status, errTxt);
+        return jsonResponse({
+          success: false,
+          error: `ডাটাবেজ আপডেট ব্যর্থ হয়েছে: ${errTxt}`
+        }, 500);
       }
     } catch (err) {
       console.error('Supabase update error in /api/staff:', err);
@@ -815,7 +885,10 @@ export async function onRequestPost(context) {
   }
 
   // B. Fallback: Update in-memory mock store
-  const targetIndex = memoryMockOrders.findIndex(o => o.id.toUpperCase() === orderId);
+  const targetIndex = memoryMockOrders.findIndex(o => 
+    String(o.id).toUpperCase() === orderId || 
+    String(o.order_no || '').toUpperCase() === orderId
+  );
   if (targetIndex !== -1) {
     const targetOrder = memoryMockOrders[targetIndex];
     if (!targetOrder.audit_trail) targetOrder.audit_trail = [];
