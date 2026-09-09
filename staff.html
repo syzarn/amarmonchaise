@@ -171,7 +171,8 @@
       <!-- Brand & Staff Pill -->
       <div class="flex items-center gap-2">
         <a href="index.html" class="flex items-center gap-1.5 focus:outline-none" title="Return to Mon Chaise Home">
-          <img src="./files/monchaise_logo_green.svg" alt="Mon Chaise" class="h-6 w-auto" />
+          <img src="./files/monchaise_logo_green.svg" alt="Mon Chaise" class="h-6 w-auto dark:hidden" />
+          <img src="./files/monchaise_logo.svg" alt="Mon Chaise" class="h-6 w-auto hidden dark:block" />
         </a>
         <div class="flex items-center gap-1">
           <span class="chapter-badge text-[10px] font-mono px-2 py-0.5 rounded font-black tracking-wider uppercase">
@@ -181,8 +182,14 @@
         </div>
       </div>
 
-      <!-- Controls: Theme, Lang & Logout -->
+      <!-- Controls: Theme, Lang, Staff Identity & Logout -->
       <div class="flex items-center gap-1.5 sm:gap-2">
+        <!-- Logged-in Staff Badge -->
+        <div id="logged-in-staff-badge" class="hidden flex items-center gap-1 px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-600/30 text-[11px] font-bold text-emerald-800 dark:text-emerald-300 font-mono">
+          <span>👤</span>
+          <span id="active-staff-name">Staff</span>
+        </div>
+
         <!-- Live Clock -->
         <span id="live-clock" class="hidden sm:inline-block text-[11px] font-mono text-slate-500 dark:text-zinc-400 font-medium"></span>
 
@@ -222,7 +229,7 @@
   </header>
 
   <!-- ================================================================= -->
-  <!-- SCREEN 1: PASSKEY AUTHENTICATION GATE -->
+  <!-- SCREEN 1: NAMED STAFF AUTHENTICATION GATE -->
   <!-- ================================================================= -->
   <section id="passkey-screen" class="flex-1 flex flex-col justify-center max-w-xl mx-auto px-4 py-8 w-full">
     <div class="print-press-card p-6 sm:p-8 relative overflow-hidden">
@@ -237,28 +244,45 @@
           <span data-i18n="authGateBadge">স্টাফ ও পার্সেল বিতরণ বহি</span>
         </div>
         <h1 class="text-xl sm:text-2xl font-extrabold text-[#166B58] dark:text-yellow-400 font-title tracking-tight mb-2" data-i18n="authGateTitle">
-          অভ্যন্তরীণ প্রবেশাধিকার (Staff Gate)
+          অভ্যন্তরীণ প্রবেশাধিকার (Staff Sign In)
         </h1>
         <p class="text-xs text-slate-600 dark:text-zinc-400 max-w-xs mx-auto leading-relaxed" data-i18n="authGateSub">
-          দৈনিক অর্ডার ম্যানেজমেন্ট ও কুরিয়ারে পার্সেল হ্যান্ডওভার করতে প্রশাসনিক পাসকি প্রদান করুন।
+          দৈনিক অর্ডার পূরণ, ট্রানজ্যাকশন যাচাই ও কুরিয়ারে হস্তান্তরে আপনার স্টাফ নাম ও পিন প্রদান করুন।
         </p>
       </div>
 
       <!-- Auth Form -->
       <form id="passkey-form" class="space-y-4" onsubmit="return false;">
+        <!-- Staff Name Input -->
         <div>
-          <label for="passkey-input" class="block text-xs font-bold text-slate-700 dark:text-zinc-300 uppercase tracking-wider mb-1.5 font-mono">
-            <span data-i18n="passkeyLabel">অ্যাডমিন পাসকি (Staff Passkey)</span> <span class="text-rose-600">*</span>
+          <label for="staff-name-input" class="block text-xs font-bold text-slate-700 dark:text-zinc-300 uppercase tracking-wider mb-1 font-mono">
+            <span data-i18n="staffNameLabel">স্টাফ নাম (Staff Name)</span> <span class="text-rose-600">*</span>
+          </label>
+          <input 
+            type="text" 
+            id="staff-name-input" 
+            name="staff_name"
+            required 
+            autocomplete="username"
+            placeholder="যেমন: Sara, Antar..."
+            class="w-full px-3.5 py-2.5 text-sm rounded bg-white dark:bg-zinc-900 border-2 border-[#166B58]/40 dark:border-yellow-500/40 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-[#166B58] dark:focus:border-yellow-400 font-medium transition-colors shadow-inner"
+          />
+        </div>
+
+        <!-- Staff PIN Input -->
+        <div>
+          <label for="staff-pin-input" class="block text-xs font-bold text-slate-700 dark:text-zinc-300 uppercase tracking-wider mb-1 font-mono">
+            <span data-i18n="staffPinLabel">ব্যক্তিগত পিন (Staff PIN)</span> <span class="text-rose-600">*</span>
           </label>
           <div class="relative">
             <input 
               type="password" 
-              id="passkey-input" 
-              name="passkey"
+              id="staff-pin-input" 
+              name="staff_pin"
               required 
               autocomplete="current-password"
-              placeholder="পাসকি প্রবেশ করান..."
-              class="w-full px-3.5 py-3 text-sm rounded bg-white dark:bg-zinc-900 border-2 border-[#166B58]/40 dark:border-yellow-500/40 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-[#166B58] dark:focus:border-yellow-400 font-mono tracking-wider transition-colors pr-10 shadow-inner"
+              placeholder="পিন প্রবেশ করান..."
+              class="w-full px-3.5 py-2.5 text-sm rounded bg-white dark:bg-zinc-900 border-2 border-[#166B58]/40 dark:border-yellow-500/40 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-zinc-500 focus:outline-none focus:border-[#166B58] dark:focus:border-yellow-400 font-mono tracking-wider transition-colors pr-10 shadow-inner"
             />
             <button 
               type="button" 
@@ -283,7 +307,7 @@
           </label>
         </div>
 
-        <!-- Error Message Container -->
+        <!-- Error Message Container (With Rate Limiter Timer support) -->
         <div id="auth-error" class="hidden p-3 rounded bg-rose-50 dark:bg-rose-950/40 border border-rose-600/40 text-xs text-rose-700 dark:text-rose-300 font-medium">
         </div>
 
@@ -293,20 +317,8 @@
           id="passkey-submit-btn" 
           class="touch-btn w-full px-4 rounded bg-[#166B58] hover:bg-[#125446] dark:bg-yellow-500 dark:hover:bg-yellow-400 text-white dark:text-slate-950 font-bold text-sm tracking-wider uppercase shadow-[3px_3px_0px_#bd3a54] dark:shadow-[3px_3px_0px_#1e7e68] transition-all active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#bd3a54]"
         >
-          <span id="auth-btn-text" data-i18n="authBtn">প্রবেশ করুন (Authenticate)</span>
+          <span id="auth-btn-text" data-i18n="authBtn">প্রবেশ করুন (Sign In)</span>
         </button>
-
-        <!-- Quick Local PIN helper for testing / staging -->
-        <div class="pt-2 text-center">
-          <button 
-            type="button" 
-            id="quick-pin-btn" 
-            class="text-[11px] text-slate-500 dark:text-zinc-400 hover:text-[#166B58] dark:hover:text-yellow-400 underline decoration-dashed font-mono"
-            title="Use default local test passkey"
-          >
-            টেস্ট পিন বসান (Fill 'amc-staff-2026')
-          </button>
-        </div>
       </form>
     </div>
   </section>
@@ -338,10 +350,10 @@
         <span id="metric-pending" class="font-ledger text-sm sm:text-base font-black text-amber-700 dark:text-amber-400">0</span>
       </button>
 
-      <!-- Filter: Verified / Ready for Dispatch -->
+      <!-- Filter: Verified / Ready for Dispatch (Shows both confirmed & verified) -->
       <button 
         type="button" 
-        data-filter="verified" 
+        data-filter="ready_for_dispatch" 
         class="filter-pill print-press-card p-2 text-center transition-all cursor-pointer select-none bg-white dark:bg-zinc-900 border-2 border-emerald-600/40 dark:border-emerald-500/40 opacity-85 hover:opacity-100"
       >
         <span class="block text-[10px] sm:text-xs font-bold text-emerald-700 dark:text-emerald-400" data-i18n="metricVerified">প্যাকিং</span>
@@ -409,11 +421,11 @@
 
     <!-- Interactive Usage Hint Banner -->
     <div class="px-3 py-1.5 rounded bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-600/30 text-[11px] text-emerald-800 dark:text-emerald-300 flex items-center justify-between font-mono">
-      <span>💡 যেকোনো অর্ডারের উপর ট্যাপ করে সম্পূর্ণ চালানের বিবরণ ও অ্যাকশন দেখুন।</span>
+      <span>💡 যেকোনো কার্ডের উপর ট্যাপ করে সম্পূর্ণ চালান ও অ্যাকশন দেখুন।</span>
       <span class="text-[10px] font-bold uppercase tracking-wider">TAP TO EXPAND</span>
     </div>
 
-    <!-- ORDER FEED CONTAINER -->
+    <!-- ORDER FEED CONTAINER (Event Delegation Target) -->
     <section id="orders-feed" class="flex flex-col gap-3 pb-16">
       <!-- Dynamic Order Cards will be injected here -->
       <div id="feed-loading-skeleton" class="space-y-3 py-6 text-center">
@@ -477,7 +489,7 @@
             id="modal-copy-address-btn" 
             class="touch-btn h-8 px-3 rounded bg-white dark:bg-zinc-800 border border-[#166B58]/40 dark:border-yellow-500/40 text-[11px] font-bold text-[#166B58] dark:text-yellow-400"
           >
-            📋 ঠিকানা কপি করুন
+            📋 সম্পূর্ণ ঠিকানা কপি করুন
           </button>
         </div>
       </div>
@@ -594,11 +606,12 @@
         bn: {
           pageTitle: 'মঞ্চাইছে স্টাফ ও বিতরণ পোর্টাল | Staff Dispatch Portal — Mon Chaise',
           authGateBadge: 'স্টাফ ও পার্সেল বিতরণ বহি',
-          authGateTitle: 'অভ্যন্তরীণ প্রবেশাধিকার (Staff Gate)',
-          authGateSub: 'দৈনিক অর্ডার ম্যানেজমেন্ট ও কুরিয়ারে পার্সেল হ্যান্ডওভার করতে প্রশাসনিক পাসকি প্রদান করুন।',
-          passkeyLabel: 'অ্যাডমিন পাসকি (Staff Passkey)',
+          authGateTitle: 'অভ্যন্তরীণ প্রবেশাধিকার (Staff Sign In)',
+          authGateSub: 'দৈনিক অর্ডার পূরণ, ট্রানজ্যাকশন যাচাই ও কুরিয়ারে হস্তান্তরে আপনার স্টাফ নাম ও পিন প্রদান করুন।',
+          staffNameLabel: 'স্টাফ নাম (Staff Name)',
+          staffPinLabel: 'ব্যক্তিগত পিন (Staff PIN)',
           rememberDevice: 'এই ডিভাইসে লগইন মনে রাখুন (Remember this phone)',
-          authBtn: 'প্রবেশ করুন (Authenticate)',
+          authBtn: 'প্রবেশ করুন (Sign In)',
           authBtnVerifying: 'যাচাই হচ্ছে...',
           logoutText: 'প্রস্থান',
           metricAll: 'সব',
@@ -618,6 +631,7 @@
           trackingPlaceholder: 'কুরিয়ার ট্র্যাকিং কোড দিন',
           dispatchBtn: '🚚 কুরিয়ারে হস্তান্তর সম্পন্ন',
           dispatchingBtn: 'হস্তান্তর হচ্ছে...',
+          copyForCourierBtn: '📋 কুরিয়ার ডেটা কপি',
           trackCourierBtn: 'লাইভ ট্র্যাকিং দেখুন →',
           noOrders: 'কোনো অর্ডার পাওয়া যায়নি।',
           insideDhaka: 'ঢাকার ভেতরে (Inside Dhaka)',
@@ -625,9 +639,9 @@
           itemsLabel: 'অর্ডারকৃত পণ্যসামগ্রী (Order Items)',
           paymentLabel: 'পেমেন্ট লেজার',
           notesLabel: 'গ্রাহকের বিশেষ নির্দেশনা',
-          errInvalidPasskey: 'অননুমোদিত পাসকি! অনুগ্রহ করে সঠিক কি প্রদান করুন।',
-          detailsBtn: 'বিস্তারিত দেখুন',
-          collapseBtn: 'সংক্ষেপ করুন',
+          errInvalidPasskey: 'ভুল নাম অথবা পিন! অনুগ্রহ করে সঠিক তথ্য প্রদান করুন।',
+          detailsBtn: '▼ বিস্তারিত',
+          collapseBtn: '▲ সংক্ষেপ',
           expandAll: '▾ সব বিস্তারিত',
           collapseAll: '▴ সব সংক্ষেপ',
           slipBtn: '📄 পূর্ণ চালান ও প্রিন্ট'
@@ -635,16 +649,17 @@
         en: {
           pageTitle: 'Staff Operations & Dispatch Portal — Mon Chaise',
           authGateBadge: 'STAFF DISPATCH LEDGER',
-          authGateTitle: 'Staff Operations Gate',
-          authGateSub: 'Enter administrative passkey to verify payments and dispatch parcels.',
-          passkeyLabel: 'Staff Passkey',
+          authGateTitle: 'Staff Sign In',
+          authGateSub: 'Enter your staff name and personal PIN to manage orders and dispatch parcels.',
+          staffNameLabel: 'Staff Name',
+          staffPinLabel: 'Staff PIN',
           rememberDevice: 'Remember on this phone',
-          authBtn: 'Authenticate',
-          authBtnVerifying: 'Authenticating...',
+          authBtn: 'Sign In',
+          authBtnVerifying: 'Signing in...',
           logoutText: 'Logout',
           metricAll: 'All',
           metricPending: 'Pending',
-          metricVerified: 'Verified',
+          metricVerified: 'Packing',
           metricDispatched: 'Dispatched',
           refreshBtn: 'Refresh',
           callBtn: '📞 Call Customer',
@@ -659,6 +674,7 @@
           trackingPlaceholder: 'Courier Tracking Code',
           dispatchBtn: '🚚 Handover to Courier',
           dispatchingBtn: 'Dispatching...',
+          copyForCourierBtn: '📋 Copy for Courier',
           trackCourierBtn: 'Live Courier Track →',
           noOrders: 'No orders found for this view.',
           insideDhaka: 'Inside Dhaka',
@@ -666,9 +682,9 @@
           itemsLabel: 'Order Items',
           paymentLabel: 'Payment Ledger',
           notesLabel: 'Customer Note',
-          errInvalidPasskey: 'Invalid Passkey! Please provide the correct staff key.',
-          detailsBtn: 'View Details',
-          collapseBtn: 'Collapse',
+          errInvalidPasskey: 'Invalid name or PIN! Please provide authorized staff credentials.',
+          detailsBtn: '▼ Details',
+          collapseBtn: '▲ Collapse',
           expandAll: '▾ Expand All',
           collapseAll: '▴ Collapse All',
           slipBtn: '📄 Full Packing Slip'
@@ -680,7 +696,10 @@
       let ordersCache = [];
       let expandedOrders = new Set();
       let allExpanded = false;
-      let activePasskey = sessionStorage.getItem('amc_staff_passkey') || localStorage.getItem('amc_staff_passkey') || '';
+
+      // Staff Session Storage
+      let activeStaffToken = sessionStorage.getItem('amc_staff_token') || localStorage.getItem('amc_staff_token') || '';
+      let activeStaffName = sessionStorage.getItem('amc_staff_name') || localStorage.getItem('amc_staff_name') || '';
 
       // --- 2. Normalize Order Items (Guarantees zero 'undefined') ---
       function normalizeOrderItems(rawItems) {
@@ -734,12 +753,17 @@
           total_amount_bdt: 2510,
           courier_name: 'Steadfast Courier',
           tracking_code: 'SF-108294',
+          last_modified_by: 'Antar',
           items: [
-            { product_id: 'amc-100', sku: 'AMC-WEV-THM-01', title: 'ঐতিহ্যবাহী হাতে বোনা থামি', quantity: 1, unit_price_bdt: 2450, total_price_bdt: 2450 }
+            { product_id: 'amc-100', sku: 'AMC-WEV-THM-01', title: 'নীলাম্বরী খাঁটি কোমর তাঁতের থামি (Chakma Thami)', quantity: 1, unit_price_bdt: 2450, total_price_bdt: 2450 }
           ],
           customer_notes: 'বিকেলের পর ডেলিভারি দিলে সুবিধা হয়।',
           created_at: new Date(Date.now() - 3600000 * 5).toISOString(),
-          updated_at: new Date(Date.now() - 3600000 * 2).toISOString()
+          updated_at: new Date(Date.now() - 3600000 * 2).toISOString(),
+          audit_trail: [
+            { id: 'aud-1', staff_name: 'Sara', action: 'status_override', details: { note: 'অর্ডার প্রস্তুত করা হয়েছে' }, created_at: new Date(Date.now() - 3600000 * 3).toISOString() },
+            { id: 'aud-2', staff_name: 'Antar', action: 'dispatched', details: { courier_name: 'Steadfast Courier', tracking_code: 'SF-108294' }, created_at: new Date(Date.now() - 3600000 * 2).toISOString() }
+          ]
         },
         {
           id: 'MC-260908-B7D2',
@@ -757,12 +781,14 @@
           total_amount_bdt: 1910,
           courier_name: null,
           tracking_code: null,
+          last_modified_by: null,
           items: [
             { product_id: 'amc-101', sku: 'AMC-WEV-GMC-01', title: 'হাতে বোনা ট্রাইবাল গামছা টোট ব্যাগ', quantity: 1, unit_price_bdt: 1850, total_price_bdt: 1850 }
           ],
           customer_notes: 'বিকাশ সেন্ড মানি করা হয়েছে। TrxID মেলান।',
           created_at: new Date(Date.now() - 1800000).toISOString(),
-          updated_at: new Date(Date.now() - 1800000).toISOString()
+          updated_at: new Date(Date.now() - 1800000).toISOString(),
+          audit_trail: []
         },
         {
           id: 'MC-260908-C9K4',
@@ -780,13 +806,43 @@
           total_amount_bdt: 3320,
           courier_name: null,
           tracking_code: null,
+          last_modified_by: 'Sara',
           items: [
             { product_id: 'amc-100', sku: 'AMC-WEV-THM-01', title: 'ঐতিহ্যবাহী হাতে বোনা থামি', quantity: 1, unit_price_bdt: 2450, total_price_bdt: 2450 },
             { product_id: 'amc-105', sku: 'AMC-TEA-CHM-01', title: 'বান্দরবান স্মোকড পাহাড়ি কালো চা (১০০ গ্রাম)', quantity: 1, unit_price_bdt: 380, total_price_bdt: 380 }
           ],
           customer_notes: 'প্যাকিং যেন মজবুত হয়। উপহারের পার্সেল।',
           created_at: new Date(Date.now() - 3600000 * 3).toISOString(),
-          updated_at: new Date(Date.now() - 3600000 * 1).toISOString()
+          updated_at: new Date(Date.now() - 3600000 * 1).toISOString(),
+          audit_trail: [
+            { id: 'aud-3', staff_name: 'Sara', action: 'payment_verified', details: { trx_id: 'NGD43K8L99' }, created_at: new Date(Date.now() - 3600000 * 1).toISOString() }
+          ]
+        },
+        {
+          id: 'MC-260907-D5S8',
+          customer_id: 'cust-105',
+          customer_name: 'আহমেদ জুবায়ের',
+          customer_phone: '01715-998877',
+          shipping_address: 'বাড়ি ১৪, সেক্টর ৭, উত্তরা, ঢাকা',
+          district: 'Inside Dhaka',
+          payment_method: 'cod',
+          sender_number: null,
+          trx_id: null,
+          status: 'confirmed',
+          subtotal_bdt: 1400,
+          delivery_charge_bdt: 60,
+          total_amount_bdt: 1460,
+          courier_name: null,
+          tracking_code: null,
+          last_modified_by: null,
+          items: [
+            { product_id: 'amc-104', sku: 'AMC-LMP-CAS-01', title: 'নস্টালজিক ক্যাসেট অ্যাম্বিয়েন্ট নাইট ল্যাম্প', quantity: 1, unit_price_bdt: 1200, total_price_bdt: 1200 },
+            { product_id: 'amc-111', sku: 'AMC-BMK-TRB-01', title: 'সুতি সুতোর ঝালর দেওয়া ট্রাইবাল বুকমার্ক', quantity: 1, unit_price_bdt: 200, total_price_bdt: 200 }
+          ],
+          customer_notes: 'ক্যাশ অন ডেলিভারি নিশ্চিত করা হয়েছে।',
+          created_at: new Date(Date.now() - 3600000 * 4).toISOString(),
+          updated_at: new Date(Date.now() - 3600000 * 4).toISOString(),
+          audit_trail: []
         },
         {
           id: 'MC-260907-E2M1',
@@ -798,18 +854,22 @@
           payment_method: 'cod',
           sender_number: null,
           trx_id: null,
-          status: 'dispatched',
+          status: 'delivered',
           subtotal_bdt: 1200,
           delivery_charge_bdt: 120,
           total_amount_bdt: 1320,
           courier_name: 'Pathao Courier',
           tracking_code: 'PTH-882190',
+          last_modified_by: 'Antar',
           items: [
             { product_id: 'amc-102', sku: 'AMC-ART-RCK-01', title: 'রিকশা আর্ট কাঠের কোস্টার সেট (৪টি)', quantity: 2, unit_price_bdt: 450, total_price_bdt: 900 }
           ],
           customer_notes: null,
           created_at: new Date(Date.now() - 86400000 * 2).toISOString(),
-          updated_at: new Date(Date.now() - 86400000 * 1).toISOString()
+          updated_at: new Date(Date.now() - 86400000 * 1).toISOString(),
+          audit_trail: [
+            { id: 'aud-4', staff_name: 'Antar', action: 'dispatched', details: { courier_name: 'Pathao Courier', tracking_code: 'PTH-882190' }, created_at: new Date(Date.now() - 86400000 * 1).toISOString() }
+          ]
         }
       ];
 
@@ -927,79 +987,127 @@
       setInterval(updateLiveClock, 30000);
       updateLiveClock();
 
-      // --- 7. Passkey Gate & Authentication ---
+      // --- 7. Named Staff Authentication ---
       const passkeyScreen = document.getElementById('passkey-screen');
       const dashboardScreen = document.getElementById('dashboard-screen');
-      const passkeyInput = document.getElementById('passkey-input');
+      const staffNameInput = document.getElementById('staff-name-input');
+      const staffPinInput = document.getElementById('staff-pin-input');
       const passkeySubmitBtn = document.getElementById('passkey-submit-btn');
       const authBtnText = document.getElementById('auth-btn-text');
       const authError = document.getElementById('auth-error');
       const rememberCheckbox = document.getElementById('remember-device');
       const logoutBtn = document.getElementById('logout-btn');
+      const loggedInBadge = document.getElementById('logged-in-staff-badge');
+      const activeStaffNameEl = document.getElementById('active-staff-name');
 
-      async function verifyPasskeyServer(key) {
-        try {
-          const res = await fetch('/api/staff?action=verify_passkey', {
-            method: 'GET',
-            headers: {
-              'x-staff-passkey': key,
-              'Accept': 'application/json'
-            }
-          });
-          if (res.ok) {
-            const data = await res.json().catch(() => null);
-            return data && data.success;
-          }
-          if (res.status === 401) {
-            return false;
-          }
-        } catch (_) {
-          // On static preview servers without Cloudflare Pages Functions
+      function updateStaffIdentityUI(name) {
+        if (name && loggedInBadge && activeStaffNameEl) {
+          activeStaffNameEl.textContent = name;
+          loggedInBadge.classList.remove('hidden');
+        } else if (loggedInBadge) {
+          loggedInBadge.classList.add('hidden');
         }
-        // Fallback validation for local preview testing
-        return key === 'amc-staff-2026';
       }
 
-      async function handleLogin(passkey) {
-        const key = String(passkey || '').trim();
-        if (!key) return;
+      async function handleLogin(name, pin) {
+        const staffName = String(name || '').trim();
+        const staffPin = String(pin || '').trim();
+
+        if (!staffName || !staffPin) {
+          authError.textContent = currentLang === 'bn' ? 'স্টাফ নাম এবং পিন প্রদান করুন।' : 'Please enter staff name and PIN.';
+          authError.classList.remove('hidden');
+          return;
+        }
 
         authError.classList.add('hidden');
         passkeySubmitBtn.disabled = true;
         authBtnText.textContent = (i18n[currentLang] || i18n.bn).authBtnVerifying;
 
-        const isValid = await verifyPasskeyServer(key);
-        passkeySubmitBtn.disabled = false;
-        authBtnText.textContent = (i18n[currentLang] || i18n.bn).authBtn;
+        try {
+          const res = await fetch('/api/staff?action=login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              action: 'login',
+              name: staffName,
+              pin: staffPin
+            })
+          });
 
-        if (isValid) {
-          activePasskey = key;
-          sessionStorage.setItem('amc_staff_passkey', key);
-          if (rememberCheckbox.checked) {
-            localStorage.setItem('amc_staff_passkey', key);
+          const data = await res.json().catch(() => null);
+
+          if (res.ok && data && data.success) {
+            activeStaffToken = data.token;
+            activeStaffName = data.staff ? data.staff.name : staffName;
+
+            sessionStorage.setItem('amc_staff_token', activeStaffToken);
+            sessionStorage.setItem('amc_staff_name', activeStaffName);
+            if (rememberCheckbox.checked) {
+              localStorage.setItem('amc_staff_token', activeStaffToken);
+              localStorage.setItem('amc_staff_name', activeStaffName);
+            }
+
+            updateStaffIdentityUI(activeStaffName);
+            passkeyScreen.classList.add('hidden');
+            dashboardScreen.classList.remove('hidden');
+            logoutBtn.classList.remove('hidden');
+
+            showToast(currentLang === 'bn' ? `স্বাগতম, ${activeStaffName}!` : `Welcome, ${activeStaffName}!`);
+            fetchOrders();
+            return;
+          } else if (res.status === 404 || res.status === 501 || res.status === 405) {
+            // Static preview server without Cloudflare Pages Functions
+            throw new Error('Static preview server fallback');
+          } else {
+            const errorMsg = data && data.error ? data.error : (i18n[currentLang] || i18n.bn).errInvalidPasskey;
+            authError.textContent = errorMsg;
+            authError.classList.remove('hidden');
           }
+        } catch (_) {
+          // Offline / Static Preview Fallback (Sara: 23111997, Antar: 30062002)
+          const validPre = (staffName.toLowerCase() === 'sara' && staffPin === '23111997') ||
+                           (staffName.toLowerCase() === 'antar' && staffPin === '30062002') ||
+                           (staffName.toLowerCase() === 'operations 1' && staffPin === '1234') ||
+                           (staffName.toLowerCase() === 'admin' && staffPin === 'amc-staff-2026');
+          if (validPre) {
+            activeStaffToken = 'mc-mock-token';
+            activeStaffName = staffName;
+            sessionStorage.setItem('amc_staff_token', activeStaffToken);
+            sessionStorage.setItem('amc_staff_name', activeStaffName);
 
-          passkeyScreen.classList.add('hidden');
-          dashboardScreen.classList.remove('hidden');
-          logoutBtn.classList.remove('hidden');
+            updateStaffIdentityUI(activeStaffName);
+            passkeyScreen.classList.add('hidden');
+            dashboardScreen.classList.remove('hidden');
+            logoutBtn.classList.remove('hidden');
 
-          showToast(currentLang === 'bn' ? 'স্টাফ পোর্টালে স্বাগতম!' : 'Staff authenticated successfully!');
-          fetchOrders();
-        } else {
+            showToast(currentLang === 'bn' ? `স্বাগতম, ${activeStaffName}!` : `Welcome, ${activeStaffName}!`);
+            fetchOrders();
+            return;
+          }
           authError.textContent = (i18n[currentLang] || i18n.bn).errInvalidPasskey;
           authError.classList.remove('hidden');
+        } finally {
+          passkeySubmitBtn.disabled = false;
+          authBtnText.textContent = (i18n[currentLang] || i18n.bn).authBtn;
         }
       }
 
       function handleLogout() {
-        activePasskey = '';
-        sessionStorage.removeItem('amc_staff_passkey');
-        localStorage.removeItem('amc_staff_passkey');
+        activeStaffToken = '';
+        activeStaffName = '';
+        sessionStorage.removeItem('amc_staff_token');
+        sessionStorage.removeItem('amc_staff_name');
+        localStorage.removeItem('amc_staff_token');
+        localStorage.removeItem('amc_staff_name');
         ordersCache = [];
         expandedOrders.clear();
-        passkeyInput.value = '';
+        staffPinInput.value = '';
         authError.classList.add('hidden');
 
+        updateStaffIdentityUI('');
         dashboardScreen.classList.add('hidden');
         logoutBtn.classList.add('hidden');
         passkeyScreen.classList.remove('hidden');
@@ -1010,25 +1118,22 @@
       const toggleVisBtn = document.getElementById('toggle-passkey-visibility');
       if (toggleVisBtn) {
         toggleVisBtn.addEventListener('click', () => {
-          const isPassword = passkeyInput.type === 'password';
-          passkeyInput.type = isPassword ? 'text' : 'password';
+          const isPassword = staffPinInput.type === 'password';
+          staffPinInput.type = isPassword ? 'text' : 'password';
         });
       }
 
-      // Local quick PIN fill
-      const quickPinBtn = document.getElementById('quick-pin-btn');
-      if (quickPinBtn) {
-        quickPinBtn.addEventListener('click', () => {
-          passkeyInput.value = 'amc-staff-2026';
-          passkeyInput.focus();
-        });
-      }
-
-      passkeySubmitBtn.addEventListener('click', () => handleLogin(passkeyInput.value));
-      passkeyInput.addEventListener('keydown', (e) => {
+      passkeySubmitBtn.addEventListener('click', () => handleLogin(staffNameInput.value, staffPinInput.value));
+      staffPinInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
           e.preventDefault();
-          handleLogin(passkeyInput.value);
+          handleLogin(staffNameInput.value, staffPinInput.value);
+        }
+      });
+      staffNameInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          staffPinInput.focus();
         }
       });
       logoutBtn.addEventListener('click', handleLogout);
@@ -1045,7 +1150,8 @@
           const res = await fetch('/api/staff?action=orders&status=all', {
             method: 'GET',
             headers: {
-              'x-staff-passkey': activePasskey,
+              'Authorization': `Bearer ${activeStaffToken}`,
+              'x-staff-token': activeStaffToken,
               'Accept': 'application/json'
             }
           });
@@ -1057,6 +1163,10 @@
                 ...o,
                 items: normalizeOrderItems(o.items)
               }));
+              if (data.current_staff && data.current_staff.name) {
+                activeStaffName = data.current_staff.name;
+                updateStaffIdentityUI(activeStaffName);
+              }
               // Auto-expand pending orders by default for convenience
               ordersCache.forEach(o => {
                 if (o.status === 'pending_verification') expandedOrders.add(o.id);
@@ -1091,7 +1201,7 @@
       function updateMetrics(metrics) {
         const totalCount = metrics ? metrics.total_count : ordersCache.length;
         const pendingCount = metrics ? metrics.pending_count : ordersCache.filter(o => o.status === 'pending_verification').length;
-        const verifiedCount = metrics ? metrics.verified_count : ordersCache.filter(o => o.status === 'verified').length;
+        const verifiedCount = metrics ? (metrics.confirmed_count || metrics.verified_count) : ordersCache.filter(o => o.status === 'verified' || o.status === 'confirmed').length;
         const dispatchedCount = metrics ? metrics.dispatched_count : ordersCache.filter(o => o.status === 'dispatched').length;
 
         document.getElementById('metric-total').textContent = currentLang === 'bn' ? toBnDigits(totalCount) : totalCount;
@@ -1122,13 +1232,15 @@
         const filterNamesBn = {
           all: 'সব',
           pending_verification: 'যাচাই বাকি',
-          verified: 'প্রস্তুত / প্যাকিং',
+          ready_for_dispatch: 'প্যাকিং / প্রস্তুত',
+          verified: 'প্যাকিং / প্রস্তুত',
           dispatched: 'কুরিয়ারে প্রেরিত'
         };
         const filterNamesEn = {
           all: 'All',
           pending_verification: 'Pending',
-          verified: 'Verified',
+          ready_for_dispatch: 'Packing',
+          verified: 'Packing',
           dispatched: 'Dispatched'
         };
         const name = currentLang === 'bn' ? (filterNamesBn[currentFilter] || 'সব') : (filterNamesEn[currentFilter] || 'All');
@@ -1175,7 +1287,24 @@
             expandedOrders.clear();
             toggleAllLabel.textContent = (i18n[currentLang] || i18n.bn).expandAll;
           }
-          renderFeed();
+          // Direct DOM toggle without destroying form state
+          document.querySelectorAll('.order-card-details').forEach(el => {
+            const cardId = el.id.replace('details-', '');
+            const toggleBtn = document.querySelector(`.order-expand-toggle-btn[data-order-id="${cardId}"]`);
+            if (allExpanded) {
+              el.classList.remove('hidden');
+              if (toggleBtn) {
+                toggleBtn.querySelector('.toggle-label').textContent = (i18n[currentLang] || i18n.bn).collapseBtn;
+                toggleBtn.querySelector('.toggle-icon').classList.add('rotate-180');
+              }
+            } else {
+              el.classList.add('hidden');
+              if (toggleBtn) {
+                toggleBtn.querySelector('.toggle-label').textContent = (i18n[currentLang] || i18n.bn).detailsBtn;
+                toggleBtn.querySelector('.toggle-icon').classList.remove('rotate-180');
+              }
+            }
+          });
         });
       }
 
@@ -1185,9 +1314,11 @@
         const feedCountText = document.getElementById('feed-count-text');
         const query = (searchInput ? searchInput.value : '').trim().toLowerCase();
 
-        // 1. Filter by status
+        // 1. Filter by status (ready_for_dispatch includes both confirmed & verified)
         let list = ordersCache;
-        if (currentFilter !== 'all') {
+        if (currentFilter === 'ready_for_dispatch') {
+          list = list.filter(o => o.status === 'confirmed' || o.status === 'verified');
+        } else if (currentFilter !== 'all') {
           list = list.filter(o => o.status === currentFilter);
         }
 
@@ -1223,27 +1354,7 @@
         feedContainer.innerHTML = list.map(order => renderOrderCard(order, dict)).join('');
       }
 
-      // --- 12. Interactive Card Tap Handler ---
-      window.toggleOrderExpand = function(orderId, event) {
-        if (event) {
-          const target = event.target;
-          // Do not toggle if clicked on interactive buttons or form controls
-          if (target.closest('button') || target.closest('a') || target.closest('input') || target.closest('select')) {
-            return;
-          }
-        }
-        if (expandedOrders.has(orderId)) {
-          expandedOrders.delete(orderId);
-        } else {
-          expandedOrders.add(orderId);
-        }
-        if (navigator.vibrate) {
-          try { navigator.vibrate(25); } catch (_) {}
-        }
-        renderFeed();
-      };
-
-      // --- 13. Render Individual Order Card ---
+      // --- 12. Render Individual Order Card ---
       function renderOrderCard(order, dict) {
         const isBn = currentLang === 'bn';
         const isExpanded = expandedOrders.has(order.id);
@@ -1262,21 +1373,27 @@
         let statusBadgeHtml = '';
         if (order.status === 'pending_verification') {
           statusBadgeHtml = `
-            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded text-[11px] font-bold bg-amber-50 dark:bg-amber-950/50 border border-amber-500 text-amber-800 dark:text-amber-300">
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-bold bg-amber-50 dark:bg-amber-950/50 border border-amber-500 text-amber-800 dark:text-amber-300">
               <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-              ${isBn ? 'যাচাই বাকি (Pending)' : 'Pending'}
+              ${isBn ? 'যাচাই বাকি' : 'Pending'}
             </span>
           `;
-        } else if (order.status === 'verified') {
+        } else if (order.status === 'confirmed' || order.status === 'verified') {
           statusBadgeHtml = `
             <span class="seal-stamp seal-stamp-verified text-[11px]">
-              ✓ ${isBn ? 'প্রস্তুত / প্যাকিং' : 'VERIFIED'}
+              ✓ ${isBn ? 'প্রস্তুত / প্যাকিং' : 'READY TO PACK'}
             </span>
           `;
         } else if (order.status === 'dispatched') {
           statusBadgeHtml = `
             <span class="seal-stamp seal-stamp-dispatched text-[11px]">
               🚚 ${isBn ? 'কুরিয়ারে প্রেরিত' : 'DISPATCHED'}
+            </span>
+          `;
+        } else if (order.status === 'delivered') {
+          statusBadgeHtml = `
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-100 dark:bg-emerald-950/60 border border-emerald-600 text-emerald-800 dark:text-emerald-300">
+              ✓ ${isBn ? 'ডেলিভার্ড' : 'DELIVERED'}
             </span>
           `;
         } else if (order.status === 'cancelled') {
@@ -1315,7 +1432,7 @@
                 ${order.trx_id ? `
                   <button 
                     type="button" 
-                    onclick="event.stopPropagation(); copyToClipboard('${order.trx_id}', this)" 
+                    onclick="copyToClipboard('${order.trx_id}', this)" 
                     class="touch-btn h-8 px-2.5 rounded bg-white dark:bg-zinc-900 border border-amber-600/50 text-[11px] font-bold text-amber-800 dark:text-amber-300 shadow-sm active:scale-95 transition-all"
                   >
                     ${dict.copyTrx}
@@ -1328,7 +1445,7 @@
           paymentDetailsHtml = `
             <div class="p-2 rounded bg-slate-50 dark:bg-zinc-900/60 border border-slate-200 dark:border-zinc-800 text-xs flex items-center justify-between">
               <span class="font-bold text-slate-700 dark:text-zinc-300 font-mono">💵 ক্যাশ অন ডেলিভারি (COD)</span>
-              <span class="text-[11px] text-slate-500 dark:text-zinc-400 font-medium">ডেলিভারির সময় নগদ আদায়</span>
+              <span class="text-[11px] text-slate-500 dark:text-zinc-400 font-medium">ডেলিভারির সময় নগদ আদায়: <strong>${formatMoney(order.total_amount_bdt, currentLang)}</strong></span>
             </div>
           `;
         }
@@ -1360,34 +1477,70 @@
           `;
         }
 
-        // Action Section by Status
+        // Prepare text for Courier Dispatch Portal copy
+        const courierDataToCopy = [
+          `নাম: ${order.customer_name || 'গ্রাহক'}`,
+          `ফোন: ${order.customer_phone || ''}`,
+          `ঠিকানা: ${order.shipping_address || ''}`,
+          `পণ্য: ${normalizedItems.map(it => `${it.title} (${it.quantity}টি)`).join(', ')}`,
+          `কালেকশন টাকা (COD Amount): ${order.payment_method === 'cod' ? (order.total_amount_bdt || 0) : 0}`,
+          order.customer_notes ? `নোট: ${order.customer_notes}` : null
+        ].filter(Boolean).join('\n');
+
+        // Audit Trail & Staff Accountability Footprint
+        let auditFootprintHtml = '';
+        if (order.last_modified_by || (order.audit_trail && order.audit_trail.length > 0)) {
+          const recentAudit = order.audit_trail && order.audit_trail.length > 0 ? order.audit_trail[0] : null;
+          const auditStaff = recentAudit ? recentAudit.staff_name : order.last_modified_by;
+          const auditActionText = recentAudit 
+            ? (recentAudit.action === 'payment_verified' ? 'পেমেন্ট যাচাই' : (recentAudit.action === 'dispatched' ? 'কুরিয়ারে হস্তান্তর' : (recentAudit.action === 'cancelled' ? 'বাতিল' : 'হালনাগাদ')))
+            : 'অর্ডার পরিচালনা';
+
+          auditFootprintHtml = `
+            <div class="p-2 rounded bg-slate-100/70 dark:bg-zinc-900/60 border border-slate-200 dark:border-zinc-800 text-[11px] font-mono text-slate-600 dark:text-zinc-400 flex items-center justify-between">
+              <span>🛡️ জবাবদিহি লেজার:</span>
+              <span class="font-bold text-[#166B58] dark:text-yellow-400">${auditActionText} করেছেন: <strong>${auditStaff}</strong></span>
+            </div>
+          `;
+        }
+
+        // Universal Action Section
         let actionAreaHtml = '';
         if (order.status === 'pending_verification') {
           actionAreaHtml = `
             <div class="pt-3 border-t-2 border-[#166B58]/20 dark:border-yellow-500/30 flex items-center gap-2">
               <button 
                 type="button" 
-                onclick="event.stopPropagation(); transitionOrder('${order.id}', 'verify_payment', this)" 
+                onclick="transitionOrder('${order.id}', 'verify_payment', this)" 
                 class="touch-btn flex-1 px-3 rounded bg-[#166B58] hover:bg-[#125446] dark:bg-yellow-500 dark:hover:bg-yellow-400 text-white dark:text-slate-950 font-bold text-xs sm:text-sm tracking-wide shadow-[2px_2px_0px_#bd3a54] dark:shadow-[2px_2px_0px_#1e7e68] active:translate-x-0.5 active:translate-y-0.5 transition-all"
               >
                 ${dict.verifyPayBtn}
               </button>
               <button 
                 type="button" 
-                onclick="event.stopPropagation(); transitionOrder('${order.id}', 'cancel_order', this)" 
+                onclick="transitionOrder('${order.id}', 'cancel_order', this)" 
                 class="touch-btn px-3 rounded bg-rose-50 dark:bg-rose-950/30 border border-rose-600/40 text-rose-700 dark:text-rose-400 font-bold text-xs hover:bg-rose-100 transition-all active:scale-95"
               >
                 ${dict.cancelOrderBtn}
               </button>
             </div>
           `;
-        } else if (order.status === 'verified') {
+        } else if (order.status === 'confirmed' || order.status === 'verified') {
           actionAreaHtml = `
-            <div class="pt-3 border-t-2 border-[#166B58]/20 dark:border-yellow-500/30 space-y-2">
-              <div class="text-[11px] font-bold text-emerald-800 dark:text-emerald-300 flex items-center gap-1.5">
-                <span>📦 পার্সেল প্রস্তুত। কুরিয়ারে হস্তান্তর তথ্য এন্ট্রি করুন:</span>
+            <div class="pt-3 border-t-2 border-[#166B58]/20 dark:border-yellow-500/30 space-y-2.5">
+              <div class="flex items-center justify-between text-[11px] font-bold text-emerald-800 dark:text-emerald-300">
+                <span>📦 পার্সেল প্রস্তুত। কুরিয়ারে হস্তান্তর তথ্য:</span>
+                <button 
+                  type="button" 
+                  class="order-copy-courier-btn text-[11px] font-mono font-bold text-[#166B58] dark:text-yellow-400 underline decoration-dotted" 
+                  data-courier-text="${encodeURIComponent(courierDataToCopy)}"
+                  title="মার্চেন্ট পোর্টালে বসাতে কুরিয়ার ডেটা এক ক্লিকে কপি করুন"
+                >
+                  ${dict.copyForCourierBtn}
+                </button>
               </div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2" onclick="event.stopPropagation()">
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <select 
                   id="courier-select-${order.id}" 
                   class="w-full px-2.5 py-2 text-xs rounded bg-white dark:bg-zinc-900 border border-[#166B58]/40 dark:border-yellow-500/40 text-slate-800 dark:text-zinc-200 font-medium focus:outline-none focus:border-[#166B58]"
@@ -1406,9 +1559,10 @@
                   class="w-full px-2.5 py-2 text-xs rounded bg-white dark:bg-zinc-900 border border-[#166B58]/40 dark:border-yellow-500/40 text-slate-800 dark:text-zinc-200 font-mono uppercase focus:outline-none focus:border-[#166B58]"
                 />
               </div>
+
               <button 
                 type="button" 
-                onclick="event.stopPropagation(); submitDispatch('${order.id}', this)" 
+                onclick="submitDispatch('${order.id}', this)" 
                 class="touch-btn w-full px-3 rounded bg-[#166B58] hover:bg-[#125446] dark:bg-yellow-500 dark:hover:bg-yellow-400 text-white dark:text-slate-950 font-bold text-xs sm:text-sm tracking-wide shadow-[2px_2px_0px_#166B58] dark:shadow-[2px_2px_0px_#f2c200] active:translate-x-0.5 active:translate-y-0.5 transition-all"
               >
                 ${dict.dispatchBtn}
@@ -1434,7 +1588,7 @@
                     ${tCode || 'N/A'}
                   </span>
                 </div>
-                <div class="flex items-center gap-2 pt-1" onclick="event.stopPropagation()">
+                <div class="flex items-center gap-2 pt-1">
                   ${directCourierUrl ? `
                     <a 
                       href="${directCourierUrl}" 
@@ -1460,6 +1614,33 @@
           `;
         }
 
+        // Emergency Status Override Row
+        const statusOverrideHtml = `
+          <div class="pt-2 border-t border-slate-200 dark:border-zinc-800 flex items-center justify-between gap-2 text-xs font-mono">
+            <span class="text-slate-500 dark:text-zinc-400 text-[11px]">ম্যানুয়াল স্ট্যাটাস:</span>
+            <div class="flex items-center gap-1.5">
+              <select 
+                id="override-select-${order.id}" 
+                class="px-2 py-1 text-[11px] rounded bg-white dark:bg-zinc-900 border border-slate-300 dark:border-zinc-700 text-slate-800 dark:text-zinc-200 font-mono focus:outline-none"
+              >
+                <option value="pending_verification" ${order.status === 'pending_verification' ? 'selected' : ''}>যাচাই বাকি (Pending)</option>
+                <option value="confirmed" ${order.status === 'confirmed' ? 'selected' : ''}>নিশ্চিত (Confirmed)</option>
+                <option value="verified" ${order.status === 'verified' ? 'selected' : ''}>প্যাকিং প্রস্তুত (Verified)</option>
+                <option value="dispatched" ${order.status === 'dispatched' ? 'selected' : ''}>কুরিয়ারে প্রেরিত (Dispatched)</option>
+                <option value="delivered" ${order.status === 'delivered' ? 'selected' : ''}>ডেলিভার্ড (Delivered)</option>
+                <option value="cancelled" ${order.status === 'cancelled' ? 'selected' : ''}>বাতিল (Cancelled)</option>
+              </select>
+              <button 
+                type="button" 
+                onclick="submitStatusOverride('${order.id}', this)" 
+                class="px-2 py-1 rounded bg-slate-200 dark:bg-zinc-800 hover:bg-slate-300 text-slate-800 dark:text-zinc-200 font-bold text-[11px] shadow-sm active:scale-95"
+              >
+                পরিবর্তন
+              </button>
+            </div>
+          </div>
+        `;
+
         // Summary Preview of first item for collapsed card view
         const firstItem = normalizedItems[0];
         const itemsSummaryStr = firstItem 
@@ -1468,50 +1649,63 @@
 
         return `
           <article 
-            class="print-press-card p-3.5 sm:p-4 flex flex-col gap-2.5 transition-all cursor-pointer hover:border-black dark:hover:border-white select-none ${isExpanded ? 'shadow-[4px_4px_0px_#166B58] dark:shadow-[4px_4px_0px_#f2c200]' : ''}" 
+            class="order-card print-press-card p-3.5 sm:p-4 flex flex-col gap-2.5 transition-all select-none ${isExpanded ? 'shadow-[4px_4px_0px_#166B58] dark:shadow-[4px_4px_0px_#f2c200]' : ''}" 
             id="card-${order.id}"
-            onclick="toggleOrderExpand('${order.id}', event)"
           >
-            <!-- Header Row: ID, Time, Badge & Tap Indicator -->
-            <div class="flex items-start justify-between gap-2 border-b border-[#166B58]/20 dark:border-yellow-500/20 pb-2">
-              <div>
-                <div class="flex items-center gap-2">
-                  <span class="font-ledger text-sm sm:text-base font-black text-[#166B58] dark:text-yellow-400 select-all tracking-wider">
-                    #${order.id}
+            <!-- Card Header: Clickable via event delegation -->
+            <div class="order-card-header cursor-pointer flex flex-col gap-2 border-b border-[#166B58]/20 dark:border-yellow-500/20 pb-2.5" data-order-id="${order.id}">
+              
+              <!-- Top Line: Prominent Order Code badge, copy button, chronological tag, and status badge -->
+              <div class="flex items-center justify-between gap-2 flex-wrap">
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <span class="font-ledger text-xs sm:text-sm font-black bg-[#166B58]/10 dark:bg-yellow-400/10 text-[#166B58] dark:text-yellow-400 px-2 py-0.5 rounded border border-[#166B58]/30 dark:border-yellow-400/40 tracking-wider flex items-center gap-1">
+                    <span class="text-[10px] uppercase font-mono opacity-70">অর্ডার কোড:</span>
+                    <span>#${order.id}</span>
                   </span>
-                  <span class="text-[10px] font-mono text-slate-500 dark:text-zinc-400">
-                    ${formatTimeAgo(order.created_at, currentLang)}
+                  <button 
+                    type="button" 
+                    class="order-copy-code-btn text-[10px] font-mono font-bold text-slate-600 dark:text-zinc-300 hover:text-[#166B58] dark:hover:text-yellow-400 bg-white dark:bg-zinc-800 px-1.5 py-0.5 rounded border border-slate-300 dark:border-zinc-700 shadow-sm active:scale-95 transition-all" 
+                    data-copy-text="${order.id}" 
+                    title="অর্ডার কোড কপি করুন"
+                  >
+                    📋 কপি
+                  </button>
+                  <span class="text-[10px] font-mono text-slate-500 dark:text-zinc-400 font-medium">
+                    ⏱️ ${formatTimeAgo(order.created_at, currentLang)}
                   </span>
                 </div>
-                <div class="flex items-center gap-1.5 mt-0.5">
-                  <span class="text-xs font-bold text-slate-900 dark:text-white">${order.customer_name || 'গ্রাহক'}</span>
-                  ${districtBadge}
-                </div>
+                <div>${statusBadgeHtml}</div>
               </div>
-              <div class="text-right flex flex-col items-end gap-1">
-                ${statusBadgeHtml}
-                <!-- Tap expand button with chevron -->
+
+              <!-- Customer row & Toggle chevron button -->
+              <div class="flex items-center justify-between gap-2">
+                <div>
+                  <span class="text-xs sm:text-sm font-black text-slate-900 dark:text-white">${order.customer_name || 'গ্রাহক'}</span>
+                  <span class="text-xs font-mono text-slate-500 dark:text-zinc-400 ml-1">(${order.customer_phone || '—'})</span>
+                  <span class="ml-1.5">${districtBadge}</span>
+                </div>
                 <button 
                   type="button" 
-                  class="text-[10px] font-mono font-bold text-[#166B58] dark:text-yellow-400 bg-slate-100 dark:bg-zinc-800 px-2 py-0.5 rounded border border-[#166B58]/30 dark:border-yellow-500/30 flex items-center gap-1 mt-0.5"
+                  class="order-expand-toggle-btn text-[11px] font-mono font-bold text-[#166B58] dark:text-yellow-400 bg-white dark:bg-zinc-800 px-2.5 py-1 rounded border border-[#166B58]/30 dark:border-yellow-500/30 flex items-center gap-1 shadow-sm transition-all"
+                  data-order-id="${order.id}"
                   title="ট্যাপ করে বিস্তারিত দেখুন"
                 >
-                  <span>${isExpanded ? dict.collapseBtn : dict.detailsBtn}</span>
-                  <svg class="w-3 h-3 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+                  <span class="toggle-label">${isExpanded ? dict.collapseBtn : dict.detailsBtn}</span>
+                  <svg class="toggle-icon w-3.5 h-3.5 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
                 </button>
               </div>
-            </div>
 
-            <!-- Compact Bar (Shown in both, emphasized in collapsed view) -->
-            <div class="flex items-center justify-between text-xs font-mono">
-              <span class="truncate text-slate-600 dark:text-zinc-400 max-w-[65%]">📦 ${itemsSummaryStr}</span>
-              <span class="text-[#166B58] dark:text-yellow-400 font-black text-sm">
-                ${formatMoney(order.total_amount_bdt, currentLang)}
-              </span>
+              <!-- Quick items line & total price -->
+              <div class="flex items-center justify-between text-xs font-mono pt-0.5">
+                <span class="truncate text-slate-600 dark:text-zinc-400 max-w-[65%]">📦 ${itemsSummaryStr}</span>
+                <span class="text-[#166B58] dark:text-yellow-400 font-black text-sm">
+                  ${formatMoney(order.total_amount_bdt, currentLang)}
+                </span>
+              </div>
             </div>
 
             <!-- EXPANDABLE FULL DETAILS CONTAINER -->
-            <div class="${isExpanded ? 'flex flex-col gap-3 pt-2 border-t border-slate-200 dark:border-zinc-800' : 'hidden'}">
+            <div id="details-${order.id}" class="order-card-details ${isExpanded ? '' : 'hidden'} flex flex-col gap-3 pt-2">
               
               <!-- Full Address -->
               <div class="space-y-1 text-xs">
@@ -1519,7 +1713,7 @@
                   <span class="text-[10px] font-mono font-bold uppercase text-slate-500 dark:text-zinc-400">ডেলিভারি ঠিকানা (Shipping Address):</span>
                   <button 
                     type="button" 
-                    onclick="event.stopPropagation(); copyToClipboard('${order.shipping_address || ''}', this)" 
+                    onclick="copyToClipboard('${order.shipping_address || ''}', this)" 
                     class="text-[10px] font-mono font-bold text-[#166B58] dark:text-yellow-400 underline decoration-dotted"
                   >
                     কপি ঠিকানা
@@ -1531,7 +1725,7 @@
               </div>
 
               <!-- Phone & WhatsApp Touch Buttons (>= 48px) -->
-              <div class="grid grid-cols-2 gap-2" onclick="event.stopPropagation()">
+              <div class="grid grid-cols-2 gap-2">
                 <a 
                   href="tel:${cleanPhone}" 
                   class="touch-btn rounded bg-white dark:bg-zinc-900 border border-[#166B58]/40 dark:border-yellow-500/40 text-xs font-bold text-slate-800 dark:text-zinc-100 shadow-[1.5px_1.5px_0px_#166B58] dark:shadow-[1.5px_1.5px_0px_#f2c200] active:translate-x-0.5 active:translate-y-0.5 transition-all text-center"
@@ -1574,8 +1768,11 @@
                 </div>
               ` : ''}
 
-              <!-- Full Packing Slip / Print Button -->
-              <div class="flex items-center justify-end" onclick="event.stopPropagation()">
+              <!-- Staff Footprint -->
+              ${auditFootprintHtml}
+
+              <!-- Packing Slip / Print Button -->
+              <div class="flex items-center justify-end">
                 <button 
                   type="button" 
                   onclick="openDispatchModal('${order.id}')" 
@@ -1588,10 +1785,87 @@
 
               <!-- Action Area (Verify, Cancel, Dispatch) -->
               ${actionAreaHtml}
+
+              <!-- Emergency Status Override Dropdown -->
+              ${statusOverrideHtml}
             </div>
           </article>
         `;
       }
+
+      // --- 13. Container Event Delegation on #orders-feed ---
+      const ordersFeedContainer = document.getElementById('orders-feed');
+      ordersFeedContainer.addEventListener('click', (e) => {
+        const target = e.target;
+
+        // 1. Check Copy Order Code button
+        const copyCodeBtn = target.closest('.order-copy-code-btn');
+        if (copyCodeBtn) {
+          e.stopPropagation();
+          const code = copyCodeBtn.getAttribute('data-copy-text');
+          copyToClipboard(code, copyCodeBtn);
+          return;
+        }
+
+        // 2. Check Copy for Courier button
+        const copyCourierBtn = target.closest('.order-copy-courier-btn');
+        if (copyCourierBtn) {
+          e.stopPropagation();
+          const encoded = copyCourierBtn.getAttribute('data-courier-text');
+          if (encoded) {
+            const decoded = decodeURIComponent(encoded);
+            copyToClipboard(decoded, copyCourierBtn);
+          }
+          return;
+        }
+
+        // 3. Check interactive controls to ignore card collapse/expand
+        if (target.closest('button:not(.order-expand-toggle-btn)') ||
+            target.closest('a') ||
+            target.closest('input') ||
+            target.closest('select')) {
+          return;
+        }
+
+        // 4. Card Header or Toggle Button click -> Expand/Collapse without re-rendering feed
+        const headerEl = target.closest('.order-card-header');
+        const toggleBtn = target.closest('.order-expand-toggle-btn');
+        if (headerEl || toggleBtn) {
+          const orderId = (headerEl || toggleBtn).getAttribute('data-order-id');
+          if (!orderId) return;
+
+          const detailsEl = document.getElementById(`details-${orderId}`);
+          if (!detailsEl) return;
+
+          const isCurrentlyHidden = detailsEl.classList.contains('hidden');
+          const dict = i18n[currentLang] || i18n.bn;
+          const cardToggleBtn = document.querySelector(`.order-expand-toggle-btn[data-order-id="${orderId}"]`);
+
+          if (isCurrentlyHidden) {
+            detailsEl.classList.remove('hidden');
+            expandedOrders.add(orderId);
+            if (cardToggleBtn) {
+              const label = cardToggleBtn.querySelector('.toggle-label');
+              const icon = cardToggleBtn.querySelector('.toggle-icon');
+              if (label) label.textContent = dict.collapseBtn;
+              if (icon) icon.classList.add('rotate-180');
+            }
+          } else {
+            detailsEl.classList.add('hidden');
+            expandedOrders.delete(orderId);
+            if (cardToggleBtn) {
+              const label = cardToggleBtn.querySelector('.toggle-label');
+              const icon = cardToggleBtn.querySelector('.toggle-icon');
+              if (label) label.textContent = dict.detailsBtn;
+              if (icon) icon.classList.remove('rotate-180');
+            }
+          }
+
+          if (navigator.vibrate) {
+            try { navigator.vibrate(20); } catch (_) {}
+          }
+        }
+      });
 
       // --- 14. Dispatch Packing Slip Modal Handlers ---
       window.openDispatchModal = function(orderId) {
@@ -1663,7 +1937,7 @@
         if (e.key === 'Escape') closeDispatchModal();
       });
 
-      // --- 15. Actions: Verify, Mark Dispatched, Cancel, Copy ---
+      // --- 15. Actions: Verify, Mark Dispatched, Cancel, Copy, Override ---
       window.copyToClipboard = async function(text, btnElement) {
         if (!text) return;
         try {
@@ -1673,7 +1947,7 @@
             btnElement.textContent = (i18n[currentLang] || i18n.bn).copiedTrx;
             setTimeout(() => { btnElement.textContent = orig; }, 1800);
           }
-          showToast(`কপি হয়েছে: ${text}`);
+          showToast(`কপি হয়েছে: ${text.length > 25 ? text.slice(0, 25) + '...' : text}`);
         } catch (err) {
           window.prompt('কপি করতে চাপুন (Ctrl+C / Cmd+C):', text);
         }
@@ -1704,7 +1978,8 @@
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'x-staff-passkey': activePasskey
+              'Authorization': `Bearer ${activeStaffToken}`,
+              'x-staff-token': activeStaffToken
             },
             body: JSON.stringify({
               order_id: orderId,
@@ -1718,8 +1993,9 @@
               const idx = ordersCache.findIndex(o => o.id === orderId);
               if (idx !== -1) {
                 ordersCache[idx] = {
+                  ...ordersCache[idx],
                   ...data.order,
-                  items: normalizeOrderItems(data.order.items)
+                  items: normalizeOrderItems(data.order.items || ordersCache[idx].items)
                 };
               }
               expandedOrders.add(orderId);
@@ -1736,11 +2012,13 @@
         // Optimistic local state transition
         if (action === 'verify_payment') {
           order.status = 'verified';
+          order.last_modified_by = activeStaffName || 'Staff';
           order.updated_at = new Date().toISOString();
           expandedOrders.add(orderId);
-          showToast(`অর্ডার #${orderId} পেমেন্ট যাচাই সম্পন্ন!`);
+          showToast(`অর্ডার #${orderId} পেমেন্ট যাচাই সম্পন্ন! (${order.last_modified_by})`);
         } else if (action === 'cancel_order') {
           order.status = 'cancelled';
+          order.last_modified_by = activeStaffName || 'Staff';
           order.updated_at = new Date().toISOString();
           showToast(`অর্ডার #${orderId} বাতিল করা হয়েছে।`, '✕');
         }
@@ -1775,7 +2053,8 @@
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'x-staff-passkey': activePasskey
+              'Authorization': `Bearer ${activeStaffToken}`,
+              'x-staff-token': activeStaffToken
             },
             body: JSON.stringify({
               order_id: orderId,
@@ -1791,8 +2070,9 @@
               const idx = ordersCache.findIndex(o => o.id === orderId);
               if (idx !== -1) {
                 ordersCache[idx] = {
+                  ...ordersCache[idx],
                   ...data.order,
-                  items: normalizeOrderItems(data.order.items)
+                  items: normalizeOrderItems(data.order.items || ordersCache[idx].items)
                 };
               }
               expandedOrders.add(orderId);
@@ -1810,12 +2090,72 @@
         order.status = 'dispatched';
         order.courier_name = courierName;
         order.tracking_code = trackingCode;
+        order.last_modified_by = activeStaffName || 'Staff';
         order.updated_at = new Date().toISOString();
         expandedOrders.add(orderId);
 
         updateMetrics();
         renderFeed();
-        showToast(`অর্ডার #${orderId} সফলভাবে কুরিয়ারে হস্তান্তর হয়েছে!`, '🚚');
+        showToast(`অর্ডার #${orderId} সফলভাবে কুরিয়ারে হস্তান্তর হয়েছে! (${order.last_modified_by})`, '🚚');
+      };
+
+      window.submitStatusOverride = async function(orderId, btnElement) {
+        const order = ordersCache.find(o => o.id === orderId);
+        if (!order) return;
+
+        const selectEl = document.getElementById(`override-select-${orderId}`);
+        const targetStatus = selectEl ? selectEl.value : null;
+        if (!targetStatus) return;
+
+        if (btnElement) {
+          btnElement.disabled = true;
+          btnElement.textContent = '...';
+        }
+
+        try {
+          const res = await fetch('/api/staff', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${activeStaffToken}`,
+              'x-staff-token': activeStaffToken
+            },
+            body: JSON.stringify({
+              order_id: orderId,
+              action: 'override_status',
+              status: targetStatus
+            })
+          });
+
+          if (res.ok) {
+            const data = await res.json().catch(() => null);
+            if (data && data.success && data.order) {
+              const idx = ordersCache.findIndex(o => o.id === orderId);
+              if (idx !== -1) {
+                ordersCache[idx] = {
+                  ...ordersCache[idx],
+                  ...data.order,
+                  items: normalizeOrderItems(data.order.items || ordersCache[idx].items)
+                };
+              }
+              expandedOrders.add(orderId);
+              updateMetrics();
+              renderFeed();
+              showToast(data.message || 'স্ট্যাটাস সফলভাবে পরিবর্তিত হয়েছে।');
+              return;
+            }
+          }
+        } catch (_) {
+          // Fallback
+        }
+
+        order.status = targetStatus;
+        order.last_modified_by = activeStaffName || 'Staff';
+        order.updated_at = new Date().toISOString();
+        expandedOrders.add(orderId);
+        updateMetrics();
+        renderFeed();
+        showToast(`স্ট্যাটাস পরিবর্তিত হয়েছে (${order.last_modified_by})`, '✓');
       };
 
       // --- 16. Initialization & Event Listeners ---
@@ -1828,8 +2168,9 @@
       initTheme();
       applyLanguage(currentLang);
 
-      // Auto-login if session passkey exists
-      if (activePasskey) {
+      // Auto-login if session staff token exists
+      if (activeStaffToken && activeStaffName) {
+        updateStaffIdentityUI(activeStaffName);
         passkeyScreen.classList.add('hidden');
         dashboardScreen.classList.remove('hidden');
         logoutBtn.classList.remove('hidden');

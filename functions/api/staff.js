@@ -3,23 +3,89 @@
  * Protected Mobile Operations & Dispatch Backend for Mon Chaise (মঞ্চাইছে)
  * 
  * Capabilities:
- *  - Administrative Passkey authentication (x-staff-passkey / Bearer token)
- *  - Query fulfillment orders with customer names, delivery addresses, and MFS TrxIDs
- *  - Perform order state transitions:
- *      * 'verify_payment'  -> orders.status = 'verified'
- *      * 'mark_dispatched' -> orders.status = 'dispatched' + courier_name + tracking_code
- *      * 'cancel_order'    -> orders.status = 'cancelled'
- *  - Aggregated order status metrics (pending, verified, dispatched counts)
- *  - Seamless local development & static preview simulation when Supabase credentials are unset
+ *  - Named Staff Authentication with personal credentials (Name + PIN)
+ *  - IP-based brute-force throttling (5 failed attempts within 10 minutes -> HTTP 429)
+ *  - Cryptographic HMAC session tokens (mc-staff.<payload>.<sig>)
+ *  - Audit logging of all fulfillment actions (public.order_audit_logs)
+ *  - Order state transitions (verify_payment, mark_dispatched, cancel_order, override_status, update_courier)
+ *  - Seamless local development & static preview simulation with pre-seeded staff
  */
 
 const DEFAULT_LOCAL_PASSKEY = 'amc-staff-2026';
+const TOKEN_SECRET_SALT = 'amc-staff-secret-salt-2026';
+
+// Pre-seeded credentials for local fallback & offline demonstration
+const PRESEEDED_STAFF = [
+  { name: 'Sara', pin: '23111997', role: 'manager' },
+  { name: 'Antar', pin: '30062002', role: 'dispatcher' },
+  { name: 'Operations 1', pin: '1234', role: 'operator' }
+];
+
+// In-memory IP rate limiter for brute-force protection
+// Map<ip, { count: number, firstFailedAt: number, lockedUntil: number }>
+const failedLoginTracker = new Map();
+
+function getClientIp(request) {
+  return (
+    request.headers.get('cf-connecting-ip') ||
+    request.headers.get('x-real-ip') ||
+    request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+    'local-client'
+  );
+}
+
+function checkRateLimit(ip) {
+  const record = failedLoginTracker.get(ip);
+  if (!record) return { allowed: true };
+
+  const now = Date.now();
+  if (record.lockedUntil > now) {
+    const retryAfter = Math.ceil((record.lockedUntil - now) / 1000);
+    return {
+      allowed: false,
+      retryAfter,
+      message: `অতিরিক্ত ভুল চেষ্টার কারণে সাময়িকভাবে প্রবেশাধিকার বন্ধ রয়েছে। ${Math.ceil(retryAfter / 60)} মিনিট পর আবার চেষ্টা করুন।`
+    };
+  }
+
+  // If lockout or window has expired (10 minutes), reset
+  if (now - record.firstFailedAt > 10 * 60 * 1000) {
+    failedLoginTracker.delete(ip);
+    return { allowed: true };
+  }
+
+  return { allowed: true, attempts: record.count };
+}
+
+function recordFailedAttempt(ip) {
+  const now = Date.now();
+  const record = failedLoginTracker.get(ip) || { count: 0, firstFailedAt: now, lockedUntil: 0 };
+  
+  if (now - record.firstFailedAt > 10 * 60 * 1000) {
+    record.count = 1;
+    record.firstFailedAt = now;
+    record.lockedUntil = 0;
+  } else {
+    record.count += 1;
+  }
+
+  if (record.count >= 5) {
+    record.lockedUntil = now + 10 * 60 * 1000; // Lock for 10 minutes
+  }
+
+  failedLoginTracker.set(ip, record);
+  return record;
+}
+
+function clearRateLimit(ip) {
+  failedLoginTracker.delete(ip);
+}
 
 function corsHeaders() {
   return {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization, x-staff-passkey, apikey, Prefer',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization, x-staff-token, x-staff-passkey, x-staff-name, apikey, Prefer',
     'Access-Control-Max-Age': '86400'
   };
 }
@@ -42,35 +108,126 @@ export async function onRequestOptions() {
   });
 }
 
-function verifyPasskey(request, env = {}) {
-  const configuredPasskey = String(env.STAFF_ACCESS_KEY || DEFAULT_LOCAL_PASSKEY).trim();
+// ==========================================
+// CRYPTOGRAPHIC TOKEN HELPERS (Web Crypto)
+// ==========================================
 
-  // Check 1: Custom header
-  const headerKey = request.headers.get('x-staff-passkey');
-  if (headerKey && headerKey.trim() === configuredPasskey) {
-    return true;
+async function getHmacKey(secretStr) {
+  const enc = new TextEncoder();
+  return await crypto.subtle.importKey(
+    'raw',
+    enc.encode(secretStr),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign', 'verify']
+  );
+}
+
+async function signString(str, secretStr) {
+  const enc = new TextEncoder();
+  const key = await getHmacKey(secretStr);
+  const signature = await crypto.subtle.sign('HMAC', key, enc.encode(str));
+  return Array.from(new Uint8Array(signature)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function generateSessionToken(staff, env) {
+  const secret = String(env.STAFF_SESSION_SECRET || env.STAFF_ACCESS_KEY || TOKEN_SECRET_SALT);
+  const payload = {
+    name: staff.name,
+    role: staff.role || 'operator',
+    exp: Date.now() + 7 * 24 * 60 * 60 * 1000 // 7 days
+  };
+  const payloadStr = JSON.stringify(payload);
+  const payloadB64 = btoa(unescape(encodeURIComponent(payloadStr)))
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=+$/, '');
+  const sig = await signString(payloadB64, secret);
+  return `mc-staff.${payloadB64}.${sig}`;
+}
+
+async function verifySessionToken(tokenStr, env) {
+  if (!tokenStr || typeof tokenStr !== 'string' || !tokenStr.startsWith('mc-staff.')) {
+    return null;
+  }
+  const parts = tokenStr.split('.');
+  if (parts.length !== 3) return null;
+
+  const [prefix, payloadB64, sig] = parts;
+  const secret = String(env.STAFF_SESSION_SECRET || env.STAFF_ACCESS_KEY || TOKEN_SECRET_SALT);
+  const expectedSig = await signString(payloadB64, secret);
+
+  if (sig !== expectedSig) {
+    return null;
   }
 
-  // Check 2: Bearer authorization
+  try {
+    const jsonStr = decodeURIComponent(escape(atob(payloadB64.replace(/-/g, '+').replace(/_/g, '/'))));
+    const payload = JSON.parse(jsonStr);
+    if (!payload.exp || Date.now() > payload.exp) {
+      return null;
+    }
+    return {
+      name: payload.name,
+      role: payload.role || 'operator'
+    };
+  } catch (_) {
+    return null;
+  }
+}
+
+// Authenticate caller via Session Token or legacy Passkey
+async function authenticateRequest(request, env = {}) {
+  // 1. Check Bearer or x-staff-token
   const authHeader = request.headers.get('Authorization') || '';
+  let token = null;
   if (authHeader.startsWith('Bearer ')) {
-    const token = authHeader.slice(7).trim();
-    if (token === configuredPasskey) {
-      return true;
+    token = authHeader.slice(7).trim();
+  } else {
+    token = request.headers.get('x-staff-token') || request.headers.get('x-staff-passkey');
+  }
+
+  if (token) {
+    const verifiedStaff = await verifySessionToken(token, env);
+    if (verifiedStaff) {
+      return { authenticated: true, staff: verifiedStaff };
     }
   }
 
-  // Check 3: Query parameter fallback (?passkey=...)
+  // 2. Check legacy / dev passkey fallback
+  const configuredPasskey = String(env.STAFF_ACCESS_KEY || DEFAULT_LOCAL_PASSKEY).trim();
+  const staffNameHeader = request.headers.get('x-staff-name') || 'Staff';
+
+  if (token && (token === configuredPasskey || token === DEFAULT_LOCAL_PASSKEY)) {
+    return {
+      authenticated: true,
+      staff: { name: staffNameHeader, role: 'admin' }
+    };
+  }
+
+  // 3. Query string fallback (?token=... or ?passkey=...)
   try {
     const url = new URL(request.url);
-    const queryKey = url.searchParams.get('passkey') || url.searchParams.get('key');
-    if (queryKey && queryKey.trim() === configuredPasskey) {
-      return true;
+    const qToken = url.searchParams.get('token');
+    if (qToken) {
+      const verifiedStaff = await verifySessionToken(qToken, env);
+      if (verifiedStaff) return { authenticated: true, staff: verifiedStaff };
+    }
+    const qPasskey = url.searchParams.get('passkey') || url.searchParams.get('key');
+    if (qPasskey && (qPasskey.trim() === configuredPasskey || qPasskey.trim() === DEFAULT_LOCAL_PASSKEY)) {
+      return {
+        authenticated: true,
+        staff: { name: url.searchParams.get('staff_name') || 'Staff', role: 'admin' }
+      };
     }
   } catch (_) {}
 
-  return false;
+  return { authenticated: false };
 }
+
+// ==========================================
+// CATALOG & ORDER NORMALIZATION HELPERS
+// ==========================================
 
 const PRODUCT_CATALOG = {
   'amc-100': { sku: 'AMC-WEV-THM-01', name_bn: 'ঐতিহ্যবাহী হাতে বোনা থামি', name_en: 'Traditional Handloom Thami (Chakma Weave)', price: 1850 },
@@ -139,12 +296,17 @@ let memoryMockOrders = [
     total_amount_bdt: 2510,
     courier_name: 'Steadfast Courier',
     tracking_code: 'SF-108294',
+    last_modified_by: 'Antar',
     items: [
       { product_id: 'amc-100', sku: 'AMC-WEV-THM-01', title: 'নীলাম্বরী খাঁটি কোমর তাঁতের থামি (Chakma Thami)', quantity: 1, unit_price_bdt: 2450, total_price_bdt: 2450 }
     ],
     customer_notes: 'বিকেলের পর ডেলিভারি দিলে সুবিধা হয়।',
     created_at: new Date(Date.now() - 3600000 * 5).toISOString(),
-    updated_at: new Date(Date.now() - 3600000 * 2).toISOString()
+    updated_at: new Date(Date.now() - 3600000 * 2).toISOString(),
+    audit_trail: [
+      { id: 'aud-1', staff_name: 'Sara', action: 'status_override', details: { note: 'অর্ডার প্রস্তুত করা হয়েছে' }, created_at: new Date(Date.now() - 3600000 * 3).toISOString() },
+      { id: 'aud-2', staff_name: 'Antar', action: 'dispatched', details: { courier_name: 'Steadfast Courier', tracking_code: 'SF-108294' }, created_at: new Date(Date.now() - 3600000 * 2).toISOString() }
+    ]
   },
   {
     id: 'MC-260908-B7D2',
@@ -162,12 +324,14 @@ let memoryMockOrders = [
     total_amount_bdt: 1910,
     courier_name: null,
     tracking_code: null,
+    last_modified_by: null,
     items: [
       { product_id: 'amc-101', sku: 'AMC-WEV-GMC-01', title: 'হাতে বোনা ট্রাইবাল গামছা টোট ব্যাগ', quantity: 1, unit_price_bdt: 1850, total_price_bdt: 1850 }
     ],
     customer_notes: 'বিকাশ সেন্ড মানি করা হয়েছে। TrxID মেলান।',
     created_at: new Date(Date.now() - 1800000).toISOString(),
-    updated_at: new Date(Date.now() - 1800000).toISOString()
+    updated_at: new Date(Date.now() - 1800000).toISOString(),
+    audit_trail: []
   },
   {
     id: 'MC-260908-C9K4',
@@ -185,13 +349,43 @@ let memoryMockOrders = [
     total_amount_bdt: 3320,
     courier_name: null,
     tracking_code: null,
+    last_modified_by: 'Sara',
     items: [
       { product_id: 'amc-100', sku: 'AMC-WEV-THM-01', title: 'ঐতিহ্যবাহী হাতে বোনা থামি', quantity: 1, unit_price_bdt: 2450, total_price_bdt: 2450 },
       { product_id: 'amc-103', sku: 'AMC-TEA-CHM-01', title: 'জুম পাহাড়ি কাঠের ধোঁয়ায় সেঁকা ব্ল্যাক টি (১০০ গ্রাম)', quantity: 1, unit_price_bdt: 750, total_price_bdt: 750 }
     ],
     customer_notes: 'প্যাকিং যেন মজবুত হয়। উপহারের পার্সেল।',
     created_at: new Date(Date.now() - 3600000 * 3).toISOString(),
-    updated_at: new Date(Date.now() - 3600000 * 1).toISOString()
+    updated_at: new Date(Date.now() - 3600000 * 1).toISOString(),
+    audit_trail: [
+      { id: 'aud-3', staff_name: 'Sara', action: 'payment_verified', details: { trx_id: 'NGD43K8L99' }, created_at: new Date(Date.now() - 3600000 * 1).toISOString() }
+    ]
+  },
+  {
+    id: 'MC-260907-D5S8',
+    customer_id: 'cust-105',
+    customer_name: 'আহমেদ জুবায়ের',
+    customer_phone: '01715-998877',
+    shipping_address: 'বাড়ি ১৪, সেক্টর ৭, উত্তরা, ঢাকা',
+    district: 'Inside Dhaka',
+    payment_method: 'cod',
+    sender_number: null,
+    trx_id: null,
+    status: 'confirmed',
+    subtotal_bdt: 1400,
+    delivery_charge_bdt: 60,
+    total_amount_bdt: 1460,
+    courier_name: null,
+    tracking_code: null,
+    last_modified_by: null,
+    items: [
+      { product_id: 'amc-104', sku: 'AMC-LMP-CAS-01', title: 'নস্টালজিক ক্যাসেট অ্যাম্বিয়েন্ট নাইট ল্যাম্প', quantity: 1, unit_price_bdt: 1200, total_price_bdt: 1200 },
+      { product_id: 'amc-111', sku: 'AMC-BMK-TRB-01', title: 'সুতি সুতোর ঝালর দেওয়া ট্রাইবাল বুকমার্ক', quantity: 1, unit_price_bdt: 200, total_price_bdt: 200 }
+    ],
+    customer_notes: 'ক্যাশ অন ডেলিভারি নিশ্চিত করা হয়েছে।',
+    created_at: new Date(Date.now() - 3600000 * 4).toISOString(),
+    updated_at: new Date(Date.now() - 3600000 * 4).toISOString(),
+    audit_trail: []
   },
   {
     id: 'MC-260907-E2M1',
@@ -209,23 +403,32 @@ let memoryMockOrders = [
     total_amount_bdt: 1320,
     courier_name: 'Pathao Courier',
     tracking_code: 'PTH-882190',
+    last_modified_by: 'Antar',
     items: [
       { product_id: 'amc-102', sku: 'AMC-ART-RCK-01', title: 'রিকশা আর্ট কাঠের কোস্টার সেট (৪টি)', quantity: 2, unit_price_bdt: 600, total_price_bdt: 1200 }
     ],
     customer_notes: null,
     created_at: new Date(Date.now() - 86400000 * 2).toISOString(),
-    updated_at: new Date(Date.now() - 86400000 * 1).toISOString()
+    updated_at: new Date(Date.now() - 86400000 * 1).toISOString(),
+    audit_trail: [
+      { id: 'aud-4', staff_name: 'Antar', action: 'dispatched', details: { courier_name: 'Pathao Courier', tracking_code: 'PTH-882190' }, created_at: new Date(Date.now() - 86400000 * 1).toISOString() }
+    ]
   }
 ];
+
+// ==========================================
+// GET HANDLER: Query Orders & Audit Logs
+// ==========================================
 
 export async function onRequestGet(context) {
   const { request, env = {} } = context;
 
   // 1. Security Gate
-  if (!verifyPasskey(request, env)) {
+  const auth = await authenticateRequest(request, env);
+  if (!auth.authenticated) {
     return jsonResponse({
       success: false,
-      error: 'অননুমোদিত প্রবেশাধিকার (Invalid or Missing Passkey)। অনুগ্রহ করে সঠিক পাসকি প্রদান করুন।'
+      error: 'অননুমোদিত প্রবেশাধিকার (Invalid or Missing Passkey/Token)। অনুগ্রহ করে সাইন ইন করুন।'
     }, 401);
   }
 
@@ -233,10 +436,11 @@ export async function onRequestGet(context) {
   const action = url.searchParams.get('action') || 'orders';
 
   // Quick verification ping
-  if (action === 'verify_passkey') {
+  if (action === 'verify_passkey' || action === 'check_session') {
     return jsonResponse({
       success: true,
-      message: 'প্রবেশাধিকার সফলভাবে অনুমোদিত হয়েছে।'
+      message: 'প্রবেশাধিকার সফলভাবে অনুমোদিত হয়েছে।',
+      staff: auth.staff
     }, 200);
   }
 
@@ -255,18 +459,32 @@ export async function onRequestGet(context) {
     try {
       let ordersQueryUrl = `${supabaseUrl}/rest/v1/orders?select=*&order=created_at.desc&limit=50`;
       if (statusFilter && statusFilter !== 'all') {
-        ordersQueryUrl += `&status=eq.${encodeURIComponent(statusFilter)}`;
+        if (statusFilter === 'confirmed_or_verified' || statusFilter === 'ready_for_dispatch') {
+          ordersQueryUrl += `&status=in.(confirmed,verified)`;
+        } else {
+          ordersQueryUrl += `&status=eq.${encodeURIComponent(statusFilter)}`;
+        }
       }
 
-      const [ordersResp, customersResp] = await Promise.all([
+      const [ordersResp, customersResp, auditResp] = await Promise.all([
         fetch(ordersQueryUrl, { headers }),
-        fetch(`${supabaseUrl}/rest/v1/customers?select=*&limit=100`, { headers })
+        fetch(`${supabaseUrl}/rest/v1/customers?select=*&limit=100`, { headers }),
+        fetch(`${supabaseUrl}/rest/v1/order_audit_logs?select=*&order=created_at.desc&limit=100`, { headers }).catch(() => ({ ok: false }))
       ]);
 
       if (ordersResp.ok) {
         const rawOrders = await ordersResp.json();
         const customers = customersResp.ok ? await customersResp.json() : [];
+        const auditLogs = auditResp.ok ? await auditResp.json() : [];
+
         const customerMap = new Map((Array.isArray(customers) ? customers : []).map(c => [c.id, c]));
+        const auditMap = new Map();
+        if (Array.isArray(auditLogs)) {
+          auditLogs.forEach(log => {
+            if (!auditMap.has(log.order_id)) auditMap.set(log.order_id, []);
+            auditMap.get(log.order_id).push(log);
+          });
+        }
 
         const enrichedOrders = rawOrders.map(order => {
           const cust = order.customer_id ? customerMap.get(order.customer_id) : null;
@@ -286,26 +504,32 @@ export async function onRequestGet(context) {
             total_amount_bdt: order.total_amount_bdt || 0,
             courier_name: order.courier_name || null,
             tracking_code: order.tracking_code || null,
+            last_modified_by: order.last_modified_by || null,
             items: normalizeOrderItems(order.items),
             customer_notes: order.customer_notes || null,
             created_at: order.created_at,
-            updated_at: order.updated_at
+            updated_at: order.updated_at,
+            audit_trail: auditMap.get(order.id) || []
           };
         });
 
-        // Compute metrics
+        // Compute metrics (unifying confirmed and verified into ready-for-dispatch)
         const pendingCount = enrichedOrders.filter(o => o.status === 'pending_verification').length;
-        const verifiedCount = enrichedOrders.filter(o => o.status === 'verified').length;
+        const confirmedCount = enrichedOrders.filter(o => o.status === 'confirmed' || o.status === 'verified').length;
         const dispatchedCount = enrichedOrders.filter(o => o.status === 'dispatched').length;
+        const deliveredCount = enrichedOrders.filter(o => o.status === 'delivered').length;
 
         return jsonResponse({
           success: true,
+          current_staff: auth.staff,
           orders: enrichedOrders,
           metrics: {
             total_count: enrichedOrders.length,
             pending_count: pendingCount,
-            verified_count: verifiedCount,
-            dispatched_count: dispatchedCount
+            verified_count: confirmedCount, // backward compatibility
+            confirmed_count: confirmedCount,
+            dispatched_count: dispatchedCount,
+            delivered_count: deliveredCount
           }
         }, 200);
       }
@@ -318,35 +542,40 @@ export async function onRequestGet(context) {
   // 3. Fallback: Local memory mock store
   let filtered = memoryMockOrders.map(o => ({ ...o, items: normalizeOrderItems(o.items) }));
   if (statusFilter && statusFilter !== 'all') {
-    filtered = filtered.filter(o => o.status === statusFilter);
+    if (statusFilter === 'confirmed_or_verified' || statusFilter === 'ready_for_dispatch') {
+      filtered = filtered.filter(o => o.status === 'confirmed' || o.status === 'verified');
+    } else {
+      filtered = filtered.filter(o => o.status === statusFilter);
+    }
   }
 
   const pendingCount = memoryMockOrders.filter(o => o.status === 'pending_verification').length;
-  const verifiedCount = memoryMockOrders.filter(o => o.status === 'verified').length;
+  const confirmedCount = memoryMockOrders.filter(o => o.status === 'confirmed' || o.status === 'verified').length;
   const dispatchedCount = memoryMockOrders.filter(o => o.status === 'dispatched').length;
+  const deliveredCount = memoryMockOrders.filter(o => o.status === 'delivered').length;
 
   return jsonResponse({
     success: true,
+    current_staff: auth.staff,
     orders: filtered,
     metrics: {
       total_count: memoryMockOrders.length,
       pending_count: pendingCount,
-      verified_count: verifiedCount,
-      dispatched_count: dispatchedCount
+      verified_count: confirmedCount,
+      confirmed_count: confirmedCount,
+      dispatched_count: dispatchedCount,
+      delivered_count: deliveredCount
     }
   }, 200);
 }
 
+// ==========================================
+// POST HANDLER: Authentication & Mutations
+// ==========================================
+
 export async function onRequestPost(context) {
   const { request, env = {} } = context;
-
-  // 1. Security Gate
-  if (!verifyPasskey(request, env)) {
-    return jsonResponse({
-      success: false,
-      error: 'অননুমোদিত প্রবেশাধিকার (Invalid or Missing Passkey)।'
-    }, 401);
-  }
+  const ip = getClientIp(request);
 
   let body = {};
   try {
@@ -355,42 +584,186 @@ export async function onRequestPost(context) {
     return jsonResponse({ success: false, error: 'অনুরোধের তথ্য সঠিক নয় (Invalid JSON)।' }, 400);
   }
 
+  const url = new URL(request.url);
+  const actionParam = url.searchParams.get('action');
+  const action = String(body.action || actionParam || '').trim().toLowerCase();
+
+  // ----------------------------------------------------
+  // ACTION 1: Named Staff Login (with Brute-Force Rate Limiting)
+  // ----------------------------------------------------
+  if (action === 'login') {
+    // 1. Check Rate Limit
+    const rateStatus = checkRateLimit(ip);
+    if (!rateStatus.allowed) {
+      return jsonResponse({
+        success: false,
+        error: rateStatus.message,
+        retry_after_seconds: rateStatus.retryAfter
+      }, 429);
+    }
+
+    const name = String(body.name || body.staff_name || body.username || '').trim();
+    const pin = String(body.pin || body.passkey || '').trim();
+
+    if (!name || !pin) {
+      recordFailedAttempt(ip);
+      return jsonResponse({
+        success: false,
+        error: 'নাম এবং পিন উভয়ই প্রদান করা আবশ্যক।'
+      }, 400);
+    }
+
+    let authenticatedStaff = null;
+
+    // A. Check Supabase staff_members table if configured
+    if (env.SUPABASE_URL && (env.SUPABASE_SERVICE_ROLE_KEY || env.SUPABASE_KEY)) {
+      const supabaseUrl = String(env.SUPABASE_URL).trim().replace(/\/+$/, '').replace(/\/rest\/v1\/?$/, '');
+      const supabaseKey = String(env.SUPABASE_SERVICE_ROLE_KEY || env.SUPABASE_KEY).trim();
+      const headers = {
+        'apikey': supabaseKey,
+        'Authorization': `Bearer ${supabaseKey}`,
+        'Content-Type': 'application/json'
+      };
+
+      try {
+        const staffQueryUrl = `${supabaseUrl}/rest/v1/staff_members?name=ilike.${encodeURIComponent(name)}&pin=eq.${encodeURIComponent(pin)}&is_active=eq.true&select=id,name,role,phone`;
+        const staffResp = await fetch(staffQueryUrl, { headers });
+        if (staffResp.ok) {
+          const matched = await staffResp.json();
+          if (Array.isArray(matched) && matched.length > 0) {
+            authenticatedStaff = matched[0];
+          }
+        }
+      } catch (err) {
+        console.error('Staff auth check error:', err);
+      }
+    }
+
+    // B. Check Pre-seeded staff list (for local dev or fallback)
+    if (!authenticatedStaff) {
+      const preMatch = PRESEEDED_STAFF.find(
+        s => s.name.toLowerCase() === name.toLowerCase() && s.pin === pin
+      );
+      if (preMatch) {
+        authenticatedStaff = { name: preMatch.name, role: preMatch.role };
+      }
+    }
+
+    // C. Admin master passkey fallback
+    if (!authenticatedStaff) {
+      const masterKey = String(env.STAFF_ACCESS_KEY || DEFAULT_LOCAL_PASSKEY).trim();
+      if (pin === masterKey && name.toLowerCase() === 'admin') {
+        authenticatedStaff = { name: 'Admin', role: 'admin' };
+      }
+    }
+
+    // Handle authentication result
+    if (!authenticatedStaff) {
+      const record = recordFailedAttempt(ip);
+      const remainingAttempts = Math.max(0, 5 - record.count);
+      if (record.count >= 5) {
+        const retryAfter = Math.ceil((record.lockedUntil - Date.now()) / 1000);
+        return jsonResponse({
+          success: false,
+          error: 'ভুল নাম অথবা পিন। অতিরিক্ত ভুল চেষ্টার কারণে একাউন্ট সাময়িকভাবে ১০ মিনিটের জন্য লক করা হয়েছে।',
+          retry_after_seconds: retryAfter
+        }, 429);
+      }
+      return jsonResponse({
+        success: false,
+        error: `ভুল নাম অথবা পিন। (অবশিষ্ট চেষ্টা: ${remainingAttempts} বার)`
+      }, 401);
+    }
+
+    // Authentication succeeded: clear rate limiter
+    clearRateLimit(ip);
+
+    // Generate signed token
+    const token = await generateSessionToken(authenticatedStaff, env);
+
+    return jsonResponse({
+      success: true,
+      message: `স্বাগতম, ${authenticatedStaff.name}!`,
+      token,
+      staff: {
+        name: authenticatedStaff.name,
+        role: authenticatedStaff.role
+      }
+    }, 200);
+  }
+
+  // ----------------------------------------------------
+  // ORDER MUTATIONS: Requires Valid Authentication
+  // ----------------------------------------------------
+  const auth = await authenticateRequest(request, env);
+  if (!auth.authenticated) {
+    return jsonResponse({
+      success: false,
+      error: 'অননুমোদিত প্রবেশাধিকার। অনুগ্রহ করে পুনরায় লগইন করুন।'
+    }, 401);
+  }
+
+  const staffName = auth.staff.name || 'Staff';
   const orderId = String(body.order_id || body.orderId || '').trim().toUpperCase();
-  const action = String(body.action || '').trim().toLowerCase();
   const courierName = String(body.courier_name || body.courierName || '').trim();
   const trackingCode = String(body.tracking_code || body.trackingCode || '').trim().toUpperCase();
+  const note = String(body.note || body.reason || '').trim();
 
   if (!orderId) {
     return jsonResponse({ success: false, error: 'অর্ডার নম্বর প্রদান করা বাধ্যতামূলক।' }, 400);
   }
 
-  const validActions = ['verify_payment', 'mark_dispatched', 'cancel_order', 'update_courier'];
+  const validActions = ['verify_payment', 'mark_dispatched', 'cancel_order', 'update_courier', 'override_status'];
   if (!validActions.includes(action)) {
     return jsonResponse({
       success: false,
-      error: `অকার্যকর অ্যাকশন (${action})। প্রযোজ্য অ্যাকশন: verify_payment, mark_dispatched, cancel_order`
+      error: `অকার্যকর অ্যাকশন (${action})। প্রযোজ্য অ্যাকশন: verify_payment, mark_dispatched, cancel_order, update_courier, override_status`
     }, 400);
   }
 
   let newStatus = null;
+  let auditActionType = 'note_added';
+  const auditDetails = { staff_name: staffName };
   const updates = {
+    last_modified_by: staffName,
     updated_at: new Date().toISOString()
   };
 
   if (action === 'verify_payment') {
     newStatus = 'verified';
     updates.status = newStatus;
+    auditActionType = 'payment_verified';
+    if (body.trx_id) auditDetails.trx_id = body.trx_id;
   } else if (action === 'mark_dispatched') {
     newStatus = 'dispatched';
     updates.status = newStatus;
+    auditActionType = 'dispatched';
     if (courierName) updates.courier_name = courierName;
     if (trackingCode) updates.tracking_code = trackingCode;
+    auditDetails.courier_name = courierName;
+    auditDetails.tracking_code = trackingCode;
   } else if (action === 'cancel_order') {
     newStatus = 'cancelled';
     updates.status = newStatus;
+    auditActionType = 'cancelled';
+    if (note) auditDetails.reason = note;
   } else if (action === 'update_courier') {
+    auditActionType = 'courier_updated';
     if (courierName) updates.courier_name = courierName;
     if (trackingCode) updates.tracking_code = trackingCode;
+    auditDetails.courier_name = courierName;
+    auditDetails.tracking_code = trackingCode;
+  } else if (action === 'override_status') {
+    const targetStatus = String(body.status || '').trim().toLowerCase();
+    const allowedStatuses = ['pending_verification', 'confirmed', 'verified', 'dispatched', 'delivered', 'cancelled'];
+    if (!allowedStatuses.includes(targetStatus)) {
+      return jsonResponse({ success: false, error: `অকার্যকর স্ট্যাটাস (${targetStatus})` }, 400);
+    }
+    newStatus = targetStatus;
+    updates.status = newStatus;
+    auditActionType = 'status_override';
+    auditDetails.target_status = newStatus;
+    if (note) auditDetails.reason = note;
   }
 
   // A. Execute Supabase update if configured
@@ -405,6 +778,7 @@ export async function onRequestPost(context) {
     };
 
     try {
+      // 1. Update orders table
       const updateResp = await fetch(
         `${supabaseUrl}/rest/v1/orders?id=eq.${encodeURIComponent(orderId)}`,
         {
@@ -414,11 +788,24 @@ export async function onRequestPost(context) {
         }
       );
 
+      // 2. Insert audit log record (fire and record)
+      fetch(`${supabaseUrl}/rest/v1/order_audit_logs`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          order_id: orderId,
+          staff_name: staffName,
+          action: auditActionType,
+          details: auditDetails,
+          created_at: new Date().toISOString()
+        })
+      }).catch(e => console.error('Failed to write audit log to Supabase:', e));
+
       if (updateResp.ok) {
         const updatedRows = await updateResp.json();
         return jsonResponse({
           success: true,
-          message: 'অর্ডার সফলভাবে হালনাগাদ করা হয়েছে।',
+          message: `অর্ডার #${orderId} সফলভাবে হালনাগাদ করা হয়েছে (${staffName} কর্তৃক)।`,
           order: Array.isArray(updatedRows) && updatedRows.length > 0 ? updatedRows[0] : updates
         }, 200);
       }
@@ -430,13 +817,26 @@ export async function onRequestPost(context) {
   // B. Fallback: Update in-memory mock store
   const targetIndex = memoryMockOrders.findIndex(o => o.id.toUpperCase() === orderId);
   if (targetIndex !== -1) {
+    const targetOrder = memoryMockOrders[targetIndex];
+    if (!targetOrder.audit_trail) targetOrder.audit_trail = [];
+    
+    targetOrder.audit_trail.unshift({
+      id: `aud-${Date.now()}`,
+      order_id: orderId,
+      staff_name: staffName,
+      action: auditActionType,
+      details: auditDetails,
+      created_at: new Date().toISOString()
+    });
+
     memoryMockOrders[targetIndex] = {
-      ...memoryMockOrders[targetIndex],
+      ...targetOrder,
       ...updates
     };
+
     return jsonResponse({
       success: true,
-      message: 'অর্ডার সফলভাবে হালনাগাদ করা হয়েছে (Local Store)।',
+      message: `অর্ডার #${orderId} সফলভাবে হালনাগাদ করা হয়েছে (${staffName} কর্তৃক)।`,
       order: memoryMockOrders[targetIndex]
     }, 200);
   }
