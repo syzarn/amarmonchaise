@@ -664,20 +664,69 @@
     }
   }
 
+    // --- ISOLATED IFRAME PRINT UTILITY ---
+  function printHtmlViaIframe(htmlContent, title = 'Mon Chaise Receipt') {
+    let iframe = document.getElementById('mc-print-frame');
+    if (iframe) iframe.remove();
+    iframe = document.createElement('iframe');
+    iframe.id = 'mc-print-frame';
+    iframe.style.position = 'fixed';
+    iframe.style.right = '0';
+    iframe.style.bottom = '0';
+    iframe.style.width = '0';
+    iframe.style.height = '0';
+    iframe.style.border = '0';
+    iframe.style.visibility = 'hidden';
+    document.body.appendChild(iframe);
+
+    const doc = iframe.contentWindow.document;
+    doc.open();
+    doc.write(`<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>${title}</title>
+  <style>
+    @page { size: auto; margin: 8mm; }
+    body {
+      background: #ffffff !important;
+      color: #000000 !important;
+      margin: 0;
+      padding: 10px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hind Siliguri", "Noto Serif Bengali", sans-serif;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    .no-print { display: none !important; }
+    * { box-sizing: border-box; }
+    img, svg { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+  ${htmlContent}
+</body>
+</html>`);
+    doc.close();
+
+    setTimeout(() => {
+      try {
+        iframe.contentWindow.focus();
+        iframe.contentWindow.print();
+      } catch (e) {
+        console.warn('Iframe print failed, falling back to window.print():', e);
+        window.print();
+      }
+    }, 250);
+  }
+  window.printHtmlViaIframe = printHtmlViaIframe;
+
   // --- PRINT FUNCTION ---
   function printReceipt(order, lang = 'bn') {
-    let printContainer = document.getElementById('printable-receipt-container');
-    if (!printContainer) {
-      printContainer = document.createElement('div');
-      printContainer.id = 'printable-receipt-container';
-      document.body.appendChild(printContainer);
-    }
-
-    printContainer.innerHTML = lang === 'bn'
+    const receiptHtml = lang === 'bn'
       ? generateBengaliReceiptHtml(order)
       : generateEnglishReceiptHtml(order);
 
-    window.print();
+    printHtmlViaIframe(receiptHtml, `Receipt-${order.orderId || 'Order'}`);
   }
 
   // --- INTERACTIVE RECEIPT MODAL CONTROLLER ---

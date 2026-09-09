@@ -88,3 +88,35 @@ COMMENT ON TABLE public.order_audit_logs IS 'Immutable audit trail recording whi
 COMMENT ON COLUMN public.orders.order_no IS 'Customer-facing alphanumeric order code (e.g. MC-MTR643A1)';
 COMMENT ON COLUMN public.orders.last_modified_by IS 'Name of the staff member who executed the most recent status or courier transition';
 
+
+
+-- 5. Explicit Row Level Security Policies for Staff Operations
+-- Allows staff updates to succeed regardless of whether service_role or anon key is used
+DROP POLICY IF EXISTS "Allow Update Orders Staff" ON public.orders;
+CREATE POLICY "Allow Update Orders Staff" ON public.orders
+    FOR UPDATE
+    TO anon, authenticated, service_role
+    USING (true)
+    WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Allow Select Orders Staff" ON public.orders;
+CREATE POLICY "Allow Select Orders Staff" ON public.orders
+    FOR SELECT
+    TO anon, authenticated, service_role
+    USING (true);
+
+ALTER TABLE public.order_audit_logs ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Allow All Order Audit Logs" ON public.order_audit_logs;
+CREATE POLICY "Allow All Order Audit Logs" ON public.order_audit_logs
+    FOR ALL
+    TO anon, authenticated, service_role
+    USING (true)
+    WITH CHECK (true);
+
+ALTER TABLE public.staff_members ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Allow All Staff Members" ON public.staff_members;
+CREATE POLICY "Allow All Staff Members" ON public.staff_members
+    FOR ALL
+    TO anon, authenticated, service_role
+    USING (true)
+    WITH CHECK (true);

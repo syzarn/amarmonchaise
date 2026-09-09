@@ -808,43 +808,60 @@ export async function onRequestPost(context) {
     };
 
     try {
-      // 1. Update orders table (supports querying by bigint id, client_order_id, or order_no)
-      let matchFilter;
-      if (/^\d+$/.test(orderId)) {
-        matchFilter = `or=(id.eq.${orderId},client_order_id.eq.${encodeURIComponent(orderId)},order_no.eq.${encodeURIComponent(orderId)})`;
-      } else {
-        matchFilter = `or=(client_order_id.eq.${encodeURIComponent(orderId)},order_no.eq.${encodeURIComponent(orderId)})`;
-      }
-
-      // Try updating with last_modified_by first
-      let patchBody = { ...updates };
-      let updateResp = await fetch(
-        `${supabaseUrl}/rest/v1/orders?${matchFilter}`,
-        {
+      const executePatch = async (filter, bodyToPatch) => {
+        const resp = await fetch(`${supabaseUrl}/rest/v1/orders?${filter}`, {
           method: 'PATCH',
           headers,
-          body: JSON.stringify(patchBody)
-        }
-      );
+          body: JSON.stringify(bodyToPatch)
+        });
+        const status = resp.status;
+        const text = await resp.text();
+        let json = [];
+        try { json = JSON.parse(text); } catch (_) {}
+        return { ok: resp.ok, status, text, json, rowsUpdated: Array.isArray(json) ? json.length : 0 };
+      };
 
-      // If failed because last_modified_by column does not exist yet in Supabase, retry without it
-      if (!updateResp.ok) {
-        const errTxt = await updateResp.text();
-        console.warn('First PATCH attempt failed, retrying without last_modified_by:', updateResp.status, errTxt);
-        if (errTxt.includes('last_modified_by') || errTxt.includes('does not exist')) {
+      let patchBody = { ...updates };
+      let patchResult = null;
+
+      // Strategy 1: If orderId is numeric, match id=eq.orderId (primary key)
+      if (/^\d+$/.test(orderId)) {
+        patchResult = await executePatch(`id=eq.${orderId}`, patchBody);
+        if (!patchResult.ok && (patchResult.text.includes('last_modified_by') || patchResult.text.includes('does not exist'))) {
           delete patchBody.last_modified_by;
-          updateResp = await fetch(
-            `${supabaseUrl}/rest/v1/orders?${matchFilter}`,
-            {
-              method: 'PATCH',
-              headers,
-              body: JSON.stringify(patchBody)
-            }
-          );
+          patchResult = await executePatch(`id=eq.${orderId}`, patchBody);
         }
       }
 
-      // 2. Insert audit log record (fire and record)
+      // Strategy 2: If not numeric or 0 rows updated, try order_no=eq.orderId
+      if (!patchResult || (!patchResult.ok && patchResult.status === 400) || (patchResult.ok && patchResult.rowsUpdated === 0)) {
+        const testRes = await executePatch(`order_no=eq.${encodeURIComponent(orderId)}`, patchBody);
+        if (testRes.ok && testRes.rowsUpdated > 0) {
+          patchResult = testRes;
+        } else if (!testRes.ok && (testRes.text.includes('last_modified_by') || testRes.text.includes('does not exist'))) {
+          delete patchBody.last_modified_by;
+          const retryRes = await executePatch(`order_no=eq.${encodeURIComponent(orderId)}`, patchBody);
+          if (retryRes.ok && retryRes.rowsUpdated > 0) {
+            patchResult = retryRes;
+          }
+        }
+      }
+
+      // Strategy 3: If still 0 rows or not updated, try client_order_id=eq.orderId (legacy column)
+      if (!patchResult || (patchResult.ok && patchResult.rowsUpdated === 0)) {
+        const testRes = await executePatch(`client_order_id=eq.${encodeURIComponent(orderId)}`, patchBody);
+        if (testRes.ok && testRes.rowsUpdated > 0) {
+          patchResult = testRes;
+        } else if (!testRes.ok && (testRes.text.includes('last_modified_by') || testRes.text.includes('does not exist'))) {
+          delete patchBody.last_modified_by;
+          const retryRes = await executePatch(`client_order_id=eq.${encodeURIComponent(orderId)}`, patchBody);
+          if (retryRes.ok && retryRes.rowsUpdated > 0) {
+            patchResult = retryRes;
+          }
+        }
+      }
+
+      // Write audit log if configured (fire-and-forget)
       fetch(`${supabaseUrl}/rest/v1/order_audit_logs`, {
         method: 'POST',
         headers,
@@ -857,30 +874,30 @@ export async function onRequestPost(context) {
         })
       }).catch(e => console.error('Failed to write audit log to Supabase:', e));
 
-      if (updateResp.ok) {
-        const updatedRows = await updateResp.json().catch(() => []);
-        const savedOrder = Array.isArray(updatedRows) && updatedRows.length > 0 ? updatedRows[0] : null;
-
+      if (patchResult && patchResult.ok && patchResult.rowsUpdated > 0) {
+        const savedOrder = patchResult.json[0];
         return jsonResponse({
           success: true,
           message: `অর্ডার #${orderId} সফলভাবে হালনাগাদ করা হয়েছে (${staffName} কর্তৃক)।`,
-          order: savedOrder ? {
+          order: {
             ...savedOrder,
             subtotal_bdt: Number(savedOrder.subtotal_bdt ?? savedOrder.subtotal ?? 0),
             delivery_charge_bdt: Number(savedOrder.delivery_charge_bdt ?? savedOrder.delivery_charge ?? 0),
             total_amount_bdt: Number(savedOrder.total_amount_bdt ?? savedOrder.total_amount ?? 0)
-          } : updates
+          }
         }, 200);
       } else {
-        const errTxt = await updateResp.text().catch(() => '');
-        console.error('Supabase update failed:', updateResp.status, errTxt);
-        return jsonResponse({
-          success: false,
-          error: `ডাটাবেজ আপডেট ব্যর্থ হয়েছে: ${errTxt}`
-        }, 500);
+        const errMsg = patchResult
+          ? (patchResult.rowsUpdated === 0
+              ? `ডাটাবেজে অর্ডার #${orderId} পাওয়া যায়নি অথবা RLS পলিসি অনুমোদিত নয় (০ টি রেকর্ড পরিবর্তিত হয়েছে)।`
+              : `ডাটাবেজ আপডেট ব্যর্থ হয়েছে: ${patchResult.text}`)
+          : `অর্ডার #${orderId} হালনাগাদ করা যায়নি।`;
+        console.error('Supabase update rejected:', errMsg);
+        return jsonResponse({ success: false, error: errMsg }, 400);
       }
     } catch (err) {
       console.error('Supabase update error in /api/staff:', err);
+      return jsonResponse({ success: false, error: `সার্ভার ত্রুটি: ${err.message}` }, 500);
     }
   }
 

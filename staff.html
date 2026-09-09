@@ -546,7 +546,7 @@
       <div class="no-print pt-2 border-t border-slate-200 dark:border-zinc-800 flex items-center justify-between gap-2">
         <button 
           type="button" 
-          onclick="window.print()" 
+          onclick="printCurrentSlip()" 
           class="touch-btn flex-1 px-4 rounded bg-[#166B58] hover:bg-[#125446] dark:bg-yellow-500 dark:hover:bg-yellow-400 text-white dark:text-slate-950 font-bold text-xs uppercase tracking-wider shadow-sm"
         >
           🖨️ প্রিন্ট চালান (Print Slip)
@@ -1919,9 +1919,20 @@
         }
       });
 
+      function findOrder(orderId) {
+        if (orderId === undefined || orderId === null || orderId === '') return null;
+        const sId = String(orderId).trim().toLowerCase();
+        return ordersCache.find(o => 
+          String(o.id).toLowerCase() === sId ||
+          String(o.order_no || '').toLowerCase() === sId ||
+          String(o.client_order_id || '').toLowerCase() === sId
+        ) || null;
+      }
+      window.findOrder = findOrder;
+
       // --- 14. Dispatch Packing Slip Modal Handlers ---
       window.openDispatchModal = function(orderId) {
-        const order = ordersCache.find(o => o.id === orderId);
+        const order = findOrder(orderId);
         if (!order) return;
 
         const modal = document.getElementById('dispatch-modal');
@@ -1994,9 +2005,72 @@
         modal.classList.remove('hidden');
       };
 
-      window.closeDispatchModal = function() {
+            window.closeDispatchModal = function() {
         const modal = document.getElementById('dispatch-modal');
         if (modal) modal.classList.add('hidden');
+      };
+
+      window.printCurrentSlip = function() {
+        const modalContent = document.getElementById('print-modal-content');
+        if (!modalContent) {
+          window.print();
+          return;
+        }
+
+        const clone = modalContent.cloneNode(true);
+        clone.querySelectorAll('.no-print').forEach(el => el.remove());
+
+        const html = `
+          <div style="max-width: 650px; margin: 0 auto; padding: 20px; border: 2px solid #166B58; border-radius: 4px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hind Siliguri', sans-serif; color: #000; background: #fff;">
+            ${clone.innerHTML}
+          </div>
+        `;
+
+        if (window.printHtmlViaIframe) {
+          window.printHtmlViaIframe(html, 'Mon Chaise Official Dispatch Slip');
+        } else {
+          let iframe = document.getElementById('staff-print-frame');
+          if (iframe) iframe.remove();
+          iframe = document.createElement('iframe');
+          iframe.id = 'staff-print-frame';
+          iframe.style.position = 'fixed';
+          iframe.style.right = '0';
+          iframe.style.bottom = '0';
+          iframe.style.width = '0';
+          iframe.style.height = '0';
+          iframe.style.border = '0';
+          iframe.style.visibility = 'hidden';
+          document.body.appendChild(iframe);
+
+          const doc = iframe.contentWindow.document;
+          doc.open();
+          doc.write(`<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Mon Chaise Dispatch Slip</title>
+  <style>
+    @page { size: auto; margin: 8mm; }
+    body { background: #fff !important; color: #000 !important; margin: 0; padding: 10px; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hind Siliguri", sans-serif; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+    th, td { border: 1px solid #ddd; padding: 6px 8px; font-size: 12px; }
+    th { background: #f4f4f4; text-align: left; }
+    .no-print { display: none !important; }
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  </style>
+</head>
+<body>${html}</body></html>`);
+          doc.close();
+
+          setTimeout(() => {
+            try {
+              iframe.contentWindow.focus();
+              iframe.contentWindow.print();
+            } catch (_) {
+              window.print();
+            }
+          }, 300);
+        }
       };
 
       window.addEventListener('keydown', (e) => {
@@ -2019,19 +2093,23 @@
         }
       };
 
-      window.transitionOrder = async function(orderId, action, btnElement) {
-        const order = ordersCache.find(o => o.id === orderId);
-        if (!order) return;
+            window.transitionOrder = async function(orderId, action, btnElement) {
+        const order = findOrder(orderId);
+        if (!order) {
+          showToast('অর্ডার পাওয়া যায়নি', '✕');
+          return;
+        }
 
         if (action === 'cancel_order') {
           const confirmCancel = window.confirm(
             currentLang === 'bn' 
-              ? `আপনি কি নিশ্চিতভাবে অর্ডার #${orderId} বাতিল করতে চান?` 
-              : `Are you sure you want to cancel order #${orderId}?`
+              ? `আপনি কি নিশ্চিতভাবে অর্ডার #${order.order_no || order.id} বাতিল করতে চান?` 
+              : `Are you sure you want to cancel order #${order.order_no || order.id}?`
           );
           if (!confirmCancel) return;
         }
 
+        const origBtnText = btnElement ? btnElement.textContent : '';
         if (btnElement) {
           btnElement.disabled = true;
           btnElement.textContent = action === 'verify_payment' 
@@ -2048,66 +2126,56 @@
               'x-staff-token': activeStaffToken
             },
             body: JSON.stringify({
-              order_id: orderId,
+              order_id: order.id,
               action: action
             })
           });
 
-          if (res.ok) {
-            const data = await res.json().catch(() => null);
-            if (data && data.success && data.order) {
-              const idx = ordersCache.findIndex(o => String(o.id) === String(orderId) || String(o.order_no) === String(orderId));
-              if (idx !== -1) {
-                ordersCache[idx] = {
-                  ...ordersCache[idx],
-                  ...data.order,
-                  items: normalizeOrderItems(data.order.items || ordersCache[idx].items)
-                };
-              }
-              expandedOrders.add(orderId);
-              updateMetrics();
-              renderFeed();
-              showToast(data.message || 'অর্ডার স্ট্যাটাস সফলভাবে পরিবর্তিত হয়েছে।');
-              return;
+          const data = await res.json().catch(() => ({}));
+          if (res.ok && data && data.success) {
+            const updated = data.order || { status: action === 'verify_payment' ? 'verified' : 'cancelled', last_modified_by: activeStaffName || 'Staff' };
+            const idx = ordersCache.findIndex(o => String(o.id) === String(order.id));
+            if (idx !== -1) {
+              ordersCache[idx] = {
+                ...ordersCache[idx],
+                ...updated,
+                items: normalizeOrderItems(updated.items || ordersCache[idx].items)
+              };
             }
+            expandedOrders.add(String(order.id));
+            updateMetrics();
+            renderFeed();
+            showToast(data.message || (action === 'verify_payment' ? 'পেমেন্ট যাচাই সম্পন্ন!' : 'অর্ডার বাতিল হয়েছে।'));
+            return;
           } else {
-            const errData = await res.json().catch(() => ({}));
-            const errMsg = errData.error || 'সার্ভারে স্ট্যাটাস পরিবর্তন ব্যর্থ হয়েছে।';
+            const errMsg = data.error || 'সার্ভারে স্ট্যাটাস পরিবর্তন ব্যর্থ হয়েছে।';
+            alert('স্ট্যাটাস পরিবর্তন ব্যর্থ:\n' + errMsg);
             showToast(errMsg, '✕');
             if (btnElement) {
               btnElement.disabled = false;
-              btnElement.textContent = action === 'verify_payment' ? (i18n[currentLang] || i18n.bn).verifyPayBtn : (i18n[currentLang] || i18n.bn).cancelOrderBtn;
+              btnElement.textContent = origBtnText;
             }
-            return;
           }
-        } catch (_) {
-          // Static local preview fallback
+        } catch (netErr) {
+          console.error('Transition order network error:', netErr);
+          alert('সার্ভারের সাথে সংযোগ স্থাপন করা যায়নি: ' + (netErr.message || 'Network error'));
+          showToast('নেটওয়ার্ক সংযোগ ত্রুটি', '✕');
+          if (btnElement) {
+            btnElement.disabled = false;
+            btnElement.textContent = origBtnText;
+          }
         }
-
-        // Optimistic local state transition
-        if (action === 'verify_payment') {
-          order.status = 'verified';
-          order.last_modified_by = activeStaffName || 'Staff';
-          order.updated_at = new Date().toISOString();
-          expandedOrders.add(orderId);
-          showToast(`অর্ডার #${orderId} পেমেন্ট যাচাই সম্পন্ন! (${order.last_modified_by})`);
-        } else if (action === 'cancel_order') {
-          order.status = 'cancelled';
-          order.last_modified_by = activeStaffName || 'Staff';
-          order.updated_at = new Date().toISOString();
-          showToast(`অর্ডার #${orderId} বাতিল করা হয়েছে।`, '✕');
-        }
-
-        updateMetrics();
-        renderFeed();
       };
 
-      window.submitDispatch = async function(orderId, btnElement) {
-        const order = ordersCache.find(o => o.id === orderId);
-        if (!order) return;
+            window.submitDispatch = async function(orderId, btnElement) {
+        const order = findOrder(orderId);
+        if (!order) {
+          showToast('অর্ডার পাওয়া যায়নি', '✕');
+          return;
+        }
 
-        const courierSelect = document.getElementById(`courier-select-${orderId}`);
-        const trackingInput = document.getElementById(`tracking-input-${orderId}`);
+        const courierSelect = document.getElementById(`courier-select-${order.id}`);
+        const trackingInput = document.getElementById(`tracking-input-${order.id}`);
 
         const courierName = courierSelect ? courierSelect.value : 'Steadfast Courier';
         const trackingCode = trackingInput ? trackingInput.value.trim() : '';
@@ -2118,6 +2186,7 @@
           return;
         }
 
+        const origBtnText = btnElement ? btnElement.textContent : '';
         if (btnElement) {
           btnElement.disabled = true;
           btnElement.textContent = (i18n[currentLang] || i18n.bn).dispatchingBtn;
@@ -2132,65 +2201,66 @@
               'x-staff-token': activeStaffToken
             },
             body: JSON.stringify({
-              order_id: orderId,
+              order_id: order.id,
               action: 'mark_dispatched',
               courier_name: courierName,
               tracking_code: trackingCode
             })
           });
 
-          if (res.ok) {
-            const data = await res.json().catch(() => null);
-            if (data && data.success && data.order) {
-              const idx = ordersCache.findIndex(o => String(o.id) === String(orderId) || String(o.order_no) === String(orderId));
-              if (idx !== -1) {
-                ordersCache[idx] = {
-                  ...ordersCache[idx],
-                  ...data.order,
-                  items: normalizeOrderItems(data.order.items || ordersCache[idx].items)
-                };
-              }
-              expandedOrders.add(orderId);
-              updateMetrics();
-              renderFeed();
-              showToast(data.message || `অর্ডার #${orderId} সফলভাবে কুরিয়ারে হস্তান্তর হয়েছে!`);
-              return;
+          const data = await res.json().catch(() => ({}));
+          if (res.ok && data && data.success) {
+            const updated = data.order || { status: 'dispatched', courier_name: courierName, tracking_code: trackingCode, last_modified_by: activeStaffName || 'Staff' };
+            const idx = ordersCache.findIndex(o => String(o.id) === String(order.id));
+            if (idx !== -1) {
+              ordersCache[idx] = {
+                ...ordersCache[idx],
+                ...updated,
+                items: normalizeOrderItems(updated.items || ordersCache[idx].items)
+              };
             }
+            expandedOrders.add(String(order.id));
+            updateMetrics();
+            renderFeed();
+            showToast(data.message || `অর্ডার #${order.order_no || order.id} সফলভাবে কুরিয়ারে হস্তান্তর হয়েছে!`, '🚚');
+            return;
           } else {
-            const errData = await res.json().catch(() => ({}));
-            const errMsg = errData.error || 'সার্ভারে কুরিয়ার হস্তান্তর ব্যর্থ হয়েছে।';
+            const errMsg = data.error || 'সার্ভারে কুরিয়ার হস্তান্তর ব্যর্থ হয়েছে।';
+            alert('কুরিয়ার হস্তান্তর ব্যর্থ:\n' + errMsg);
             showToast(errMsg, '✕');
             if (btnElement) {
               btnElement.disabled = false;
-              btnElement.textContent = (i18n[currentLang] || i18n.bn).dispatchBtn;
+              btnElement.textContent = origBtnText;
             }
-            return;
           }
-        } catch (_) {
-          // Static preview fallback
+        } catch (netErr) {
+          console.error('Submit dispatch network error:', netErr);
+          alert('সার্ভারের সাথে সংযোগ স্থাপন করা যায়নি: ' + (netErr.message || 'Network error'));
+          showToast('নেটওয়ার্ক সংযোগ ত্রুটি', '✕');
+          if (btnElement) {
+            btnElement.disabled = false;
+            btnElement.textContent = origBtnText;
+          }
         }
-
-        // Optimistic local state transition
-        order.status = 'dispatched';
-        order.courier_name = courierName;
-        order.tracking_code = trackingCode;
-        order.last_modified_by = activeStaffName || 'Staff';
-        order.updated_at = new Date().toISOString();
-        expandedOrders.add(orderId);
-
-        updateMetrics();
-        renderFeed();
-        showToast(`অর্ডার #${orderId} সফলভাবে কুরিয়ারে হস্তান্তর হয়েছে! (${order.last_modified_by})`, '🚚');
       };
 
       window.submitStatusOverride = async function(orderId, btnElement) {
-        const order = ordersCache.find(o => o.id === orderId);
-        if (!order) return;
+        const order = findOrder(orderId);
+        if (!order) {
+          showToast('অর্ডার খুঁজে পাওয়া যায়নি।', '✕');
+          return;
+        }
 
-        const selectEl = document.getElementById(`override-select-${orderId}`);
+        const selectEl = document.getElementById(`override-select-${order.id}`);
         const targetStatus = selectEl ? selectEl.value : null;
         if (!targetStatus) return;
 
+        if (targetStatus === order.status) {
+          showToast('স্ট্যাটাস ইতোমধ্যে ' + targetStatus + ' রয়েছে।', 'ℹ️');
+          return;
+        }
+
+        const origBtnText = btnElement ? btnElement.textContent : '';
         if (btnElement) {
           btnElement.disabled = true;
           btnElement.textContent = '...';
@@ -2205,50 +2275,49 @@
               'x-staff-token': activeStaffToken
             },
             body: JSON.stringify({
-              order_id: orderId,
+              order_id: order.id,
               action: 'override_status',
               status: targetStatus
             })
           });
 
-          if (res.ok) {
-            const data = await res.json().catch(() => null);
-            if (data && data.success && data.order) {
-              const idx = ordersCache.findIndex(o => String(o.id) === String(orderId) || String(o.order_no) === String(orderId));
-              if (idx !== -1) {
-                ordersCache[idx] = {
-                  ...ordersCache[idx],
-                  ...data.order,
-                  items: normalizeOrderItems(data.order.items || ordersCache[idx].items)
-                };
-              }
-              expandedOrders.add(orderId);
-              updateMetrics();
-              renderFeed();
-              showToast(data.message || 'স্ট্যাটাস সফলভাবে পরিবর্তিত হয়েছে।');
-              return;
+          const data = await res.json().catch(() => ({}));
+
+          if (res.ok && data && data.success) {
+            const updated = data.order || { status: targetStatus, last_modified_by: activeStaffName || 'Staff' };
+            const idx = ordersCache.findIndex(o => String(o.id) === String(order.id));
+            if (idx !== -1) {
+              ordersCache[idx] = {
+                ...ordersCache[idx],
+                ...updated,
+                items: normalizeOrderItems(updated.items || ordersCache[idx].items)
+              };
             }
+            expandedOrders.add(String(order.id));
+            updateMetrics();
+            renderFeed();
+            showToast(data.message || `স্ট্যাটাস সফলভাবে পরিবর্তিত হয়েছে (${targetStatus})`, '✓');
+            return;
           } else {
-            const errData = await res.json().catch(() => ({}));
-            const errMsg = errData.error || 'সার্ভারে স্ট্যাটাস পরিবর্তন ব্যর্থ হয়েছে।';
+            const errMsg = data.error || 'সার্ভারে স্ট্যাটাস পরিবর্তন ব্যর্থ হয়েছে।';
+            alert('স্ট্যাটাস পরিবর্তন ব্যর্থ হয়েছে:\n' + errMsg);
             showToast(errMsg, '✕');
+            if (selectEl) selectEl.value = order.status;
             if (btnElement) {
               btnElement.disabled = false;
-              btnElement.textContent = 'পরিবর্তন';
+              btnElement.textContent = origBtnText || 'পরিবর্তন';
             }
-            return;
           }
-        } catch (_) {
-          // Fallback
+        } catch (netErr) {
+          console.error('Status override network error:', netErr);
+          alert('সার্ভারের সাথে সংযোগ স্থাপন করা যায়নি: ' + (netErr.message || 'Network error'));
+          showToast('নেটওয়ার্ক সংযোগ ত্রুটি', '✕');
+          if (selectEl) selectEl.value = order.status;
+          if (btnElement) {
+            btnElement.disabled = false;
+            btnElement.textContent = origBtnText || 'পরিবর্তন';
+          }
         }
-
-        order.status = targetStatus;
-        order.last_modified_by = activeStaffName || 'Staff';
-        order.updated_at = new Date().toISOString();
-        expandedOrders.add(orderId);
-        updateMetrics();
-        renderFeed();
-        showToast(`স্ট্যাটাস পরিবর্তিত হয়েছে (${order.last_modified_by})`, '✓');
       };
 
       // --- 16. Initialization & Event Listeners ---

@@ -2014,7 +2014,20 @@
     });
 
     document.getElementById('print-receipt-btn').addEventListener('click', () => {
-      window.print();
+      if (window.ReceiptEngine && typeof window.ReceiptEngine.printReceipt === 'function') {
+        window.ReceiptEngine.printReceipt(order, state.lang);
+      } else if (window.printHtmlViaIframe) {
+        const modalBody = elements.orderReceiptModal.querySelector('.modal-animate-in');
+        if (modalBody) {
+          const clone = modalBody.cloneNode(true);
+          clone.querySelectorAll('button, a').forEach(el => el.remove());
+          window.printHtmlViaIframe(clone.innerHTML, `Receipt-${order.orderId || 'Order'}`);
+        } else {
+          window.print();
+        }
+      } else {
+        window.print();
+      }
     });
   }
 
