@@ -1,0 +1,50 @@
+# Keeps the free-tier Supabase project from being paused for inactivity
+# (Supabase pauses free projects after roughly a week without database activity).
+#
+# Runs a tiny read query every 3 days. If the query fails (for example because the
+# project was paused anyway, or the key changed), the run fails and GitHub emails you.
+#
+# Required repository secrets (Settings > Secrets and variables > Actions):
+#   SUPABASE_URL       e.g. https://your-project-id.supabase.co
+#   SUPABASE_ANON_KEY  the public key: the "Publishable key" (sb_publishable_...) from
+#                      Supabase > Project Settings > API Keys, or the legacy "anon" key.
+#                      Do NOT use a secret / service_role key here; read-only public access is enough.
+
+name: Supabase keep-alive
+
+on:
+  schedule:
+    # 03:00 UTC on every 3rd day of the month (1st, 4th, 7th, ...): never more than 4 days apart
+    - cron: '0 3 */3 * *'
+  workflow_dispatch: {}
+
+permissions: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Query the products table
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_ANON_KEY" ]; then
+            echo "::error::SUPABASE_URL and SUPABASE_ANON_KEY repository secrets must be set."
+            exit 1
+          fi
+
+          base="${SUPABASE_URL%/}"
+          status=$(curl --silent --show-error --output response.json --write-out '%{http_code}' \
+            --retry 3 --retry-delay 10 --max-time 30 \
+            --header "apikey: ${SUPABASE_ANON_KEY}" \
+            "${base}/rest/v1/products?select=id&limit=1")
+
+          echo "HTTP ${status}"
+          if [ "$status" != "200" ]; then
+            echo "::error::Supabase keep-alive query failed with HTTP ${status}. The project may be paused; resume it from the Supabase dashboard."
+            head -c 500 response.json || true
+            exit 1
+          fi
+          echo "Supabase responded OK."

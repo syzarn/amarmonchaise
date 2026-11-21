@@ -81,6 +81,18 @@ function clearRateLimit(ip) {
   failedLoginTracker.delete(ip);
 }
 
+// Mock data is only allowed on a local dev host, or when explicitly enabled with
+// ALLOW_MOCK_DATA="true" (never set that on a real deployment).
+function isLocalDevRequest(request, env = {}) {
+  if (String(env.ALLOW_MOCK_DATA || '').toLowerCase() === 'true') return true;
+  try {
+    const host = new URL(request.url).hostname;
+    return host === 'localhost' || host === '127.0.0.1' || host === '[::1]' || host.endsWith('.localhost');
+  } catch (_) {
+    return false;
+  }
+}
+
 function corsHeaders() {
   return {
     'Access-Control-Allow-Origin': '*',
@@ -476,16 +488,34 @@ export async function onRequestGet(context) {
         }
       }
 
-      const [ordersResp, customersResp, auditResp] = await Promise.all([
-        fetch(ordersQueryUrl, { headers }),
-        fetch(`${supabaseUrl}/rest/v1/customers?select=*&limit=100`, { headers }),
-        fetch(`${supabaseUrl}/rest/v1/order_audit_logs?select=*&order=created_at.desc&limit=100`, { headers }).catch(() => ({ ok: false }))
-      ]);
+      const ordersResp = await fetch(ordersQueryUrl, { headers });
+      if (!ordersResp.ok) {
+        console.error('Supabase orders query failed in /api/staff:', ordersResp.status, await ordersResp.text());
+      }
 
       if (ordersResp.ok) {
         const rawOrders = await ordersResp.json();
-        const customers = customersResp.ok ? await customersResp.json() : [];
-        const auditLogs = auditResp.ok ? await auditResp.json() : [];
+
+        // Fetch only the customers and audit logs belonging to these orders
+        // (a global limit=100 dropped customers once there were more than 100).
+        const inList = (values) => 'in.(' + values.map(v => encodeURIComponent('"' + String(v).replace(/"/g, '') + '"')).join(',') + ')';
+        const customerIds = [...new Set(rawOrders.map(o => o.customer_id).filter(Boolean))];
+        const auditKeys = [...new Set(rawOrders.flatMap(o => [o.id, o.order_no, o.client_order_id]).filter(Boolean).map(String))];
+
+        const [customersResp, auditResp] = await Promise.all([
+          customerIds.length
+            ? fetch(`${supabaseUrl}/rest/v1/customers?id=${inList(customerIds)}&select=*`, { headers })
+            : null,
+          auditKeys.length
+            ? fetch(`${supabaseUrl}/rest/v1/order_audit_logs?order_id=${inList(auditKeys)}&select=*&order=created_at.desc`, { headers }).catch(() => null)
+            : null
+        ]);
+
+        if (customersResp && !customersResp.ok) {
+          console.error('Supabase customers query failed in /api/staff:', customersResp.status, await customersResp.text());
+        }
+        const customers = customersResp && customersResp.ok ? await customersResp.json() : [];
+        const auditLogs = auditResp && auditResp.ok ? await auditResp.json() : [];
 
         const customerMap = new Map((Array.isArray(customers) ? customers : []).map(c => [c.id, c]));
         const auditMap = new Map();
@@ -568,6 +598,18 @@ export async function onRequestGet(context) {
       // Fallback to memory store if query failed
     }
   }
+
+  // The mock store is for local development only. In production, never show made-up orders.
+  if (!isLocalDevRequest(request, env)) {
+    const configured = Boolean(env.SUPABASE_URL && (env.SUPABASE_SERVICE_ROLE_KEY || env.SUPABASE_KEY));
+    return jsonResponse({
+      success: false,
+      error: configured
+        ? 'ডাটাবেজ থেকে অর্ডার লোড করা যায়নি। কিছুক্ষণ পর আবার চেষ্টা করুন।'
+        : 'ডাটাবেজ সংযোগ কনফিগার করা নেই।'
+    }, configured ? 502 : 503);
+  }
+
 
   // 3. Fallback: Local memory mock store
   let filtered = memoryMockOrders.map(o => ({ ...o, items: normalizeOrderItems(o.items) }));
@@ -821,85 +863,79 @@ export async function onRequestPost(context) {
         return { ok: resp.ok, status, text, json, rowsUpdated: Array.isArray(json) ? json.length : 0 };
       };
 
-      let patchBody = { ...updates };
+      // place_order() stores the customer-facing code (MC-YYMMDD-XXXXXX) in orders.id; older rows
+      // may only have it in order_no or the legacy client_order_id column. Try each in turn until a
+      // row is updated. A failed request (e.g. a type error on a bigint id, or a missing legacy
+      // column) just moves on to the next filter.
+      const encodedId = encodeURIComponent(orderId);
+      const patchFilters = [`id=eq.${encodedId}`, `order_no=eq.${encodedId}`, `client_order_id=eq.${encodedId}`];
+      const patchBody = { ...updates };
       let patchResult = null;
+      let lastFailure = null;
 
-      // Strategy 1: If orderId is numeric, match id=eq.orderId (primary key)
-      if (/^\d+$/.test(orderId)) {
-        patchResult = await executePatch(`id=eq.${orderId}`, patchBody);
-        if (!patchResult.ok && (patchResult.text.includes('last_modified_by') || patchResult.text.includes('does not exist'))) {
+      for (const filter of patchFilters) {
+        let res = await executePatch(filter, patchBody);
+        if (!res.ok && res.text.includes('last_modified_by')) {
+          // Older schemas without last_modified_by: retry without it
           delete patchBody.last_modified_by;
-          patchResult = await executePatch(`id=eq.${orderId}`, patchBody);
+          res = await executePatch(filter, patchBody);
         }
+        if (res.ok && res.rowsUpdated > 0) {
+          patchResult = res;
+          break;
+        }
+        if (!res.ok) lastFailure = res;
       }
 
-      // Strategy 2: If not numeric or 0 rows updated, try order_no=eq.orderId
-      if (!patchResult || (!patchResult.ok && patchResult.status === 400) || (patchResult.ok && patchResult.rowsUpdated === 0)) {
-        const testRes = await executePatch(`order_no=eq.${encodeURIComponent(orderId)}`, patchBody);
-        if (testRes.ok && testRes.rowsUpdated > 0) {
-          patchResult = testRes;
-        } else if (!testRes.ok && (testRes.text.includes('last_modified_by') || testRes.text.includes('does not exist'))) {
-          delete patchBody.last_modified_by;
-          const retryRes = await executePatch(`order_no=eq.${encodeURIComponent(orderId)}`, patchBody);
-          if (retryRes.ok && retryRes.rowsUpdated > 0) {
-            patchResult = retryRes;
-          }
-        }
+      if (!patchResult) {
+        if (lastFailure) console.error('Supabase update rejected:', lastFailure.status, lastFailure.text);
+        return jsonResponse({
+          success: false,
+          error: `ডাটাবেজে অর্ডার #${orderId} পাওয়া যায়নি (০ টি রেকর্ড পরিবর্তিত হয়েছে)।`
+        }, 404);
       }
 
-      // Strategy 3: If still 0 rows or not updated, try client_order_id=eq.orderId (legacy column)
-      if (!patchResult || (patchResult.ok && patchResult.rowsUpdated === 0)) {
-        const testRes = await executePatch(`client_order_id=eq.${encodeURIComponent(orderId)}`, patchBody);
-        if (testRes.ok && testRes.rowsUpdated > 0) {
-          patchResult = testRes;
-        } else if (!testRes.ok && (testRes.text.includes('last_modified_by') || testRes.text.includes('does not exist'))) {
-          delete patchBody.last_modified_by;
-          const retryRes = await executePatch(`client_order_id=eq.${encodeURIComponent(orderId)}`, patchBody);
-          if (retryRes.ok && retryRes.rowsUpdated > 0) {
-            patchResult = retryRes;
-          }
-        }
-      }
+      const savedOrder = patchResult.json[0];
 
-      // Write audit log if configured (fire-and-forget)
-      fetch(`${supabaseUrl}/rest/v1/order_audit_logs`, {
+      // Audit log only for updates that actually happened, keyed by the canonical order id.
+      // waitUntil keeps the write alive after the response is sent (otherwise it can be dropped).
+      const auditWrite = fetch(`${supabaseUrl}/rest/v1/order_audit_logs`, {
         method: 'POST',
-        headers,
+        headers: { ...headers, 'Prefer': 'return=minimal' },
         body: JSON.stringify({
-          order_id: orderId,
+          order_id: String(savedOrder.id),
           staff_name: staffName,
           action: auditActionType,
           details: auditDetails,
           created_at: new Date().toISOString()
         })
+      }).then(async (r) => {
+        if (!r.ok) console.error('Failed to write audit log to Supabase:', r.status, await r.text());
       }).catch(e => console.error('Failed to write audit log to Supabase:', e));
+      if (context.waitUntil) context.waitUntil(auditWrite); else await auditWrite;
 
-      if (patchResult && patchResult.ok && patchResult.rowsUpdated > 0) {
-        const savedOrder = patchResult.json[0];
-        return jsonResponse({
-          success: true,
-          message: `অর্ডার #${orderId} সফলভাবে হালনাগাদ করা হয়েছে (${staffName} কর্তৃক)।`,
-          order: {
-            ...savedOrder,
-            subtotal_bdt: Number(savedOrder.subtotal_bdt ?? savedOrder.subtotal ?? 0),
-            delivery_charge_bdt: Number(savedOrder.delivery_charge_bdt ?? savedOrder.delivery_charge ?? 0),
-            total_amount_bdt: Number(savedOrder.total_amount_bdt ?? savedOrder.total_amount ?? 0)
-          }
-        }, 200);
-      } else {
-        const errMsg = patchResult
-          ? (patchResult.rowsUpdated === 0
-              ? `ডাটাবেজে অর্ডার #${orderId} পাওয়া যায়নি অথবা RLS পলিসি অনুমোদিত নয় (০ টি রেকর্ড পরিবর্তিত হয়েছে)।`
-              : `ডাটাবেজ আপডেট ব্যর্থ হয়েছে: ${patchResult.text}`)
-          : `অর্ডার #${orderId} হালনাগাদ করা যায়নি।`;
-        console.error('Supabase update rejected:', errMsg);
-        return jsonResponse({ success: false, error: errMsg }, 400);
-      }
+      return jsonResponse({
+        success: true,
+        message: `অর্ডার #${orderId} সফলভাবে হালনাগাদ করা হয়েছে (${staffName} কর্তৃক)।`,
+        order: {
+          ...savedOrder,
+          subtotal_bdt: Number(savedOrder.subtotal_bdt ?? savedOrder.subtotal ?? 0),
+          delivery_charge_bdt: Number(savedOrder.delivery_charge_bdt ?? savedOrder.delivery_charge ?? 0),
+          total_amount_bdt: Number(savedOrder.total_amount_bdt ?? savedOrder.total_amount ?? 0)
+        }
+      }, 200);
     } catch (err) {
       console.error('Supabase update error in /api/staff:', err);
       return jsonResponse({ success: false, error: `সার্ভার ত্রুটি: ${err.message}` }, 500);
     }
   }
+
+  // Without a database, the in-memory mock store is for local development only.
+  if (!isLocalDevRequest(request, env)) {
+    console.error('Staff update rejected: SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY are not configured.');
+    return jsonResponse({ success: false, error: 'ডাটাবেজ সংযোগ কনফিগার করা নেই। অর্ডার হালনাগাদ করা যায়নি।' }, 503);
+  }
+
 
   // B. Fallback: Update in-memory mock store
   const targetIndex = memoryMockOrders.findIndex(o => 

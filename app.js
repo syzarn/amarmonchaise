@@ -2196,6 +2196,8 @@
     document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
       radio.addEventListener('change', (e) => {
         state.paymentMethod = e.target.value;
+        window.dispatchEvent(new CustomEvent('saru:payment-select', { detail: { method: state.paymentMethod } }));
+        window.dispatchEvent(new CustomEvent('paku:payment-select', { detail: { method: state.paymentMethod } }));
         if (elements.mfsContainer) {
           if (state.paymentMethod === 'mfs') {
             elements.mfsContainer.classList.remove('hidden');

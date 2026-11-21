@@ -31,6 +31,18 @@ function isValidBdPhone(input) {
   return BD_PHONE_REGEX.test(cleaned);
 }
 
+// Mock/simulated responses are only allowed on a local dev host, or when explicitly
+// enabled with ALLOW_MOCK_DATA="true" (never set that on a real deployment).
+function isLocalDevRequest(request, env = {}) {
+  if (String(env.ALLOW_MOCK_DATA || '').toLowerCase() === 'true') return true;
+  try {
+    const host = new URL(request.url).hostname;
+    return host === 'localhost' || host === '127.0.0.1' || host === '[::1]' || host.endsWith('.localhost');
+  } catch (_) {
+    return false;
+  }
+}
+
 function corsHeaders() {
   return {
     'Access-Control-Allow-Origin': '*',
@@ -112,11 +124,10 @@ export async function onRequestPost(context) {
     normalizedTrxId = rawTrx;
   }
 
-  const deliveryCharge = pricing.deliveryFee !== undefined 
-    ? pricing.deliveryFee 
-    : (pricing.deliveryCharge !== undefined 
-      ? pricing.deliveryCharge 
-      : (customer.district === 'dhaka' || customer.district === 'Inside Dhaka' ? 60 : 120));
+  // Delivery charge is decided by the server from the district; client-sent fees are ignored.
+  // (The place_order RPC in migration 04 applies the same rule inside the database.)
+  const isInsideDhaka = customer.district === 'dhaka' || customer.district === 'Inside Dhaka';
+  const deliveryCharge = isInsideDhaka ? 60 : 120;
 
   const clientOrderId = data.orderId || ('MC-' + Date.now().toString(36).toUpperCase());
   let orderResult = null;
@@ -141,7 +152,7 @@ export async function onRequestPost(context) {
       p_customer_name: customer.name.trim(),
       p_customer_phone: normalizedCustomerPhone,
       p_shipping_address: customer.address.trim(),
-      p_district: customer.district === 'dhaka' || customer.district === 'Inside Dhaka' ? 'Inside Dhaka' : 'Outside Dhaka',
+      p_district: isInsideDhaka ? 'Inside Dhaka' : 'Outside Dhaka',
       p_payment_method: paymentMethod,
       p_sender_number: normalizedSenderPhone,
       p_trx_id: normalizedTrxId,
@@ -175,7 +186,9 @@ export async function onRequestPost(context) {
         console.error('Supabase place_order RPC failed:', rpcResponse.status, rawMsg);
 
         // SAFEGUARD 1: Duplicate TrxID Conflict Handling
-        if (rawMsg.includes('DUPLICATE_TRX_ID') || rawMsg.includes('idx_orders_unique_trx_id') || errCode === '23505') {
+        // Match on the TrxID marker/index only: other unique violations (e.g. an order ID clash)
+        // also use code 23505 and must not be reported to the customer as a duplicate TrxID.
+        if (rawMsg.includes('DUPLICATE_TRX_ID') || rawMsg.includes('idx_orders_unique_trx_id')) {
           return jsonResponse({ 
             error: 'This TrxID has already been submitted for another order.',
             code: 'DUPLICATE_TRX_ID'
@@ -209,6 +222,14 @@ export async function onRequestPost(context) {
           return jsonResponse({ error: cleanMsg, code: 'VALIDATION_ERROR' }, 400);
         }
 
+        // Any other unique violation (e.g. a rare order ID clash): safe for the customer to retry
+        if (errCode === '23505') {
+          return jsonResponse({
+            error: 'Your order could not be saved due to a temporary conflict. Please submit again.',
+            code: 'RETRYABLE_CONFLICT'
+          }, 503);
+        }
+
         // Permission denied (anon key attempted on service_role RPC)
         if (rpcResponse.status === 401 || rpcResponse.status === 403 || errCode === '42501') {
           return jsonResponse({
@@ -231,8 +252,16 @@ export async function onRequestPost(context) {
       return jsonResponse({ error: 'Database connection failed. Please try again.' }, 502);
     }
   } else {
-    // Local development fallback simulation (when SUPABASE_URL is not set)
-    console.info('Supabase credentials not configured in environment. Using simulated checkout response.');
+    // Without a database, only simulate on a local dev host (e.g. `wrangler pages dev`).
+    // Anywhere else (production / preview deploys) a fake "success" would lose real orders.
+    if (!isLocalDevRequest(request, env)) {
+      console.error('Checkout rejected: SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY are not configured for this deployment.');
+      return jsonResponse({
+        error: 'Ordering is temporarily unavailable. Please try again later.',
+        code: 'SERVICE_NOT_CONFIGURED'
+      }, 503);
+    }
+    console.info('Supabase credentials not configured. Using simulated checkout response (local dev only).');
     orderResult = {
       success: true,
       order_id: clientOrderId,

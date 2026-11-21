@@ -42,13 +42,51 @@ paku-assistant {
   display: flex;
   justify-content: center;
   align-items: center;
-  touch-action: none;
+  /* Swipes that start on her body still scroll the page; only her thread captures touch */
+  touch-action: manipulation;
+  /* Sits above the form's backdrop so she stays visible beside the open form */
+  z-index: 9998;
+  /* Bottom offset + height - the part left showing: her eyes and a little below */
+  --paku-minimised-shift: 154px;
+  transition: transform 0.45s cubic-bezier(0.34, 1.3, 0.64, 1);
+}
+
+.paku-minimised .paku-mascot-wrapper {
+  transform: translateY(var(--paku-minimised-shift));
+}
+
+.paku-mascot-wrapper:focus {
+  outline: none;
+}
+
+.paku-mascot-wrapper:focus-visible {
+  outline: 2px solid #166b58;
+  outline-offset: 3px;
+  border-radius: 10px;
+}
+
+.dark .paku-mascot-wrapper:focus-visible,
+[data-theme="dark"] .paku-mascot-wrapper:focus-visible {
+  outline-color: #f2c200;
+}
+
+/* While the form is open she is only watching: clicks fall through to the backdrop */
+.paku-modal-open .paku-mascot-wrapper,
+.paku-modal-open #living-thread-hitarea,
+.paku-modal-open #living-thread-hitarea-tip {
+  pointer-events: none !important;
 }
 
 @media (max-width: 640px) {
   .paku-mascot-wrapper {
     width: 70px;
     height: 168px;
+    --paku-minimised-shift: 118px;
+  }
+
+  /* Her forehead beads are under a pixel at this size */
+  #paku-chandan-necklace {
+    display: none;
   }
 }
 
@@ -67,6 +105,9 @@ paku-assistant {
   position: relative;
   perspective: 850px;
   perspective-origin: 50% 50%;
+  /* Floats the whole mascot, so the shell, spool and cavity floor move as one */
+  animation: paku-ambient-float 3.5s ease-in-out infinite;
+  will-change: transform;
 }
 
 .paku-shuttle-3d {
@@ -137,31 +178,23 @@ paku-assistant {
 }
 
 /* 1. Ambient Float & Hover Dynamics */
-#paku-body,
-.paku-body {
-  animation: paku-ambient-float 3.5s ease-in-out infinite;
-  transform-origin: 50px 120px;
-  will-change: transform;
-}
-
 @keyframes paku-ambient-float {
   0%, 100% {
     transform: translateY(0px) rotate(0deg);
   }
   50% {
-    transform: translateY(-5px) rotate(1.5deg);
+    transform: translateY(-4px) rotate(1.5deg);
   }
 }
 
 /* Pause float while user is actively dragging thread */
-.paku-pulling #paku-body {
+.paku-pulling .paku-stage {
   animation-play-state: paused;
 }
 
-/* 2. Idle Blink on #paku-eyes */
+/* 2. Blink */
 #paku-eyes {
-  transform-origin: 50px 66px;
-  will-change: transform;
+  transform-origin: 50px 67.5px;
 }
 
 #paku-eyes.blinking {
@@ -177,11 +210,112 @@ paku-assistant {
   }
 }
 
-/* 3. Subtle Gaze Tracking on #pupil-left and #pupil-right */
+/* 3. Gaze: the irises slide inside the eye; the outline stays put */
 #pupil-left,
 #pupil-right {
-  will-change: transform;
-  transition: transform 0.1s ease-out;
+  transition: transform 0.14s ease-out;
+}
+
+/* Expression rig. Everything moves in the face's own SVG units. */
+#paku-eye-left,
+#paku-eye-right,
+#paku-brow-left,
+#paku-brow-right,
+.paku-iris {
+  transition: transform 0.2s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+#paku-eye-left {
+  transform-origin: 38px 67.5px;
+}
+
+#paku-eye-right {
+  transform-origin: 62px 67.5px;
+}
+
+/* Brows pivot where they meet the nose line, so the two stay joined */
+#paku-brow-left {
+  transform-origin: 47.4px 61.4px;
+}
+
+#paku-brow-right {
+  transform-origin: 52.8px 61.5px;
+}
+
+#paku-iris-left {
+  transform-origin: 38.3px 65.4px;
+}
+
+#paku-iris-right {
+  transform-origin: 62px 65.45px;
+}
+
+#paku-mouth {
+  transform-origin: 50px 86.8px;
+}
+
+#paku-eyes-closed,
+.paku-mouth-alt {
+  display: none;
+}
+
+/* Happy: brows lift, eyes crease upward from the lower lid */
+[data-face="happy"] #paku-brow-left { transform: rotate(3deg); }
+[data-face="happy"] #paku-brow-right { transform: rotate(-3deg); }
+[data-face="happy"] #paku-eye-left,
+[data-face="happy"] #paku-eye-right {
+  transform: scaleY(0.8);
+  transform-origin: 50px 70px;
+}
+
+/* Worried: brows tilt up in the middle, eyes open a touch */
+[data-face="worried"] #paku-brow-left { transform: rotate(-6deg); }
+[data-face="worried"] #paku-brow-right { transform: rotate(6deg); }
+[data-face="worried"] #paku-eye-left,
+[data-face="worried"] #paku-eye-right { transform: scaleY(1.08); }
+
+/* Smug: heavy lids, one brow up, a sideways look */
+[data-face="smug"] #paku-brow-right { transform: rotate(-8deg); }
+[data-face="smug"] #paku-eye-left,
+[data-face="smug"] #paku-eye-right {
+  transform: scaleY(0.66);
+  transform-origin: 50px 70px;
+}
+[data-face="smug"] .paku-iris { transform: translateX(2px); }
+
+/* Alarmed: wide eyes, small irises */
+[data-face="alarmed"] #paku-brow-left { transform: rotate(-7deg); }
+[data-face="alarmed"] #paku-brow-right { transform: rotate(7deg); }
+[data-face="alarmed"] #paku-eye-left,
+[data-face="alarmed"] #paku-eye-right { transform: scaleY(1.2); }
+[data-face="alarmed"] .paku-iris { transform: scale(0.8); }
+
+[data-face="happy"] #paku-lips,
+[data-face="worried"] #paku-lips,
+[data-face="smug"] #paku-lips,
+[data-face="alarmed"] #paku-lips,
+[data-face="dizzy"] #paku-lips {
+  display: none;
+}
+
+[data-face="happy"] .paku-mouth-happy,
+[data-face="worried"] .paku-mouth-worried,
+[data-face="smug"] .paku-mouth-smug,
+[data-face="alarmed"] .paku-mouth-alarmed,
+[data-face="dizzy"] .paku-mouth-dizzy {
+  display: inline;
+}
+
+/* Talking */
+.paku-talking #paku-mouth {
+  animation: paku-talk 0.34s ease-in-out infinite;
+}
+
+@keyframes paku-talk {
+  0%, 100% { transform: scaleY(1); }
+  30% { transform: scaleY(1.45); }
+  55% { transform: scaleY(0.85); }
+  80% { transform: scaleY(1.3); }
 }
 
 /* Dizzy Spinning Spiral Eyes after/during Beyblade spin */
@@ -235,15 +369,58 @@ paku-assistant {
   will-change: transform;
 }
 
-/* Pause ambient float during rapid 3D spin for rock-solid stability */
-.beyblade-spinning-3d #paku-body,
-.beyblade-spinning-3d #paku-body-back,
-.beyblade-spinning-3d #paku-body-side {
-  animation-play-state: paused;
+/* 5. One-off body reactions. They squash and stretch from her lower tip. */
+.paku-reactor {
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 100%;
+  transition: transform 0.2s ease;
 }
 
-/* 5. Missing Fields Checkout Violent Shake */
-.paku-mascot-wrapper.shake {
+@media (hover: hover) {
+  .paku-mascot-wrapper:hover .paku-reactor {
+    transform: scale(1.03);
+  }
+
+  .paku-minimised .paku-mascot-wrapper:hover {
+    transform: translateY(calc(var(--paku-minimised-shift) - 12px));
+  }
+}
+
+.paku-reactor.react-hop {
+  animation: paku-react-hop 0.62s cubic-bezier(0.3, 0.7, 0.4, 1);
+}
+
+@keyframes paku-react-hop {
+  0%, 100% { transform: none; }
+  18% { transform: scale(1.06, 0.92); }
+  45% { transform: translateY(-16px) scale(0.96, 1.05); }
+  68% { transform: scale(1.06, 0.93); }
+  84% { transform: translateY(-3px); }
+}
+
+.paku-reactor.react-nod {
+  animation: paku-react-nod 0.5s ease-in-out;
+}
+
+@keyframes paku-react-nod {
+  0%, 100% { transform: none; }
+  35% { transform: rotateX(16deg) translateY(2px); }
+  70% { transform: rotateX(-5deg); }
+}
+
+.paku-reactor.react-wiggle {
+  animation: paku-react-wiggle 0.5s ease-in-out;
+}
+
+@keyframes paku-react-wiggle {
+  0%, 100% { transform: none; }
+  25% { transform: rotate(-4deg); }
+  55% { transform: rotate(3.5deg); }
+  80% { transform: rotate(-1.5deg); }
+}
+
+.paku-reactor.react-shake {
   animation: paku-shake-anim 0.65s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 }
 
@@ -259,6 +436,93 @@ paku-assistant {
   }
   40%, 60% {
     transform: translate3d(6px, 0, 0) rotate(5deg);
+  }
+}
+
+/* Winds up, then flicks her thread towards the bag */
+.paku-reactor.react-throw {
+  animation: paku-react-throw 0.64s cubic-bezier(0.3, 0.7, 0.4, 1);
+}
+
+@keyframes paku-react-throw {
+  0%, 100% { transform: none; }
+  22% { transform: scale(1.05, 0.93) rotate(4deg); }
+  42% { transform: translateY(-8px) scale(0.96, 1.05) rotate(-5deg); }
+  72% { transform: rotate(1.5deg); }
+}
+
+/* After a spin she staggers, less and less, until the dizziness wears off */
+.paku-reactor.react-dizzy {
+  animation: paku-react-dizzy 2.8s ease-in-out;
+}
+
+@keyframes paku-react-dizzy {
+  0%, 100% { transform: none; }
+  12% { transform: rotate(5deg); }
+  30% { transform: rotate(-4deg); }
+  50% { transform: rotate(3deg); }
+  70% { transform: rotate(-2deg); }
+  88% { transform: rotate(1deg); }
+}
+
+/* Minimised, but popped up to deliver a warning */
+.paku-minimised.paku-alerting .paku-mascot-wrapper,
+.paku-minimised.paku-alerting .paku-mascot-wrapper:hover {
+  transform: none;
+}
+
+/* Her thread drifts a little, which also hints that it can be pulled */
+#living-thread {
+  transform-origin: 50px 140.5px;
+  animation: paku-thread-drift 4.5s ease-in-out infinite;
+}
+
+@keyframes paku-thread-drift {
+  0%, 100% { transform: rotate(-1.4deg); }
+  50% { transform: rotate(1.8deg); }
+}
+
+.paku-pulling #living-thread {
+  animation: none;
+}
+
+/* The thread she throws at the bag. Drawn behind her and her speech bubble. */
+.paku-throw-line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 9989;
+}
+
+.paku-throw-line polyline {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+#living-thread-tip {
+  transition: opacity 0.2s ease;
+}
+
+.paku-throwing #living-thread-tip {
+  opacity: 0;
+  transition: none;
+}
+
+@media (hover: hover) {
+  #living-thread-tip {
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform 0.15s ease, opacity 0.2s ease;
+  }
+
+  #living-thread:hover #living-thread-tip {
+    transform: scale(1.7);
   }
 }
 
@@ -354,6 +618,74 @@ paku-assistant {
 
 .paku-speech-text {
   display: block;
+}
+
+/* Ask / Suggest / Hide buttons */
+.paku-speech-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 9px;
+}
+
+.paku-speech-actions[hidden] {
+  display: none;
+}
+
+.paku-speech-action {
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.2;
+  padding: 6px 10px;
+  min-height: 32px;
+  border-radius: 3px;
+  border: 1.5px solid #166B58;
+  background: #166B58;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.paku-speech-action:hover {
+  background: #1b826b;
+}
+
+.paku-speech-action:focus-visible {
+  outline: 2px solid #BD3A54;
+  outline-offset: 2px;
+}
+
+.paku-speech-action-quiet {
+  background: transparent;
+  color: #166B58;
+}
+
+.paku-speech-action-quiet:hover {
+  background: rgba(22, 107, 88, 0.1);
+}
+
+.dark .paku-speech-action,
+[data-theme="dark"] .paku-speech-action {
+  background: #f2c200;
+  border-color: #f2c200;
+  color: #121216;
+}
+
+.dark .paku-speech-action:hover,
+[data-theme="dark"] .paku-speech-action:hover {
+  background: #ffd533;
+}
+
+.dark .paku-speech-action-quiet,
+[data-theme="dark"] .paku-speech-action-quiet {
+  background: transparent;
+  color: #ffd533;
+}
+
+.dark .paku-speech-action-quiet:hover,
+[data-theme="dark"] .paku-speech-action-quiet:hover {
+  background: rgba(242, 194, 0, 0.14);
 }
 
 /* Mood Indicators (Subtle Lal Khata ink stamp variations) */
@@ -577,19 +909,18 @@ paku-assistant.paku-sleeping .zzz-3 {
   }
 }
 
-/* Sleepy heavy eyelids on Devi eyes */
-.paku-sleeping #paku-eyes,
-saru-assistant.paku-sleeping #paku-eyes,
-paku-assistant.paku-sleeping #paku-eyes {
-  transform: scaleY(0.42) !important;
-  transform-origin: 50px 66px;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+/* Asleep: closed eyes instead of open ones */
+.paku-sleeping #paku-eye-left,
+.paku-sleeping #paku-eye-right {
+  display: none;
+}
+
+.paku-sleeping #paku-eyes-closed {
+  display: inline;
 }
 
 /* Sleepy gentle undulating breathing float */
-.paku-sleeping #paku-body,
-saru-assistant.paku-sleeping #paku-body,
-paku-assistant.paku-sleeping #paku-body {
+.paku-sleeping .paku-stage {
   animation: paku-sleepy-breathing 4.5s ease-in-out infinite !important;
 }
 
@@ -629,7 +960,7 @@ paku-assistant.paku-sleeping #living-thread-arm {
   background: rgba(10, 5, 2, 0.65);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  z-index: 9998;
+  z-index: 9997;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -983,3 +1314,39 @@ paku-assistant.paku-sleeping #living-thread-arm {
   letter-spacing: 0.02em;
 }
 
+/* ==========================================================================
+   Reduced motion: she stays still, and state changes happen without movement
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .paku-stage,
+  .paku-sleeping .paku-stage,
+  .paku-reactor,
+  .paku-talking #paku-mouth,
+  #living-thread,
+  #paku-eyes.dizzy #spiral-left,
+  #paku-eyes.dizzy #spiral-right,
+  #paku-eyes.blinking,
+  .paku-sleeping #living-thread-arm {
+    animation: none !important;
+  }
+
+  .paku-sleeping .zzz-glyph {
+    animation: none !important;
+    opacity: 1;
+  }
+
+  .paku-mascot-wrapper,
+  .paku-reactor,
+  .paku-speech-bubble,
+  .paku-modal-overlay,
+  .paku-modal-container,
+  #pupil-left,
+  #pupil-right,
+  #paku-eye-left,
+  #paku-eye-right,
+  #paku-brow-left,
+  #paku-brow-right,
+  .paku-iris {
+    transition: none !important;
+  }
+}

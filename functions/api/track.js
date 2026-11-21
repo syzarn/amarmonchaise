@@ -37,12 +37,26 @@ export async function onRequestOptions() {
   });
 }
 
+async function findOrders(supabaseUrl, headers, orderId) {
+  const value = encodeURIComponent(orderId);
+  for (const column of ['id', 'order_no']) {
+    const resp = await fetch(`${supabaseUrl}/rest/v1/orders?${column}=eq.${value}&select=*&limit=1`, { headers });
+    if (!resp.ok) {
+      console.error(`Supabase order lookup by ${column} failed:`, resp.status, await resp.text());
+      continue;
+    }
+    const rows = await resp.json();
+    if (Array.isArray(rows) && rows.length > 0) return rows;
+  }
+  return [];
+}
+
 async function handleTrackRequest(orderIdInput, phone4Input, env = {}) {
   const orderId = String(orderIdInput || '').trim().toUpperCase();
   const phone4 = String(phone4Input || '').trim();
 
   // 1. Input Sanitization & Validation
-  if (!orderId || orderId.length < 5) {
+  if (!orderId || orderId.length < 5 || orderId.length > 40 || !/^[A-Z0-9-]+$/.test(orderId)) {
     return jsonResponse({
       success: false,
       error: 'সঠিক অর্ডার নম্বর প্রদান করুন (যেমন: MC-260908-A4F1)।'
@@ -74,25 +88,12 @@ async function handleTrackRequest(orderIdInput, phone4Input, env = {}) {
   };
 
   try {
-    // Step A: Fetch order record (supports querying by bigint id or alphanumeric order_no)
-    const matchFilter = /^\d+$/.test(orderId)
-      ? `or=(id.eq.${orderId},order_no.eq.${encodeURIComponent(orderId)})`
-      : `order_no=eq.${encodeURIComponent(orderId)}`;
-    const orderResp = await fetch(
-      `${supabaseUrl}/rest/v1/orders?${matchFilter}&select=*`,
-      { headers }
-    );
-
-    if (!orderResp.ok) {
-      console.error('Supabase query error for order:', orderResp.status, await orderResp.text());
-      return jsonResponse({
-        success: false,
-        error: 'এই অর্ডার নম্বর বা ফোন নম্বরের কোনো তথ্য পাওয়া যায়নি।'
-      }, 404);
-    }
-
-    const orders = await orderResp.json();
-    if (!Array.isArray(orders) || orders.length === 0) {
+    // Step A: Fetch order record.
+    // place_order() stores the customer-facing code (MC-YYMMDD-XXXXXX) in orders.id, while older
+    // rows may only have it in order_no — so try id first, then order_no. Each lookup is a separate
+    // request because an id filter can fail with a type error on legacy bigint-id tables.
+    const orders = await findOrders(supabaseUrl, headers, orderId);
+    if (orders.length === 0) {
       return jsonResponse({
         success: false,
         error: 'এই অর্ডার নম্বর বা ফোন নম্বরের কোনো তথ্য পাওয়া যায়নি।'
@@ -154,7 +155,7 @@ async function handleTrackRequest(orderIdInput, phone4Input, env = {}) {
 
     const trackingPayload = {
       success: true,
-      order_id: order.id,
+      order_id: order.order_no || order.id,
       status: order.status || 'pending_verification',
       payment_method: order.payment_method || 'cod',
       subtotal_bdt: parseInt(order.subtotal_bdt || 0, 10),
